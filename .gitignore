@@ -6,3 +6,4 @@ dist-ssr
 src-tauri/
 elm-stuff
 .cache
+.parcel-cache
