@@ -1,4 +1,6 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { Elm } from './Main.elm'
 
-createApp(App).mount('#app')
+Elm.Main.init({
+  node: document.getElementById('root'),
+  flags: "Initial Message"
+})
