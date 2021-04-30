@@ -1,17 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <style>body { padding: 0; margin: 0; }</style>
-</head>
-
-<body>
-
-<pre id="elm"></pre>
-
-<script>
-try {
 (function(scope){
 'use strict';
 
@@ -12216,7 +12202,7 @@ var $author$project$Main$View$render = function (model) {
 						]),
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text('I would like to try debugging fdsfd'),
+							$mdgriffith$elm_ui$Element$text('I would like to try debugging '),
 							A2(
 							$mdgriffith$elm_ui$Element$Input$text,
 							_List_fromArray(
@@ -12262,21 +12248,3 @@ var $author$project$Main$main = $elm$browser$Browser$document(
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
-
-  var app = Elm.Main.init({ node: document.getElementById("elm") });
-}
-catch (e)
-{
-  // display initialization errors (e.g. bad flags, infinite recursion)
-  var header = document.createElement("h1");
-  header.style.fontFamily = "monospace";
-  header.innerText = "Initialization Error";
-  var pre = document.getElementById("elm");
-  document.body.insertBefore(header, pre);
-  pre.innerText = e;
-  throw e;
-}
-</script>
-
-</body>
-</html>
