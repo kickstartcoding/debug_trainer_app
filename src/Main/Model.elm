@@ -1,5 +1,6 @@
-module Main.Model exposing (..)
+module Main.Model exposing (Model)
 
 
 type alias Model =
-    ()
+    { fileCount : Int
+    }

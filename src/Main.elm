@@ -11,9 +11,9 @@ type alias Flags =
     ()
 
 
-init : Flags -> ( (), Cmd Msg )
+init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( (), Cmd.none )
+    ( { fileCount = 1 }, Cmd.none )
 
 
 main : Program Flags Model Msg
