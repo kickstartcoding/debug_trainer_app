@@ -1,7 +1,12 @@
-# vite-tauri-starter
-vite + tauri + vue + ts
+# Debugging Training
 
-Vite: https://vitejs.dev/
-Tauri: https://tauri.studio/
+## Commands
 
-Run `yarn tauri init` after `yarn`.
+To start the dev server:
+
+```
+yarn dev
+```
+
+## Elm-Live setup reference link:
+https://github.com/jxxcarlson/elm-editor/tree/master/olddemo
