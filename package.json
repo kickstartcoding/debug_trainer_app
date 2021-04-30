@@ -2,9 +2,9 @@
   "name": "vite-tauri",
   "version": "0.0.0",
   "scripts": {
-    "dev": "parcel watch src/main.ts --dist-dir dist",
-    "build": "tsc --noEmit && parcel build src/main.ts --dist-dir dist",
-    "serve": "parcel serve src/main.ts --dist-dir dist"
+    "dev": "parcel index.html --dist-dir dist --port 4000",
+    "build": "tsc --noEmit && parcel build index.html --dist-dir dist --port 4000",
+    "serve": "parcel serve index.html --dist-dir dist --port 4000"
   },
   "dependencies": {
     "@types/sharp": "^0.27.1",
@@ -12,12 +12,8 @@
     "tauri": "^0.14.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@parcel/transformer-elm": "2.0.0-beta.2",
+    "@parcel/transformer-elm": "2.0.0-nightly.2273",
     "elm": "^0.19.1-5",
-    "elm-hot": "^1.1.6",
-    "node-elm-compiler": "^5.0.6",
-    "parcel": "^2.0.0-beta.2",
-    "typescript": "^4.1.3"
+    "parcel": "^2.0.0-nightly.649"
   }
 }
