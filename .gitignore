@@ -7,3 +7,4 @@ src-tauri/
 elm-stuff
 .cache
 .parcel-cache
+public/index.html

@@ -2,7 +2,7 @@
   "name": "vite-tauri",
   "version": "0.0.0",
   "scripts": {
-    "dev": "elm-live src/Main.elm -p 4000 -d public/",
+    "dev": "elm-live src/Main.elm -p 4000 -d public/ -- --output public/index.html",
     "build": "tsc --noEmit && parcel build index.html --out-dir dist",
     "serve": "parcel serve index.html --out-dir dist --port 4000"
   },

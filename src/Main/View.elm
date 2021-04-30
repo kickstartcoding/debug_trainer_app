@@ -15,7 +15,7 @@ render model =
     , body =
         [ layout [ width fill, height fill ]
             (row [ Font.color (rgb 0 0 0), width fill, height fill ]
-                [ text "I would like to try debugging fdsfd"
+                [ text "I would like to try debugging fdsf"
                 , Input.text [ htmlAttribute (HtmlAttrs.type_ "number") ]
                     { onChange = UpdateFileCount
                     , text = String.fromInt model.fileCount
