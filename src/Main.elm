@@ -1,6 +1,8 @@
 module Main exposing (main)
 
 import Browser
+import Element exposing (..)
+import Element.Font as Font
 import Html exposing (Html)
 
 
@@ -20,7 +22,13 @@ init _ =
 view : Model -> { title : String, body : List (Html Msg) }
 view _ =
     { title = "Debugging Trainer"
-    , body = [ Html.text "Hello there" ]
+    , body =
+        [ layout [ width fill, height fill ]
+            (row [ Font.color (rgb 0 0 0), width fill, height fill ]
+                [ text "Hello there"
+                ]
+            )
+        ]
     }
 
 
