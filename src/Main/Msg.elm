@@ -1,5 +1,9 @@
 module Main.Msg exposing (Msg(..))
 
+import File exposing (File)
+
 
 type Msg
-    = UpdateFileCount String
+    = UpdatebugCount String
+    | ChooseFile
+    | FileWasSelected File

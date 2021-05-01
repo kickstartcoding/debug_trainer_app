@@ -13,7 +13,11 @@ type alias Flags =
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( { fileCount = 1 }, Cmd.none )
+    ( { bugCount = 1
+      , target = Nothing
+      }
+    , Cmd.none
+    )
 
 
 main : Program Flags Model Msg
