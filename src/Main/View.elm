@@ -19,7 +19,13 @@ render model =
     { title = "Debugging Trainer"
     , body =
         [ layout [ width fill, height fill, paddingXY 20 40 ]
-            (row [ Font.color (rgb 0 0 0), Font.size 25, width fill, height fill ]
+            (column
+                [ Font.color (rgb 0 0 0)
+                , Font.size 25
+                , spacing 30
+                , centerX
+                , centerY
+                ]
                 [ paragraph [ Font.center, spacing 15 ]
                     (List.intersperse (text (nonbreakingSpaces 1)) <|
                         [ text "I would like to try debugging "
@@ -44,19 +50,18 @@ render model =
                                    )
                                 ++ " in "
                             )
-                        , Input.button
-                            [ Background.color Colors.purple
-                            , Font.color Colors.white
-                            , paddingXY 35 20
-                            , rounded 5
-                            , width (px 310)
-                            , moveDown 30
-                            ]
-                            { onPress = Just ChooseFile
-                            , label = text "choose a file or folder"
-                            }
                         ]
                     )
+                , Input.button
+                    [ Background.color Colors.purple
+                    , Font.color Colors.white
+                    , paddingXY 35 20
+                    , rounded 5
+                    , centerX
+                    ]
+                    { onPress = Just ChooseFile
+                    , label = text "choose a file or folder"
+                    }
                 ]
             )
         ]
