@@ -2,7 +2,7 @@
   "name": "vite-tauri",
   "version": "0.0.0",
   "scripts": {
-    "dev:elm": "elm-live src/Main.elm -p 2222 -d public/ -- --output public/index.html",
+    "dev:elm": "elm-live src/Main.elm -p 2222 -d public/ -- --output public/Main.js",
     "dev:tauri": "yarn tauri dev",
     "dev": "run-p dev:*",
     "build": "tsc --noEmit && parcel build index.html --out-dir dist",
