@@ -1,3 +1,4 @@
-import { Elm } from './Main.elm'
+// @ts-ignore
+import { Elm } from './elm'
 
 Elm.Main.init()
