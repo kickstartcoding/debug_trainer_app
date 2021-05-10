@@ -4,6 +4,6 @@ import File exposing (File)
 
 
 type Msg
-    = UpdatebugCount String
+    = UpdateBugCount String
     | ChooseFile
     | FileWasSelected File

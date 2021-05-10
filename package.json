@@ -2,10 +2,11 @@
   "name": "vite-tauri",
   "version": "0.0.0",
   "scripts": {
-    "dev:elm": "elm-live src/Main.elm --port 3333 --dir src --start-page elm-preview-index.html -- --output src/elm.js",
+    "dev:elm": "elm-live src/Main.elm --port 3333 --dir src --start-page elm-preview-index.html -- --output src/Main.js",
     "dev:parcel": "parcel src/index.html --out-dir dist --port 2222",
     "dev:tauri": "yarn tauri dev",
     "dev": "run-p dev:*",
+    "build-ports": "elm-ts-interop-pro --gen-directory=src --definitions=src/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output src/Main/index.d.ts",
     "build": "tsc --noEmit && parcel build index.html --out-dir dist",
     "serve": "parcel serve index.html --out-dir dist --port 2222"
   },

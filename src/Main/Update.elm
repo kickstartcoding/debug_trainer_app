@@ -8,7 +8,7 @@ import Main.Msg exposing (Msg(..))
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UpdatebugCount count ->
+        UpdateBugCount count ->
             case String.toInt count of
                 Just bugCount ->
                     ( { model | bugCount = bugCount }, Cmd.none )
