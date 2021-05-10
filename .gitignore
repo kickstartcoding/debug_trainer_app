@@ -8,3 +8,4 @@ elm-stuff
 .cache
 .parcel-cache
 public/*.js
+.envrc
