@@ -1,7 +1,13 @@
 {
   "name": "tauri-app",
   "scripts": {
-    "tauri": "tauri"
+    "dev:elm": "elm-live elm/Main.elm --port 3333 --dir elm --start-page elm-preview-index.html -- --output elm/Main.js",
+    "dev:parcel": "parcel js/index.html --out-dir dist --port 2222",
+    "dev:tauri": "tauri dev",
+    "dev": "run-p dev:*",
+    "build-ports": "elm-ts-interop-pro --gen-directory=elm --definitions=elm/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output elm/Main/index.d.ts",
+    "build": "tsc --noEmit && parcel build js/index.html --out-dir dist",
+    "serve": "parcel serve js/index.html --out-dir dist --port 2222"
   },
   "devDependencies": {
     "@incrementalelm/elm-ts-interop-pro": "^0.0.21",
