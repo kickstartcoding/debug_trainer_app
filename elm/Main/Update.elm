@@ -21,3 +21,6 @@ update msg model =
 
         FileWasSelected file ->
             ( model, Cmd.none )
+
+        InteropError error ->
+            ( model, Cmd.none )

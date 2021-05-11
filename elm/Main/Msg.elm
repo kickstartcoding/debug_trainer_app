@@ -1,9 +1,10 @@
 module Main.Msg exposing (Msg(..))
 
-import File exposing (File)
+import Json.Decode
 
 
 type Msg
     = UpdateBugCount String
     | ChooseFile
-    | FileWasSelected File
+    | FileWasSelected String
+    | InteropError Json.Decode.Error

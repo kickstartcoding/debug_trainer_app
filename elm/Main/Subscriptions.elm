@@ -11,6 +11,9 @@ subscriptions model =
         |> Sub.map
             (\toElm ->
                 case toElm of
-                    Interop.GotFileChoice file ->
+                    Ok (Interop.GotFileChoice file) ->
                         FileWasSelected file
+
+                    Err error ->
+                        InteropError error
             )
