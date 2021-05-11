@@ -1,29 +1,12 @@
 {
-  "name": "debugging_practice",
-  "version": "0.0.0",
+  "name": "tauri-app",
   "scripts": {
-    "dev:elm": "elm-live elm/Main.elm --port 3333 --dir elm --start-page elm-preview-index.html -- --output elm/Main.js",
-    "dev:parcel": "parcel js/index.html --out-dir dist --port 2222",
-    "dev:tauri": "yarn tauri dev",
-    "dev": "run-p dev:*",
-    "build-ports": "elm-ts-interop-pro --gen-directory=elm --definitions=elm/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output elm/Main/index.d.ts",
-    "build": "tsc --noEmit && parcel build js/index.html --out-dir dist",
-    "serve": "parcel serve js/index.html --out-dir dist --port 2222"
-  },
-  "dependencies": {
-    "@types/sharp": "^0.27.1",
-    "tauri": "^0.14.1"
+    "tauri": "tauri"
   },
   "devDependencies": {
-    "@incrementalelm/elm-ts-interop-pro": "^0.0.21",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "elm-hot": "^1.1.6",
-    "elm-live": "^4.0.2",
-    "eslint": "^7.26.0",
-    "node-elm-compiler": "^5.0.6",
-    "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.5",
-    "typescript": "^4.2.4"
+    "@tauri-apps/cli": "^1.0.0-beta-rc.4"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.0.0-beta-rc.3"
   }
 }

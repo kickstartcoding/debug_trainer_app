@@ -7,7 +7,7 @@ To start the dev server:
 ```
 yarn dev
 ```
-
+"@tauri-apps/api": "link:../../tooling/api/dist"
 ## Reference links:
 - From jxxcarlson:
   - [elm-live with tauri example](https://github.com/jxxcarlson/elm-editor/tree/master/olddemo)
