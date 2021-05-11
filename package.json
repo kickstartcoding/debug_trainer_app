@@ -4,7 +4,17 @@
     "tauri": "tauri"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta-rc.4"
+    "@incrementalelm/elm-ts-interop-pro": "^0.0.21",
+    "@tauri-apps/cli": "^1.0.0-beta-rc.4",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "elm-hot": "^1.1.6",
+    "elm-live": "^4.0.2",
+    "eslint": "^7.26.0",
+    "node-elm-compiler": "^5.0.6",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.0-beta-rc.3"
