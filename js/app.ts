@@ -1,4 +1,4 @@
-import { Elm } from '../elm/Main'
+import { Elm } from "../elm/Main"
 
 const app = Elm.Main.init({ flags: null })
 
