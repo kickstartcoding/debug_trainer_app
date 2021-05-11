@@ -1,3 +1,3 @@
 import { Elm } from './Main'
 
-Elm.Main.init()
+Elm.Main.init({ flags: null })
