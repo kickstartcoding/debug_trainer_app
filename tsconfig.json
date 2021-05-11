@@ -12,8 +12,8 @@
     "types": ["vite/client"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.elm"
+    "js/**/*.ts",
+    "js/**/*.d.ts",
+    "js/**/*.elm"
   ]
 }

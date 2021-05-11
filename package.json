@@ -1,14 +1,14 @@
 {
-  "name": "vite-tauri",
+  "name": "debugging_practice",
   "version": "0.0.0",
   "scripts": {
-    "dev:elm": "elm-live src/Main.elm --port 3333 --dir src --start-page elm-preview-index.html -- --output src/Main.js",
-    "dev:parcel": "parcel src/index.html --out-dir dist --port 2222",
+    "dev:elm": "elm-live elm/Main.elm --port 3333 --dir elm --start-page elm-preview-index.html -- --output elm/Main.js",
+    "dev:parcel": "parcel js/index.html --out-dir dist --port 2222",
     "dev:tauri": "yarn tauri dev",
     "dev": "run-p dev:*",
-    "build-ports": "elm-ts-interop-pro --gen-directory=src --definitions=src/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output src/Main/index.d.ts",
-    "build": "tsc --noEmit && parcel build src/index.html --out-dir dist",
-    "serve": "parcel serve src/index.html --out-dir dist --port 2222"
+    "build-ports": "elm-ts-interop-pro --gen-directory=elm --definitions=elm/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output elm/Main/index.d.ts",
+    "build": "tsc --noEmit && parcel build js/index.html --out-dir dist",
+    "serve": "parcel serve js/index.html --out-dir dist --port 2222"
   },
   "dependencies": {
     "@types/sharp": "^0.27.1",

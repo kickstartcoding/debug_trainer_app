@@ -35,7 +35,7 @@ render model =
                             , width (fill |> maximum 90)
                             , Font.center
                             ]
-                            { onChange = UpdatebugCount
+                            { onChange = UpdateBugCount
                             , text = String.fromInt model.bugCount
                             , placeholder = Nothing
                             , label = Input.labelHidden "the number of bugs you'd like to try debugging"
