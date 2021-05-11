@@ -5,6 +5,7 @@ import Main.Model exposing (Model)
 import Main.Msg exposing (Msg(..))
 import Main.Update
 import Main.View
+import Main.Subscriptions
 
 
 type alias Flags =
@@ -26,5 +27,5 @@ main =
         { init = init
         , view = Main.View.render
         , update = Main.Update.update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = Main.Subscriptions.subscriptions
         }

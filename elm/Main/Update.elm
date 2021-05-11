@@ -1,6 +1,6 @@
 module Main.Update exposing (update)
 
-import File.Select
+import Main.Interop as Interop
 import Main.Model exposing (Model)
 import Main.Msg exposing (Msg(..))
 
@@ -17,7 +17,7 @@ update msg model =
                     ( model, Cmd.none )
 
         ChooseFile ->
-            ( model, File.Select.file [ "*" ] FileWasSelected )
+            ( model, Interop.chooseFile () )
 
         FileWasSelected file ->
             ( model, Cmd.none )
