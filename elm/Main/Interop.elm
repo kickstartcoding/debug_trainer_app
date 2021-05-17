@@ -1,6 +1,7 @@
 port module Main.Interop exposing
     ( ToElm(..)
     , toElm
+    , writeFile
     , chooseFile
     )
 
@@ -11,7 +12,13 @@ import Json.Encode
 import TsJson.Decode as TsDecode
 import TsJson.Encode as TsEncode exposing (Encoder)
 import TsJson.Type
+import Main.Model
 
+
+writeFile argument____ =
+    argument____
+      |> encodeProVariant "writeFile" Main.Definitions.writeFile
+      |> interopFromElm
 
 
 chooseFile argument____ =
@@ -22,7 +29,7 @@ chooseFile argument____ =
 
 
 type ToElm
-    = GotFileChoice String
+    = GotFileChoice Main.Model.File
 
 
 toElm : Sub (Result Json.Decode.Error ToElm)

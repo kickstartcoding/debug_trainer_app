@@ -10,7 +10,8 @@ module.exports = {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 12,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "@typescript-eslint"
@@ -31,6 +32,7 @@ module.exports = {
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "@typescript-eslint/switch-exhaustiveness-check": "error"
     }
 }

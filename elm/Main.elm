@@ -1,11 +1,11 @@
 module Main exposing (main)
 
 import Browser
-import Main.Model exposing (Model)
+import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
+import Main.Subscriptions
 import Main.Update
 import Main.View
-import Main.Subscriptions
 
 
 type alias Flags =
@@ -15,7 +15,7 @@ type alias Flags =
 init : Flags -> ( Model, Cmd Msg )
 init _ =
     ( { bugCount = 1
-      , target = Nothing
+      , stage = Start
       }
     , Cmd.none
     )

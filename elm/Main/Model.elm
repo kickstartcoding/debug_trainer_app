@@ -1,15 +1,48 @@
-module Main.Model exposing (Model)
+module Main.Model exposing
+    ( BrokenFile
+    , ChangeData
+    , FilePath
+    , Model
+    , File
+    , Stage(..)
+    )
 
-import File exposing (File)
+import Utils.Types.BreakType exposing (BreakType)
 
 
 type alias Model =
     { bugCount : Int
-    , target : Maybe File
+    , stage : Stage
     }
 
 
+type Stage
+    = Start
+    | GotFile File
+    | BrokeFile BrokenFile
+    | Finished BrokenFile
 
--- type Target =
---   File File
---   | Folder
+
+type alias File =
+    { path : String
+    , content : String
+    }
+
+
+type alias BrokenFile =
+    { originalContent : String
+    , updatedContent : String
+    , changes : List ChangeData
+    , path : FilePath
+    }
+
+
+type alias ChangeData =
+    { lineNumber : Int
+    , breakType : BreakType
+    , changeDescription : String
+    }
+
+
+type FilePath
+    = FilePath String

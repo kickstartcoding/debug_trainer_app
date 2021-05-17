@@ -21,9 +21,14 @@ export interface ElmApp {
   }
 }
 
-export type FromElm = { data: null; tag: "chooseFile" }
+export type FromElm =
+  | { data: { content: string; path: string }; tag: "writeFile" }
+  | { data: null; tag: "chooseFile" }
 
-export type ToElm = { data: string; tag: "gotFileChoice" }
+export type ToElm = {
+  data: { content: string; path: string }
+  tag: "gotFileChoice"
+}
 
 export type Flags = null
 

@@ -60,7 +60,7 @@ render model =
                     , centerX
                     ]
                     { onPress = Just ChooseFile
-                    , label = text "choose a file or folder"
+                    , label = text "choose a file"
                     }
                 ]
             )

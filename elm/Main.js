@@ -5181,11 +5181,12 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$document = _Browser_document;
+var $author$project$Main$Model$Start = {$: 'Start'};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{bugCount: 1, target: $elm$core$Maybe$Nothing},
+		{bugCount: 1, stage: $author$project$Main$Model$Start},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
@@ -12466,7 +12467,7 @@ var $author$project$Main$View$render = function (model) {
 									$mdgriffith$elm_ui$Element$centerX
 								]),
 							{
-								label: $mdgriffith$elm_ui$Element$text('choose a file or folder'),
+								label: $mdgriffith$elm_ui$Element$text('choose a file'),
 								onPress: $elm$core$Maybe$Just($author$project$Main$Msg$ChooseFile)
 							})
 						])))
@@ -12491,61 +12492,14 @@ var $author$project$Main$Interop$interopToElm = _Platform_incomingPort('interopT
 var $author$project$Main$Interop$GotFileChoice = function (a) {
 	return {$: 'GotFileChoice', a: a};
 };
+var $author$project$Main$Model$File = F2(
+	function (path, content) {
+		return {content: content, path: path};
+	});
 var $dillonkearns$elm_ts_json$TsJson$Decode$Decoder = F2(
 	function (a, b) {
 		return {$: 'Decoder', a: a, b: b};
 	});
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$String = {$: 'String'};
-var $dillonkearns$elm_ts_json$TsJson$Decode$string = A2($dillonkearns$elm_ts_json$TsJson$Decode$Decoder, $elm$json$Json$Decode$string, $dillonkearns$elm_ts_json$Internal$TsJsonType$String);
-var $author$project$Main$Definitions$gotFileChoice = $dillonkearns$elm_ts_json$TsJson$Decode$string;
-var $elm$json$Json$Decode$oneOf = _Json_oneOf;
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever = {$: 'TsNever'};
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$Union = function (a) {
-	return {$: 'Union', a: a};
-};
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown = {$: 'Unknown'};
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$union = function (tsTypes) {
-	var withoutNevers = A2(
-		$elm$core$List$filter,
-		$elm$core$Basics$neq($dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever),
-		tsTypes);
-	var hadNevers = !_Utils_eq(
-		$elm$core$List$length(tsTypes),
-		$elm$core$List$length(withoutNevers));
-	if (!withoutNevers.b) {
-		return hadNevers ? $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever : $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown;
-	} else {
-		if (!withoutNevers.b.b) {
-			var singleType = withoutNevers.a;
-			return singleType;
-		} else {
-			var first = withoutNevers.a;
-			var rest = withoutNevers.b;
-			return $dillonkearns$elm_ts_json$Internal$TsJsonType$Union(
-				_Utils_Tuple2(first, rest));
-		}
-	}
-};
-var $dillonkearns$elm_ts_json$TsJson$Decode$oneOf = function (decoders) {
-	return A2(
-		$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
-		$elm$json$Json$Decode$oneOf(
-			A2(
-				$elm$core$List$map,
-				function (_v0) {
-					var innerDecoder = _v0.a;
-					return innerDecoder;
-				},
-				decoders)),
-		$dillonkearns$elm_ts_json$Internal$TypeReducer$union(
-			A2(
-				$elm$core$List$map,
-				function (_v1) {
-					var innerType = _v1.b;
-					return innerType;
-				},
-				decoders)));
-};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$ArrayIndex = F2(
 	function (a, b) {
 		return {$: 'ArrayIndex', a: a, b: b};
@@ -12555,6 +12509,7 @@ var $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection = function (a) {
 };
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$Optional = {$: 'Optional'};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$Required = {$: 'Required'};
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever = {$: 'TsNever'};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject = function (a) {
 	return {$: 'TypeObject', a: a};
 };
@@ -13019,6 +12974,7 @@ var $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive = function (tsTyp
 var $dillonkearns$elm_ts_json$Internal$TypeReducer$isContradictory = function (types) {
 	return A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isNonEmptyObject, types) && A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive, types);
 };
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown = {$: 'Unknown'};
 var $elm$core$Dict$fromList = function (assocs) {
 	return A3(
 		$elm$core$List$foldl,
@@ -13379,6 +13335,67 @@ var $dillonkearns$elm_ts_json$TsJson$Decode$field = F2(
 						_Utils_Tuple3($dillonkearns$elm_ts_json$Internal$TsJsonType$Required, fieldName, innerType)
 					])));
 	});
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$String = {$: 'String'};
+var $dillonkearns$elm_ts_json$TsJson$Decode$string = A2($dillonkearns$elm_ts_json$TsJson$Decode$Decoder, $elm$json$Json$Decode$string, $dillonkearns$elm_ts_json$Internal$TsJsonType$String);
+var $dillonkearns$elm_ts_json$TsJson$Decode$succeed = function (value_) {
+	return A2(
+		$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
+		$elm$json$Json$Decode$succeed(value_),
+		$dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown);
+};
+var $author$project$Main$Definitions$gotFileChoice = A2(
+	$dillonkearns$elm_ts_json$TsJson$Decode$andMap,
+	A2($dillonkearns$elm_ts_json$TsJson$Decode$field, 'content', $dillonkearns$elm_ts_json$TsJson$Decode$string),
+	A2(
+		$dillonkearns$elm_ts_json$TsJson$Decode$andMap,
+		A2($dillonkearns$elm_ts_json$TsJson$Decode$field, 'path', $dillonkearns$elm_ts_json$TsJson$Decode$string),
+		$dillonkearns$elm_ts_json$TsJson$Decode$succeed($author$project$Main$Model$File)));
+var $elm$json$Json$Decode$oneOf = _Json_oneOf;
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$Union = function (a) {
+	return {$: 'Union', a: a};
+};
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$union = function (tsTypes) {
+	var withoutNevers = A2(
+		$elm$core$List$filter,
+		$elm$core$Basics$neq($dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever),
+		tsTypes);
+	var hadNevers = !_Utils_eq(
+		$elm$core$List$length(tsTypes),
+		$elm$core$List$length(withoutNevers));
+	if (!withoutNevers.b) {
+		return hadNevers ? $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever : $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown;
+	} else {
+		if (!withoutNevers.b.b) {
+			var singleType = withoutNevers.a;
+			return singleType;
+		} else {
+			var first = withoutNevers.a;
+			var rest = withoutNevers.b;
+			return $dillonkearns$elm_ts_json$Internal$TsJsonType$Union(
+				_Utils_Tuple2(first, rest));
+		}
+	}
+};
+var $dillonkearns$elm_ts_json$TsJson$Decode$oneOf = function (decoders) {
+	return A2(
+		$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
+		$elm$json$Json$Decode$oneOf(
+			A2(
+				$elm$core$List$map,
+				function (_v0) {
+					var innerDecoder = _v0.a;
+					return innerDecoder;
+				},
+				decoders)),
+		$dillonkearns$elm_ts_json$Internal$TypeReducer$union(
+			A2(
+				$elm$core$List$map,
+				function (_v1) {
+					var innerType = _v1.b;
+					return innerType;
+				},
+				decoders)));
+};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$Literal = function (a) {
 	return {$: 'Literal', a: a};
 };
@@ -13542,7 +13559,8 @@ var $author$project$Main$Update$update = F2(
 					model,
 					$author$project$Main$Interop$chooseFile(_Utils_Tuple0));
 			case 'FileWasSelected':
-				var file = msg.a;
+				var path = msg.a.path;
+				var content = msg.a.content;
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			default:
 				var error = msg.a;

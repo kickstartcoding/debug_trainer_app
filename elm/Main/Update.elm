@@ -19,7 +19,7 @@ update msg model =
         ChooseFile ->
             ( model, Interop.chooseFile () )
 
-        FileWasSelected file ->
+        FileWasSelected { path, content } ->
             ( model, Cmd.none )
 
         InteropError error ->
