@@ -11703,6 +11703,15 @@ var $mdgriffith$elm_ui$Element$el = F2(
 				_List_fromArray(
 					[child])));
 	});
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
 var $mdgriffith$elm_ui$Element$rgb = F3(
 	function (r, g, b) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
@@ -11806,6 +11815,7 @@ var $author$project$Utils$Types$FilePath$toString = function (_v0) {
 	var string = _v0.a;
 	return string;
 };
+var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
 var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
 var $author$project$Main$View$StepsPage$render = F2(
 	function (bugCount, _v0) {
@@ -11832,7 +11842,26 @@ var $author$project$Main$View$StepsPage$render = F2(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$text(
-							'I put ' + ($elm$core$String$fromInt(changeCount) + (' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'bug') + (' in ' + ($author$project$Utils$Types$FilePath$toString(path) + ('! Can you figure out where ' + ($author$project$Utils$Pluralize$itIsOrTheyAre(changeCount) + '?'))))))))
+							'I put ' + ($elm$core$String$fromInt(changeCount) + (' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'bug') + ' in ')))),
+							A2(
+							$mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Background$color(
+									$author$project$Utils$Colors$darkened(0.1)),
+									A2($mdgriffith$elm_ui$Element$paddingXY, 10, 5),
+									$mdgriffith$elm_ui$Element$Font$bold,
+									$mdgriffith$elm_ui$Element$Font$family(
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Font$typeface('Courier')
+										])),
+									$mdgriffith$elm_ui$Element$Border$rounded(5)
+								]),
+							$mdgriffith$elm_ui$Element$text(
+								$author$project$Utils$Types$FilePath$toString(path))),
+							$mdgriffith$elm_ui$Element$text(
+							'! Can you figure out where ' + ($author$project$Utils$Pluralize$itIsOrTheyAre(changeCount) + '?'))
 						])),
 					A2(
 					$mdgriffith$elm_ui$Element$column,

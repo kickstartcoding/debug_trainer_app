@@ -37,8 +37,17 @@ render bugCount { changes, path } =
                     ++ " "
                     ++ Pluralize.singularOrPlural changeCount "bug"
                     ++ " in "
-                    ++ FilePath.toString path
-                    ++ "! Can you figure out where "
+                )
+            , el
+                [ Background.color (Colors.darkened 0.1)
+                , paddingXY 10 5
+                , Font.bold
+                , Font.family [ Font.typeface "Courier" ]
+                , rounded 5
+                ]
+                (text (FilePath.toString path))
+            , text
+                ("! Can you figure out where "
                     ++ Pluralize.itIsOrTheyAre changeCount
                     ++ "?"
                 )
