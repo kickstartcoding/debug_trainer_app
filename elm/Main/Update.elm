@@ -1,7 +1,7 @@
 module Main.Update exposing (update)
 
 import Main.Interop as Interop
-import Main.Model exposing (Error(..), Model, Stage(..))
+import Main.Model exposing (DebuggingInterfaceTab(..), Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
 import Utils.Types.FilePath as FilePath
@@ -53,6 +53,7 @@ update msg model =
                                             )
                                 , path = path
                                 }
+                                StepsPage
                       }
                     , Interop.writeFile
                         { path = path
@@ -65,6 +66,9 @@ update msg model =
 
         FileWasBroken ->
             ( model, Cmd.none )
+
+        ChangeInterfaceTab newTab brokenFile ->
+            ( { model | stage = BrokeFile brokenFile newTab }, Cmd.none )
 
         InteropError error ->
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )

@@ -4,6 +4,7 @@ module Utils.Colors exposing
     , gray
     , green
     , purple
+    , red
     , white
     , whitened
     )
@@ -19,6 +20,11 @@ purple =
 green : Color
 green =
     rgb 0 0.7 0
+
+
+red : Color
+red =
+    rgb 0.8 0 0
 
 
 black : Color

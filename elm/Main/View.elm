@@ -20,8 +20,8 @@ render { bugCount, stage } =
                 GotFile file ->
                     Main.View.Start.render bugCount (Just file)
 
-                BrokeFile file ->
-                    Main.View.BrokenFile.render bugCount file
+                BrokeFile file interface->
+                    Main.View.BrokenFile.render bugCount file interface
 
                 Finished _ ->
                     none

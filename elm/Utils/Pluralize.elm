@@ -1,4 +1,4 @@
-module Utils.Pluralize exposing (aOrSome, singularOrPlural)
+module Utils.Pluralize exposing (aOrSome, itIsOrTheyAre, singularOrPlural, isOrAre)
 
 
 singularOrPlural : Int -> String -> String
@@ -17,3 +17,20 @@ aOrSome count term =
 
     else
         "a " ++ term
+
+
+itIsOrTheyAre : Int -> String
+itIsOrTheyAre count =
+    if count > 1 then
+        "they are"
+
+    else
+        "it is"
+
+isOrAre : Int -> String
+isOrAre count =
+    if count > 1 then
+        "are"
+
+    else
+        "is"

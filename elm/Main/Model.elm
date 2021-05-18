@@ -1,5 +1,6 @@
 module Main.Model exposing
     ( BrokenFile
+    , DebuggingInterfaceTab(..)
     , Error(..)
     , File
     , Model
@@ -22,8 +23,13 @@ type alias Model =
 type Stage
     = Start
     | GotFile File
-    | BrokeFile BrokenFile
+    | BrokeFile BrokenFile DebuggingInterfaceTab
     | Finished BrokenFile
+
+
+type DebuggingInterfaceTab
+    = StepsPage
+    | ImHavingTroublePage
 
 
 type Error

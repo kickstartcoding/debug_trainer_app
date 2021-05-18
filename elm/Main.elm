@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser
 import Json.Decode exposing (Value)
 import Main.Interop
-import Main.Model exposing (Error(..), Model, Stage(..))
+import Main.Model exposing (DebuggingInterfaceTab(..), Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
@@ -48,6 +48,7 @@ init flags =
                     ]
                 , path = FilePath.fromString "testfile.js"
                 }
+                StepsPage
       , maybeError = startingError
       }
     , Cmd.none
