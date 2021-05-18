@@ -8,6 +8,7 @@ import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
 import Main.View
+import Utils.Types.FilePath as FilePath
 
 
 init : Value -> ( Model, Cmd Msg )
@@ -23,7 +24,13 @@ init flags =
     in
     ( { bugCount = 1
       , randomNumbers = randomNumbers
-      , stage = Start
+
+      -- , stage = Start
+      , stage =
+            GotFile
+                { path = FilePath.fromString "/test/testfile.js"
+                , content = "function a (a, b, c) { return c }; a()"
+                }
       , maybeError = startingError
       }
     , Cmd.none

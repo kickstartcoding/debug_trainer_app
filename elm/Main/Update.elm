@@ -1,7 +1,7 @@
 module Main.Update exposing (update)
 
 import Main.Interop as Interop
-import Main.Model exposing (Error(..), Model)
+import Main.Model exposing (Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
 import Utils.Types.FilePath as FilePath
@@ -21,7 +21,10 @@ update msg model =
         ChooseFile ->
             ( model, Interop.chooseFile () )
 
-        FileWasSelected { path, content } ->
+        FileWasSelected file ->
+            ( { model | stage = GotFile file }, Cmd.none )
+
+        BreakFile { path, content } ->
             let
                 result =
                     BreakFile.run
