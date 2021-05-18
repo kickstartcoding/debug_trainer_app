@@ -8,6 +8,7 @@ import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
 import Main.View
+import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.FilePath as FilePath
 
 
@@ -26,10 +27,26 @@ init flags =
       , randomNumbers = randomNumbers
 
       -- , stage = Start
+      --   , stage =
+      --         GotFile
+      --             { path = FilePath.fromString "/test/testfile.js"
+      --             , content = "function a (a, b, c) { return c }; a()"
+      --             }
       , stage =
-            GotFile
-                { path = FilePath.fromString "/test/testfile.js"
-                , content = "function a (a, b, c) { return c }; a()"
+            BrokeFile
+                { originalContent = "function a (a, b, c) { return c }; a()"
+                , updatedContent = "function a (b, a, c) { return c }; a()"
+                , changes =
+                    [ ( { lineNumber = 1
+                        , breakType = ChangeFunctionArgs
+                        , changeDescription = "swapped some goddamn args"
+                        }
+                      , { showingLineNumber = False
+                        , showingBugType = False
+                        }
+                      )
+                    ]
+                , path = FilePath.fromString "testfile.js"
                 }
       , maybeError = startingError
       }

@@ -2,7 +2,7 @@ module Breakers.RemoveReturn exposing (run, validCandidateData)
 
 import Breakers.Utils exposing (BreakRunnerData)
 import List.Extra as ListEx
-import Main.Model exposing (ChangeData)
+import Utils.Types.ChangeData exposing (ChangeData)
 import Parsers.Generic.Segment exposing (BreakStatus(..), Segment, SegmentType(..))
 import Utils.FileContent as FileContent
 import Utils.Types.BreakType exposing (BreakType(..))

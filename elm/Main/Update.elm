@@ -35,8 +35,25 @@ update msg model =
                         }
             in
             case result of
-                Just { newFileContent } ->
-                    ( model
+                Just { newFileContent, changes } ->
+                    ( { model
+                        | stage =
+                            BrokeFile
+                                { originalContent = content
+                                , updatedContent = newFileContent
+                                , changes =
+                                    changes
+                                        |> List.map
+                                            (\change ->
+                                                ( change
+                                                , { showingLineNumber = False
+                                                  , showingBugType = False
+                                                  }
+                                                )
+                                            )
+                                , path = path
+                                }
+                      }
                     , Interop.writeFile
                         { path = path
                         , content = newFileContent

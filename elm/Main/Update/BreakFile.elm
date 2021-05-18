@@ -1,16 +1,16 @@
-module Main.Update.BreakFile exposing (run)
+module Main.Update.BreakFile exposing (BreakResult, run)
 
 -- import Commands.Break.Actions exposing (Action(..))
 -- import Model exposing (Command(..))
 
 import Breakers.Utils
-import Main.Model exposing (ChangeData)
 import Parsers.Generic.Parser as GenericParser
 import Parsers.Generic.Segment exposing (Segment)
 import Parsers.Generic.SegmentList as SegmentList
 import Utils.List
 import Utils.Tuple as Tuple
 import Utils.Types.BreakType as BreakType exposing (BreakType(..))
+import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath exposing (FilePath)
 import Utils.Types.FileType as FileType
 

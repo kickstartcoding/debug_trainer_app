@@ -1,6 +1,5 @@
 module Main.Model exposing
     ( BrokenFile
-    , ChangeData
     , Error(..)
     , File
     , Model
@@ -8,7 +7,7 @@ module Main.Model exposing
     )
 
 import Json.Decode
-import Utils.Types.BreakType exposing (BreakType)
+import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath exposing (FilePath)
 
 
@@ -43,13 +42,12 @@ type alias File =
 type alias BrokenFile =
     { originalContent : String
     , updatedContent : String
-    , changes : List ChangeData
+    , changes : List ( ChangeData, HintVisibility )
     , path : FilePath
     }
 
 
-type alias ChangeData =
-    { lineNumber : Int
-    , breakType : BreakType
-    , changeDescription : String
+type alias HintVisibility =
+    { showingLineNumber : Bool
+    , showingBugType : Bool
     }

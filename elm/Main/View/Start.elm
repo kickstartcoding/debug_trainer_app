@@ -9,6 +9,7 @@ import Html.Attributes as HtmlAttrs
 import Main.Model exposing (File, Model)
 import Main.Msg exposing (Msg(..))
 import Utils.Colors as Colors
+import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Attributes as Attributes
@@ -32,7 +33,10 @@ render bugCount maybeFile =
                     , startButtonLabel = "start debugging"
                     , startButtonColor = Colors.green
                     , startButtonMsg = Just (BreakFile file)
-                    , startButtonTitle = "click here to introduce " ++ aBugOrSomeBugs bugCount ++ " and start debugging them"
+                    , startButtonTitle =
+                        "click here to introduce "
+                            ++ Pluralize.aOrSome bugCount "bug"
+                            ++ " and start debugging them"
                     }
     in
     column
@@ -56,7 +60,7 @@ render bugCount maybeFile =
                     , placeholder = Nothing
                     , label = Input.labelHidden "the number of bugs you'd like to try debugging"
                     }
-                , text (" " ++ bugOrBugs bugCount ++ " in ")
+                , text (" " ++ Pluralize.singularOrPlural bugCount "bug" ++ " in ")
                 , case maybeFile of
                     Just file ->
                         paragraph
@@ -96,21 +100,3 @@ render bugCount maybeFile =
             , label = text startButtonLabel
             }
         ]
-
-
-bugOrBugs : Int -> String
-bugOrBugs bugCount =
-    if bugCount > 1 then
-        "bugs"
-
-    else
-        "bug"
-
-
-aBugOrSomeBugs : Int -> String
-aBugOrSomeBugs bugCount =
-    if bugCount > 1 then
-        "some bugs"
-
-    else
-        "a bug"

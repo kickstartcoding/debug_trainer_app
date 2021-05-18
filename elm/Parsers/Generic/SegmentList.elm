@@ -8,7 +8,7 @@ import Breakers.RemoveReturn as RemoveReturn
 import Breakers.Utils
 import Parsers.Generic.Segment exposing (Segment)
 import Utils.Types.BreakType exposing (BreakType(..))
-import Main.Model exposing (ChangeData)
+import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FileType exposing (FileType(..))
 
 

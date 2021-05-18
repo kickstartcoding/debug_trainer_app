@@ -5415,9 +5415,10 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$Model$BadFlags = function (a) {
 	return {$: 'BadFlags', a: a};
 };
-var $author$project$Main$Model$GotFile = function (a) {
-	return {$: 'GotFile', a: a};
+var $author$project$Main$Model$BrokeFile = function (a) {
+	return {$: 'BrokeFile', a: a};
 };
+var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFunctionArgs'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
 	var decoder_ = _v0.a;
@@ -5500,10 +5501,17 @@ var $author$project$Main$init = function (flags) {
 			bugCount: 1,
 			maybeError: startingError,
 			randomNumbers: randomNumbers,
-			stage: $author$project$Main$Model$GotFile(
+			stage: $author$project$Main$Model$BrokeFile(
 				{
-					content: 'function a (a, b, c) { return c }; a()',
-					path: $author$project$Utils$Types$FilePath$fromString('/test/testfile.js')
+					changes: _List_fromArray(
+						[
+							_Utils_Tuple2(
+							{breakType: $author$project$Utils$Types$BreakType$ChangeFunctionArgs, changeDescription: 'swapped some goddamn args', lineNumber: 1},
+							{showingBugType: false, showingLineNumber: false})
+						]),
+					originalContent: 'function a (a, b, c) { return c }; a()',
+					path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
+					updatedContent: 'function a (b, a, c) { return c }; a()'
 				})
 		},
 		$elm$core$Platform$Cmd$none);
@@ -11492,16 +11500,10 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $mdgriffith$elm_ui$Element$rgb = F3(
-	function (r, g, b) {
-		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
-	});
-var $mdgriffith$elm_ui$Element$Font$size = function (i) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontSize,
-		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
+var $mdgriffith$elm_ui$Internal$Model$Describe = function (a) {
+	return {$: 'Describe', a: a};
 };
+var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 'Paragraph'};
 var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
 	function (a, b, c) {
 		return {$: 'SpacingStyle', a: a, b: b, c: c};
@@ -11521,8 +11523,53 @@ var $mdgriffith$elm_ui$Element$spacing = function (x) {
 			x,
 			x));
 };
+var $mdgriffith$elm_ui$Element$paragraph = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asParagraph,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Describe($mdgriffith$elm_ui$Internal$Model$Paragraph),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$spacing(5),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
+var $mdgriffith$elm_ui$Element$rgb = F3(
+	function (r, g, b) {
+		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
+	});
+var $author$project$Utils$Pluralize$singularOrPlural = F2(
+	function (count, term) {
+		return (count > 1) ? (term + 's') : term;
+	});
+var $mdgriffith$elm_ui$Element$Font$size = function (i) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontSize,
+		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
+};
+var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
+	return {$: 'Text', a: a};
+};
+var $mdgriffith$elm_ui$Element$text = function (content) {
+	return $mdgriffith$elm_ui$Internal$Model$Text(content);
+};
+var $author$project$Utils$Types$FilePath$toString = function (_v0) {
+	var string = _v0.a;
+	return string;
+};
 var $author$project$Main$View$BrokenFile$render = F2(
-	function (bugCount, brokenFile) {
+	function (bugCount, _v0) {
+		var changes = _v0.changes;
+		var path = _v0.path;
+		var changeCount = $elm$core$List$length(changes);
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
@@ -11534,7 +11581,17 @@ var $author$project$Main$View$BrokenFile$render = F2(
 					$mdgriffith$elm_ui$Element$centerX,
 					$mdgriffith$elm_ui$Element$centerY
 				]),
-			_List_Nil);
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(
+							'I broke ' + ($author$project$Utils$Types$FilePath$toString(path) + (' ' + ($elm$core$String$fromInt(changeCount) + (' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'time') + '! Can you figure out where?'))))))
+						]))
+				]));
 	});
 var $author$project$Main$Msg$BreakFile = function (a) {
 	return {$: 'BreakFile', a: a};
@@ -11543,16 +11600,11 @@ var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
 var $author$project$Main$Msg$UpdateBugCount = function (a) {
 	return {$: 'UpdateBugCount', a: a};
 };
-var $author$project$Main$View$Start$aBugOrSomeBugs = function (bugCount) {
-	return (bugCount > 1) ? 'some bugs' : 'a bug';
-};
-var $author$project$Main$View$Start$bugOrBugs = function (bugCount) {
-	return (bugCount > 1) ? 'bugs' : 'bug';
-};
+var $author$project$Utils$Pluralize$aOrSome = F2(
+	function (count, term) {
+		return (count > 1) ? ('some ' + (term + 's')) : ('a ' + term);
+	});
 var $mdgriffith$elm_ui$Internal$Model$Button = {$: 'Button'};
-var $mdgriffith$elm_ui$Internal$Model$Describe = function (a) {
-	return {$: 'Describe', a: a};
-};
 var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$html$Html$Attributes$boolProperty = F2(
 	function (key, bool) {
@@ -11782,25 +11834,6 @@ var $author$project$Utils$SpecialChars$nonbreakingSpaces = function (numberOfSpa
 	return $elm$core$String$fromList(
 		A2($elm$core$List$repeat, numberOfSpaces, $author$project$Utils$SpecialChars$nonbreakingSpace));
 };
-var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 'Paragraph'};
-var $mdgriffith$elm_ui$Element$paragraph = F2(
-	function (attrs, children) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asParagraph,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$Describe($mdgriffith$elm_ui$Internal$Model$Paragraph),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$spacing(5),
-						attrs))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-	});
 var $author$project$Utils$Colors$purple = A3($mdgriffith$elm_ui$Element$rgb, 0.45, 0, 0.7);
 var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
 var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
@@ -11833,12 +11866,6 @@ var $mdgriffith$elm_ui$Element$row = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
-	return {$: 'Text', a: a};
-};
-var $mdgriffith$elm_ui$Element$text = function (content) {
-	return $mdgriffith$elm_ui$Internal$Model$Text(content);
-};
 var $mdgriffith$elm_ui$Element$Input$TextInputNode = function (a) {
 	return {$: 'TextInputNode', a: a};
 };
@@ -12767,10 +12794,6 @@ var $author$project$Utils$UI$Attributes$title = function (string) {
 	return $mdgriffith$elm_ui$Element$htmlAttribute(
 		$elm$html$Html$Attributes$title(string));
 };
-var $author$project$Utils$Types$FilePath$toString = function (_v0) {
-	var string = _v0.a;
-	return string;
-};
 var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
 var $author$project$Main$View$Start$render = F2(
 	function (bugCount, maybeFile) {
@@ -12785,7 +12808,7 @@ var $author$project$Main$View$Start$render = F2(
 					startButtonLabel: 'start debugging',
 					startButtonMsg: $elm$core$Maybe$Just(
 						$author$project$Main$Msg$BreakFile(file)),
-					startButtonTitle: 'click here to introduce ' + ($author$project$Main$View$Start$aBugOrSomeBugs(bugCount) + ' and start debugging them')
+					startButtonTitle: 'click here to introduce ' + (A2($author$project$Utils$Pluralize$aOrSome, bugCount, 'bug') + ' and start debugging them')
 				};
 			}
 		}();
@@ -12840,7 +12863,7 @@ var $author$project$Main$View$Start$render = F2(
 									text: $elm$core$String$fromInt(bugCount)
 								}),
 								$mdgriffith$elm_ui$Element$text(
-								' ' + ($author$project$Main$View$Start$bugOrBugs(bugCount) + ' in ')),
+								' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, bugCount, 'bug') + ' in ')),
 								function () {
 								if (maybeFile.$ === 'Just') {
 									var file = maybeFile.a;
@@ -13921,6 +13944,9 @@ var $author$project$Main$Model$CouldntBreakSelectedFile = function (a) {
 var $author$project$Main$Model$CouldntParseBugCount = function (a) {
 	return {$: 'CouldntParseBugCount', a: a};
 };
+var $author$project$Main$Model$GotFile = function (a) {
+	return {$: 'GotFile', a: a};
+};
 var $dillonkearns$elm_ts_json$TsJson$Encode$Encoder = F2(
 	function (a, b) {
 		return {$: 'Encoder', a: a, b: b};
@@ -14058,7 +14084,6 @@ var $author$project$Breakers$Utils$segmentsToContent = function (segments) {
 			segments));
 };
 var $author$project$Utils$Types$BreakType$CaseSwap = {$: 'CaseSwap'};
-var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFunctionArgs'};
 var $author$project$Utils$Types$BreakType$RemoveDotAccess = {$: 'RemoveDotAccess'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
 var $author$project$Utils$Types$BreakType$RemoveReturn = {$: 'RemoveReturn'};
@@ -16318,8 +16343,26 @@ var $author$project$Main$Update$update = F2(
 					{breakCount: model.bugCount, fileContent: content, filepath: path, randomNumbers: model.randomNumbers});
 				if (result.$ === 'Just') {
 					var newFileContent = result.a.newFileContent;
+					var changes = result.a.changes;
 					return _Utils_Tuple2(
-						model,
+						_Utils_update(
+							model,
+							{
+								stage: $author$project$Main$Model$BrokeFile(
+									{
+										changes: A2(
+											$elm$core$List$map,
+											function (change) {
+												return _Utils_Tuple2(
+													change,
+													{showingBugType: false, showingLineNumber: false});
+											},
+											changes),
+										originalContent: content,
+										path: path,
+										updatedContent: newFileContent
+									})
+							}),
 						$author$project$Main$Interop$writeFile(
 							{content: newFileContent, path: path}));
 				} else {
