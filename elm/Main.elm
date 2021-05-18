@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser
 import Json.Decode exposing (Value)
 import Main.Interop
-import Main.Model exposing (Model, Stage(..))
+import Main.Model exposing (Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
@@ -12,15 +12,19 @@ import Main.View
 
 init : Value -> ( Model, Cmd Msg )
 init flags =
-    ( { bugCount = 1
-      , randomNumbers =
+    let
+        ( randomNumbers, startingError ) =
             case Main.Interop.decodeFlags flags of
-                Ok randomNumbers ->
-                    randomNumbers
+                Ok numbers ->
+                    ( numbers, Nothing )
 
-                Err _ ->
-                    []
+                Err error ->
+                    ( [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], Just (BadFlags error) )
+    in
+    ( { bugCount = 1
+      , randomNumbers = randomNumbers
       , stage = Start
+      , maybeError = startingError
       }
     , Cmd.none
     )

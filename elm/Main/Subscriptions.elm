@@ -13,6 +13,7 @@ subscriptions model =
                 case toElm of
                     Ok (Interop.GotFileChoice file) ->
                         FileWasSelected file
+
                     Ok (Interop.FileChangeWasSaved ()) ->
                         FileWasBroken
 

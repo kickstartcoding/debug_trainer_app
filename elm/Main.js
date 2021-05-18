@@ -5412,6 +5412,9 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$document = _Browser_document;
+var $author$project$Main$Model$BadFlags = function (a) {
+	return {$: 'BadFlags', a: a};
+};
 var $author$project$Main$Model$Start = {$: 'Start'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
@@ -5468,20 +5471,24 @@ var $author$project$Main$Interop$decodeFlags = function (flags) {
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (flags) {
+	var _v0 = function () {
+		var _v1 = $author$project$Main$Interop$decodeFlags(flags);
+		if (_v1.$ === 'Ok') {
+			var numbers = _v1.a;
+			return _Utils_Tuple2(numbers, $elm$core$Maybe$Nothing);
+		} else {
+			var error = _v1.a;
+			return _Utils_Tuple2(
+				_List_fromArray(
+					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+				$elm$core$Maybe$Just(
+					$author$project$Main$Model$BadFlags(error)));
+		}
+	}();
+	var randomNumbers = _v0.a;
+	var startingError = _v0.b;
 	return _Utils_Tuple2(
-		{
-			bugCount: 1,
-			randomNumbers: function () {
-				var _v0 = $author$project$Main$Interop$decodeFlags(flags);
-				if (_v0.$ === 'Ok') {
-					var randomNumbers = _v0.a;
-					return randomNumbers;
-				} else {
-					return _List_Nil;
-				}
-			}(),
-			stage: $author$project$Main$Model$Start
-		},
+		{bugCount: 1, maybeError: startingError, randomNumbers: randomNumbers, stage: $author$project$Main$Model$Start},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
@@ -13747,6 +13754,15 @@ var $author$project$Main$Subscriptions$subscriptions = function (model) {
 		},
 		$author$project$Main$Interop$toElm);
 };
+var $author$project$Main$Model$BadInterop = function (a) {
+	return {$: 'BadInterop', a: a};
+};
+var $author$project$Main$Model$CouldntBreakSelectedFile = function (a) {
+	return {$: 'CouldntBreakSelectedFile', a: a};
+};
+var $author$project$Main$Model$CouldntParseBugCount = function (a) {
+	return {$: 'CouldntParseBugCount', a: a};
+};
 var $dillonkearns$elm_ts_json$TsJson$Encode$Encoder = F2(
 	function (a, b) {
 		return {$: 'Encoder', a: a, b: b};
@@ -16119,7 +16135,14 @@ var $author$project$Main$Update$update = F2(
 							{bugCount: bugCount}),
 						$elm$core$Platform$Cmd$none);
 				} else {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								maybeError: $elm$core$Maybe$Just(
+									$author$project$Main$Model$CouldntParseBugCount(count))
+							}),
+						$elm$core$Platform$Cmd$none);
 				}
 			case 'ChooseFile':
 				return _Utils_Tuple2(
@@ -16129,7 +16152,7 @@ var $author$project$Main$Update$update = F2(
 				var path = msg.a.path;
 				var content = msg.a.content;
 				var result = $author$project$Main$Update$BreakFile$run(
-					{breakCount: model.bugCount, fileContent: content, filepath: path, randomNumbers: _List_Nil});
+					{breakCount: model.bugCount, fileContent: content, filepath: path, randomNumbers: model.randomNumbers});
 				if (result.$ === 'Just') {
 					var newFileContent = result.a.newFileContent;
 					return _Utils_Tuple2(
@@ -16137,13 +16160,28 @@ var $author$project$Main$Update$update = F2(
 						$author$project$Main$Interop$writeFile(
 							{content: newFileContent, path: path}));
 				} else {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								maybeError: $elm$core$Maybe$Just(
+									$author$project$Main$Model$CouldntBreakSelectedFile(
+										$author$project$Utils$Types$FilePath$toString(path)))
+							}),
+						$elm$core$Platform$Cmd$none);
 				}
 			case 'FileWasBroken':
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			default:
 				var error = msg.a;
-				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							maybeError: $elm$core$Maybe$Just(
+								$author$project$Main$Model$BadInterop(error))
+						}),
+					$elm$core$Platform$Cmd$none);
 		}
 	});
 var $author$project$Main$main = $elm$browser$Browser$document(

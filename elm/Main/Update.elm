@@ -1,9 +1,10 @@
 module Main.Update exposing (update)
 
 import Main.Interop as Interop
-import Main.Model exposing (Model)
+import Main.Model exposing (Error(..), Model)
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
+import Utils.Types.FilePath as FilePath
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -15,7 +16,7 @@ update msg model =
                     ( { model | bugCount = bugCount }, Cmd.none )
 
                 Nothing ->
-                    ( model, Cmd.none )
+                    ( { model | maybeError = Just (CouldntParseBugCount count) }, Cmd.none )
 
         ChooseFile ->
             ( model, Interop.chooseFile () )
@@ -27,7 +28,7 @@ update msg model =
                         { breakCount = model.bugCount
                         , filepath = path
                         , fileContent = content
-                        , randomNumbers = []
+                        , randomNumbers = model.randomNumbers
                         }
             in
             case result of
@@ -40,10 +41,10 @@ update msg model =
                     )
 
                 Nothing ->
-                    ( model, Cmd.none )
+                    ( { model | maybeError = Just (CouldntBreakSelectedFile (FilePath.toString path)) }, Cmd.none )
 
         FileWasBroken ->
             ( model, Cmd.none )
 
         InteropError error ->
-            ( model, Cmd.none )
+            ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
