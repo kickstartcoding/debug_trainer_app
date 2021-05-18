@@ -25,12 +25,11 @@ export type FromElm =
   | { data: { content: string; path: string }; tag: "writeFile" }
   | { data: null; tag: "chooseFile" }
 
-export type ToElm = {
-  data: { content: string; path: string }
-  tag: "gotFileChoice"
-}
+export type ToElm =
+  | { data: { content: string; path: string }; tag: "gotFileChoice" }
+  | { data: null; tag: "fileChangeWasSaved" }
 
-export type Flags = null
+export type Flags = { randomNumbers: number[] }
 
 export namespace Main {
   function init(options: { node?: HTMLElement | null; flags: Flags }): ElmApp

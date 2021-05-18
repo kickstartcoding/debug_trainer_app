@@ -7,4 +7,5 @@ type Msg
     = UpdateBugCount String
     | ChooseFile
     | FileWasSelected File
+    | FileWasBroken
     | InteropError Json.Decode.Error

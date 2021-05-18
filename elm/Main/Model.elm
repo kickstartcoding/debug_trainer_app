@@ -1,17 +1,17 @@
 module Main.Model exposing
     ( BrokenFile
     , ChangeData
-    , FilePath
-    , Model
     , File
+    , Model
     , Stage(..)
     )
 
 import Utils.Types.BreakType exposing (BreakType)
-
+import Utils.Types.FilePath exposing (FilePath)
 
 type alias Model =
     { bugCount : Int
+    , randomNumbers : List Int
     , stage : Stage
     }
 
@@ -24,7 +24,7 @@ type Stage
 
 
 type alias File =
-    { path : String
+    { path : FilePath
     , content : String
     }
 
@@ -43,6 +43,3 @@ type alias ChangeData =
     , changeDescription : String
     }
 
-
-type FilePath
-    = FilePath String

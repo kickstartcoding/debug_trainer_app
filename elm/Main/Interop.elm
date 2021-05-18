@@ -1,6 +1,7 @@
 port module Main.Interop exposing
     ( ToElm(..)
     , toElm
+    , decodeFlags
     , writeFile
     , chooseFile
     )
@@ -13,6 +14,12 @@ import TsJson.Decode as TsDecode
 import TsJson.Encode as TsEncode exposing (Encoder)
 import TsJson.Type
 import Main.Model
+
+decodeFlags flags =
+    Json.Decode.decodeValue
+        (Main.Definitions.flags |> TsDecode.decoder)
+        flags
+
 
 
 writeFile argument____ =
@@ -30,6 +37,7 @@ chooseFile argument____ =
 
 type ToElm
     = GotFileChoice Main.Model.File
+    | FileChangeWasSaved ()
 
 
 toElm : Sub (Result Json.Decode.Error ToElm)
@@ -43,6 +51,7 @@ toElmDecoder____ : TsDecode.Decoder ToElm
 toElmDecoder____ =
     TsDecode.oneOf
         [ toElmVariant "gotFileChoice" GotFileChoice Main.Definitions.gotFileChoice
+    , toElmVariant "fileChangeWasSaved" FileChangeWasSaved Main.Definitions.fileChangeWasSaved
         ]
 
 

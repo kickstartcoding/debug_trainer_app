@@ -1,6 +1,8 @@
 module Main exposing (main)
 
 import Browser
+import Json.Decode exposing (Value)
+import Main.Interop
 import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
@@ -8,20 +10,23 @@ import Main.Update
 import Main.View
 
 
-type alias Flags =
-    ()
-
-
-init : Flags -> ( Model, Cmd Msg )
-init _ =
+init : Value -> ( Model, Cmd Msg )
+init flags =
     ( { bugCount = 1
+      , randomNumbers =
+            case Main.Interop.decodeFlags flags of
+                Ok randomNumbers ->
+                    randomNumbers
+
+                Err _ ->
+                    []
       , stage = Start
       }
     , Cmd.none
     )
 
 
-main : Program Flags Model Msg
+main : Program Value Model Msg
 main =
     Browser.document
         { init = init
