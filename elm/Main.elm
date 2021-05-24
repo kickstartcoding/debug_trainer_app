@@ -45,10 +45,18 @@ init flags =
                         , showingBugType = False
                         }
                       )
+                    , ( { lineNumber = 5
+                        , breakType = RemoveParenthesis
+                        , changeDescription = "removed a paren"
+                        }
+                      , { showingLineNumber = False
+                        , showingBugType = False
+                        }
+                      )
                     ]
                 , path = FilePath.fromString "testfile.js"
                 }
-                StepsPage
+                ImHavingTroublePage
       , maybeError = startingError
       }
     , Cmd.none

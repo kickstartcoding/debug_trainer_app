@@ -11,4 +11,6 @@ type Msg
     | BreakFile File
     | FileWasBroken
     | ChangeInterfaceTab DebuggingInterfaceTab BrokenFile
+    | ShowBugLineHint BrokenFile Int
+    | ShowBugTypeHint BrokenFile Int
     | InteropError Json.Decode.Error

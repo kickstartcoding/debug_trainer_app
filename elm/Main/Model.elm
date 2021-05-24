@@ -3,6 +3,7 @@ module Main.Model exposing
     , DebuggingInterfaceTab(..)
     , Error(..)
     , File
+    , HintVisibility
     , Model
     , Stage(..)
     )

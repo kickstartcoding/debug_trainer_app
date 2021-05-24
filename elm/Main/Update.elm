@@ -1,9 +1,11 @@
 module Main.Update exposing (update)
 
+import List.Extra
 import Main.Interop as Interop
-import Main.Model exposing (DebuggingInterfaceTab(..), Error(..), Model, Stage(..))
+import Main.Model exposing (DebuggingInterfaceTab(..), Error(..), HintVisibility, Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
+import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath as FilePath
 
 
@@ -70,5 +72,31 @@ update msg model =
         ChangeInterfaceTab newTab brokenFile ->
             ( { model | stage = BrokeFile brokenFile newTab }, Cmd.none )
 
+        ShowBugLineHint ({ changes } as brokenFile) bugIndex ->
+            let
+                newChanges =
+                    changes
+                        |> List.Extra.updateAt bugIndex showBugLineHint
+            in
+            ( { model | stage = BrokeFile { brokenFile | changes = newChanges } ImHavingTroublePage }, Cmd.none )
+
+        ShowBugTypeHint ({ changes } as brokenFile) bugIndex ->
+            let
+                newChanges =
+                    changes
+                        |> List.Extra.updateAt bugIndex showBugTypeHint
+            in
+            ( { model | stage = BrokeFile { brokenFile | changes = newChanges } ImHavingTroublePage }, Cmd.none )
+
         InteropError error ->
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
+
+
+showBugLineHint : ( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )
+showBugLineHint ( change, hintVisibility ) =
+    ( change, { hintVisibility | showingLineNumber = True } )
+
+
+showBugTypeHint : ( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )
+showBugTypeHint ( change, hintVisibility ) =
+    ( change, { hintVisibility | showingBugType = True } )

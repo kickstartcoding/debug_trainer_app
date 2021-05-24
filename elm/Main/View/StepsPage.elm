@@ -5,17 +5,15 @@ import Element.Background as Background
 import Element.Border exposing (rounded)
 import Element.Font as Font
 import Element.Input as Input
-import Html.Attributes as HtmlAttrs
-import Main.Model exposing (BrokenFile, DebuggingInterfaceTab, Model)
+import Main.Model exposing (BrokenFile, DebuggingInterfaceTab(..))
 import Main.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
-import Utils.SpecialChars exposing (nonbreakingSpaces)
-import Utils.Types.FilePath as FilePath exposing (FilePath)
+import Utils.Types.FilePath as FilePath
 
 
 render : Int -> BrokenFile -> Element Msg
-render bugCount { changes, path } =
+render bugCount ({ changes, path } as brokenFile) =
     let
         changeCount =
             List.length changes
@@ -77,7 +75,7 @@ render bugCount { changes, path } =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just ChooseFile
+                    { onPress = Just (ChangeInterfaceTab ImHavingTroublePage brokenFile)
                     , label = text "Help me!"
                     }
                 , Input.button

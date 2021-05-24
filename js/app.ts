@@ -45,7 +45,6 @@ app.ports.interopFromElm.subscribe((fromElm) => {
   }
 })
 
-
 function getRandomInts(max: number, count: number): number[] {
   return [...Array(count)].map(() => getRandomInt(max))
 }
