@@ -4,7 +4,7 @@ import Element exposing (..)
 import Html exposing (Html)
 import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
-import Main.View.BrokenFile
+import Stages.Debugging.View
 import Main.View.Start
 
 
@@ -21,7 +21,7 @@ render { bugCount, stage } =
                     Main.View.Start.render bugCount (Just file)
 
                 Debugging { brokenFile, currentTab, encouragements } ->
-                    Main.View.BrokenFile.render
+                    Stages.Debugging.View.render
                         { bugCount = bugCount
                         , encouragements = encouragements
                         , brokenFile = brokenFile

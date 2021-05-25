@@ -1,4 +1,4 @@
-module Main.View.StepsPage exposing (render)
+module Stages.Debugging.View.StepsPage exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background

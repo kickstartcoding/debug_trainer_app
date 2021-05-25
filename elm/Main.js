@@ -11560,55 +11560,17 @@ var $mdgriffith$elm_ui$Element$paddingXY = F2(
 					xFloat));
 		}
 	});
-var $author$project$Main$Msg$DebuggingInterface = function (a) {
-	return {$: 'DebuggingInterface', a: a};
+var $author$project$Main$Msg$BreakFile = function (a) {
+	return {$: 'BreakFile', a: a};
 };
-var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
-	return {$: 'Text', a: a};
+var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
+var $author$project$Main$Msg$UpdateBugCount = function (a) {
+	return {$: 'UpdateBugCount', a: a};
 };
-var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
-var $mdgriffith$elm_ui$Internal$Model$map = F2(
-	function (fn, el) {
-		switch (el.$) {
-			case 'Styled':
-				var styled = el.a;
-				return $mdgriffith$elm_ui$Internal$Model$Styled(
-					{
-						html: F2(
-							function (add, context) {
-								return A2(
-									$elm$virtual_dom$VirtualDom$map,
-									fn,
-									A2(styled.html, add, context));
-							}),
-						styles: styled.styles
-					});
-			case 'Unstyled':
-				var html = el.a;
-				return $mdgriffith$elm_ui$Internal$Model$Unstyled(
-					A2(
-						$elm$core$Basics$composeL,
-						$elm$virtual_dom$VirtualDom$map(fn),
-						html));
-			case 'Text':
-				var str = el.a;
-				return $mdgriffith$elm_ui$Internal$Model$Text(str);
-			default:
-				return $mdgriffith$elm_ui$Internal$Model$Empty;
-		}
+var $author$project$Utils$Pluralize$aOrSome = F2(
+	function (count, term) {
+		return (count > 1) ? ('some ' + (term + 's')) : ('a ' + term);
 	});
-var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
-var $author$project$Stages$Debugging$Msg$ChangeTab = function (a) {
-	return {$: 'ChangeTab', a: a};
-};
-var $author$project$Stages$Debugging$Msg$SaySomethingEncouraging = {$: 'SaySomethingEncouraging'};
-var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
-var $mdgriffith$elm_ui$Internal$Model$Class = F2(
-	function (a, b) {
-		return {$: 'Class', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
-var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
 var $mdgriffith$elm_ui$Internal$Model$Button = {$: 'Button'};
 var $mdgriffith$elm_ui$Internal$Model$Describe = function (a) {
 	return {$: 'Describe', a: a};
@@ -11692,6 +11654,10 @@ var $mdgriffith$elm_ui$Element$Input$onKeyLookup = function (lookup) {
 				},
 				isKey)));
 };
+var $mdgriffith$elm_ui$Internal$Model$Class = F2(
+	function (a, b) {
+		return {$: 'Class', a: a, b: b};
+	});
 var $mdgriffith$elm_ui$Internal$Flag$cursor = $mdgriffith$elm_ui$Internal$Flag$flag(21);
 var $mdgriffith$elm_ui$Element$pointer = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$cursor, $mdgriffith$elm_ui$Internal$Style$classes.cursorPointer);
 var $mdgriffith$elm_ui$Internal$Model$Content = {$: 'Content'};
@@ -11764,12 +11730,11 @@ var $mdgriffith$elm_ui$Element$Input$button = F2(
 	});
 var $mdgriffith$elm_ui$Internal$Flag$fontAlignment = $mdgriffith$elm_ui$Internal$Flag$flag(12);
 var $mdgriffith$elm_ui$Element$Font$center = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textCenter);
-var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
-	return {$: 'ShowBugLineHint', a: a};
+var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
+	return {$: 'AlignX', a: a};
 };
-var $author$project$Stages$Debugging$Msg$ShowBugTypeHint = function (a) {
-	return {$: 'ShowBugTypeHint', a: a};
-};
+var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
+var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
 var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
 	return {$: 'AlignY', a: a};
 };
@@ -11815,803 +11780,16 @@ var $mdgriffith$elm_ui$Element$column = F2(
 						attrs))),
 			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var $mdgriffith$elm_ui$Element$el = F2(
-	function (attrs, child) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-					attrs)),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[child])));
-	});
-var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 'Paragraph'};
-var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
-	function (a, b, c) {
-		return {$: 'SpacingStyle', a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$spacing = $mdgriffith$elm_ui$Internal$Flag$flag(3);
-var $mdgriffith$elm_ui$Internal$Model$spacingName = F2(
-	function (x, y) {
-		return 'spacing-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y)));
-	});
-var $mdgriffith$elm_ui$Element$spacing = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$spacing,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
-			A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, x),
-			x,
-			x));
-};
-var $mdgriffith$elm_ui$Element$paragraph = F2(
-	function (attrs, children) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asParagraph,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$Describe($mdgriffith$elm_ui$Internal$Model$Paragraph),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$spacing(5),
-						attrs))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-	});
-var $mdgriffith$elm_ui$Element$rgb = F3(
-	function (r, g, b) {
-		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
-	});
-var $author$project$Utils$Colors$purple = A3($mdgriffith$elm_ui$Element$rgb, 0.45, 0, 0.7);
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
-var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$borderRound,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$Single,
-			'br-' + $elm$core$String$fromInt(radius),
-			'border-radius',
-			$elm$core$String$fromInt(radius) + 'px'));
-};
-var $mdgriffith$elm_ui$Element$text = function (content) {
-	return $mdgriffith$elm_ui$Internal$Model$Text(content);
-};
-var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
-var $author$project$Main$View$ImHavingTroublePage$changeOptions = F3(
-	function (_v0, index, _v1) {
-		var brokenFile = _v0.brokenFile;
-		var encouragementIsShowing = _v0.encouragementIsShowing;
-		var change = _v1.a;
-		var hintVisibility = _v1.b;
-		return A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$spacing(10)
-				]),
-			_List_fromArray(
-				[
-					($elm$core$List$length(brokenFile.changes) > 1) ? A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[$mdgriffith$elm_ui$Element$Font$bold]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(
-							'Bug ' + $elm$core$String$fromInt(index + 1))
-						])) : $mdgriffith$elm_ui$Element$none,
-					A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(80))
-						]),
-					hintVisibility.showingLineNumber ? A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[$mdgriffith$elm_ui$Element$centerY]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text(
-								'this bug was introduced on line ' + ($elm$core$String$fromInt(change.lineNumber) + ' of the original file'))
-							])) : A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								$mdgriffith$elm_ui$Element$width(
-								$mdgriffith$elm_ui$Element$px(250)),
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: A2(
-								$mdgriffith$elm_ui$Element$paragraph,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$text('Show me what line this bug is on')
-									])),
-							onPress: $elm$core$Maybe$Just(
-								$author$project$Stages$Debugging$Msg$ShowBugLineHint(index))
-						})),
-					A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(80))
-						]),
-					hintVisibility.showingBugType ? A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[$mdgriffith$elm_ui$Element$centerY]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text(change.changeDescription)
-							])) : A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								$mdgriffith$elm_ui$Element$width(
-								$mdgriffith$elm_ui$Element$px(250)),
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: A2(
-								$mdgriffith$elm_ui$Element$paragraph,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this is')
-									])),
-							onPress: $elm$core$Maybe$Just(
-								$author$project$Stages$Debugging$Msg$ShowBugTypeHint(index))
-						}))
-				]));
-	});
-var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
-var $author$project$Utils$Types$FileType$Elm = {$: 'Elm'};
-var $author$project$Utils$Types$FileType$Go = {$: 'Go'};
-var $author$project$Utils$Types$FileType$JavaScript = {$: 'JavaScript'};
-var $author$project$Utils$Types$FileType$Python = {$: 'Python'};
-var $author$project$Utils$Types$FileType$Ruby = {$: 'Ruby'};
-var $author$project$Utils$Types$FileType$Rust = {$: 'Rust'};
-var $author$project$Utils$Types$FileType$Unknown = {$: 'Unknown'};
-var $elm$core$String$endsWith = _String_endsWith;
-var $author$project$Utils$Types$FilePath$toString = function (_v0) {
-	var string = _v0.a;
-	return string;
-};
-var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
-	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
-	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
-};
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
-var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
-var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
-var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
-var $mdgriffith$elm_ui$Element$row = F2(
-	function (attrs, children) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asRow,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.contentCenterY)),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-					A2(
-						$elm$core$List$cons,
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-						attrs))),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
-	});
-var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
-var $mdgriffith$elm_ui$Element$scrollbarX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsX);
-var $mdgriffith$elm_ui$Element$Font$size = function (i) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontSize,
-		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
-};
-var $author$project$Utils$Types$FileType$toPrintFunctionName = function (fileType) {
-	switch (fileType.$) {
-		case 'Python':
-			return 'print';
-		case 'JavaScript':
-			return 'console.log';
-		case 'Ruby':
-			return 'print';
-		case 'Elm':
-			return 'Debug.log';
-		case 'Elixir':
-			return 'IO.print';
-		case 'Rust':
-			return 'print!';
-		case 'Go':
-			return 'print';
-		default:
-			return 'print';
-	}
-};
-var $author$project$Utils$Types$FileType$toString = function (fileType) {
-	switch (fileType.$) {
-		case 'Python':
-			return 'Python';
-		case 'JavaScript':
-			return 'JavaScript';
-		case 'Ruby':
-			return 'Ruby';
-		case 'Elm':
-			return 'Elm';
-		case 'Elixir':
-			return 'Elixir';
-		case 'Rust':
-			return 'Rust';
-		case 'Go':
-			return 'Go';
-		default:
-			return 'unknown';
-	}
-};
-var $author$project$Main$View$ImHavingTroublePage$render = function (_v0) {
-	var bugCount = _v0.bugCount;
-	var encouragements = _v0.encouragements;
-	var encouragementIsShowing = _v0.encouragementIsShowing;
-	var brokenFile = _v0.brokenFile;
-	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(30)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-						$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(250)),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-						$mdgriffith$elm_ui$Element$Border$rounded(5)
-					]),
-				{
-					label: A2(
-						$mdgriffith$elm_ui$Element$row,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text('‹')),
-								$mdgriffith$elm_ui$Element$text(' Back to instructions')
-							])),
-					onPress: $elm$core$Maybe$Just(
-						$author$project$Stages$Debugging$Msg$ChangeTab($author$project$Stages$Debugging$Model$StepsPage))
-				}),
-				A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(40)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$column,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$spacing(30)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$paragraph,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$Font$size(30)
-									]),
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$text('Debugging Tips')
-									])),
-								A2(
-								$mdgriffith$elm_ui$Element$column,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$spacing(20),
-										$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-										$mdgriffith$elm_ui$Element$Border$rounded(5),
-										A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
-											]))
-									])),
-								A2(
-								$mdgriffith$elm_ui$Element$column,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$spacing(20),
-										$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-										$mdgriffith$elm_ui$Element$Border$rounded(5),
-										A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
-											])),
-										A2(
-										$mdgriffith$elm_ui$Element$paragraph,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$text('In '),
-												A2(
-												$mdgriffith$elm_ui$Element$el,
-												_List_fromArray(
-													[$mdgriffith$elm_ui$Element$Font$bold]),
-												$mdgriffith$elm_ui$Element$text(
-													$author$project$Utils$Types$FileType$toString(fileType))),
-												$mdgriffith$elm_ui$Element$text(' you can use '),
-												A2(
-												$mdgriffith$elm_ui$Element$el,
-												_List_fromArray(
-													[$mdgriffith$elm_ui$Element$Font$bold]),
-												$mdgriffith$elm_ui$Element$text(
-													$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
-												$mdgriffith$elm_ui$Element$text(' for this.')
-											]))
-									]))
-							])),
-						A2(
-						$mdgriffith$elm_ui$Element$column,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$spacing(10)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$paragraph,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$Font$size(30)
-									]),
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$text('Give me a hint')
-									])),
-								A2(
-								$mdgriffith$elm_ui$Element$column,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$spacing(20),
-										$mdgriffith$elm_ui$Element$scrollbarX,
-										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-										$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-									]),
-								A2(
-									$elm$core$List$indexedMap,
-									$author$project$Main$View$ImHavingTroublePage$changeOptions(
-										{brokenFile: brokenFile, encouragementIsShowing: encouragementIsShowing}),
-									brokenFile.changes))
-							]))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(100)),
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-					]),
-				encouragementIsShowing ? _List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: $mdgriffith$elm_ui$Element$text('Say something else encouraging'),
-							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
-						}),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-							]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text(
-								A2(
-									$elm$core$Maybe$withDefault,
-									'You\'re doing great!',
-									A2(
-										$elm$core$Array$get,
-										encouragements.current,
-										$elm$core$Array$fromList(encouragements.list))))
-							]))
-					]) : _List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: $mdgriffith$elm_ui$Element$text('Say something encouraging'),
-							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
-						})
-					]))
-			]));
-};
-var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
-var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
-	return {$: 'AlignX', a: a};
-};
-var $mdgriffith$elm_ui$Internal$Model$CenterX = {$: 'CenterX'};
-var $mdgriffith$elm_ui$Element$centerX = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$CenterX);
 var $mdgriffith$elm_ui$Element$rgba = $mdgriffith$elm_ui$Internal$Model$Rgba;
 var $author$project$Utils$Colors$darkened = function (amount) {
 	return A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, amount);
 };
-var $mdgriffith$elm_ui$Element$Font$family = function (families) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$FontFamily,
-			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
-			families));
-};
-var $author$project$Utils$Colors$green = A3($mdgriffith$elm_ui$Element$rgb, 0, 0.7, 0);
-var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
-	return (count > 1) ? 'they are' : 'it is';
-};
-var $author$project$Utils$Colors$red = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0, 0);
-var $author$project$Utils$Pluralize$singularOrPlural = F2(
-	function (count, term) {
-		return (count > 1) ? (term + 's') : term;
-	});
-var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
-var $author$project$Main$View$StepsPage$render = F2(
-	function (bugCount, brokenFile) {
-		var changes = brokenFile.changes;
-		var path = brokenFile.path;
-		var changeCount = $elm$core$List$length(changes);
-		return A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Font$color(
-					A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0)),
-					$mdgriffith$elm_ui$Element$Font$size(25),
-					$mdgriffith$elm_ui$Element$Font$center,
-					$mdgriffith$elm_ui$Element$spacing(50),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$centerY,
-					A2($mdgriffith$elm_ui$Element$paddingXY, 0, 20)
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(
-							'I put ' + ($elm$core$String$fromInt(changeCount) + (' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'bug') + ' in ')))),
-							A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$Background$color(
-									$author$project$Utils$Colors$darkened(0.1)),
-									A2($mdgriffith$elm_ui$Element$paddingXY, 10, 5),
-									$mdgriffith$elm_ui$Element$Font$bold,
-									$mdgriffith$elm_ui$Element$Font$family(
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Font$typeface('Courier')
-										])),
-									$mdgriffith$elm_ui$Element$Border$rounded(5)
-								]),
-							$mdgriffith$elm_ui$Element$text(
-								$author$project$Utils$Types$FilePath$toString(path))),
-							$mdgriffith$elm_ui$Element$text(
-							'! Can you figure out where ' + ($author$project$Utils$Pluralize$itIsOrTheyAre(changeCount) + '?'))
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$column,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$alignLeft,
-							$mdgriffith$elm_ui$Element$spacing(20),
-							$mdgriffith$elm_ui$Element$width(
-							$mdgriffith$elm_ui$Element$px(350)),
-							$mdgriffith$elm_ui$Element$Background$color(
-							$author$project$Utils$Colors$darkened(0.1)),
-							A2($mdgriffith$elm_ui$Element$paddingXY, 40, 20),
-							$mdgriffith$elm_ui$Element$Border$rounded(5)
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$paragraph,
-							_List_Nil,
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$el,
-									_List_fromArray(
-										[$mdgriffith$elm_ui$Element$Font$bold]),
-									$mdgriffith$elm_ui$Element$text('step 1: ')),
-									$mdgriffith$elm_ui$Element$text('run the file (or the project it\'s from)')
-								])),
-							A2(
-							$mdgriffith$elm_ui$Element$paragraph,
-							_List_Nil,
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$el,
-									_List_fromArray(
-										[$mdgriffith$elm_ui$Element$Font$bold]),
-									$mdgriffith$elm_ui$Element$text('step 2: ')),
-									$mdgriffith$elm_ui$Element$text(
-									'read the ' + A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'error'))
-								])),
-							A2(
-							$mdgriffith$elm_ui$Element$paragraph,
-							_List_Nil,
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$el,
-									_List_fromArray(
-										[$mdgriffith$elm_ui$Element$Font$bold]),
-									$mdgriffith$elm_ui$Element$text('step 3: ')),
-									$mdgriffith$elm_ui$Element$text('open the file in your favorite text editor and get debugging!')
-								]))
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$column,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$spacing(20),
-							$mdgriffith$elm_ui$Element$centerX
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$row,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$spacing(20),
-									$mdgriffith$elm_ui$Element$centerX
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$Input$button,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-											$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-											A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-											$mdgriffith$elm_ui$Element$Border$rounded(5),
-											$mdgriffith$elm_ui$Element$centerX
-										]),
-									{
-										label: $mdgriffith$elm_ui$Element$text('Help me!'),
-										onPress: $elm$core$Maybe$Just(
-											$author$project$Stages$Debugging$Msg$ChangeTab(
-												$author$project$Stages$Debugging$Model$ImHavingTroublePage(false)))
-									}),
-									A2(
-									$mdgriffith$elm_ui$Element$Input$button,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green),
-											$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-											A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-											$mdgriffith$elm_ui$Element$Border$rounded(5),
-											$mdgriffith$elm_ui$Element$centerX
-										]),
-									{
-										label: $mdgriffith$elm_ui$Element$text('I solved it!'),
-										onPress: $elm$core$Maybe$Nothing
-									})
-								])),
-							A2(
-							$mdgriffith$elm_ui$Element$Input$button,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red),
-									$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-									A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-									$mdgriffith$elm_ui$Element$Border$rounded(5),
-									$mdgriffith$elm_ui$Element$centerX
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$text('I don\'t see any errors!'),
-								onPress: $elm$core$Maybe$Nothing
-							})
-						]))
-				]));
-	});
-var $author$project$Main$View$BrokenFile$render = function (_v0) {
-	var bugCount = _v0.bugCount;
-	var encouragements = _v0.encouragements;
-	var brokenFile = _v0.brokenFile;
-	var currentTab = _v0.currentTab;
-	if (currentTab.$ === 'StepsPage') {
-		return A2(
-			$mdgriffith$elm_ui$Element$map,
-			$author$project$Main$Msg$DebuggingInterface,
-			A2($author$project$Main$View$StepsPage$render, bugCount, brokenFile));
-	} else {
-		var encouragementIsShowing = currentTab.a;
-		return A2(
-			$mdgriffith$elm_ui$Element$map,
-			$author$project$Main$Msg$DebuggingInterface,
-			$author$project$Main$View$ImHavingTroublePage$render(
-				{brokenFile: brokenFile, bugCount: bugCount, encouragementIsShowing: encouragementIsShowing, encouragements: encouragements}));
-	}
-};
-var $author$project$Main$Msg$BreakFile = function (a) {
-	return {$: 'BreakFile', a: a};
-};
-var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
-var $author$project$Main$Msg$UpdateBugCount = function (a) {
-	return {$: 'UpdateBugCount', a: a};
-};
-var $author$project$Utils$Pluralize$aOrSome = F2(
-	function (count, term) {
-		return (count > 1) ? ('some ' + (term + 's')) : ('a ' + term);
+var $mdgriffith$elm_ui$Element$rgb = F3(
+	function (r, g, b) {
+		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, r, g, b, 1);
 	});
 var $author$project$Utils$Colors$gray = A3($mdgriffith$elm_ui$Element$rgb, 0.4, 0.4, 0.4);
+var $author$project$Utils$Colors$green = A3($mdgriffith$elm_ui$Element$rgb, 0, 0.7, 0);
 var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
 var $elm$core$List$intersperse = F2(
 	function (sep, xs) {
@@ -12670,6 +11848,92 @@ var $elm$core$List$repeat = F2(
 var $author$project$Utils$SpecialChars$nonbreakingSpaces = function (numberOfSpaces) {
 	return $elm$core$String$fromList(
 		A2($elm$core$List$repeat, numberOfSpaces, $author$project$Utils$SpecialChars$nonbreakingSpace));
+};
+var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 'Paragraph'};
+var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
+	function (a, b, c) {
+		return {$: 'SpacingStyle', a: a, b: b, c: c};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$spacing = $mdgriffith$elm_ui$Internal$Flag$flag(3);
+var $mdgriffith$elm_ui$Internal$Model$spacingName = F2(
+	function (x, y) {
+		return 'spacing-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y)));
+	});
+var $mdgriffith$elm_ui$Element$spacing = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$spacing,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
+			A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, x),
+			x,
+			x));
+};
+var $mdgriffith$elm_ui$Element$paragraph = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asParagraph,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Describe($mdgriffith$elm_ui$Internal$Model$Paragraph),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$spacing(5),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
+var $author$project$Utils$Colors$purple = A3($mdgriffith$elm_ui$Element$rgb, 0.45, 0, 0.7);
+var $mdgriffith$elm_ui$Internal$Flag$borderRound = $mdgriffith$elm_ui$Internal$Flag$flag(17);
+var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$borderRound,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$Single,
+			'br-' + $elm$core$String$fromInt(radius),
+			'border-radius',
+			$elm$core$String$fromInt(radius) + 'px'));
+};
+var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
+var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
+var $mdgriffith$elm_ui$Element$row = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asRow,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentLeft + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.contentCenterY)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
+var $author$project$Utils$Pluralize$singularOrPlural = F2(
+	function (count, term) {
+		return (count > 1) ? (term + 's') : term;
+	});
+var $mdgriffith$elm_ui$Element$Font$size = function (i) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontSize,
+		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
+};
+var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
+	return {$: 'Text', a: a};
+};
+var $mdgriffith$elm_ui$Element$text = function (content) {
+	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
 var $mdgriffith$elm_ui$Element$Input$TextInputNode = function (a) {
 	return {$: 'TextInputNode', a: a};
@@ -12813,6 +12077,7 @@ var $mdgriffith$elm_ui$Element$Input$calcMoveToCompensateForPadding = function (
 			$elm$core$Basics$floor(vSpace / 2));
 	}
 };
+var $mdgriffith$elm_ui$Internal$Flag$overflow = $mdgriffith$elm_ui$Internal$Flag$flag(20);
 var $mdgriffith$elm_ui$Element$clip = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.clip);
 var $mdgriffith$elm_ui$Internal$Flag$borderColor = $mdgriffith$elm_ui$Internal$Flag$flag(28);
 var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
@@ -13278,6 +12543,23 @@ var $mdgriffith$elm_ui$Element$alpha = function (o) {
 			transparency));
 };
 var $mdgriffith$elm_ui$Element$Input$charcoal = A3($mdgriffith$elm_ui$Element$rgb, 136 / 255, 138 / 255, 133 / 255);
+var $mdgriffith$elm_ui$Element$el = F2(
+	function (attrs, child) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+					attrs)),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[child])));
+	});
 var $mdgriffith$elm_ui$Element$Input$renderPlaceholder = F3(
 	function (_v0, forPlaceholder, on) {
 		var placeholderAttrs = _v0.a;
@@ -13572,6 +12854,11 @@ var $author$project$Utils$UI$Attributes$title = function (string) {
 	return $mdgriffith$elm_ui$Element$htmlAttribute(
 		$elm$html$Html$Attributes$title(string));
 };
+var $author$project$Utils$Types$FilePath$toString = function (_v0) {
+	var string = _v0.a;
+	return string;
+};
+var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
 var $author$project$Main$View$Start$render = F2(
 	function (bugCount, maybeFile) {
 		var _v0 = function () {
@@ -13705,6 +12992,719 @@ var $author$project$Main$View$Start$render = F2(
 					})
 				]));
 	});
+var $author$project$Main$Msg$DebuggingInterface = function (a) {
+	return {$: 'DebuggingInterface', a: a};
+};
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $mdgriffith$elm_ui$Internal$Model$map = F2(
+	function (fn, el) {
+		switch (el.$) {
+			case 'Styled':
+				var styled = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Styled(
+					{
+						html: F2(
+							function (add, context) {
+								return A2(
+									$elm$virtual_dom$VirtualDom$map,
+									fn,
+									A2(styled.html, add, context));
+							}),
+						styles: styled.styles
+					});
+			case 'Unstyled':
+				var html = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Unstyled(
+					A2(
+						$elm$core$Basics$composeL,
+						$elm$virtual_dom$VirtualDom$map(fn),
+						html));
+			case 'Text':
+				var str = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Text(str);
+			default:
+				return $mdgriffith$elm_ui$Internal$Model$Empty;
+		}
+	});
+var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
+var $author$project$Stages$Debugging$Msg$ChangeTab = function (a) {
+	return {$: 'ChangeTab', a: a};
+};
+var $author$project$Stages$Debugging$Msg$SaySomethingEncouraging = {$: 'SaySomethingEncouraging'};
+var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
+var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
+var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
+var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
+	return {$: 'ShowBugLineHint', a: a};
+};
+var $author$project$Stages$Debugging$Msg$ShowBugTypeHint = function (a) {
+	return {$: 'ShowBugTypeHint', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
+var $author$project$Stages$Debugging$View$ImHavingTroublePage$changeOptions = F3(
+	function (_v0, index, _v1) {
+		var brokenFile = _v0.brokenFile;
+		var encouragementIsShowing = _v0.encouragementIsShowing;
+		var change = _v1.a;
+		var hintVisibility = _v1.b;
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(10)
+				]),
+			_List_fromArray(
+				[
+					($elm$core$List$length(brokenFile.changes) > 1) ? A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$Font$bold]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(
+							'Bug ' + $elm$core$String$fromInt(index + 1))
+						])) : $mdgriffith$elm_ui$Element$none,
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$height(
+							$mdgriffith$elm_ui$Element$px(80))
+						]),
+					hintVisibility.showingLineNumber ? A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[$mdgriffith$elm_ui$Element$centerY]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text(
+								'this bug was introduced on line ' + ($elm$core$String$fromInt(change.lineNumber) + ' of the original file'))
+							])) : A2(
+						$mdgriffith$elm_ui$Element$Input$button,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								$mdgriffith$elm_ui$Element$width(
+								$mdgriffith$elm_ui$Element$px(250)),
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5)
+							]),
+						{
+							label: A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Show me what line this bug is on')
+									])),
+							onPress: $elm$core$Maybe$Just(
+								$author$project$Stages$Debugging$Msg$ShowBugLineHint(index))
+						})),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$height(
+							$mdgriffith$elm_ui$Element$px(80))
+						]),
+					hintVisibility.showingBugType ? A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[$mdgriffith$elm_ui$Element$centerY]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text(change.changeDescription)
+							])) : A2(
+						$mdgriffith$elm_ui$Element$Input$button,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								$mdgriffith$elm_ui$Element$width(
+								$mdgriffith$elm_ui$Element$px(250)),
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5)
+							]),
+						{
+							label: A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this is')
+									])),
+							onPress: $elm$core$Maybe$Just(
+								$author$project$Stages$Debugging$Msg$ShowBugTypeHint(index))
+						}))
+				]));
+	});
+var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
+var $author$project$Utils$Types$FileType$Elm = {$: 'Elm'};
+var $author$project$Utils$Types$FileType$Go = {$: 'Go'};
+var $author$project$Utils$Types$FileType$JavaScript = {$: 'JavaScript'};
+var $author$project$Utils$Types$FileType$Python = {$: 'Python'};
+var $author$project$Utils$Types$FileType$Ruby = {$: 'Ruby'};
+var $author$project$Utils$Types$FileType$Rust = {$: 'Rust'};
+var $author$project$Utils$Types$FileType$Unknown = {$: 'Unknown'};
+var $elm$core$String$endsWith = _String_endsWith;
+var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
+	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
+	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
+};
+var $elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
+			var jsArray = _v0.a;
+			var remainingItems = _v0.b;
+			if (_Utils_cmp(
+				$elm$core$Elm$JsArray$length(jsArray),
+				$elm$core$Array$branchFactor) < 0) {
+				return A2(
+					$elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					$elm$core$List$cons,
+					$elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var $elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return $elm$core$Array$empty;
+	} else {
+		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
+var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
+var $elm$core$Array$getHelp = F3(
+	function (shift, index, tree) {
+		getHelp:
+		while (true) {
+			var pos = $elm$core$Array$bitMask & (index >>> shift);
+			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (_v0.$ === 'SubTree') {
+				var subTree = _v0.a;
+				var $temp$shift = shift - $elm$core$Array$shiftStep,
+					$temp$index = index,
+					$temp$tree = subTree;
+				shift = $temp$shift;
+				index = $temp$index;
+				tree = $temp$tree;
+				continue getHelp;
+			} else {
+				var values = _v0.a;
+				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
+			}
+		}
+	});
+var $elm$core$Array$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var $elm$core$Array$get = F2(
+	function (index, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
+			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
+			A3($elm$core$Array$getHelp, startShift, index, tree)));
+	});
+var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
+var $mdgriffith$elm_ui$Element$scrollbarX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsX);
+var $author$project$Utils$Types$FileType$toPrintFunctionName = function (fileType) {
+	switch (fileType.$) {
+		case 'Python':
+			return 'print';
+		case 'JavaScript':
+			return 'console.log';
+		case 'Ruby':
+			return 'print';
+		case 'Elm':
+			return 'Debug.log';
+		case 'Elixir':
+			return 'IO.print';
+		case 'Rust':
+			return 'print!';
+		case 'Go':
+			return 'print';
+		default:
+			return 'print';
+	}
+};
+var $author$project$Utils$Types$FileType$toString = function (fileType) {
+	switch (fileType.$) {
+		case 'Python':
+			return 'Python';
+		case 'JavaScript':
+			return 'JavaScript';
+		case 'Ruby':
+			return 'Ruby';
+		case 'Elm':
+			return 'Elm';
+		case 'Elixir':
+			return 'Elixir';
+		case 'Rust':
+			return 'Rust';
+		case 'Go':
+			return 'Go';
+		default:
+			return 'unknown';
+	}
+};
+var $author$project$Stages$Debugging$View$ImHavingTroublePage$render = function (_v0) {
+	var bugCount = _v0.bugCount;
+	var encouragements = _v0.encouragements;
+	var encouragementIsShowing = _v0.encouragementIsShowing;
+	var brokenFile = _v0.brokenFile;
+	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$spacing(30)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+						$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+						$mdgriffith$elm_ui$Element$Font$center,
+						$mdgriffith$elm_ui$Element$width(
+						$mdgriffith$elm_ui$Element$px(250)),
+						A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+						$mdgriffith$elm_ui$Element$Border$rounded(5)
+					]),
+				{
+					label: A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text('‹')),
+								$mdgriffith$elm_ui$Element$text(' Back to instructions')
+							])),
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Stages$Debugging$Msg$ChangeTab($author$project$Stages$Debugging$Model$StepsPage))
+				}),
+				A2(
+				$mdgriffith$elm_ui$Element$row,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$spacing(40)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$spacing(30)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$Font$size(30)
+									]),
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Debugging Tips')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$spacing(20),
+										$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
+										$mdgriffith$elm_ui$Element$Border$rounded(5),
+										A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
+											]))
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$spacing(20),
+										$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
+										$mdgriffith$elm_ui$Element$Border$rounded(5),
+										A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
+											])),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$text('In '),
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$Font$bold]),
+												$mdgriffith$elm_ui$Element$text(
+													$author$project$Utils$Types$FileType$toString(fileType))),
+												$mdgriffith$elm_ui$Element$text(' you can use '),
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$Font$bold]),
+												$mdgriffith$elm_ui$Element$text(
+													$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
+												$mdgriffith$elm_ui$Element$text(' for this.')
+											]))
+									]))
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$spacing(10)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$paragraph,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$Font$size(30)
+									]),
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Give me a hint')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$spacing(20),
+										$mdgriffith$elm_ui$Element$scrollbarX,
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+										$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+									]),
+								A2(
+									$elm$core$List$indexedMap,
+									$author$project$Stages$Debugging$View$ImHavingTroublePage$changeOptions(
+										{brokenFile: brokenFile, encouragementIsShowing: encouragementIsShowing}),
+									brokenFile.changes))
+							]))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$row,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$center,
+						$mdgriffith$elm_ui$Element$height(
+						$mdgriffith$elm_ui$Element$px(100)),
+						$mdgriffith$elm_ui$Element$spacing(20),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					]),
+				encouragementIsShowing ? _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$Input$button,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5)
+							]),
+						{
+							label: $mdgriffith$elm_ui$Element$text('Say something else encouraging'),
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
+						}),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text(
+								A2(
+									$elm$core$Maybe$withDefault,
+									'You\'re doing great!',
+									A2(
+										$elm$core$Array$get,
+										encouragements.current,
+										$elm$core$Array$fromList(encouragements.list))))
+							]))
+					]) : _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$Input$button,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5)
+							]),
+						{
+							label: $mdgriffith$elm_ui$Element$text('Say something encouraging'),
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
+						})
+					]))
+			]));
+};
+var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
+var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
+	return (count > 1) ? 'they are' : 'it is';
+};
+var $author$project$Utils$Colors$red = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0, 0);
+var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
+var $author$project$Stages$Debugging$View$StepsPage$render = F2(
+	function (bugCount, brokenFile) {
+		var changes = brokenFile.changes;
+		var path = brokenFile.path;
+		var changeCount = $elm$core$List$length(changes);
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$color(
+					A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0)),
+					$mdgriffith$elm_ui$Element$Font$size(25),
+					$mdgriffith$elm_ui$Element$Font$center,
+					$mdgriffith$elm_ui$Element$spacing(50),
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$centerY,
+					A2($mdgriffith$elm_ui$Element$paddingXY, 0, 20)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(
+							'I put ' + ($elm$core$String$fromInt(changeCount) + (' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'bug') + ' in ')))),
+							A2(
+							$mdgriffith$elm_ui$Element$el,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Background$color(
+									$author$project$Utils$Colors$darkened(0.1)),
+									A2($mdgriffith$elm_ui$Element$paddingXY, 10, 5),
+									$mdgriffith$elm_ui$Element$Font$bold,
+									$mdgriffith$elm_ui$Element$Font$family(
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Font$typeface('Courier')
+										])),
+									$mdgriffith$elm_ui$Element$Border$rounded(5)
+								]),
+							$mdgriffith$elm_ui$Element$text(
+								$author$project$Utils$Types$FilePath$toString(path))),
+							$mdgriffith$elm_ui$Element$text(
+							'! Can you figure out where ' + ($author$project$Utils$Pluralize$itIsOrTheyAre(changeCount) + '?'))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$Font$alignLeft,
+							$mdgriffith$elm_ui$Element$spacing(20),
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(350)),
+							$mdgriffith$elm_ui$Element$Background$color(
+							$author$project$Utils$Colors$darkened(0.1)),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 40, 20),
+							$mdgriffith$elm_ui$Element$Border$rounded(5)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('step 1: ')),
+									$mdgriffith$elm_ui$Element$text('run the file (or the project it\'s from)')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('step 2: ')),
+									$mdgriffith$elm_ui$Element$text(
+									'read the ' + A2($author$project$Utils$Pluralize$singularOrPlural, changeCount, 'error'))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('step 3: ')),
+									$mdgriffith$elm_ui$Element$text('open the file in your favorite text editor and get debugging!')
+								]))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$spacing(20),
+							$mdgriffith$elm_ui$Element$centerX
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$spacing(20),
+									$mdgriffith$elm_ui$Element$centerX
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$Input$button,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+											$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+											A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+											$mdgriffith$elm_ui$Element$Border$rounded(5),
+											$mdgriffith$elm_ui$Element$centerX
+										]),
+									{
+										label: $mdgriffith$elm_ui$Element$text('Help me!'),
+										onPress: $elm$core$Maybe$Just(
+											$author$project$Stages$Debugging$Msg$ChangeTab(
+												$author$project$Stages$Debugging$Model$ImHavingTroublePage(false)))
+									}),
+									A2(
+									$mdgriffith$elm_ui$Element$Input$button,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green),
+											$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+											A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+											$mdgriffith$elm_ui$Element$Border$rounded(5),
+											$mdgriffith$elm_ui$Element$centerX
+										]),
+									{
+										label: $mdgriffith$elm_ui$Element$text('I solved it!'),
+										onPress: $elm$core$Maybe$Nothing
+									})
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$Input$button,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red),
+									$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+									A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+									$mdgriffith$elm_ui$Element$Border$rounded(5),
+									$mdgriffith$elm_ui$Element$centerX
+								]),
+							{
+								label: $mdgriffith$elm_ui$Element$text('I don\'t see any errors!'),
+								onPress: $elm$core$Maybe$Nothing
+							})
+						]))
+				]));
+	});
+var $author$project$Stages$Debugging$View$render = function (_v0) {
+	var bugCount = _v0.bugCount;
+	var encouragements = _v0.encouragements;
+	var brokenFile = _v0.brokenFile;
+	var currentTab = _v0.currentTab;
+	if (currentTab.$ === 'StepsPage') {
+		return A2(
+			$mdgriffith$elm_ui$Element$map,
+			$author$project$Main$Msg$DebuggingInterface,
+			A2($author$project$Stages$Debugging$View$StepsPage$render, bugCount, brokenFile));
+	} else {
+		var encouragementIsShowing = currentTab.a;
+		return A2(
+			$mdgriffith$elm_ui$Element$map,
+			$author$project$Main$Msg$DebuggingInterface,
+			$author$project$Stages$Debugging$View$ImHavingTroublePage$render(
+				{brokenFile: brokenFile, bugCount: bugCount, encouragementIsShowing: encouragementIsShowing, encouragements: encouragements}));
+	}
+};
 var $author$project$Main$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var stage = _v0.stage;
@@ -13733,7 +13733,7 @@ var $author$project$Main$View$render = function (_v0) {
 							var brokenFile = stage.a.brokenFile;
 							var currentTab = stage.a.currentTab;
 							var encouragements = stage.a.encouragements;
-							return $author$project$Main$View$BrokenFile$render(
+							return $author$project$Stages$Debugging$View$render(
 								{brokenFile: brokenFile, bugCount: bugCount, currentTab: currentTab, encouragements: encouragements});
 						default:
 							return $mdgriffith$elm_ui$Element$none;

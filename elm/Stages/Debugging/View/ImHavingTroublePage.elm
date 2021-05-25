@@ -1,4 +1,4 @@
-module Main.View.ImHavingTroublePage exposing (render)
+module Stages.Debugging.View.ImHavingTroublePage exposing (render)
 
 import Array
 import Element exposing (..)
