@@ -9,7 +9,7 @@ import Main.View.Start
 
 
 render : Model -> { title : String, body : List (Html Msg) }
-render { bugCount, stage, encouragements } =
+render { bugCount, stage } =
     { title = "Debugging Trainer"
     , body =
         [ layout [ width fill, height fill, paddingXY 20 20 ]
@@ -20,12 +20,12 @@ render { bugCount, stage, encouragements } =
                 GotFile file ->
                     Main.View.Start.render bugCount (Just file)
 
-                BrokeFile file interface ->
+                Debugging { brokenFile, currentTab, encouragements } ->
                     Main.View.BrokenFile.render
                         { bugCount = bugCount
                         , encouragements = encouragements
-                        , brokenFile = file
-                        , currentTab = interface
+                        , brokenFile = brokenFile
+                        , currentTab = currentTab
                         }
 
                 Finished _ ->

@@ -1,16 +1,13 @@
 module Main.Model exposing
-    ( BrokenFile
-    , DebuggingInterfaceTab(..)
-    , Encouragements
-    , Error(..)
+    ( Error(..)
     , File
-    , HintVisibility
     , Model
     , Stage(..)
     )
 
 import Json.Decode
-import Utils.Types.ChangeData exposing (ChangeData)
+import Stages.Debugging.Model
+import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.FilePath exposing (FilePath)
 
 
@@ -18,28 +15,15 @@ type alias Model =
     { bugCount : Int
     , randomNumbers : List Int
     , stage : Stage
-    , lastDisplayedEncouragement : Maybe Int
-    , encouragements : Encouragements
     , maybeError : Maybe Error
-    }
-
-
-type alias Encouragements =
-    { list : List String
-    , current : Int
     }
 
 
 type Stage
     = Start
     | GotFile File
-    | BrokeFile BrokenFile DebuggingInterfaceTab
+    | Debugging Stages.Debugging.Model.Model
     | Finished BrokenFile
-
-
-type DebuggingInterfaceTab
-    = StepsPage
-    | ImHavingTroublePage Bool
 
 
 type Error
@@ -52,18 +36,4 @@ type Error
 type alias File =
     { path : FilePath
     , content : String
-    }
-
-
-type alias BrokenFile =
-    { originalContent : String
-    , updatedContent : String
-    , changes : List ( ChangeData, HintVisibility )
-    , path : FilePath
-    }
-
-
-type alias HintVisibility =
-    { showingLineNumber : Bool
-    , showingBugType : Bool
     }

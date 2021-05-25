@@ -2,9 +2,11 @@ module Main.Update exposing (update)
 
 import List.Extra
 import Main.Interop as Interop
-import Main.Model exposing (DebuggingInterfaceTab(..), Error(..), HintVisibility, Model, Stage(..))
+import Main.Model exposing (Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
+import Stages.Debugging.Model
+import Stages.Debugging.Update
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath as FilePath
 
@@ -40,22 +42,14 @@ update msg model =
                 Just { newFileContent, changes } ->
                     ( { model
                         | stage =
-                            BrokeFile
-                                { originalContent = content
-                                , updatedContent = newFileContent
-                                , changes =
-                                    changes
-                                        |> List.map
-                                            (\change ->
-                                                ( change
-                                                , { showingLineNumber = False
-                                                  , showingBugType = False
-                                                  }
-                                                )
-                                            )
-                                , path = path
-                                }
-                                StepsPage
+                            Debugging
+                                (Stages.Debugging.Model.init
+                                    { originalContent = content
+                                    , updatedContent = newFileContent
+                                    , changes = changes
+                                    , path = path
+                                    }
+                                )
                       }
                     , Interop.writeFile
                         { path = path
@@ -69,58 +63,20 @@ update msg model =
         FileWasBroken ->
             ( model, Cmd.none )
 
-        ChangeInterfaceTab newTab brokenFile ->
-            ( { model | stage = BrokeFile brokenFile newTab }, Cmd.none )
+        DebuggingInterface debuggingMsg ->
+            case model.stage of
+                Debugging debuggingModel ->
+                    let
+                        ( newModel, cmd ) =
+                            Stages.Debugging.Update.update
+                                { model = debuggingModel
+                                , msg = debuggingMsg
+                                }
+                    in
+                    ( { model | stage = Debugging newModel }, Cmd.map DebuggingInterface cmd )
 
-        SaySomethingEncouraging brokenFile ->
-            let
-                encouragements =
-                    model.encouragements
-            in
-            ( { model
-                | encouragements = { encouragements | current = modBy (List.length encouragements.list) (encouragements.current + 1) }
-                , stage = BrokeFile brokenFile (ImHavingTroublePage True)
-              }
-            , Cmd.none
-            )
-
-        ShowBugLineHint { brokenFile, bugIndex, showingEncouragement } ->
-            let
-                newChanges =
-                    brokenFile.changes
-                        |> List.Extra.updateAt bugIndex showBugLineHint
-            in
-            ( { model
-                | stage =
-                    BrokeFile { brokenFile | changes = newChanges }
-                        (ImHavingTroublePage showingEncouragement)
-              }
-            , Cmd.none
-            )
-
-        ShowBugTypeHint { brokenFile, bugIndex, showingEncouragement } ->
-            let
-                newChanges =
-                    brokenFile.changes
-                        |> List.Extra.updateAt bugIndex showBugTypeHint
-            in
-            ( { model
-                | stage =
-                    BrokeFile { brokenFile | changes = newChanges }
-                        (ImHavingTroublePage showingEncouragement)
-              }
-            , Cmd.none
-            )
+                _ ->
+                    ( model, Cmd.none )
 
         InteropError error ->
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
-
-
-showBugLineHint : ( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )
-showBugLineHint ( change, hintVisibility ) =
-    ( change, { hintVisibility | showingLineNumber = True } )
-
-
-showBugTypeHint : ( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )
-showBugTypeHint ( change, hintVisibility ) =
-    ( change, { hintVisibility | showingBugType = True } )

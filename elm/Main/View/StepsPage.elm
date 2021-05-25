@@ -5,10 +5,12 @@ import Element.Background as Background
 import Element.Border exposing (rounded)
 import Element.Font as Font
 import Element.Input as Input
-import Main.Model exposing (BrokenFile, DebuggingInterfaceTab(..))
-import Main.Msg exposing (Msg(..))
+import Stages.Debugging.Model exposing (Model, Tab(..))
+import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
+import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
+import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath as FilePath
 
 
@@ -76,7 +78,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just (ChangeInterfaceTab (ImHavingTroublePage False) brokenFile)
+                    { onPress = Just (ChangeTab (ImHavingTroublePage False))
                     , label = text "Help me!"
                     }
                 , Input.button
@@ -86,7 +88,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just ChooseFile
+                    { onPress = Nothing
                     , label = text "I solved it!"
                     }
                 ]
@@ -97,7 +99,7 @@ render bugCount ({ changes, path } as brokenFile) =
                 , rounded 5
                 , centerX
                 ]
-                { onPress = Just ChooseFile
+                { onPress = Nothing
                 , label = text "I don't see any errors!"
                 }
             ]

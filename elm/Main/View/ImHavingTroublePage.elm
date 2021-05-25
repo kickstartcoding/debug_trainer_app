@@ -7,19 +7,14 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Html.Attributes as HtmlAttrs
-import Main.Model
-    exposing
-        ( BrokenFile
-        , DebuggingInterfaceTab(..)
-        , Encouragements
-        , HintVisibility
-        , Model
-        )
-import Main.Msg exposing (Msg(..))
+import Stages.Debugging.Model exposing (Model, Tab(..))
+import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
+import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.Types.FilePath as FilePath exposing (FilePath)
 import Utils.Types.FileType as FileType exposing (FileType)
 
@@ -45,8 +40,8 @@ render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
             , paddingXY 35 20
             , Border.rounded 5
             ]
-            { onPress = Just (ChangeInterfaceTab StepsPage brokenFile)
-            , label = text "Back to instructions"
+            { onPress = Just (ChangeTab StepsPage)
+            , label = row [] [ el [ Font.bold ] (text "‹"), text " Back to instructions" ]
             }
         , row [ width fill, spacing 40 ]
             [ column [ width fill, height fill, spacing 30 ]
@@ -87,7 +82,7 @@ render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
                     , paddingXY 35 20
                     , Border.rounded 5
                     ]
-                    { onPress = Just (SaySomethingEncouraging brokenFile)
+                    { onPress = Just SaySomethingEncouraging
                     , label = text "Say something else encouraging"
                     }
                 , paragraph [ width fill ]
@@ -108,7 +103,7 @@ render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
                     , paddingXY 35 20
                     , Border.rounded 5
                     ]
-                    { onPress = Just (SaySomethingEncouraging brokenFile)
+                    { onPress = Just SaySomethingEncouraging
                     , label = text "Say something encouraging"
                     }
                 ]
@@ -142,14 +137,7 @@ changeOptions { brokenFile, encouragementIsShowing } index ( change, hintVisibil
                     , paddingXY 35 20
                     , Border.rounded 5
                     ]
-                    { onPress =
-                        Just
-                            (ShowBugLineHint
-                                { brokenFile = brokenFile
-                                , bugIndex = index
-                                , showingEncouragement = encouragementIsShowing
-                                }
-                            )
+                    { onPress = Just (ShowBugLineHint index)
                     , label = paragraph [] [ text "Show me what line this bug is on" ]
                     }
         , el [ height (px 80) ] <|
@@ -165,14 +153,7 @@ changeOptions { brokenFile, encouragementIsShowing } index ( change, hintVisibil
                     , paddingXY 35 20
                     , Border.rounded 5
                     ]
-                    { onPress =
-                        Just
-                            (ShowBugTypeHint
-                                { brokenFile = brokenFile
-                                , bugIndex = index
-                                , showingEncouragement = encouragementIsShowing
-                                }
-                            )
+                    { onPress = Just (ShowBugTypeHint index)
                     , label = paragraph [] [ text "Tell me what type of bug this is" ]
                     }
         ]

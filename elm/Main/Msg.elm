@@ -1,7 +1,8 @@
 module Main.Msg exposing (Msg(..))
 
 import Json.Decode
-import Main.Model exposing (BrokenFile, DebuggingInterfaceTab, File)
+import Main.Model exposing (File)
+import Stages.Debugging.Msg
 
 
 type Msg
@@ -10,8 +11,5 @@ type Msg
     | FileWasSelected File
     | BreakFile File
     | FileWasBroken
-    | ChangeInterfaceTab DebuggingInterfaceTab BrokenFile
-    | ShowBugLineHint { brokenFile : BrokenFile, bugIndex : Int, showingEncouragement : Bool }
-    | ShowBugTypeHint { brokenFile : BrokenFile, bugIndex : Int, showingEncouragement : Bool }
-    | SaySomethingEncouraging BrokenFile
+    | DebuggingInterface Stages.Debugging.Msg.Msg
     | InteropError Json.Decode.Error

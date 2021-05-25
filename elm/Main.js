@@ -5415,12 +5415,11 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$Model$BadFlags = function (a) {
 	return {$: 'BadFlags', a: a};
 };
-var $author$project$Main$Model$BrokeFile = F2(
-	function (a, b) {
-		return {$: 'BrokeFile', a: a, b: b};
-	});
 var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFunctionArgs'};
-var $author$project$Main$Model$ImHavingTroublePage = function (a) {
+var $author$project$Main$Model$Debugging = function (a) {
+	return {$: 'Debugging', a: a};
+};
+var $author$project$Stages$Debugging$Model$ImHavingTroublePage = function (a) {
 	return {$: 'ImHavingTroublePage', a: a};
 };
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
@@ -5476,16 +5475,23 @@ var $author$project$Main$Interop$decodeFlags = function (flags) {
 		$dillonkearns$elm_ts_json$TsJson$Decode$decoder($author$project$Main$Definitions$flags),
 		flags);
 };
-var $author$project$Main$encouragements = _List_fromArray(
-	['Debugging is genuinely hard! Don\'t sweat it if it takes time, and if it\'s really frustrating, just look at the solution this time — you can learn just as much from that as from struggling to solve it.', 'I would make you an adorable yet encouraging cross-stitch, but I\'m a computer and I don\'t have any arms.', ' 💫 🌟 🎉 I believe in you! 🎉 ✨ ⭐️ ', 'Good job asking for encouragement! Sometimes that\'s hard, but you deserve it!', 'You\'re doing a good job! If you\'ve been working at this a while, give yourself the time and space to take a break for a bit.']);
 var $author$project$Utils$Types$FilePath$FilePath = function (a) {
 	return {$: 'FilePath', a: a};
 };
 var $author$project$Utils$Types$FilePath$fromString = function (string) {
 	return $author$project$Utils$Types$FilePath$FilePath(string);
 };
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$Utils$Types$Encouragements$availableEncouragements = _List_fromArray(
+	['Debugging is genuinely hard! Don\'t sweat it if it takes time, and if it\'s really frustrating, just look at the answer this time — you can learn just as much from that as from struggling to solve it.', 'I would make you an adorable yet encouraging cross-stitch, but I\'m a computer and I don\'t have any arms.', ' 💫 🌟 🎉 I believe in you! 🎉 ✨ ⭐️ ', 'Good job asking for encouragement! Sometimes that\'s hard, but you deserve it!', 'You\'re doing a good job! If you\'ve been working at this a while, give yourself the time and space to take a break for a bit.']);
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -5524,15 +5530,6 @@ var $elm$core$List$drop = F2(
 			}
 		}
 	});
-var $elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(x);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
 var $elm_community$list_extra$List$Extra$getAt = F2(
 	function (idx, xs) {
 		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
@@ -5569,6 +5566,23 @@ var $author$project$Utils$List$shuffle = F2(
 			return list;
 		}
 	});
+var $author$project$Utils$Types$Encouragements$init = function (seed) {
+	return {
+		current: 0,
+		list: A2($author$project$Utils$List$shuffle, seed, $author$project$Utils$Types$Encouragements$availableEncouragements)
+	};
+};
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var $author$project$Main$init = function (flags) {
 	var _v0 = function () {
 		var _v1 = $author$project$Main$Interop$decodeFlags(flags);
@@ -5576,16 +5590,11 @@ var $author$project$Main$init = function (flags) {
 			if (_v1.a.b) {
 				var numbers = _v1.a;
 				var firstRandomNumber = numbers.a;
-				return {
-					randomNumbers: numbers,
-					randomizedEncouragements: A2($author$project$Utils$List$shuffle, firstRandomNumber, $author$project$Main$encouragements),
-					startingError: $elm$core$Maybe$Nothing
-				};
+				return {randomNumbers: numbers, startingError: $elm$core$Maybe$Nothing};
 			} else {
 				return {
 					randomNumbers: _List_fromArray(
 						[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-					randomizedEncouragements: $author$project$Main$encouragements,
 					startingError: $elm$core$Maybe$Just(
 						$author$project$Main$Model$BadFlags('Got an empty list of random numbers'))
 				};
@@ -5595,7 +5604,6 @@ var $author$project$Main$init = function (flags) {
 			return {
 				randomNumbers: _List_fromArray(
 					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-				randomizedEncouragements: $author$project$Main$encouragements,
 				startingError: $elm$core$Maybe$Just(
 					$author$project$Main$Model$BadFlags(
 						$elm$json$Json$Decode$errorToString(error)))
@@ -5604,31 +5612,34 @@ var $author$project$Main$init = function (flags) {
 	}();
 	var randomNumbers = _v0.randomNumbers;
 	var startingError = _v0.startingError;
-	var randomizedEncouragements = _v0.randomizedEncouragements;
 	return _Utils_Tuple2(
 		{
 			bugCount: 1,
-			encouragements: {current: 0, list: randomizedEncouragements},
-			lastDisplayedEncouragement: $elm$core$Maybe$Nothing,
 			maybeError: startingError,
 			randomNumbers: randomNumbers,
-			stage: A2(
-				$author$project$Main$Model$BrokeFile,
+			stage: $author$project$Main$Model$Debugging(
 				{
-					changes: _List_fromArray(
-						[
-							_Utils_Tuple2(
-							{breakType: $author$project$Utils$Types$BreakType$ChangeFunctionArgs, changeDescription: 'swapped some goddamn args', lineNumber: 1},
-							{showingBugType: false, showingLineNumber: false}),
-							_Utils_Tuple2(
-							{breakType: $author$project$Utils$Types$BreakType$RemoveParenthesis, changeDescription: 'removed a paren', lineNumber: 5},
-							{showingBugType: false, showingLineNumber: false})
-						]),
-					originalContent: 'function a (a, b, c) { return c }; a()',
-					path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
-					updatedContent: 'function a (b, a, c) { return c }; a()'
-				},
-				$author$project$Main$Model$ImHavingTroublePage(false))
+					brokenFile: {
+						changes: _List_fromArray(
+							[
+								_Utils_Tuple2(
+								{breakType: $author$project$Utils$Types$BreakType$ChangeFunctionArgs, changeDescription: 'swapped some goddamn args', lineNumber: 1},
+								{showingBugType: false, showingLineNumber: false}),
+								_Utils_Tuple2(
+								{breakType: $author$project$Utils$Types$BreakType$RemoveParenthesis, changeDescription: 'removed a paren', lineNumber: 5},
+								{showingBugType: false, showingLineNumber: false})
+							]),
+						originalContent: 'function a (a, b, c) { return c }; a()',
+						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
+						updatedContent: 'function a (b, a, c) { return c }; a()'
+					},
+					currentTab: $author$project$Stages$Debugging$Model$ImHavingTroublePage(false),
+					encouragements: $author$project$Utils$Types$Encouragements$init(
+						A2(
+							$elm$core$Maybe$withDefault,
+							0,
+							$elm$core$List$head(randomNumbers)))
+				})
 		},
 		$elm$core$Platform$Cmd$none);
 };
@@ -5850,15 +5861,6 @@ var $mdgriffith$elm_ui$Internal$Model$transformClass = function (transform) {
 				'tfrm-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(tx) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(ty) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(tz) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sx) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sy) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sz) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(ox) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(oy) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(oz) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(angle))))))))))))))))))));
 	}
 };
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $mdgriffith$elm_ui$Internal$Model$getStyleName = function (style) {
 	switch (style.$) {
 		case 'Shadows':
@@ -11558,14 +11560,49 @@ var $mdgriffith$elm_ui$Element$paddingXY = F2(
 					xFloat));
 		}
 	});
-var $author$project$Main$Msg$ChangeInterfaceTab = F2(
-	function (a, b) {
-		return {$: 'ChangeInterfaceTab', a: a, b: b};
-	});
-var $author$project$Main$Msg$SaySomethingEncouraging = function (a) {
-	return {$: 'SaySomethingEncouraging', a: a};
+var $author$project$Main$Msg$DebuggingInterface = function (a) {
+	return {$: 'DebuggingInterface', a: a};
 };
-var $author$project$Main$Model$StepsPage = {$: 'StepsPage'};
+var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
+	return {$: 'Text', a: a};
+};
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $mdgriffith$elm_ui$Internal$Model$map = F2(
+	function (fn, el) {
+		switch (el.$) {
+			case 'Styled':
+				var styled = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Styled(
+					{
+						html: F2(
+							function (add, context) {
+								return A2(
+									$elm$virtual_dom$VirtualDom$map,
+									fn,
+									A2(styled.html, add, context));
+							}),
+						styles: styled.styles
+					});
+			case 'Unstyled':
+				var html = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Unstyled(
+					A2(
+						$elm$core$Basics$composeL,
+						$elm$virtual_dom$VirtualDom$map(fn),
+						html));
+			case 'Text':
+				var str = el.a;
+				return $mdgriffith$elm_ui$Internal$Model$Text(str);
+			default:
+				return $mdgriffith$elm_ui$Internal$Model$Empty;
+		}
+	});
+var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
+var $author$project$Stages$Debugging$Msg$ChangeTab = function (a) {
+	return {$: 'ChangeTab', a: a};
+};
+var $author$project$Stages$Debugging$Msg$SaySomethingEncouraging = {$: 'SaySomethingEncouraging'};
+var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
 var $mdgriffith$elm_ui$Internal$Model$Class = F2(
 	function (a, b) {
 		return {$: 'Class', a: a, b: b};
@@ -11727,10 +11764,10 @@ var $mdgriffith$elm_ui$Element$Input$button = F2(
 	});
 var $mdgriffith$elm_ui$Internal$Flag$fontAlignment = $mdgriffith$elm_ui$Internal$Flag$flag(12);
 var $mdgriffith$elm_ui$Element$Font$center = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textCenter);
-var $author$project$Main$Msg$ShowBugLineHint = function (a) {
+var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
 	return {$: 'ShowBugLineHint', a: a};
 };
-var $author$project$Main$Msg$ShowBugTypeHint = function (a) {
+var $author$project$Stages$Debugging$Msg$ShowBugTypeHint = function (a) {
 	return {$: 'ShowBugTypeHint', a: a};
 };
 var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
@@ -11853,9 +11890,6 @@ var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 			'border-radius',
 			$elm$core$String$fromInt(radius) + 'px'));
 };
-var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
-	return {$: 'Text', a: a};
-};
 var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
@@ -11919,8 +11953,7 @@ var $author$project$Main$View$ImHavingTroublePage$changeOptions = F3(
 										$mdgriffith$elm_ui$Element$text('Show me what line this bug is on')
 									])),
 							onPress: $elm$core$Maybe$Just(
-								$author$project$Main$Msg$ShowBugLineHint(
-									{brokenFile: brokenFile, bugIndex: index, showingEncouragement: encouragementIsShowing}))
+								$author$project$Stages$Debugging$Msg$ShowBugLineHint(index))
 						})),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
@@ -11957,8 +11990,7 @@ var $author$project$Main$View$ImHavingTroublePage$changeOptions = F3(
 										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this is')
 									])),
 							onPress: $elm$core$Maybe$Just(
-								$author$project$Main$Msg$ShowBugTypeHint(
-									{brokenFile: brokenFile, bugIndex: index, showingEncouragement: encouragementIsShowing}))
+								$author$project$Stages$Debugging$Msg$ShowBugTypeHint(index))
 						}))
 				]));
 	});
@@ -12151,9 +12183,20 @@ var $author$project$Main$View$ImHavingTroublePage$render = function (_v0) {
 						$mdgriffith$elm_ui$Element$Border$rounded(5)
 					]),
 				{
-					label: $mdgriffith$elm_ui$Element$text('Back to instructions'),
+					label: A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text('‹')),
+								$mdgriffith$elm_ui$Element$text(' Back to instructions')
+							])),
 					onPress: $elm$core$Maybe$Just(
-						A2($author$project$Main$Msg$ChangeInterfaceTab, $author$project$Main$Model$StepsPage, brokenFile))
+						$author$project$Stages$Debugging$Msg$ChangeTab($author$project$Stages$Debugging$Model$StepsPage))
 				}),
 				A2(
 				$mdgriffith$elm_ui$Element$row,
@@ -12304,8 +12347,7 @@ var $author$project$Main$View$ImHavingTroublePage$render = function (_v0) {
 							]),
 						{
 							label: $mdgriffith$elm_ui$Element$text('Say something else encouraging'),
-							onPress: $elm$core$Maybe$Just(
-								$author$project$Main$Msg$SaySomethingEncouraging(brokenFile))
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
 						}),
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
@@ -12338,13 +12380,11 @@ var $author$project$Main$View$ImHavingTroublePage$render = function (_v0) {
 							]),
 						{
 							label: $mdgriffith$elm_ui$Element$text('Say something encouraging'),
-							onPress: $elm$core$Maybe$Just(
-								$author$project$Main$Msg$SaySomethingEncouraging(brokenFile))
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
 						})
 					]))
 			]));
 };
-var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
 var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
 var $mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
 	return {$: 'AlignX', a: a};
@@ -12506,10 +12546,8 @@ var $author$project$Main$View$StepsPage$render = F2(
 									{
 										label: $mdgriffith$elm_ui$Element$text('Help me!'),
 										onPress: $elm$core$Maybe$Just(
-											A2(
-												$author$project$Main$Msg$ChangeInterfaceTab,
-												$author$project$Main$Model$ImHavingTroublePage(false),
-												brokenFile))
+											$author$project$Stages$Debugging$Msg$ChangeTab(
+												$author$project$Stages$Debugging$Model$ImHavingTroublePage(false)))
 									}),
 									A2(
 									$mdgriffith$elm_ui$Element$Input$button,
@@ -12523,7 +12561,7 @@ var $author$project$Main$View$StepsPage$render = F2(
 										]),
 									{
 										label: $mdgriffith$elm_ui$Element$text('I solved it!'),
-										onPress: $elm$core$Maybe$Just($author$project$Main$Msg$ChooseFile)
+										onPress: $elm$core$Maybe$Nothing
 									})
 								])),
 							A2(
@@ -12538,7 +12576,7 @@ var $author$project$Main$View$StepsPage$render = F2(
 								]),
 							{
 								label: $mdgriffith$elm_ui$Element$text('I don\'t see any errors!'),
-								onPress: $elm$core$Maybe$Just($author$project$Main$Msg$ChooseFile)
+								onPress: $elm$core$Maybe$Nothing
 							})
 						]))
 				]));
@@ -12549,16 +12587,23 @@ var $author$project$Main$View$BrokenFile$render = function (_v0) {
 	var brokenFile = _v0.brokenFile;
 	var currentTab = _v0.currentTab;
 	if (currentTab.$ === 'StepsPage') {
-		return A2($author$project$Main$View$StepsPage$render, bugCount, brokenFile);
+		return A2(
+			$mdgriffith$elm_ui$Element$map,
+			$author$project$Main$Msg$DebuggingInterface,
+			A2($author$project$Main$View$StepsPage$render, bugCount, brokenFile));
 	} else {
 		var encouragementIsShowing = currentTab.a;
-		return $author$project$Main$View$ImHavingTroublePage$render(
-			{brokenFile: brokenFile, bugCount: bugCount, encouragementIsShowing: encouragementIsShowing, encouragements: encouragements});
+		return A2(
+			$mdgriffith$elm_ui$Element$map,
+			$author$project$Main$Msg$DebuggingInterface,
+			$author$project$Main$View$ImHavingTroublePage$render(
+				{brokenFile: brokenFile, bugCount: bugCount, encouragementIsShowing: encouragementIsShowing, encouragements: encouragements}));
 	}
 };
 var $author$project$Main$Msg$BreakFile = function (a) {
 	return {$: 'BreakFile', a: a};
 };
+var $author$project$Main$Msg$ChooseFile = {$: 'ChooseFile'};
 var $author$project$Main$Msg$UpdateBugCount = function (a) {
 	return {$: 'UpdateBugCount', a: a};
 };
@@ -13663,7 +13708,6 @@ var $author$project$Main$View$Start$render = F2(
 var $author$project$Main$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var stage = _v0.stage;
-	var encouragements = _v0.encouragements;
 	return {
 		body: _List_fromArray(
 			[
@@ -13685,11 +13729,12 @@ var $author$project$Main$View$render = function (_v0) {
 								$author$project$Main$View$Start$render,
 								bugCount,
 								$elm$core$Maybe$Just(file));
-						case 'BrokeFile':
-							var file = stage.a;
-							var _interface = stage.b;
+						case 'Debugging':
+							var brokenFile = stage.a.brokenFile;
+							var currentTab = stage.a.currentTab;
+							var encouragements = stage.a.encouragements;
 							return $author$project$Main$View$BrokenFile$render(
-								{brokenFile: file, bugCount: bugCount, currentTab: _interface, encouragements: encouragements});
+								{brokenFile: brokenFile, bugCount: bugCount, currentTab: currentTab, encouragements: encouragements});
 						default:
 							return $mdgriffith$elm_ui$Element$none;
 					}
@@ -14772,6 +14817,30 @@ var $author$project$Main$Interop$chooseFile = function (argument____) {
 	return $author$project$Main$Interop$interopFromElm(
 		A3($author$project$Main$Interop$encodeProVariant, 'chooseFile', $author$project$Main$Definitions$chooseFile, argument____));
 };
+var $author$project$Stages$Debugging$Model$init = function (_v0) {
+	var originalContent = _v0.originalContent;
+	var updatedContent = _v0.updatedContent;
+	var changes = _v0.changes;
+	var path = _v0.path;
+	return {
+		brokenFile: {
+			changes: A2(
+				$elm$core$List$map,
+				function (change) {
+					return _Utils_Tuple2(
+						change,
+						{showingBugType: false, showingLineNumber: false});
+				},
+				changes),
+			originalContent: originalContent,
+			path: path,
+			updatedContent: updatedContent
+		},
+		currentTab: $author$project$Stages$Debugging$Model$StepsPage,
+		encouragements: $author$project$Utils$Types$Encouragements$init(0)
+	};
+};
+var $elm$core$Platform$Cmd$map = _Platform_map;
 var $elm$core$Result$map = F2(
 	function (func, ra) {
 		if (ra.$ === 'Ok') {
@@ -16958,7 +17027,7 @@ var $author$project$Main$Update$BreakFile$run = function (config) {
 			$author$project$Main$Update$BreakFile$randomlySelectFileChangesFromParsedSegments(config),
 			A2($author$project$Parsers$Generic$Parser$run, fileType, fileContent)));
 };
-var $author$project$Main$Update$showBugLineHint = function (_v0) {
+var $author$project$Stages$Debugging$Model$showBugLineHint = function (_v0) {
 	var change = _v0.a;
 	var hintVisibility = _v0.b;
 	return _Utils_Tuple2(
@@ -16967,7 +17036,7 @@ var $author$project$Main$Update$showBugLineHint = function (_v0) {
 			hintVisibility,
 			{showingLineNumber: true}));
 };
-var $author$project$Main$Update$showBugTypeHint = function (_v0) {
+var $author$project$Stages$Debugging$Model$showBugTypeHint = function (_v0) {
 	var change = _v0.a;
 	var hintVisibility = _v0.b;
 	return _Utils_Tuple2(
@@ -16975,6 +17044,61 @@ var $author$project$Main$Update$showBugTypeHint = function (_v0) {
 		_Utils_update(
 			hintVisibility,
 			{showingBugType: true}));
+};
+var $author$project$Utils$Types$Encouragements$switchToNext = function (encouragements) {
+	var list = encouragements.list;
+	var current = encouragements.current;
+	return _Utils_update(
+		encouragements,
+		{
+			current: A2(
+				$elm$core$Basics$modBy,
+				$elm$core$List$length(list),
+				current + 1)
+		});
+};
+var $author$project$Stages$Debugging$Model$updateChange = F3(
+	function (index, updateFunc, model) {
+		var brokenFile = model.brokenFile;
+		var newChanges = A3($elm_community$list_extra$List$Extra$updateAt, index, updateFunc, brokenFile.changes);
+		var newBrokenFile = _Utils_update(
+			brokenFile,
+			{changes: newChanges});
+		return _Utils_update(
+			model,
+			{brokenFile: newBrokenFile});
+	});
+var $author$project$Stages$Debugging$Update$update = function (_v0) {
+	var model = _v0.model;
+	var msg = _v0.msg;
+	switch (msg.$) {
+		case 'ChangeTab':
+			var newTab = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{currentTab: newTab}),
+				$elm$core$Platform$Cmd$none);
+		case 'SaySomethingEncouraging':
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{
+						currentTab: $author$project$Stages$Debugging$Model$ImHavingTroublePage(true),
+						encouragements: $author$project$Utils$Types$Encouragements$switchToNext(model.encouragements)
+					}),
+				$elm$core$Platform$Cmd$none);
+		case 'ShowBugLineHint':
+			var bugIndex = msg.a;
+			return _Utils_Tuple2(
+				A3($author$project$Stages$Debugging$Model$updateChange, bugIndex, $author$project$Stages$Debugging$Model$showBugLineHint, model),
+				$elm$core$Platform$Cmd$none);
+		default:
+			var bugIndex = msg.a;
+			return _Utils_Tuple2(
+				A3($author$project$Stages$Debugging$Model$updateChange, bugIndex, $author$project$Stages$Debugging$Model$showBugTypeHint, model),
+				$elm$core$Platform$Cmd$none);
+	}
 };
 var $dillonkearns$elm_ts_json$TsJson$Encode$string = A2($dillonkearns$elm_ts_json$TsJson$Encode$Encoder, $elm$json$Json$Encode$string, $dillonkearns$elm_ts_json$Internal$TsJsonType$String);
 var $author$project$Main$Definitions$writeFile = $dillonkearns$elm_ts_json$TsJson$Encode$object(
@@ -17050,22 +17174,9 @@ var $author$project$Main$Update$update = F2(
 						_Utils_update(
 							model,
 							{
-								stage: A2(
-									$author$project$Main$Model$BrokeFile,
-									{
-										changes: A2(
-											$elm$core$List$map,
-											function (change) {
-												return _Utils_Tuple2(
-													change,
-													{showingBugType: false, showingLineNumber: false});
-											},
-											changes),
-										originalContent: content,
-										path: path,
-										updatedContent: newFileContent
-									},
-									$author$project$Main$Model$StepsPage)
+								stage: $author$project$Main$Model$Debugging(
+									$author$project$Stages$Debugging$Model$init(
+										{changes: changes, originalContent: content, path: path, updatedContent: newFileContent}))
 							}),
 						$author$project$Main$Interop$writeFile(
 							{content: newFileContent, path: path}));
@@ -17082,71 +17193,25 @@ var $author$project$Main$Update$update = F2(
 				}
 			case 'FileWasBroken':
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-			case 'ChangeInterfaceTab':
-				var newTab = msg.a;
-				var brokenFile = msg.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							stage: A2($author$project$Main$Model$BrokeFile, brokenFile, newTab)
-						}),
-					$elm$core$Platform$Cmd$none);
-			case 'SaySomethingEncouraging':
-				var brokenFile = msg.a;
-				var encouragements = model.encouragements;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							encouragements: _Utils_update(
-								encouragements,
-								{
-									current: A2(
-										$elm$core$Basics$modBy,
-										$elm$core$List$length(encouragements.list),
-										encouragements.current + 1)
-								}),
-							stage: A2(
-								$author$project$Main$Model$BrokeFile,
-								brokenFile,
-								$author$project$Main$Model$ImHavingTroublePage(true))
-						}),
-					$elm$core$Platform$Cmd$none);
-			case 'ShowBugLineHint':
-				var brokenFile = msg.a.brokenFile;
-				var bugIndex = msg.a.bugIndex;
-				var showingEncouragement = msg.a.showingEncouragement;
-				var newChanges = A3($elm_community$list_extra$List$Extra$updateAt, bugIndex, $author$project$Main$Update$showBugLineHint, brokenFile.changes);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							stage: A2(
-								$author$project$Main$Model$BrokeFile,
-								_Utils_update(
-									brokenFile,
-									{changes: newChanges}),
-								$author$project$Main$Model$ImHavingTroublePage(showingEncouragement))
-						}),
-					$elm$core$Platform$Cmd$none);
-			case 'ShowBugTypeHint':
-				var brokenFile = msg.a.brokenFile;
-				var bugIndex = msg.a.bugIndex;
-				var showingEncouragement = msg.a.showingEncouragement;
-				var newChanges = A3($elm_community$list_extra$List$Extra$updateAt, bugIndex, $author$project$Main$Update$showBugTypeHint, brokenFile.changes);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							stage: A2(
-								$author$project$Main$Model$BrokeFile,
-								_Utils_update(
-									brokenFile,
-									{changes: newChanges}),
-								$author$project$Main$Model$ImHavingTroublePage(showingEncouragement))
-						}),
-					$elm$core$Platform$Cmd$none);
+			case 'DebuggingInterface':
+				var debuggingMsg = msg.a;
+				var _v3 = model.stage;
+				if (_v3.$ === 'Debugging') {
+					var debuggingModel = _v3.a;
+					var _v4 = $author$project$Stages$Debugging$Update$update(
+						{model: debuggingModel, msg: debuggingMsg});
+					var newModel = _v4.a;
+					var cmd = _v4.b;
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								stage: $author$project$Main$Model$Debugging(newModel)
+							}),
+						A2($elm$core$Platform$Cmd$map, $author$project$Main$Msg$DebuggingInterface, cmd));
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
 			default:
 				var error = msg.a;
 				return _Utils_Tuple2(
