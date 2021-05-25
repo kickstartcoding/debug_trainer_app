@@ -1,4 +1,9 @@
-module Utils.Types.FileType exposing (FileType(..), fromFilePath)
+module Utils.Types.FileType exposing
+    ( FileType(..)
+    , fromFilePath
+    , toPrintFunctionName
+    , toString
+    )
 
 import String
 import Utils.Types.FilePath as FilePath exposing (FilePath)
@@ -13,6 +18,62 @@ type FileType
     | Rust
     | Go
     | Unknown
+
+
+toString : FileType -> String
+toString fileType =
+    case fileType of
+        Python ->
+            "Python"
+
+        JavaScript ->
+            "JavaScript"
+
+        Ruby ->
+            "Ruby"
+
+        Elm ->
+            "Elm"
+
+        Elixir ->
+            "Elixir"
+
+        Rust ->
+            "Rust"
+
+        Go ->
+            "Go"
+
+        Unknown ->
+            "unknown"
+
+
+toPrintFunctionName : FileType -> String
+toPrintFunctionName fileType =
+    case fileType of
+        Python ->
+            "print"
+
+        JavaScript ->
+            "console.log"
+
+        Ruby ->
+            "print"
+
+        Elm ->
+            "Debug.log"
+
+        Elixir ->
+            "IO.print"
+
+        Rust ->
+            "print!"
+
+        Go ->
+            "print"
+
+        Unknown ->
+            "print"
 
 
 fromFilePath : FilePath -> FileType

@@ -25,6 +25,7 @@ render bugCount ({ changes, path } as brokenFile) =
         , spacing 50
         , centerX
         , centerY
+        , paddingXY 0 20
         ]
         [ paragraph []
             [ text
@@ -75,7 +76,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just (ChangeInterfaceTab ImHavingTroublePage brokenFile)
+                    { onPress = Just (ChangeInterfaceTab (ImHavingTroublePage False) brokenFile)
                     , label = text "Help me!"
                     }
                 , Input.button

@@ -1,6 +1,7 @@
 module Main.Model exposing
     ( BrokenFile
     , DebuggingInterfaceTab(..)
+    , Encouragements
     , Error(..)
     , File
     , HintVisibility
@@ -17,7 +18,15 @@ type alias Model =
     { bugCount : Int
     , randomNumbers : List Int
     , stage : Stage
+    , lastDisplayedEncouragement : Maybe Int
+    , encouragements : Encouragements
     , maybeError : Maybe Error
+    }
+
+
+type alias Encouragements =
+    { list : List String
+    , current : Int
     }
 
 
@@ -30,13 +39,13 @@ type Stage
 
 type DebuggingInterfaceTab
     = StepsPage
-    | ImHavingTroublePage
+    | ImHavingTroublePage Bool
 
 
 type Error
     = CouldntParseBugCount String
     | CouldntBreakSelectedFile String
-    | BadFlags Json.Decode.Error
+    | BadFlags String
     | BadInterop Json.Decode.Error
 
 

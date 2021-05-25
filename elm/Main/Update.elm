@@ -72,21 +72,45 @@ update msg model =
         ChangeInterfaceTab newTab brokenFile ->
             ( { model | stage = BrokeFile brokenFile newTab }, Cmd.none )
 
-        ShowBugLineHint ({ changes } as brokenFile) bugIndex ->
+        SaySomethingEncouraging brokenFile ->
+            let
+                encouragements =
+                    model.encouragements
+            in
+            ( { model
+                | encouragements = { encouragements | current = modBy (List.length encouragements.list) (encouragements.current + 1) }
+                , stage = BrokeFile brokenFile (ImHavingTroublePage True)
+              }
+            , Cmd.none
+            )
+
+        ShowBugLineHint { brokenFile, bugIndex, showingEncouragement } ->
             let
                 newChanges =
-                    changes
+                    brokenFile.changes
                         |> List.Extra.updateAt bugIndex showBugLineHint
             in
-            ( { model | stage = BrokeFile { brokenFile | changes = newChanges } ImHavingTroublePage }, Cmd.none )
+            ( { model
+                | stage =
+                    BrokeFile { brokenFile | changes = newChanges }
+                        (ImHavingTroublePage showingEncouragement)
+              }
+            , Cmd.none
+            )
 
-        ShowBugTypeHint ({ changes } as brokenFile) bugIndex ->
+        ShowBugTypeHint { brokenFile, bugIndex, showingEncouragement } ->
             let
                 newChanges =
-                    changes
+                    brokenFile.changes
                         |> List.Extra.updateAt bugIndex showBugTypeHint
             in
-            ( { model | stage = BrokeFile { brokenFile | changes = newChanges } ImHavingTroublePage }, Cmd.none )
+            ( { model
+                | stage =
+                    BrokeFile { brokenFile | changes = newChanges }
+                        (ImHavingTroublePage showingEncouragement)
+              }
+            , Cmd.none
+            )
 
         InteropError error ->
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
