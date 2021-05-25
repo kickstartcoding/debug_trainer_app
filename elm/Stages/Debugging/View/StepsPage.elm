@@ -5,7 +5,7 @@ import Element.Background as Background
 import Element.Border exposing (rounded)
 import Element.Font as Font
 import Element.Input as Input
-import Stages.Debugging.Model exposing (Model, Tab(..))
+import Stages.Debugging.Model exposing (Model, Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
@@ -78,7 +78,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just (ChangeTab (ImHavingTroublePage False))
+                    { onPress = Just (ChangePage ImHavingTroublePage)
                     , label = text "Help me!"
                     }
                 , Input.button

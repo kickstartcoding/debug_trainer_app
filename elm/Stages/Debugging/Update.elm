@@ -1,6 +1,6 @@
 module Stages.Debugging.Update exposing (..)
 
-import Stages.Debugging.Model as Model exposing (Model, Tab(..))
+import Stages.Debugging.Model as Model exposing (Model, Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)
@@ -10,22 +10,16 @@ import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
 update : { model : Model, msg : Msg } -> ( Model, Cmd Msg )
 update { model, msg } =
     case msg of
-        -- ChangeTab newTab ->
-        --     ( model, Cmd.none )
-        -- ShowBugLineHint bugIndex ->
-        --     ( model, Cmd.none )
-        -- ShowBugTypeHint bugIndex ->
-        --     ( model, Cmd.none )
-        -- SaySomethingEncouraging ->
-        --     ( model, Cmd.none )
-        ChangeTab newTab ->
-            ( { model | currentTab = newTab }, Cmd.none )
+        ChangePage newPage ->
+            ( { model | currentPage = newPage }, Cmd.none )
 
-        SaySomethingEncouraging ->
-            ( { model
-                | encouragements = Encouragements.switchToNext model.encouragements
-                , currentTab = ImHavingTroublePage True
-              }
+        ChangeHelpTab newTab ->
+            ( { model | currentHelpTab = newTab }
+            , Cmd.none
+            )
+
+        SwitchToNextEncouragement ->
+            ( { model | encouragements = Encouragements.switchToNext model.encouragements }
             , Cmd.none
             )
 

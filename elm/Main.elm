@@ -8,7 +8,7 @@ import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
 import Main.View
-import Stages.Debugging.Model exposing (Tab(..))
+import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
 import Utils.List
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
@@ -46,7 +46,8 @@ init flags =
       --             }
       , stage =
             Debugging
-                { currentTab = ImHavingTroublePage False
+                { currentPage = ImHavingTroublePage
+                , currentHelpTab = DebuggingTips
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =
                     { originalContent = "function a (a, b, c) { return c }; a()"

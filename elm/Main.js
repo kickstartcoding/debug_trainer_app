@@ -5419,9 +5419,8 @@ var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFuncti
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
-var $author$project$Stages$Debugging$Model$ImHavingTroublePage = function (a) {
-	return {$: 'ImHavingTroublePage', a: a};
-};
+var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
+var $author$project$Stages$Debugging$Model$ImHavingTroublePage = {$: 'ImHavingTroublePage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
@@ -5633,7 +5632,8 @@ var $author$project$Main$init = function (flags) {
 						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
 						updatedContent: 'function a (b, a, c) { return c }; a()'
 					},
-					currentTab: $author$project$Stages$Debugging$Model$ImHavingTroublePage(false),
+					currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
+					currentPage: $author$project$Stages$Debugging$Model$ImHavingTroublePage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
 							$elm$core$Maybe$withDefault,
@@ -13027,10 +13027,9 @@ var $mdgriffith$elm_ui$Internal$Model$map = F2(
 		}
 	});
 var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
-var $author$project$Stages$Debugging$Msg$ChangeTab = function (a) {
-	return {$: 'ChangeTab', a: a};
+var $author$project$Stages$Debugging$Msg$ChangePage = function (a) {
+	return {$: 'ChangePage', a: a};
 };
-var $author$project$Stages$Debugging$Msg$SaySomethingEncouraging = {$: 'SaySomethingEncouraging'};
 var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
 var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
 var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
@@ -13045,11 +13044,9 @@ var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 };
 var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $author$project$Stages$Debugging$View$ImHavingTroublePage$changeOptions = F3(
-	function (_v0, index, _v1) {
-		var brokenFile = _v0.brokenFile;
-		var encouragementIsShowing = _v0.encouragementIsShowing;
-		var change = _v1.a;
-		var hintVisibility = _v1.b;
+	function (brokenFile, index, _v0) {
+		var change = _v0.a;
+		var hintVisibility = _v0.b;
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
@@ -13157,80 +13154,6 @@ var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
 	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
 	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
 };
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
 var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
 var $mdgriffith$elm_ui$Element$scrollbarX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsX);
 var $author$project$Utils$Types$FileType$toPrintFunctionName = function (fileType) {
@@ -13276,7 +13199,6 @@ var $author$project$Utils$Types$FileType$toString = function (fileType) {
 var $author$project$Stages$Debugging$View$ImHavingTroublePage$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
-	var encouragementIsShowing = _v0.encouragementIsShowing;
 	var brokenFile = _v0.brokenFile;
 	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
 	return A2(
@@ -13315,7 +13237,7 @@ var $author$project$Stages$Debugging$View$ImHavingTroublePage$render = function 
 								$mdgriffith$elm_ui$Element$text(' Back to instructions')
 							])),
 					onPress: $elm$core$Maybe$Just(
-						$author$project$Stages$Debugging$Msg$ChangeTab($author$project$Stages$Debugging$Model$StepsPage))
+						$author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$StepsPage))
 				}),
 				A2(
 				$mdgriffith$elm_ui$Element$row,
@@ -13437,70 +13359,9 @@ var $author$project$Stages$Debugging$View$ImHavingTroublePage$render = function 
 									]),
 								A2(
 									$elm$core$List$indexedMap,
-									$author$project$Stages$Debugging$View$ImHavingTroublePage$changeOptions(
-										{brokenFile: brokenFile, encouragementIsShowing: encouragementIsShowing}),
+									$author$project$Stages$Debugging$View$ImHavingTroublePage$changeOptions(brokenFile),
 									brokenFile.changes))
 							]))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$height(
-						$mdgriffith$elm_ui$Element$px(100)),
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-					]),
-				encouragementIsShowing ? _List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: $mdgriffith$elm_ui$Element$text('Say something else encouraging'),
-							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
-						}),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-							]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text(
-								A2(
-									$elm$core$Maybe$withDefault,
-									'You\'re doing great!',
-									A2(
-										$elm$core$Array$get,
-										encouragements.current,
-										$elm$core$Array$fromList(encouragements.list))))
-							]))
-					]) : _List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$Input$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-								$mdgriffith$elm_ui$Element$Font$center,
-								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-								$mdgriffith$elm_ui$Element$Border$rounded(5)
-							]),
-						{
-							label: $mdgriffith$elm_ui$Element$text('Say something encouraging'),
-							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SaySomethingEncouraging)
-						})
 					]))
 			]));
 };
@@ -13651,8 +13512,7 @@ var $author$project$Stages$Debugging$View$StepsPage$render = F2(
 									{
 										label: $mdgriffith$elm_ui$Element$text('Help me!'),
 										onPress: $elm$core$Maybe$Just(
-											$author$project$Stages$Debugging$Msg$ChangeTab(
-												$author$project$Stages$Debugging$Model$ImHavingTroublePage(false)))
+											$author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$ImHavingTroublePage))
 									}),
 									A2(
 									$mdgriffith$elm_ui$Element$Input$button,
@@ -13690,19 +13550,18 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
 	var brokenFile = _v0.brokenFile;
-	var currentTab = _v0.currentTab;
-	if (currentTab.$ === 'StepsPage') {
+	var currentPage = _v0.currentPage;
+	if (currentPage.$ === 'StepsPage') {
 		return A2(
 			$mdgriffith$elm_ui$Element$map,
 			$author$project$Main$Msg$DebuggingInterface,
 			A2($author$project$Stages$Debugging$View$StepsPage$render, bugCount, brokenFile));
 	} else {
-		var encouragementIsShowing = currentTab.a;
 		return A2(
 			$mdgriffith$elm_ui$Element$map,
 			$author$project$Main$Msg$DebuggingInterface,
 			$author$project$Stages$Debugging$View$ImHavingTroublePage$render(
-				{brokenFile: brokenFile, bugCount: bugCount, encouragementIsShowing: encouragementIsShowing, encouragements: encouragements}));
+				{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements}));
 	}
 };
 var $author$project$Main$View$render = function (_v0) {
@@ -13731,10 +13590,10 @@ var $author$project$Main$View$render = function (_v0) {
 								$elm$core$Maybe$Just(file));
 						case 'Debugging':
 							var brokenFile = stage.a.brokenFile;
-							var currentTab = stage.a.currentTab;
+							var currentPage = stage.a.currentPage;
 							var encouragements = stage.a.encouragements;
 							return $author$project$Stages$Debugging$View$render(
-								{brokenFile: brokenFile, bugCount: bugCount, currentTab: currentTab, encouragements: encouragements});
+								{brokenFile: brokenFile, bugCount: bugCount, currentPage: currentPage, encouragements: encouragements});
 						default:
 							return $mdgriffith$elm_ui$Element$none;
 					}
@@ -14836,7 +14695,8 @@ var $author$project$Stages$Debugging$Model$init = function (_v0) {
 			path: path,
 			updatedContent: updatedContent
 		},
-		currentTab: $author$project$Stages$Debugging$Model$StepsPage,
+		currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
+		currentPage: $author$project$Stages$Debugging$Model$StepsPage,
 		encouragements: $author$project$Utils$Types$Encouragements$init(0)
 	};
 };
@@ -17072,19 +16932,25 @@ var $author$project$Stages$Debugging$Update$update = function (_v0) {
 	var model = _v0.model;
 	var msg = _v0.msg;
 	switch (msg.$) {
-		case 'ChangeTab':
+		case 'ChangePage':
+			var newPage = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{currentPage: newPage}),
+				$elm$core$Platform$Cmd$none);
+		case 'ChangeHelpTab':
 			var newTab = msg.a;
 			return _Utils_Tuple2(
 				_Utils_update(
 					model,
-					{currentTab: newTab}),
+					{currentHelpTab: newTab}),
 				$elm$core$Platform$Cmd$none);
-		case 'SaySomethingEncouraging':
+		case 'SwitchToNextEncouragement':
 			return _Utils_Tuple2(
 				_Utils_update(
 					model,
 					{
-						currentTab: $author$project$Stages$Debugging$Model$ImHavingTroublePage(true),
 						encouragements: $author$project$Utils$Types$Encouragements$switchToNext(model.encouragements)
 					}),
 				$elm$core$Platform$Cmd$none);

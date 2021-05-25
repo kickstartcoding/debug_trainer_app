@@ -1,6 +1,7 @@
 module Stages.Debugging.Model exposing
-    ( Model
-    , Tab(..)
+    ( HelpTab(..)
+    , Model
+    , Page(..)
     , init
     , showBugLineHint
     , showBugTypeHint
@@ -16,14 +17,16 @@ import Utils.Types.FilePath exposing (FilePath)
 
 type alias Model =
     { brokenFile : BrokenFile
+    , currentHelpTab : HelpTab
     , encouragements : Encouragements
-    , currentTab : Tab
+    , currentPage : Page
     }
 
 
 init : { originalContent : String, updatedContent : String, changes : List ChangeData, path : FilePath } -> Model
 init { originalContent, updatedContent, changes, path } =
-    { currentTab = StepsPage
+    { currentPage = StepsPage
+    , currentHelpTab = DebuggingTips
     , encouragements = Encouragements.init 0
     , brokenFile =
         { originalContent = originalContent
@@ -43,9 +46,16 @@ init { originalContent, updatedContent, changes, path } =
     }
 
 
-type Tab
+type Page
     = StepsPage
-    | ImHavingTroublePage Bool
+    | ImHavingTroublePage
+
+
+type HelpTab
+    = DebuggingTips
+    | GiveMeAHint
+    | EncourageMe
+    | ShowFile
 
 
 updateChange : Int -> (( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )) -> Model -> Model

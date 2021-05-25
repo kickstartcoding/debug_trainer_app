@@ -7,7 +7,7 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Html.Attributes as HtmlAttrs
-import Stages.Debugging.Model exposing (Model, Tab(..))
+import Stages.Debugging.Model exposing (Model, Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
@@ -22,11 +22,10 @@ import Utils.Types.FileType as FileType exposing (FileType)
 render :
     { bugCount : Int
     , encouragements : Encouragements
-    , encouragementIsShowing : Bool
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
+render { bugCount, encouragements, brokenFile } =
     let
         fileType =
             brokenFile.path |> FileType.fromFilePath
@@ -40,7 +39,7 @@ render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
             , paddingXY 35 20
             , Border.rounded 5
             ]
-            { onPress = Just (ChangeTab StepsPage)
+            { onPress = Just (ChangePage StepsPage)
             , label = row [] [ el [ Font.bold ] (text "‹"), text " Back to instructions" ]
             }
         , row [ width fill, spacing 40 ]
@@ -64,60 +63,53 @@ render { bugCount, encouragements, encouragementIsShowing, brokenFile } =
                 [ paragraph [ Font.size 30 ] [ text "Give me a hint" ]
                 , column [ spacing 20, scrollbarX, width fill, height fill ]
                     (brokenFile.changes
-                        |> List.indexedMap
-                            (changeOptions
-                                { brokenFile = brokenFile
-                                , encouragementIsShowing = encouragementIsShowing
-                                }
-                            )
+                        |> List.indexedMap (changeOptions brokenFile)
                     )
                 ]
             ]
-        , row [ Font.center, height (px 100), spacing 20, width fill ] <|
-            if encouragementIsShowing then
-                [ Input.button
-                    [ Background.color Colors.purple
-                    , Font.color Colors.white
-                    , Font.center
-                    , paddingXY 35 20
-                    , Border.rounded 5
-                    ]
-                    { onPress = Just SaySomethingEncouraging
-                    , label = text "Say something else encouraging"
-                    }
-                , paragraph [ width fill ]
-                    [ text
-                        (encouragements.list
-                            |> Array.fromList
-                            |> Array.get encouragements.current
-                            |> Maybe.withDefault "You're doing great!"
-                        )
-                    ]
-                ]
 
-            else
-                [ Input.button
-                    [ Background.color Colors.purple
-                    , Font.color Colors.white
-                    , Font.center
-                    , paddingXY 35 20
-                    , Border.rounded 5
-                    ]
-                    { onPress = Just SaySomethingEncouraging
-                    , label = text "Say something encouraging"
-                    }
-                ]
+        -- , row [ Font.center, height (px 100), spacing 20, width fill ] <|
+        --     if encouragementIsShowing then
+        --         [ Input.button
+        --             [ Background.color Colors.purple
+        --             , Font.color Colors.white
+        --             , Font.center
+        --             , paddingXY 35 20
+        --             , Border.rounded 5
+        --             ]
+        --             { onPress = Just SaySomethingEncouraging
+        --             , label = text "Say something else encouraging"
+        --             }
+        --         , paragraph [ width fill ]
+        --             [ text
+        --                 (encouragements.list
+        --                     |> Array.fromList
+        --                     |> Array.get encouragements.current
+        --                     |> Maybe.withDefault "You're doing great!"
+        --                 )
+        --             ]
+        --         ]
+        --     else
+        --         [ Input.button
+        --             [ Background.color Colors.purple
+        --             , Font.color Colors.white
+        --             , Font.center
+        --             , paddingXY 35 20
+        --             , Border.rounded 5
+        --             ]
+        --             { onPress = Just SaySomethingEncouraging
+        --             , label = text "Say something encouraging"
+        --             }
+        --         ]
         ]
 
 
 changeOptions :
-    { brokenFile : BrokenFile
-    , encouragementIsShowing : Bool
-    }
+    BrokenFile
     -> Int
     -> ( ChangeData, HintVisibility )
     -> Element Msg
-changeOptions { brokenFile, encouragementIsShowing } index ( change, hintVisibility ) =
+changeOptions brokenFile index ( change, hintVisibility ) =
     column [ spacing 10 ]
         [ if List.length brokenFile.changes > 1 then
             paragraph [ Font.bold ] [ text ("Bug " ++ String.fromInt (index + 1)) ]
