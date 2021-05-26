@@ -5419,7 +5419,7 @@ var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFuncti
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
-var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
+var $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage = {$: 'IDontSeeAnyErrorsPage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
 var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
@@ -5637,7 +5637,7 @@ var $author$project$Main$init = function (flags) {
 					},
 					currentDebuggingTip: 0,
 					currentHelpTab: $author$project$Stages$Debugging$Model$ShowFile,
-					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
+					currentPage: $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
 							$elm$core$Maybe$withDefault,
@@ -13040,6 +13040,41 @@ var $author$project$Stages$Debugging$Model$EncourageMe = {$: 'EncourageMe'};
 var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
 var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
 var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
+var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
+var $author$project$Utils$UI$Buttons$back = function (_v0) {
+	var name = _v0.name;
+	var msg = _v0.msg;
+	return A2(
+		$mdgriffith$elm_ui$Element$Input$button,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+				$mdgriffith$elm_ui$Element$Font$center,
+				$mdgriffith$elm_ui$Element$width(
+				$mdgriffith$elm_ui$Element$px(250)),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+				$mdgriffith$elm_ui$Element$Border$rounded(5)
+			]),
+		{
+			label: A2(
+				$mdgriffith$elm_ui$Element$row,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$el,
+						_List_fromArray(
+							[$mdgriffith$elm_ui$Element$Font$bold]),
+						$mdgriffith$elm_ui$Element$text('‹')),
+						$mdgriffith$elm_ui$Element$text(' ' + name)
+					])),
+			onPress: $elm$core$Maybe$Just(msg)
+		});
+};
 var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
 var $author$project$Utils$Types$FileType$Elm = {$: 'Elm'};
 var $author$project$Utils$Types$FileType$Go = {$: 'Go'};
@@ -13053,10 +13088,6 @@ var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
 	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
 	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
 };
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
 	return {$: 'ShowBugLineHint', a: a};
 };
@@ -14160,33 +14191,10 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$mdgriffith$elm_ui$Element$Input$button,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-						$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$width(
-						$mdgriffith$elm_ui$Element$px(250)),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-						$mdgriffith$elm_ui$Element$Border$rounded(5)
-					]),
+				$author$project$Utils$UI$Buttons$back(
 				{
-					label: A2(
-						$mdgriffith$elm_ui$Element$row,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text('‹')),
-								$mdgriffith$elm_ui$Element$text(' Back to instructions')
-							])),
-					onPress: $elm$core$Maybe$Just(
-						$author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$StepsPage))
+					msg: $author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$StepsPage),
+					name: 'Back to instructions'
 				}),
 				A2(
 				$mdgriffith$elm_ui$Element$column,
@@ -14244,6 +14252,135 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 					]))
 			]));
 };
+var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = function (_v0) {
+	var path = _v0.path;
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(50)
+			]),
+		_List_fromArray(
+			[
+				$author$project$Utils$UI$Buttons$back(
+				{
+					msg: $author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$StepsPage),
+					name: 'Back to instructions'
+				}),
+				A2(
+				$mdgriffith$elm_ui$Element$el,
+				_List_fromArray(
+					[
+						A2($mdgriffith$elm_ui$Element$paddingXY, 35, 0)
+					]),
+				A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Border$rounded(5),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 40, 30),
+							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+							$mdgriffith$elm_ui$Element$spacing(30)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('If you have run '),
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Font$bold,
+											$mdgriffith$elm_ui$Element$Font$family(
+											_List_fromArray(
+												[$mdgriffith$elm_ui$Element$Font$monospace]))
+										]),
+									$mdgriffith$elm_ui$Element$text(
+										$author$project$Utils$Types$FilePath$toString(path))),
+									$mdgriffith$elm_ui$Element$text(' (or the project it\'s from) and aren\'t seeing any errors, there are a few things that might be happening.')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('1. It may be that the code that the bug was added to isn\'t running when you run the file (or project)')),
+									$mdgriffith$elm_ui$Element$text('. For example, if the file is part of a web site, you may need to visit a specific page or press a specific button to trigger the error.')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_fromArray(
+								[
+									A2($mdgriffith$elm_ui$Element$paddingXY, 40, 0)
+								]),
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('If you think this might be it, try running the file in different ways and see if any of them produce an error.')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('2. It may be that the code that the bug was added to just never gets run.')),
+									$mdgriffith$elm_ui$Element$text(' Maybe it\'s in a function that doesn\'t get used or an option that never gets selected? This app can\'t check for that sort of thing on its own, unfortunately.')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_fromArray(
+								[
+									A2($mdgriffith$elm_ui$Element$paddingXY, 40, 0)
+								]),
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('If you think this might be it, then you should probably reset the file, remove that code, and then try introducing a different error.')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$Font$bold]),
+									$mdgriffith$elm_ui$Element$text('3. It may be that the change we introduced into the file doesn\'t actually change the code enough to cause errors.'))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_fromArray(
+								[
+									A2($mdgriffith$elm_ui$Element$paddingXY, 40, 0)
+								]),
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('If you think this might be it, try rerunning Debugging Practice to introduce a different error.')
+								]))
+						]))),
+				A2(
+				$mdgriffith$elm_ui$Element$el,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height(
+						$mdgriffith$elm_ui$Element$px(20))
+					]),
+				$mdgriffith$elm_ui$Element$none)
+			]));
+};
+var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
 var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
@@ -14411,7 +14548,8 @@ var $author$project$Stages$Debugging$View$StepsPage$render = F2(
 								]),
 							{
 								label: $mdgriffith$elm_ui$Element$text('I don\'t see any errors!'),
-								onPress: $elm$core$Maybe$Nothing
+								onPress: $elm$core$Maybe$Just(
+									$author$project$Stages$Debugging$Msg$ChangePage($author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage))
 							})
 						]))
 				]));
@@ -14423,17 +14561,23 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 	var brokenFile = _v0.brokenFile;
 	var currentPage = _v0.currentPage;
 	var currentHelpTab = _v0.currentHelpTab;
-	if (currentPage.$ === 'StepsPage') {
-		return A2(
-			$mdgriffith$elm_ui$Element$map,
-			$author$project$Main$Msg$DebuggingInterface,
-			A2($author$project$Stages$Debugging$View$StepsPage$render, bugCount, brokenFile));
-	} else {
-		return A2(
-			$mdgriffith$elm_ui$Element$map,
-			$author$project$Main$Msg$DebuggingInterface,
-			$author$project$Stages$Debugging$View$HelpPage$render(
-				{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, encouragements: encouragements}));
+	switch (currentPage.$) {
+		case 'StepsPage':
+			return A2(
+				$mdgriffith$elm_ui$Element$map,
+				$author$project$Main$Msg$DebuggingInterface,
+				A2($author$project$Stages$Debugging$View$StepsPage$render, bugCount, brokenFile));
+		case 'HelpPage':
+			return A2(
+				$mdgriffith$elm_ui$Element$map,
+				$author$project$Main$Msg$DebuggingInterface,
+				$author$project$Stages$Debugging$View$HelpPage$render(
+					{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, encouragements: encouragements}));
+		default:
+			return A2(
+				$mdgriffith$elm_ui$Element$map,
+				$author$project$Main$Msg$DebuggingInterface,
+				$author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render(brokenFile));
 	}
 };
 var $author$project$Main$View$render = function (_v0) {

@@ -21,6 +21,7 @@ import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.Types.FilePath as FilePath exposing (FilePath)
 import Utils.Types.FileType as FileType exposing (FileType)
+import Utils.UI.Buttons as Buttons
 
 
 render :
@@ -37,17 +38,7 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
             brokenFile.path |> FileType.fromFilePath
     in
     column [ spacing 30, width fill, height fill ]
-        [ Input.button
-            [ Background.color Colors.purple
-            , Font.color Colors.white
-            , Font.center
-            , width (px 250)
-            , paddingXY 35 20
-            , Border.rounded 5
-            ]
-            { onPress = Just (ChangePage StepsPage)
-            , label = row [] [ el [ Font.bold ] (text "‹"), text " Back to instructions" ]
-            }
+        [ Buttons.back { name = "Back to instructions", msg = ChangePage StepsPage }
         , column [ width fill, height fill ]
             [ row [ width fill ]
                 [ renderTab

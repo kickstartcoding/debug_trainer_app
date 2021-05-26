@@ -7,7 +7,7 @@ import Stages.Debugging.View.HelpPage
 import Stages.Debugging.View.StepsPage
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements exposing (Encouragements)
-
+import Stages.Debugging.View.IDontSeeAnyErrorsPage
 
 render :
     { bugCount : Int
@@ -32,3 +32,7 @@ render { bugCount, encouragements, currentDebuggingTip, brokenFile, currentPage,
                     , brokenFile = brokenFile
                     , currentHelpTab = currentHelpTab
                     }
+
+        IDontSeeAnyErrorsPage ->
+            Element.map DebuggingInterface <|
+                Stages.Debugging.View.IDontSeeAnyErrorsPage.render brokenFile

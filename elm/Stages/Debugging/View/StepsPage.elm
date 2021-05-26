@@ -99,7 +99,7 @@ render bugCount ({ changes, path } as brokenFile) =
                 , rounded 5
                 , centerX
                 ]
-                { onPress = Nothing
+                { onPress = Just (ChangePage IDontSeeAnyErrorsPage)
                 , label = text "I don't see any errors!"
                 }
             ]

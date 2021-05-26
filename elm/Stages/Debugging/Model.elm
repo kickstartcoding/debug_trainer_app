@@ -52,6 +52,7 @@ init { originalContent, updatedContent, changes, path } =
 type Page
     = StepsPage
     | HelpPage
+    | IDontSeeAnyErrorsPage
 
 
 type HelpTab

@@ -13,6 +13,7 @@ import Utils.List
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
 import Utils.Types.FilePath as FilePath
+import Process exposing (Id)
 
 
 init : Value -> ( Model, Cmd Msg )
@@ -46,7 +47,7 @@ init flags =
       --             }
       , stage =
             Debugging
-                { currentPage = HelpPage
+                { currentPage = IDontSeeAnyErrorsPage
                 , currentHelpTab = ShowFile
                 , currentDebuggingTip = 0
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
