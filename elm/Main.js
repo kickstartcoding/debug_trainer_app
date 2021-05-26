@@ -5415,11 +5415,11 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$Model$BadFlags = function (a) {
 	return {$: 'BadFlags', a: a};
 };
+var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFunctionArgs'};
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
-var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
 var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
@@ -5626,6 +5626,9 @@ var $author$project$Main$init = function (flags) {
 								{showingBugType: false, showingLineNumber: false}),
 								_Utils_Tuple2(
 								{breakType: $author$project$Utils$Types$BreakType$RemoveParenthesis, changeDescription: 'removed a paren', lineNumber: 5},
+								{showingBugType: false, showingLineNumber: false}),
+								_Utils_Tuple2(
+								{breakType: $author$project$Utils$Types$BreakType$RemoveParenthesis, changeDescription: 'removed a paren', lineNumber: 5},
 								{showingBugType: false, showingLineNumber: false})
 							]),
 						originalContent: 'function a (a, b, c) { return c }; a()',
@@ -5633,7 +5636,7 @@ var $author$project$Main$init = function (flags) {
 						updatedContent: 'function a (b, a, c) { return c }; a()'
 					},
 					currentDebuggingTip: 0,
-					currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
+					currentHelpTab: $author$project$Stages$Debugging$Model$BugHints,
 					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
@@ -13028,10 +13031,10 @@ var $mdgriffith$elm_ui$Internal$Model$map = F2(
 		}
 	});
 var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
-var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Stages$Debugging$Msg$ChangePage = function (a) {
 	return {$: 'ChangePage', a: a};
 };
+var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
 var $author$project$Stages$Debugging$Model$EncourageMe = {$: 'EncourageMe'};
 var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
 var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
@@ -13064,22 +13067,35 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 	function (brokenFile, index, _v0) {
 		var change = _v0.a;
 		var hintVisibility = _v0.b;
+		var _v1 = ($elm$core$List$length(brokenFile.changes) > 1) ? {
+			header: A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_fromArray(
+					[$mdgriffith$elm_ui$Element$Font$bold, $mdgriffith$elm_ui$Element$Font$center]),
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(
+						'Bug ' + $elm$core$String$fromInt(index + 1))
+					])),
+			thisBugText: 'this bug',
+			thisOrItText: 'this'
+		} : {header: $mdgriffith$elm_ui$Element$none, thisBugText: 'the bug', thisOrItText: 'it'};
+		var header = _v1.header;
+		var thisBugText = _v1.thisBugText;
+		var thisOrItText = _v1.thisOrItText;
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$spacing(10)
+					$mdgriffith$elm_ui$Element$spacing(15),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(250)),
+					$mdgriffith$elm_ui$Element$centerX
 				]),
 			_List_fromArray(
 				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(
-							'Bug ' + $elm$core$String$fromInt(index + 1))
-						])),
+					header,
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -13094,7 +13110,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$text(
-								'this bug was introduced on line ' + ($elm$core$String$fromInt(change.lineNumber) + ' of the original file'))
+								thisBugText + (' was introduced on line ' + ($elm$core$String$fromInt(change.lineNumber) + ' of the original file')))
 							])) : A2(
 						$mdgriffith$elm_ui$Element$Input$button,
 						_List_fromArray(
@@ -13113,7 +13129,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Show me what line this bug is on')
+										$mdgriffith$elm_ui$Element$text('Show me what line ' + (thisBugText + ' is on'))
 									])),
 							onPress: $elm$core$Maybe$Just(
 								$author$project$Stages$Debugging$Msg$ShowBugLineHint(index))
@@ -13150,12 +13166,154 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this one is')
+										$mdgriffith$elm_ui$Element$text('Tell me what type of bug ' + (thisOrItText + ' is'))
 									])),
 							onPress: $elm$core$Maybe$Just(
 								$author$project$Stages$Debugging$Msg$ShowBugTypeHint(index))
 						}))
 				]));
+	});
+var $elm$core$List$takeReverse = F3(
+	function (n, list, kept) {
+		takeReverse:
+		while (true) {
+			if (n <= 0) {
+				return kept;
+			} else {
+				if (!list.b) {
+					return kept;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs,
+						$temp$kept = A2($elm$core$List$cons, x, kept);
+					n = $temp$n;
+					list = $temp$list;
+					kept = $temp$kept;
+					continue takeReverse;
+				}
+			}
+		}
+	});
+var $elm$core$List$takeTailRec = F2(
+	function (n, list) {
+		return $elm$core$List$reverse(
+			A3($elm$core$List$takeReverse, n, list, _List_Nil));
+	});
+var $elm$core$List$takeFast = F3(
+	function (ctr, n, list) {
+		if (n <= 0) {
+			return _List_Nil;
+		} else {
+			var _v0 = _Utils_Tuple2(n, list);
+			_v0$1:
+			while (true) {
+				_v0$5:
+				while (true) {
+					if (!_v0.b.b) {
+						return list;
+					} else {
+						if (_v0.b.b.b) {
+							switch (_v0.a) {
+								case 1:
+									break _v0$1;
+								case 2:
+									var _v2 = _v0.b;
+									var x = _v2.a;
+									var _v3 = _v2.b;
+									var y = _v3.a;
+									return _List_fromArray(
+										[x, y]);
+								case 3:
+									if (_v0.b.b.b.b) {
+										var _v4 = _v0.b;
+										var x = _v4.a;
+										var _v5 = _v4.b;
+										var y = _v5.a;
+										var _v6 = _v5.b;
+										var z = _v6.a;
+										return _List_fromArray(
+											[x, y, z]);
+									} else {
+										break _v0$5;
+									}
+								default:
+									if (_v0.b.b.b.b && _v0.b.b.b.b.b) {
+										var _v7 = _v0.b;
+										var x = _v7.a;
+										var _v8 = _v7.b;
+										var y = _v8.a;
+										var _v9 = _v8.b;
+										var z = _v9.a;
+										var _v10 = _v9.b;
+										var w = _v10.a;
+										var tl = _v10.b;
+										return (ctr > 1000) ? A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A2($elm$core$List$takeTailRec, n - 4, tl))))) : A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A3($elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
+									} else {
+										break _v0$5;
+									}
+							}
+						} else {
+							if (_v0.a === 1) {
+								break _v0$1;
+							} else {
+								break _v0$5;
+							}
+						}
+					}
+				}
+				return list;
+			}
+			var _v1 = _v0.b;
+			var x = _v1.a;
+			return _List_fromArray(
+				[x]);
+		}
+	});
+var $elm$core$List$take = F2(
+	function (n, list) {
+		return A3($elm$core$List$takeFast, 0, n, list);
+	});
+var $author$project$Utils$List$groupsOf = F2(
+	function (size, list) {
+		if (_Utils_cmp(
+			$elm$core$List$length(list),
+			size) < 1) {
+			return _List_fromArray(
+				[list]);
+		} else {
+			var remaining = A2($elm$core$List$drop, size, list);
+			var group = A2($elm$core$List$take, size, list);
+			return A2(
+				$elm$core$List$cons,
+				group,
+				A2($author$project$Utils$List$groupsOf, size, remaining));
+		}
 	});
 var $author$project$Stages$Debugging$View$HelpTabs$BugHints$render = function (_v0) {
 	var bugCount = _v0.bugCount;
@@ -13165,30 +13323,235 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$render = function (_
 		_List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$scrollbarY,
+				$mdgriffith$elm_ui$Element$spacing(50),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 30, 50)
+			]),
+		A2(
+			$elm$core$List$map,
+			$mdgriffith$elm_ui$Element$row(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(40),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+					])),
+			A2(
+				$author$project$Utils$List$groupsOf,
+				2,
+				A2(
+					$elm$core$List$indexedMap,
+					$author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions(brokenFile),
+					brokenFile.changes))));
+};
+var $author$project$Stages$Debugging$Msg$SwitchToNextDebuggingTip = {$: 'SwitchToNextDebuggingTip'};
+var $author$project$Stages$Debugging$Msg$SwitchToPreviousDebuggingTip = {$: 'SwitchToPreviousDebuggingTip'};
+var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tipColumn = function (content) {
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(20),
+				$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
+				$mdgriffith$elm_ui$Element$Border$rounded(5),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 30, 20),
+				$mdgriffith$elm_ui$Element$centerY,
+				$mdgriffith$elm_ui$Element$centerX
+			]),
+		content);
+};
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tipHeader = function (content) {
+	return A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Font$size(20),
+				$mdgriffith$elm_ui$Element$Font$bold,
+				A2($mdgriffith$elm_ui$Element$paddingXY, 12, 0)
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$column,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$spacing(20)
-							]),
-						A2(
-							$elm$core$List$indexedMap,
-							$author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions(brokenFile),
-							brokenFile.changes))
-					]))
+				$mdgriffith$elm_ui$Element$text(content)
 			]));
+};
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip = function (_v0) {
+	var header = _v0.header;
+	var content = _v0.content;
+	return _List_fromArray(
+		[
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tipHeader(header),
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tipColumn(content)
+		]);
+};
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip = $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+	{
+		content: _List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
+					]))
+			]),
+		header: 'Tip #1: Find the line number'
+	});
+var $author$project$Utils$Colors$darkPurple = A3($mdgriffith$elm_ui$Element$rgb, 0.20, 0, 0.30);
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
+var $mdgriffith$elm_ui$Element$link = F2(
+	function (attrs, _v0) {
+		var url = _v0.url;
+		var label = _v0.label;
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$NodeName('a'),
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Attr(
+					$elm$html$Html$Attributes$href(url)),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Internal$Model$Attr(
+						$elm$html$Html$Attributes$rel('noopener noreferrer')),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+						A2(
+							$elm$core$List$cons,
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+							A2(
+								$elm$core$List$cons,
+								$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.contentCenterX + (' ' + ($mdgriffith$elm_ui$Internal$Style$classes.contentCenterY + (' ' + $mdgriffith$elm_ui$Internal$Style$classes.link)))),
+								attrs))))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[label])));
+	});
+var $mdgriffith$elm_ui$Internal$Model$Hover = {$: 'Hover'};
+var $mdgriffith$elm_ui$Internal$Model$PseudoSelector = F2(
+	function (a, b) {
+		return {$: 'PseudoSelector', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$hover = $mdgriffith$elm_ui$Internal$Flag$flag(33);
+var $elm$virtual_dom$VirtualDom$mapAttribute = _VirtualDom_mapAttribute;
+var $mdgriffith$elm_ui$Internal$Model$mapAttrFromStyle = F2(
+	function (fn, attr) {
+		switch (attr.$) {
+			case 'NoAttribute':
+				return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+			case 'Describe':
+				var description = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$Describe(description);
+			case 'AlignX':
+				var x = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$AlignX(x);
+			case 'AlignY':
+				var y = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$AlignY(y);
+			case 'Width':
+				var x = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$Width(x);
+			case 'Height':
+				var x = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$Height(x);
+			case 'Class':
+				var x = attr.a;
+				var y = attr.b;
+				return A2($mdgriffith$elm_ui$Internal$Model$Class, x, y);
+			case 'StyleClass':
+				var flag = attr.a;
+				var style = attr.b;
+				return A2($mdgriffith$elm_ui$Internal$Model$StyleClass, flag, style);
+			case 'Nearby':
+				var location = attr.a;
+				var elem = attr.b;
+				return A2(
+					$mdgriffith$elm_ui$Internal$Model$Nearby,
+					location,
+					A2($mdgriffith$elm_ui$Internal$Model$map, fn, elem));
+			case 'Attr':
+				var htmlAttr = attr.a;
+				return $mdgriffith$elm_ui$Internal$Model$Attr(
+					A2($elm$virtual_dom$VirtualDom$mapAttribute, fn, htmlAttr));
+			default:
+				var fl = attr.a;
+				var trans = attr.b;
+				return A2($mdgriffith$elm_ui$Internal$Model$TransformComponent, fl, trans);
+		}
+	});
+var $mdgriffith$elm_ui$Internal$Model$removeNever = function (style) {
+	return A2($mdgriffith$elm_ui$Internal$Model$mapAttrFromStyle, $elm$core$Basics$never, style);
+};
+var $mdgriffith$elm_ui$Internal$Model$unwrapDecsHelper = F2(
+	function (attr, _v0) {
+		var styles = _v0.a;
+		var trans = _v0.b;
+		var _v1 = $mdgriffith$elm_ui$Internal$Model$removeNever(attr);
+		switch (_v1.$) {
+			case 'StyleClass':
+				var style = _v1.b;
+				return _Utils_Tuple2(
+					A2($elm$core$List$cons, style, styles),
+					trans);
+			case 'TransformComponent':
+				var flag = _v1.a;
+				var component = _v1.b;
+				return _Utils_Tuple2(
+					styles,
+					A2($mdgriffith$elm_ui$Internal$Model$composeTransformation, trans, component));
+			default:
+				return _Utils_Tuple2(styles, trans);
+		}
+	});
+var $mdgriffith$elm_ui$Internal$Model$unwrapDecorations = function (attrs) {
+	var _v0 = A3(
+		$elm$core$List$foldl,
+		$mdgriffith$elm_ui$Internal$Model$unwrapDecsHelper,
+		_Utils_Tuple2(_List_Nil, $mdgriffith$elm_ui$Internal$Model$Untransformed),
+		attrs);
+	var styles = _v0.a;
+	var transform = _v0.b;
+	return A2(
+		$elm$core$List$cons,
+		$mdgriffith$elm_ui$Internal$Model$Transform(transform),
+		styles);
+};
+var $mdgriffith$elm_ui$Element$mouseOver = function (decs) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$hover,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$PseudoSelector,
+			$mdgriffith$elm_ui$Internal$Model$Hover,
+			$mdgriffith$elm_ui$Internal$Model$unwrapDecorations(decs)));
+};
+var $mdgriffith$elm_ui$Element$Font$underline = $mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.underline);
+var $author$project$Utils$UI$Link$render = function (_v0) {
+	var url = _v0.url;
+	var label = _v0.label;
+	return A2(
+		$mdgriffith$elm_ui$Element$link,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$purple),
+				$mdgriffith$elm_ui$Element$Font$underline,
+				$mdgriffith$elm_ui$Element$mouseOver(
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$darkPurple)
+					]))
+			]),
+		{label: label, url: url});
 };
 var $author$project$Utils$Types$FileType$toPrintFunctionName = function (fileType) {
 	switch (fileType.$) {
@@ -13230,43 +13593,84 @@ var $author$project$Utils$Types$FileType$toString = function (fileType) {
 			return 'unknown';
 	}
 };
-var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip = function (fileType) {
-	return _List_fromArray(
-		[
-			A2(
-			$mdgriffith$elm_ui$Element$paragraph,
-			_List_Nil,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
-				])),
-			A2(
-			$mdgriffith$elm_ui$Element$paragraph,
-			_List_Nil,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$text('In '),
-					A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[$mdgriffith$elm_ui$Element$Font$bold]),
-					$mdgriffith$elm_ui$Element$text(
-						$author$project$Utils$Types$FileType$toString(fileType))),
-					$mdgriffith$elm_ui$Element$text(' you can use '),
-					A2(
-					$mdgriffith$elm_ui$Element$el,
-					_List_fromArray(
-						[$mdgriffith$elm_ui$Element$Font$bold]),
-					$mdgriffith$elm_ui$Element$text(
-						$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
-					$mdgriffith$elm_ui$Element$text(' for this.')
-				]))
-		]);
-};
 var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips = function (fileType) {
 	return _List_fromArray(
 		[
-			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip(fileType)
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip,
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+			{
+				content: _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('In '),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text(
+									$author$project$Utils$Types$FileType$toString(fileType))),
+								$mdgriffith$elm_ui$Element$text(' you can use '),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text(
+									$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
+								$mdgriffith$elm_ui$Element$text(' for this.')
+							]))
+					]),
+				header: 'Tip #2: Print your variables'
+			}),
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+			{
+				content: _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('If you\'re not sure what a particular error message means, try copying and pasting it into a search engine like '),
+								$author$project$Utils$UI$Link$render(
+								{
+									label: $mdgriffith$elm_ui$Element$text('DuckDuckGo'),
+									url: 'https://duckduckgo.com/'
+								}),
+								$mdgriffith$elm_ui$Element$text(' or '),
+								$author$project$Utils$UI$Link$render(
+								{
+									label: $mdgriffith$elm_ui$Element$text('Google'),
+									url: 'https://google.com/'
+								}),
+								$mdgriffith$elm_ui$Element$text('.')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('You can read some search tips that will work for most search engines '),
+								$author$project$Utils$UI$Link$render(
+								{
+									label: $mdgriffith$elm_ui$Element$text('here'),
+									url: 'https://markodenic.com/use-google-like-a-pro/'
+								}),
+								$mdgriffith$elm_ui$Element$text('.')
+							]))
+					]),
+				header: 'Tip #3: Google your error messages'
+			})
 		]);
 };
 var $elm$core$Array$fromListHelp = F3(
@@ -13354,7 +13758,6 @@ var $author$project$Utils$List$getByWrappedIndex = F2(
 			wrappedIndex,
 			$elm$core$Array$fromList(list));
 	});
-var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
 var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = function (_v0) {
 	var currentDebuggingTip = _v0.currentDebuggingTip;
 	var brokenFile = _v0.brokenFile;
@@ -13370,40 +13773,71 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = functi
 		_List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$column,
+				$mdgriffith$elm_ui$Element$el,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-						$mdgriffith$elm_ui$Element$Border$rounded(5),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						A2($mdgriffith$elm_ui$Element$paddingXY, 60, 20)
+					]),
+				A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$centerY,
+							$mdgriffith$elm_ui$Element$spacing(10)
+						]),
+					A2(
+						$elm$core$Maybe$withDefault,
+						$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip,
+						A2(
+							$author$project$Utils$List$getByWrappedIndex,
+							currentDebuggingTip,
+							$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips(fileType))))),
+				A2(
+				$mdgriffith$elm_ui$Element$row,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$centerX,
+						$mdgriffith$elm_ui$Element$spacing(20)
 					]),
 				_List_fromArray(
 					[
 						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
+						$mdgriffith$elm_ui$Element$Input$button,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
-							]))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-						$mdgriffith$elm_ui$Element$Border$rounded(5),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
-					]),
-				A2(
-					$elm$core$Maybe$withDefault,
-					$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip(fileType),
-					A2(
-						$author$project$Utils$List$getByWrappedIndex,
-						currentDebuggingTip,
-						$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips(fileType))))
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								$mdgriffith$elm_ui$Element$centerX,
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5),
+								$mdgriffith$elm_ui$Element$width(
+								$mdgriffith$elm_ui$Element$px(200))
+							]),
+						{
+							label: $mdgriffith$elm_ui$Element$text('previous tip'),
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SwitchToPreviousDebuggingTip)
+						}),
+						A2(
+						$mdgriffith$elm_ui$Element$Input$button,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+								$mdgriffith$elm_ui$Element$Font$center,
+								$mdgriffith$elm_ui$Element$centerX,
+								A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+								$mdgriffith$elm_ui$Element$Border$rounded(5),
+								$mdgriffith$elm_ui$Element$width(
+								$mdgriffith$elm_ui$Element$px(200))
+							]),
+						{
+							label: $mdgriffith$elm_ui$Element$text('next tip'),
+							onPress: $elm$core$Maybe$Just($author$project$Stages$Debugging$Msg$SwitchToNextDebuggingTip)
+						})
+					]))
 			]));
 };
 var $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement = {$: 'SwitchToNextEncouragement'};
@@ -15290,132 +15724,6 @@ var $author$project$Utils$FileContent$rowFromOffset = F2(
 				A2($elm$core$String$left, offset, source)));
 		return newlinesCount + 1;
 	});
-var $elm$core$List$takeReverse = F3(
-	function (n, list, kept) {
-		takeReverse:
-		while (true) {
-			if (n <= 0) {
-				return kept;
-			} else {
-				if (!list.b) {
-					return kept;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs,
-						$temp$kept = A2($elm$core$List$cons, x, kept);
-					n = $temp$n;
-					list = $temp$list;
-					kept = $temp$kept;
-					continue takeReverse;
-				}
-			}
-		}
-	});
-var $elm$core$List$takeTailRec = F2(
-	function (n, list) {
-		return $elm$core$List$reverse(
-			A3($elm$core$List$takeReverse, n, list, _List_Nil));
-	});
-var $elm$core$List$takeFast = F3(
-	function (ctr, n, list) {
-		if (n <= 0) {
-			return _List_Nil;
-		} else {
-			var _v0 = _Utils_Tuple2(n, list);
-			_v0$1:
-			while (true) {
-				_v0$5:
-				while (true) {
-					if (!_v0.b.b) {
-						return list;
-					} else {
-						if (_v0.b.b.b) {
-							switch (_v0.a) {
-								case 1:
-									break _v0$1;
-								case 2:
-									var _v2 = _v0.b;
-									var x = _v2.a;
-									var _v3 = _v2.b;
-									var y = _v3.a;
-									return _List_fromArray(
-										[x, y]);
-								case 3:
-									if (_v0.b.b.b.b) {
-										var _v4 = _v0.b;
-										var x = _v4.a;
-										var _v5 = _v4.b;
-										var y = _v5.a;
-										var _v6 = _v5.b;
-										var z = _v6.a;
-										return _List_fromArray(
-											[x, y, z]);
-									} else {
-										break _v0$5;
-									}
-								default:
-									if (_v0.b.b.b.b && _v0.b.b.b.b.b) {
-										var _v7 = _v0.b;
-										var x = _v7.a;
-										var _v8 = _v7.b;
-										var y = _v8.a;
-										var _v9 = _v8.b;
-										var z = _v9.a;
-										var _v10 = _v9.b;
-										var w = _v10.a;
-										var tl = _v10.b;
-										return (ctr > 1000) ? A2(
-											$elm$core$List$cons,
-											x,
-											A2(
-												$elm$core$List$cons,
-												y,
-												A2(
-													$elm$core$List$cons,
-													z,
-													A2(
-														$elm$core$List$cons,
-														w,
-														A2($elm$core$List$takeTailRec, n - 4, tl))))) : A2(
-											$elm$core$List$cons,
-											x,
-											A2(
-												$elm$core$List$cons,
-												y,
-												A2(
-													$elm$core$List$cons,
-													z,
-													A2(
-														$elm$core$List$cons,
-														w,
-														A3($elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
-									} else {
-										break _v0$5;
-									}
-							}
-						} else {
-							if (_v0.a === 1) {
-								break _v0$1;
-							} else {
-								break _v0$5;
-							}
-						}
-					}
-				}
-				return list;
-			}
-			var _v1 = _v0.b;
-			var x = _v1.a;
-			return _List_fromArray(
-				[x]);
-		}
-	});
-var $elm$core$List$take = F2(
-	function (n, list) {
-		return A3($elm$core$List$takeFast, 0, n, list);
-	});
 var $elm_community$list_extra$List$Extra$updateAt = F3(
 	function (index, fn, list) {
 		if (index < 0) {
@@ -17295,6 +17603,12 @@ var $author$project$Stages$Debugging$Update$update = function (_v0) {
 				_Utils_update(
 					model,
 					{currentDebuggingTip: model.currentDebuggingTip + 1}),
+				$elm$core$Platform$Cmd$none);
+		case 'SwitchToPreviousDebuggingTip':
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{currentDebuggingTip: model.currentDebuggingTip - 1}),
 				$elm$core$Platform$Cmd$none);
 		case 'ShowBugLineHint':
 			var bugIndex = msg.a;

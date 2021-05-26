@@ -47,7 +47,7 @@ init flags =
       , stage =
             Debugging
                 { currentPage = HelpPage
-                , currentHelpTab = DebuggingTips
+                , currentHelpTab = BugHints
                 , currentDebuggingTip = 0
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =
@@ -57,6 +57,14 @@ init flags =
                         [ ( { lineNumber = 1
                             , breakType = ChangeFunctionArgs
                             , changeDescription = "swapped some goddamn args"
+                            }
+                          , { showingLineNumber = False
+                            , showingBugType = False
+                            }
+                          )
+                        , ( { lineNumber = 5
+                            , breakType = RemoveParenthesis
+                            , changeDescription = "removed a paren"
                             }
                           , { showingLineNumber = False
                             , showingBugType = False

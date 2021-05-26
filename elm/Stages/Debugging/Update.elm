@@ -29,6 +29,11 @@ update { model, msg } =
             , Cmd.none
             )
 
+        SwitchToPreviousDebuggingTip ->
+            ( { model | currentDebuggingTip = model.currentDebuggingTip - 1 }
+            , Cmd.none
+            )
+
         ShowBugLineHint bugIndex ->
             ( Model.updateChange bugIndex Model.showBugLineHint model
             , Cmd.none

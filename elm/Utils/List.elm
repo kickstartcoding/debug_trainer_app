@@ -3,12 +3,28 @@ module Utils.List exposing
     , pickRandom
     , previousValidIndex
     , shuffle
+    , groupsOf
     , getByWrappedIndex
     )
 
 import Array
 import List.Extra as ListEx
 
+
+groupsOf : Int -> List a -> List (List a)
+groupsOf size list =
+    if List.length list <= size then
+        [ list ]
+
+    else
+        let
+            group =
+                List.take size list
+
+            remaining =
+                List.drop size list
+        in
+        group :: groupsOf size remaining
 
 getByWrappedIndex : Int -> List a -> Maybe a
 getByWrappedIndex index list =

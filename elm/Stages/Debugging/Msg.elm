@@ -8,5 +8,6 @@ type Msg
     | ChangeHelpTab HelpTab
     | SwitchToNextEncouragement
     | SwitchToNextDebuggingTip
+    | SwitchToPreviousDebuggingTip
     | ShowBugLineHint Int
     | ShowBugTypeHint Int

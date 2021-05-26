@@ -1,6 +1,7 @@
 module Utils.Colors exposing
     ( black
     , darkGray
+    , darkPurple
     , darkened
     , gray
     , green
@@ -18,6 +19,11 @@ import Element exposing (Color, rgb, rgba)
 purple : Color
 purple =
     rgb 0.45 0 0.7
+
+
+darkPurple : Color
+darkPurple =
+    rgb 0.20 0 0.30
 
 
 green : Color
