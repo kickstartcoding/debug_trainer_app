@@ -47,12 +47,12 @@ init flags =
       , stage =
             Debugging
                 { currentPage = HelpPage
-                , currentHelpTab = BugHints
+                , currentHelpTab = ShowFile
                 , currentDebuggingTip = 0
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =
                     { originalContent = "function a (a, b, c) { return c }; a()"
-                    , updatedContent = "function a (b, a, c) { return c }; a()"
+                    , updatedContent = "function a (b, a, c) { c }; a()"
                     , changes =
                         [ ( { lineNumber = 1
                             , breakType = ChangeFunctionArgs

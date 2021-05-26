@@ -5415,13 +5415,13 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$Model$BadFlags = function (a) {
 	return {$: 'BadFlags', a: a};
 };
-var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFunctionArgs'};
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
 var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
+var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
 	var decoder_ = _v0.a;
@@ -5633,10 +5633,10 @@ var $author$project$Main$init = function (flags) {
 							]),
 						originalContent: 'function a (a, b, c) { return c }; a()',
 						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
-						updatedContent: 'function a (b, a, c) { return c }; a()'
+						updatedContent: 'function a (b, a, c) { c }; a()'
 					},
 					currentDebuggingTip: 0,
-					currentHelpTab: $author$project$Stages$Debugging$Model$BugHints,
+					currentHelpTab: $author$project$Stages$Debugging$Model$ShowFile,
 					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
@@ -13031,12 +13031,12 @@ var $mdgriffith$elm_ui$Internal$Model$map = F2(
 		}
 	});
 var $mdgriffith$elm_ui$Element$map = $mdgriffith$elm_ui$Internal$Model$map;
+var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Stages$Debugging$Msg$ChangePage = function (a) {
 	return {$: 'ChangePage', a: a};
 };
 var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
 var $author$project$Stages$Debugging$Model$EncourageMe = {$: 'EncourageMe'};
-var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
 var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
 var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
 var $mdgriffith$elm_ui$Element$Font$bold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.bold);
@@ -13606,36 +13606,8 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips =
 						_List_Nil,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
+								$mdgriffith$elm_ui$Element$text('If your code is printing out an error message, read what the message says is wrong and keep it in mind when trying to figure out the bug.')
 							])),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('In '),
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text(
-									$author$project$Utils$Types$FileType$toString(fileType))),
-								$mdgriffith$elm_ui$Element$text(' you can use '),
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text(
-									$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
-								$mdgriffith$elm_ui$Element$text(' for this.')
-							]))
-					]),
-				header: 'Tip #2: Print your variables'
-			}),
-			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
-			{
-				content: _List_fromArray(
-					[
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
 						_List_Nil,
@@ -13669,7 +13641,77 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips =
 								$mdgriffith$elm_ui$Element$text('.')
 							]))
 					]),
-				header: 'Tip #3: Google your error messages'
+				header: 'Tip #2: Check the error message'
+			}),
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+			{
+				content: _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('In '),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text(
+									$author$project$Utils$Types$FileType$toString(fileType))),
+								$mdgriffith$elm_ui$Element$text(' you can use '),
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text(
+									$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
+								$mdgriffith$elm_ui$Element$text(' for this.')
+							]))
+					]),
+				header: 'Tip #3: Print your variables'
+			}),
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+			{
+				content: _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('If you\'re stuck, the \"Bug Hints\" tab can tell you what line of the file a bug is on, or what type of bug it is.')
+							]))
+					]),
+				header: 'Tip #4: Get hints from the \"Bug Hints\" tab'
+			}),
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$tip(
+			{
+				content: _List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Sometimes you just need to get some food or some water, go to the bathroom, or go for a walk and let you brain rest a bit.')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('You might be surprised at the things you\'ll notice about your code after taking a break that you had completely missed before.')
+							]))
+					]),
+				header: 'Tip #5: Take breaks'
 			})
 		]);
 };
@@ -13898,6 +13940,84 @@ var $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render = functi
 				})
 			]));
 };
+var $mdgriffith$elm_ui$Element$Font$family = function (families) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$FontFamily,
+			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
+			families));
+};
+var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
+var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
+var $author$project$Utils$Colors$veryLightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.9, 0.9, 0.9);
+var $author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile = F2(
+	function (name, content) {
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(10),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$center,
+							$mdgriffith$elm_ui$Element$Font$size(30)
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(name)
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 10),
+							$mdgriffith$elm_ui$Element$Border$rounded(5),
+							$mdgriffith$elm_ui$Element$Font$family(
+							_List_fromArray(
+								[$mdgriffith$elm_ui$Element$Font$monospace]))
+						]),
+					$mdgriffith$elm_ui$Element$text(content))
+				]));
+	});
+var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
+var $author$project$Stages$Debugging$View$HelpTabs$ShowFile$render = function (_v0) {
+	var originalContent = _v0.originalContent;
+	var updatedContent = _v0.updatedContent;
+	var path = _v0.path;
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(30),
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
+				$mdgriffith$elm_ui$Element$scrollbars
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile,
+				$author$project$Utils$Types$FilePath$toString(path) + ' (original file)',
+				originalContent),
+				A2(
+				$author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile,
+				$author$project$Utils$Types$FilePath$toString(path) + ' (file with bug(s) added)',
+				updatedContent)
+			]));
+};
 var $author$project$Stages$Debugging$Msg$ChangeHelpTab = function (a) {
 	return {$: 'ChangeHelpTab', a: a};
 };
@@ -13929,7 +14049,6 @@ var $mdgriffith$elm_ui$Element$Border$roundEach = function (_v0) {
 			'border-radius',
 			$elm$core$String$fromInt(topLeft) + ('px ' + ($elm$core$String$fromInt(topRight) + ('px ' + ($elm$core$String$fromInt(bottomRight) + ('px ' + ($elm$core$String$fromInt(bottomLeft) + 'px'))))))));
 };
-var $author$project$Utils$Colors$veryLightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.9, 0.9, 0.9);
 var $mdgriffith$elm_ui$Element$Border$widthXY = F2(
 	function (x, y) {
 		return A2(
@@ -13968,8 +14087,7 @@ var $author$project$Stages$Debugging$View$HelpPage$renderTab = function (_v0) {
 		styles: _List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$Border$color($author$project$Utils$Colors$black),
-				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$black),
-				$mdgriffith$elm_ui$Element$Font$bold
+				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$black)
 			])
 	} : {
 		borderWidthBottom: 3,
@@ -14120,22 +14238,13 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 								return $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render(
 									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});
 							default:
-								return $mdgriffith$elm_ui$Element$text('not done yet');
+								return $author$project$Stages$Debugging$View$HelpTabs$ShowFile$render(brokenFile);
 						}
 					}()
 					]))
 			]));
 };
 var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
-var $mdgriffith$elm_ui$Element$Font$family = function (families) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$fontFamily,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$FontFamily,
-			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
-			families));
-};
 var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
 };

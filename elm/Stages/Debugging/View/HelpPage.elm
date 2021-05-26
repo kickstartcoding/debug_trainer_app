@@ -12,6 +12,7 @@ import Stages.Debugging.Msg exposing (Msg(..))
 import Stages.Debugging.View.HelpTabs.BugHints as BugHintsTab
 import Stages.Debugging.View.HelpTabs.DebuggingTips as DebuggingTipsTab
 import Stages.Debugging.View.HelpTabs.Encouragement as EncouragementTab
+import Stages.Debugging.View.HelpTabs.ShowFile as ShowFileTab
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
@@ -87,7 +88,7 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
                         }
 
                 ShowFile ->
-                    text "not done yet"
+                    ShowFileTab.render brokenFile
             ]
         ]
 
@@ -102,7 +103,6 @@ renderTab { tab, isActive } =
                 , styles =
                     [ Border.color Colors.black
                     , Font.color Colors.black
-                    , Font.bold
                     ]
                 }
 
