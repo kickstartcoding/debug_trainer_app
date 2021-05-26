@@ -46,7 +46,7 @@ init flags =
       --             }
       , stage =
             Debugging
-                { currentPage = ImHavingTroublePage
+                { currentPage = HelpPage
                 , currentHelpTab = DebuggingTips
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =

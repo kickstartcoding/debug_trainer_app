@@ -76,7 +76,6 @@ render { bugCount, encouragements, currentHelpTab, brokenFile } =
                 BugHints ->
                     BugHintsTab.render
                         { bugCount = bugCount
-                        , encouragements = encouragements
                         , brokenFile = brokenFile
                         }
 
@@ -117,15 +116,23 @@ renderTab { tab, isActive } =
                     ]
                 }
     in
-    Input.button
-        (styles
-            ++ [ Border.widthEach { bottom = borderWidthBottom, left = 3, right = 3, top = 3 }
-               , Border.roundEach { topLeft = 10, topRight = 10, bottomLeft = 0, bottomRight = 0 }
-               , Font.center
-               , width fill
-               , paddingEach { bottom = paddingBottom, left = 20, right = 20, top = 20 }
-               ]
-        )
-        { onPress = Just (ChangeHelpTab tab)
-        , label = text (Model.helpTabToString tab)
-        }
+    column [ width fill ]
+        [ Input.button
+            (styles
+                ++ [ Border.widthEach { bottom = 0, left = 3, right = 3, top = 3 }
+                   , Border.roundEach { topLeft = 10, topRight = 10, bottomLeft = 0, bottomRight = 0 }
+                   , Font.center
+                   , width fill
+                   , paddingEach { bottom = paddingBottom, left = 20, right = 20, top = 20 }
+                   ]
+            )
+            { onPress = Just (ChangeHelpTab tab)
+            , label = text (Model.helpTabToString tab)
+            }
+        , el
+            [ width fill
+            , Border.color Colors.black
+            , Border.widthEach { bottom = borderWidthBottom, left = 0, right = 0, top = 0 }
+            ]
+            none
+        ]

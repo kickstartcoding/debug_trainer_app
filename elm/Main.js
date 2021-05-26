@@ -5419,7 +5419,7 @@ var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFuncti
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
-var $author$project$Stages$Debugging$Model$EncourageMe = {$: 'EncourageMe'};
+var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
 var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
@@ -5632,7 +5632,7 @@ var $author$project$Main$init = function (flags) {
 						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
 						updatedContent: 'function a (b, a, c) { return c }; a()'
 					},
-					currentHelpTab: $author$project$Stages$Debugging$Model$EncourageMe,
+					currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
 					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
@@ -13031,7 +13031,7 @@ var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Stages$Debugging$Msg$ChangePage = function (a) {
 	return {$: 'ChangePage', a: a};
 };
-var $author$project$Stages$Debugging$Model$DebuggingTips = {$: 'DebuggingTips'};
+var $author$project$Stages$Debugging$Model$EncourageMe = {$: 'EncourageMe'};
 var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
 var $author$project$Stages$Debugging$Model$StepsPage = {$: 'StepsPage'};
 var $mdgriffith$elm_ui$Internal$Flag$fontWeight = $mdgriffith$elm_ui$Internal$Flag$flag(13);
@@ -13071,15 +13071,14 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 				]),
 			_List_fromArray(
 				[
-					($elm$core$List$length(brokenFile.changes) > 1) ? A2(
+					A2(
 					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[$mdgriffith$elm_ui$Element$Font$bold]),
+					_List_Nil,
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$text(
 							'Bug ' + $elm$core$String$fromInt(index + 1))
-						])) : $mdgriffith$elm_ui$Element$none,
+						])),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
@@ -13150,51 +13149,44 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 								_List_Nil,
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this is')
+										$mdgriffith$elm_ui$Element$text('Tell me what type of bug this one is')
 									])),
 							onPress: $elm$core$Maybe$Just(
 								$author$project$Stages$Debugging$Msg$ShowBugTypeHint(index))
 						}))
 				]));
 	});
-var $mdgriffith$elm_ui$Element$scrollbarX = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbarsX);
 var $author$project$Stages$Debugging$View$HelpTabs$BugHints$render = function (_v0) {
 	var bugCount = _v0.bugCount;
-	var encouragements = _v0.encouragements;
 	var brokenFile = _v0.brokenFile;
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(10)
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 			]),
 		_List_fromArray(
 			[
 				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
+				$mdgriffith$elm_ui$Element$row,
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$Font$size(30)
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 					]),
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$text('Give me a hint')
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$scrollbarX,
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-					]),
-				A2(
-					$elm$core$List$indexedMap,
-					$author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions(brokenFile),
-					brokenFile.changes))
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$spacing(20)
+							]),
+						A2(
+							$elm$core$List$indexedMap,
+							$author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions(brokenFile),
+							brokenFile.changes))
+					]))
 			]));
 };
 var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
@@ -13253,16 +13245,6 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = functi
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$size(30)
-					]),
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$text('Debugging Tips')
-					])),
 				A2(
 				$mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
@@ -13543,26 +13525,45 @@ var $author$project$Stages$Debugging$View$HelpPage$renderTab = function (_v0) {
 	var paddingBottom = _v1.paddingBottom;
 	var styles = _v1.styles;
 	return A2(
-		$mdgriffith$elm_ui$Element$Input$button,
-		_Utils_ap(
-			styles,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Border$widthEach(
-					{bottom: borderWidthBottom, left: 3, right: 3, top: 3}),
-					$mdgriffith$elm_ui$Element$Border$roundEach(
-					{bottomLeft: 0, bottomRight: 0, topLeft: 10, topRight: 10}),
-					$mdgriffith$elm_ui$Element$Font$center,
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$paddingEach(
-					{bottom: paddingBottom, left: 20, right: 20, top: 20})
-				])),
-		{
-			label: $mdgriffith$elm_ui$Element$text(
-				$author$project$Stages$Debugging$Model$helpTabToString(tab)),
-			onPress: $elm$core$Maybe$Just(
-				$author$project$Stages$Debugging$Msg$ChangeHelpTab(tab))
-		});
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$Input$button,
+				_Utils_ap(
+					styles,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Border$widthEach(
+							{bottom: 0, left: 3, right: 3, top: 3}),
+							$mdgriffith$elm_ui$Element$Border$roundEach(
+							{bottomLeft: 0, bottomRight: 0, topLeft: 10, topRight: 10}),
+							$mdgriffith$elm_ui$Element$Font$center,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$paddingEach(
+							{bottom: paddingBottom, left: 20, right: 20, top: 20})
+						])),
+				{
+					label: $mdgriffith$elm_ui$Element$text(
+						$author$project$Stages$Debugging$Model$helpTabToString(tab)),
+					onPress: $elm$core$Maybe$Just(
+						$author$project$Stages$Debugging$Msg$ChangeHelpTab(tab))
+				}),
+				A2(
+				$mdgriffith$elm_ui$Element$el,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$Border$color($author$project$Utils$Colors$black),
+						$mdgriffith$elm_ui$Element$Border$widthEach(
+						{bottom: borderWidthBottom, left: 0, right: 0, top: 0})
+					]),
+				$mdgriffith$elm_ui$Element$none)
+			]));
 };
 var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 	var bugCount = _v0.bugCount;
@@ -13653,7 +13654,7 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});
 							case 'BugHints':
 								return $author$project$Stages$Debugging$View$HelpTabs$BugHints$render(
-									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});
+									{brokenFile: brokenFile, bugCount: bugCount});
 							case 'EncourageMe':
 								return $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render(
 									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});

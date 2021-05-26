@@ -19,8 +19,7 @@ render { bugCount, encouragements, brokenFile } =
             brokenFile.path |> FileType.fromFilePath
     in
     column [ width fill, height fill, spacing 30 ]
-        [ paragraph [ Font.size 30 ] [ text "Debugging Tips" ]
-        , column [ spacing 20, Background.color Colors.lightGray, Border.rounded 5, paddingXY 20 20 ]
+        [ column [ spacing 20, Background.color Colors.lightGray, Border.rounded 5, paddingXY 20 20 ]
             [ paragraph [] [ text "Find the line number in the error message and check that part of the file first." ]
             ]
         , column [ spacing 20, Background.color Colors.lightGray, Border.rounded 5, paddingXY 20 20 ]
