@@ -1,6 +1,34 @@
-module Utils.List exposing (pickRandom, shuffle)
+module Utils.List exposing
+    ( nextValidIndex
+    , pickRandom
+    , previousValidIndex
+    , shuffle
+    , getByWrappedIndex
+    )
 
+import Array
 import List.Extra as ListEx
+
+
+getByWrappedIndex : Int -> List a -> Maybe a
+getByWrappedIndex index list =
+    let
+        wrappedIndex =
+            modBy (List.length list) index
+    in
+    list
+        |> Array.fromList
+        |> Array.get wrappedIndex
+
+
+nextValidIndex : Int -> List a -> Int
+nextValidIndex currentIndex list =
+    modBy (List.length list) (currentIndex + 1)
+
+
+previousValidIndex : Int -> List a -> Int
+previousValidIndex currentIndex list =
+    modBy (List.length list) (currentIndex + 1)
 
 
 pickRandom : Int -> List a -> Maybe a

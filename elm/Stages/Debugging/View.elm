@@ -14,10 +14,11 @@ render :
     , encouragements : Encouragements
     , currentPage : Page
     , currentHelpTab : HelpTab
+    , currentDebuggingTip : Int
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, encouragements, brokenFile, currentPage, currentHelpTab } =
+render { bugCount, encouragements, currentDebuggingTip, brokenFile, currentPage, currentHelpTab } =
     case currentPage of
         StepsPage ->
             Element.map DebuggingInterface <| Stages.Debugging.View.StepsPage.render bugCount brokenFile
@@ -27,6 +28,7 @@ render { bugCount, encouragements, brokenFile, currentPage, currentHelpTab } =
                 Stages.Debugging.View.HelpPage.render
                     { bugCount = bugCount
                     , encouragements = encouragements
+                    , currentDebuggingTip = currentDebuggingTip
                     , brokenFile = brokenFile
                     , currentHelpTab = currentHelpTab
                     }

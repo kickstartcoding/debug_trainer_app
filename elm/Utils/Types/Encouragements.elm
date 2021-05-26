@@ -18,7 +18,7 @@ init seed =
 
 switchToNext : Encouragements -> Encouragements
 switchToNext ({ list, current } as encouragements) =
-    { encouragements | current = modBy (List.length list) (current + 1) }
+    { encouragements | current = Utils.List.nextValidIndex current list }
 
 
 availableEncouragements : List String

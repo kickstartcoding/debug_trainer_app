@@ -7,5 +7,6 @@ type Msg
     = ChangePage Page
     | ChangeHelpTab HelpTab
     | SwitchToNextEncouragement
+    | SwitchToNextDebuggingTip
     | ShowBugLineHint Int
     | ShowBugTypeHint Int

@@ -2,6 +2,7 @@ module Stages.Debugging.Update exposing (..)
 
 import Stages.Debugging.Model as Model exposing (Model, Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
+import Utils.List
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
@@ -20,6 +21,11 @@ update { model, msg } =
 
         SwitchToNextEncouragement ->
             ( { model | encouragements = Encouragements.switchToNext model.encouragements }
+            , Cmd.none
+            )
+
+        SwitchToNextDebuggingTip ->
+            ( { model | currentDebuggingTip = model.currentDebuggingTip + 1 }
             , Cmd.none
             )
 

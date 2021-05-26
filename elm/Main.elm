@@ -48,6 +48,7 @@ init flags =
             Debugging
                 { currentPage = HelpPage
                 , currentHelpTab = DebuggingTips
+                , currentDebuggingTip = 0
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =
                     { originalContent = "function a (a, b, c) { return c }; a()"

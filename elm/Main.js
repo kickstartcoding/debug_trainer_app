@@ -5632,6 +5632,7 @@ var $author$project$Main$init = function (flags) {
 						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
 						updatedContent: 'function a (b, a, c) { return c }; a()'
 					},
+					currentDebuggingTip: 0,
 					currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
 					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
@@ -13189,7 +13190,6 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$render = function (_
 					]))
 			]));
 };
-var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
 var $author$project$Utils$Types$FileType$toPrintFunctionName = function (fileType) {
 	switch (fileType.$) {
 		case 'Python':
@@ -13230,83 +13230,45 @@ var $author$project$Utils$Types$FileType$toString = function (fileType) {
 			return 'unknown';
 	}
 };
-var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = function (_v0) {
-	var bugCount = _v0.bugCount;
-	var encouragements = _v0.encouragements;
-	var brokenFile = _v0.brokenFile;
-	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(30)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-						$mdgriffith$elm_ui$Element$Border$rounded(5),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
-							]))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$spacing(20),
-						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
-						$mdgriffith$elm_ui$Element$Border$rounded(5),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
-							])),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('In '),
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text(
-									$author$project$Utils$Types$FileType$toString(fileType))),
-								$mdgriffith$elm_ui$Element$text(' you can use '),
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text(
-									$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
-								$mdgriffith$elm_ui$Element$text(' for this.')
-							]))
-					]))
-			]));
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip = function (fileType) {
+	return _List_fromArray(
+		[
+			A2(
+			$mdgriffith$elm_ui$Element$paragraph,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!')
+				])),
+			A2(
+			$mdgriffith$elm_ui$Element$paragraph,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('In '),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$Font$bold]),
+					$mdgriffith$elm_ui$Element$text(
+						$author$project$Utils$Types$FileType$toString(fileType))),
+					$mdgriffith$elm_ui$Element$text(' you can use '),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$Font$bold]),
+					$mdgriffith$elm_ui$Element$text(
+						$author$project$Utils$Types$FileType$toPrintFunctionName(fileType))),
+					$mdgriffith$elm_ui$Element$text(' for this.')
+				]))
+		]);
 };
-var $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement = {$: 'SwitchToNextEncouragement'};
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips = function (fileType) {
+	return _List_fromArray(
+		[
+			$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip(fileType)
+		]);
+};
 var $elm$core$Array$fromListHelp = F3(
 	function (list, nodeList, nodeListSize) {
 		fromListHelp:
@@ -13381,6 +13343,70 @@ var $elm$core$Array$get = F2(
 			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
 			A3($elm$core$Array$getHelp, startShift, index, tree)));
 	});
+var $author$project$Utils$List$getByWrappedIndex = F2(
+	function (index, list) {
+		var wrappedIndex = A2(
+			$elm$core$Basics$modBy,
+			$elm$core$List$length(list),
+			index);
+		return A2(
+			$elm$core$Array$get,
+			wrappedIndex,
+			$elm$core$Array$fromList(list));
+	});
+var $author$project$Utils$Colors$lightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0.8, 0.8);
+var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = function (_v0) {
+	var currentDebuggingTip = _v0.currentDebuggingTip;
+	var brokenFile = _v0.brokenFile;
+	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$spacing(30)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(20),
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
+						$mdgriffith$elm_ui$Element$Border$rounded(5),
+						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Find the line number in the error message and check that part of the file first.')
+							]))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(20),
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$lightGray),
+						$mdgriffith$elm_ui$Element$Border$rounded(5),
+						A2($mdgriffith$elm_ui$Element$paddingXY, 20, 20)
+					]),
+				A2(
+					$elm$core$Maybe$withDefault,
+					$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$defaultTip(fileType),
+					A2(
+						$author$project$Utils$List$getByWrappedIndex,
+						currentDebuggingTip,
+						$author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips(fileType))))
+			]));
+};
+var $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement = {$: 'SwitchToNextEncouragement'};
 var $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
@@ -13567,6 +13593,7 @@ var $author$project$Stages$Debugging$View$HelpPage$renderTab = function (_v0) {
 };
 var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 	var bugCount = _v0.bugCount;
+	var currentDebuggingTip = _v0.currentDebuggingTip;
 	var encouragements = _v0.encouragements;
 	var currentHelpTab = _v0.currentHelpTab;
 	var brokenFile = _v0.brokenFile;
@@ -13651,7 +13678,7 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 						switch (currentHelpTab.$) {
 							case 'DebuggingTips':
 								return $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render(
-									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});
+									{brokenFile: brokenFile, currentDebuggingTip: currentDebuggingTip});
 							case 'BugHints':
 								return $author$project$Stages$Debugging$View$HelpTabs$BugHints$render(
 									{brokenFile: brokenFile, bugCount: bugCount});
@@ -13849,6 +13876,7 @@ var $author$project$Stages$Debugging$View$StepsPage$render = F2(
 var $author$project$Stages$Debugging$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
+	var currentDebuggingTip = _v0.currentDebuggingTip;
 	var brokenFile = _v0.brokenFile;
 	var currentPage = _v0.currentPage;
 	var currentHelpTab = _v0.currentHelpTab;
@@ -13862,7 +13890,7 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 			$mdgriffith$elm_ui$Element$map,
 			$author$project$Main$Msg$DebuggingInterface,
 			$author$project$Stages$Debugging$View$HelpPage$render(
-				{brokenFile: brokenFile, bugCount: bugCount, currentHelpTab: currentHelpTab, encouragements: encouragements}));
+				{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, encouragements: encouragements}));
 	}
 };
 var $author$project$Main$View$render = function (_v0) {
@@ -13894,8 +13922,9 @@ var $author$project$Main$View$render = function (_v0) {
 							var currentPage = stage.a.currentPage;
 							var currentHelpTab = stage.a.currentHelpTab;
 							var encouragements = stage.a.encouragements;
+							var currentDebuggingTip = stage.a.currentDebuggingTip;
 							return $author$project$Stages$Debugging$View$render(
-								{brokenFile: brokenFile, bugCount: bugCount, currentHelpTab: currentHelpTab, currentPage: currentPage, encouragements: encouragements});
+								{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, currentPage: currentPage, encouragements: encouragements});
 						default:
 							return $mdgriffith$elm_ui$Element$none;
 					}
@@ -14997,6 +15026,7 @@ var $author$project$Stages$Debugging$Model$init = function (_v0) {
 			path: path,
 			updatedContent: updatedContent
 		},
+		currentDebuggingTip: 0,
 		currentHelpTab: $author$project$Stages$Debugging$Model$DebuggingTips,
 		currentPage: $author$project$Stages$Debugging$Model$StepsPage,
 		encouragements: $author$project$Utils$Types$Encouragements$init(0)
@@ -17207,16 +17237,20 @@ var $author$project$Stages$Debugging$Model$showBugTypeHint = function (_v0) {
 			hintVisibility,
 			{showingBugType: true}));
 };
+var $author$project$Utils$List$nextValidIndex = F2(
+	function (currentIndex, list) {
+		return A2(
+			$elm$core$Basics$modBy,
+			$elm$core$List$length(list),
+			currentIndex + 1);
+	});
 var $author$project$Utils$Types$Encouragements$switchToNext = function (encouragements) {
 	var list = encouragements.list;
 	var current = encouragements.current;
 	return _Utils_update(
 		encouragements,
 		{
-			current: A2(
-				$elm$core$Basics$modBy,
-				$elm$core$List$length(list),
-				current + 1)
+			current: A2($author$project$Utils$List$nextValidIndex, current, list)
 		});
 };
 var $author$project$Stages$Debugging$Model$updateChange = F3(
@@ -17255,6 +17289,12 @@ var $author$project$Stages$Debugging$Update$update = function (_v0) {
 					{
 						encouragements: $author$project$Utils$Types$Encouragements$switchToNext(model.encouragements)
 					}),
+				$elm$core$Platform$Cmd$none);
+		case 'SwitchToNextDebuggingTip':
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{currentDebuggingTip: model.currentDebuggingTip + 1}),
 				$elm$core$Platform$Cmd$none);
 		case 'ShowBugLineHint':
 			var bugIndex = msg.a;

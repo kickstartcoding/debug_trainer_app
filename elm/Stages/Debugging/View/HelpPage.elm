@@ -25,11 +25,12 @@ import Utils.Types.FileType as FileType exposing (FileType)
 render :
     { bugCount : Int
     , encouragements : Encouragements
+    , currentDebuggingTip : Int
     , currentHelpTab : HelpTab
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, encouragements, currentHelpTab, brokenFile } =
+render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
     let
         fileType =
             brokenFile.path |> FileType.fromFilePath
@@ -68,8 +69,7 @@ render { bugCount, encouragements, currentHelpTab, brokenFile } =
             , case currentHelpTab of
                 DebuggingTips ->
                     DebuggingTipsTab.render
-                        { bugCount = bugCount
-                        , encouragements = encouragements
+                        { currentDebuggingTip = currentDebuggingTip
                         , brokenFile = brokenFile
                         }
 
