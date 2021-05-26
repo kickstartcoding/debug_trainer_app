@@ -78,7 +78,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Just (ChangePage ImHavingTroublePage)
+                    { onPress = Just (ChangePage HelpPage)
                     , label = text "Help me!"
                     }
                 , Input.button

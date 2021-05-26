@@ -6,6 +6,7 @@ module Stages.Debugging.Model exposing
     , showBugLineHint
     , showBugTypeHint
     , updateChange
+    , helpTabToString
     )
 
 import List.Extra
@@ -48,14 +49,30 @@ init { originalContent, updatedContent, changes, path } =
 
 type Page
     = StepsPage
-    | ImHavingTroublePage
+    | HelpPage
 
 
 type HelpTab
     = DebuggingTips
-    | GiveMeAHint
+    | BugHints
     | EncourageMe
     | ShowFile
+
+
+helpTabToString : HelpTab -> String
+helpTabToString tab =
+    case tab of
+        DebuggingTips ->
+            "Debugging Tips"
+
+        BugHints ->
+            "Bug Hints"
+
+        EncourageMe ->
+            "Encouragement"
+
+        ShowFile ->
+            "Show File"
 
 
 updateChange : Int -> (( ChangeData, HintVisibility ) -> ( ChangeData, HintVisibility )) -> Model -> Model

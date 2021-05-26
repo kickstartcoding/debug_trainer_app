@@ -1,11 +1,13 @@
 module Utils.Colors exposing
     ( black
+    , darkGray
     , darkened
     , gray
-    , lightGray
     , green
+    , lightGray
     , purple
     , red
+    , veryLightGray
     , white
     , whitened
     )
@@ -43,13 +45,24 @@ whitened amount =
     rgba 1 1 1 amount
 
 
+darkGray : Color
+darkGray =
+    rgb 0.3 0.3 0.3
+
+
 gray : Color
 gray =
     rgb 0.4 0.4 0.4
 
+
 lightGray : Color
 lightGray =
     rgb 0.8 0.8 0.8
+
+
+veryLightGray : Color
+veryLightGray =
+    rgb 0.9 0.9 0.9
 
 
 darkened : Float -> Color

@@ -20,12 +20,13 @@ render { bugCount, stage } =
                 GotFile file ->
                     Main.View.Start.render bugCount (Just file)
 
-                Debugging { brokenFile, currentPage, encouragements } ->
+                Debugging { brokenFile, currentPage, currentHelpTab, encouragements } ->
                     Stages.Debugging.View.render
                         { bugCount = bugCount
                         , encouragements = encouragements
                         , brokenFile = brokenFile
                         , currentPage = currentPage
+                        , currentHelpTab = currentHelpTab
                         }
 
                 Finished _ ->
