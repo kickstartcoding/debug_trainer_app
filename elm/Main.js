@@ -5419,9 +5419,9 @@ var $author$project$Utils$Types$BreakType$ChangeFunctionArgs = {$: 'ChangeFuncti
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
-var $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage = {$: 'IDontSeeAnyErrorsPage'};
+var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $author$project$Utils$Types$BreakType$RemoveParenthesis = {$: 'RemoveParenthesis'};
-var $author$project$Stages$Debugging$Model$ShowFile = {$: 'ShowFile'};
+var $author$project$Stages$Debugging$Model$ShowMeTheAnswer = {$: 'ShowMeTheAnswer'};
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
 	var decoder_ = _v0.a;
@@ -5618,6 +5618,7 @@ var $author$project$Main$init = function (flags) {
 			randomNumbers: randomNumbers,
 			stage: $author$project$Main$Model$Debugging(
 				{
+					answerIsShowing: false,
 					brokenFile: {
 						changes: _List_fromArray(
 							[
@@ -5636,8 +5637,8 @@ var $author$project$Main$init = function (flags) {
 						updatedContent: 'function a (b, a, c) { c }; a()'
 					},
 					currentDebuggingTip: 0,
-					currentHelpTab: $author$project$Stages$Debugging$Model$ShowFile,
-					currentPage: $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage,
+					currentHelpTab: $author$project$Stages$Debugging$Model$ShowMeTheAnswer,
+					currentPage: $author$project$Stages$Debugging$Model$HelpPage,
 					encouragements: $author$project$Utils$Types$Encouragements$init(
 						A2(
 							$elm$core$Maybe$withDefault,
@@ -13044,22 +13045,35 @@ var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 'Px', a: a};
 };
 var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
-var $author$project$Utils$UI$Buttons$back = function (_v0) {
-	var name = _v0.name;
+var $author$project$Utils$UI$Buttons$buttonTemplate = function (_v0) {
+	var label = _v0.label;
+	var attrs = _v0.attrs;
 	var msg = _v0.msg;
 	return A2(
 		$mdgriffith$elm_ui$Element$Input$button,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-				$mdgriffith$elm_ui$Element$Font$center,
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(250)),
-				A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-				$mdgriffith$elm_ui$Element$Border$rounded(5)
-			]),
+		_Utils_ap(
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+					$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+					$mdgriffith$elm_ui$Element$Font$center,
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(250)),
+					A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
+					$mdgriffith$elm_ui$Element$Border$rounded(5)
+				]),
+			attrs),
 		{
+			label: label,
+			onPress: $elm$core$Maybe$Just(msg)
+		});
+};
+var $author$project$Utils$UI$Buttons$back = function (_v0) {
+	var name = _v0.name;
+	var msg = _v0.msg;
+	return $author$project$Utils$UI$Buttons$buttonTemplate(
+		{
+			attrs: _List_Nil,
 			label: A2(
 				$mdgriffith$elm_ui$Element$row,
 				_List_Nil,
@@ -13072,7 +13086,7 @@ var $author$project$Utils$UI$Buttons$back = function (_v0) {
 						$mdgriffith$elm_ui$Element$text('‹')),
 						$mdgriffith$elm_ui$Element$text(' ' + name)
 					])),
-			onPress: $elm$core$Maybe$Just(msg)
+			msg: msg
 		});
 };
 var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
@@ -13971,6 +13985,22 @@ var $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render = functi
 				})
 			]));
 };
+var $author$project$Stages$Debugging$Msg$ShowTheAnswer = {$: 'ShowTheAnswer'};
+var $author$project$Utils$Constants$appName = 'Debugging Trainer';
+var $author$project$Utils$Types$BrokenFile$bugOrBugsString = function (brokenFile) {
+	return ($elm$core$List$length(brokenFile.changes) > 1) ? 'bugs' : 'bug';
+};
+var $author$project$Utils$UI$Buttons$button = F2(
+	function (attrs, _v0) {
+		var name = _v0.name;
+		var msg = _v0.msg;
+		return $author$project$Utils$UI$Buttons$buttonTemplate(
+			{
+				attrs: attrs,
+				label: $mdgriffith$elm_ui$Element$text(name),
+				msg: msg
+			});
+	});
 var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -13983,7 +14013,7 @@ var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
 var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
 var $author$project$Utils$Colors$veryLightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.9, 0.9, 0.9);
-var $author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile = F2(
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile = F2(
 	function (name, content) {
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
@@ -14023,32 +14053,61 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile = F2(
 				]));
 	});
 var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
-var $author$project$Stages$Debugging$View$HelpTabs$ShowFile$render = function (_v0) {
-	var originalContent = _v0.originalContent;
-	var updatedContent = _v0.updatedContent;
-	var path = _v0.path;
-	return A2(
-		$mdgriffith$elm_ui$Element$column,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$spacing(30),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-				A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
-				$mdgriffith$elm_ui$Element$scrollbars
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile,
-				$author$project$Utils$Types$FilePath$toString(path) + ' (original file)',
-				originalContent),
-				A2(
-				$author$project$Stages$Debugging$View$HelpTabs$ShowFile$renderFile,
-				$author$project$Utils$Types$FilePath$toString(path) + ' (file with bug(s) added)',
-				updatedContent)
-			]));
-};
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = F2(
+	function (answerIsShowing, brokenFile) {
+		var originalContent = brokenFile.originalContent;
+		var updatedContent = brokenFile.updatedContent;
+		var path = brokenFile.path;
+		return answerIsShowing ? A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(30),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
+					$mdgriffith$elm_ui$Element$scrollbars
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile,
+					$author$project$Utils$Types$FilePath$toString(path) + ' (original file)',
+					originalContent),
+					A2(
+					$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile,
+					$author$project$Utils$Types$FilePath$toString(path) + (' (file with ' + ($author$project$Utils$Types$BrokenFile$bugOrBugsString(brokenFile) + ' added)')),
+					updatedContent)
+				])) : A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$centerY,
+					$mdgriffith$elm_ui$Element$spacing(30)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(400)),
+							$mdgriffith$elm_ui$Element$Font$center
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text(
+							'Can\'t figure out the ' + ($author$project$Utils$Types$BrokenFile$bugOrBugsString(brokenFile) + ('? No problem, click the button below to show exactly what ' + ($author$project$Utils$Constants$appName + ' did to the file.'))))
+						])),
+					A2(
+					$author$project$Utils$UI$Buttons$button,
+					_List_fromArray(
+						[$mdgriffith$elm_ui$Element$centerX]),
+					{msg: $author$project$Stages$Debugging$Msg$ShowTheAnswer, name: 'Show me the answer'})
+				]));
+	});
 var $author$project$Stages$Debugging$Msg$ChangeHelpTab = function (a) {
 	return {$: 'ChangeHelpTab', a: a};
 };
@@ -14063,7 +14122,7 @@ var $author$project$Stages$Debugging$Model$helpTabToString = function (tab) {
 		case 'EncourageMe':
 			return 'Encouragement';
 		default:
-			return 'Show File';
+			return 'Show Answer';
 	}
 };
 var $mdgriffith$elm_ui$Element$Border$roundEach = function (_v0) {
@@ -14176,6 +14235,7 @@ var $author$project$Stages$Debugging$View$HelpPage$renderTab = function (_v0) {
 };
 var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 	var bugCount = _v0.bugCount;
+	var answerIsShowing = _v0.answerIsShowing;
 	var currentDebuggingTip = _v0.currentDebuggingTip;
 	var encouragements = _v0.encouragements;
 	var currentHelpTab = _v0.currentHelpTab;
@@ -14230,8 +14290,8 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 								}),
 								$author$project$Stages$Debugging$View$HelpPage$renderTab(
 								{
-									isActive: _Utils_eq($author$project$Stages$Debugging$Model$ShowFile, currentHelpTab),
-									tab: $author$project$Stages$Debugging$Model$ShowFile
+									isActive: _Utils_eq($author$project$Stages$Debugging$Model$ShowMeTheAnswer, currentHelpTab),
+									tab: $author$project$Stages$Debugging$Model$ShowMeTheAnswer
 								})
 							])),
 						function () {
@@ -14246,13 +14306,12 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 								return $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render(
 									{brokenFile: brokenFile, bugCount: bugCount, encouragements: encouragements});
 							default:
-								return $author$project$Stages$Debugging$View$HelpTabs$ShowFile$render(brokenFile);
+								return A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render, answerIsShowing, brokenFile);
 						}
 					}()
 					]))
 			]));
 };
-var $author$project$Utils$Constants$appName = 'Debugging Trainer';
 var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = function (_v0) {
 	var path = _v0.path;
 	return A2(
@@ -14381,7 +14440,7 @@ var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = functio
 				$mdgriffith$elm_ui$Element$none)
 			]));
 };
-var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
+var $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage = {$: 'IDontSeeAnyErrorsPage'};
 var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
 var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
@@ -14559,6 +14618,7 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
 	var currentDebuggingTip = _v0.currentDebuggingTip;
+	var answerIsShowing = _v0.answerIsShowing;
 	var brokenFile = _v0.brokenFile;
 	var currentPage = _v0.currentPage;
 	var currentHelpTab = _v0.currentHelpTab;
@@ -14573,7 +14633,7 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 				$mdgriffith$elm_ui$Element$map,
 				$author$project$Main$Msg$DebuggingInterface,
 				$author$project$Stages$Debugging$View$HelpPage$render(
-					{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, encouragements: encouragements}));
+					{answerIsShowing: answerIsShowing, brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, encouragements: encouragements}));
 		default:
 			return A2(
 				$mdgriffith$elm_ui$Element$map,
@@ -14611,8 +14671,9 @@ var $author$project$Main$View$render = function (_v0) {
 							var currentHelpTab = stage.a.currentHelpTab;
 							var encouragements = stage.a.encouragements;
 							var currentDebuggingTip = stage.a.currentDebuggingTip;
+							var answerIsShowing = stage.a.answerIsShowing;
 							return $author$project$Stages$Debugging$View$render(
-								{brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, currentPage: currentPage, encouragements: encouragements});
+								{answerIsShowing: answerIsShowing, brokenFile: brokenFile, bugCount: bugCount, currentDebuggingTip: currentDebuggingTip, currentHelpTab: currentHelpTab, currentPage: currentPage, encouragements: encouragements});
 						default:
 							return $mdgriffith$elm_ui$Element$none;
 					}
@@ -15701,6 +15762,7 @@ var $author$project$Stages$Debugging$Model$init = function (_v0) {
 	var changes = _v0.changes;
 	var path = _v0.path;
 	return {
+		answerIsShowing: false,
 		brokenFile: {
 			changes: A2(
 				$elm$core$List$map,
@@ -17869,10 +17931,16 @@ var $author$project$Stages$Debugging$Update$update = function (_v0) {
 			return _Utils_Tuple2(
 				A3($author$project$Stages$Debugging$Model$updateChange, bugIndex, $author$project$Stages$Debugging$Model$showBugLineHint, model),
 				$elm$core$Platform$Cmd$none);
-		default:
+		case 'ShowBugTypeHint':
 			var bugIndex = msg.a;
 			return _Utils_Tuple2(
 				A3($author$project$Stages$Debugging$Model$updateChange, bugIndex, $author$project$Stages$Debugging$Model$showBugTypeHint, model),
+				$elm$core$Platform$Cmd$none);
+		default:
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{answerIsShowing: true}),
 				$elm$core$Platform$Cmd$none);
 	}
 };

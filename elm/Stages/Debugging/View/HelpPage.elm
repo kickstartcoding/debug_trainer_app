@@ -12,7 +12,7 @@ import Stages.Debugging.Msg exposing (Msg(..))
 import Stages.Debugging.View.HelpTabs.BugHints as BugHintsTab
 import Stages.Debugging.View.HelpTabs.DebuggingTips as DebuggingTipsTab
 import Stages.Debugging.View.HelpTabs.Encouragement as EncouragementTab
-import Stages.Debugging.View.HelpTabs.ShowFile as ShowFileTab
+import Stages.Debugging.View.HelpTabs.ShowMeTheAnswer as ShowMeTheAnswerTab
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
@@ -28,11 +28,12 @@ render :
     { bugCount : Int
     , encouragements : Encouragements
     , currentDebuggingTip : Int
+    , answerIsShowing : Bool
     , currentHelpTab : HelpTab
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
+render { bugCount, answerIsShowing, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
     let
         fileType =
             brokenFile.path |> FileType.fromFilePath
@@ -54,8 +55,8 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
                     , isActive = EncourageMe == currentHelpTab
                     }
                 , renderTab
-                    { tab = ShowFile
-                    , isActive = ShowFile == currentHelpTab
+                    { tab = ShowMeTheAnswer
+                    , isActive = ShowMeTheAnswer == currentHelpTab
                     }
                 ]
             , case currentHelpTab of
@@ -78,8 +79,8 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
                         , brokenFile = brokenFile
                         }
 
-                ShowFile ->
-                    ShowFileTab.render brokenFile
+                ShowMeTheAnswer ->
+                    ShowMeTheAnswerTab.render answerIsShowing brokenFile
             ]
         ]
 

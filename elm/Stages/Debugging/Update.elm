@@ -43,3 +43,8 @@ update { model, msg } =
             ( Model.updateChange bugIndex Model.showBugTypeHint model
             , Cmd.none
             )
+
+        ShowTheAnswer ->
+            ( { model | answerIsShowing = True }
+            , Cmd.none
+            )

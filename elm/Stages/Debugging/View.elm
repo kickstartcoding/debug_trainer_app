@@ -4,10 +4,11 @@ import Element exposing (Element)
 import Main.Msg exposing (Msg(..))
 import Stages.Debugging.Model exposing (HelpTab, Page(..))
 import Stages.Debugging.View.HelpPage
+import Stages.Debugging.View.IDontSeeAnyErrorsPage
 import Stages.Debugging.View.StepsPage
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements exposing (Encouragements)
-import Stages.Debugging.View.IDontSeeAnyErrorsPage
+
 
 render :
     { bugCount : Int
@@ -15,10 +16,11 @@ render :
     , currentPage : Page
     , currentHelpTab : HelpTab
     , currentDebuggingTip : Int
+    , answerIsShowing : Bool
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, encouragements, currentDebuggingTip, brokenFile, currentPage, currentHelpTab } =
+render { bugCount, encouragements, currentDebuggingTip, answerIsShowing, brokenFile, currentPage, currentHelpTab } =
     case currentPage of
         StepsPage ->
             Element.map DebuggingInterface <| Stages.Debugging.View.StepsPage.render bugCount brokenFile
@@ -29,6 +31,7 @@ render { bugCount, encouragements, currentDebuggingTip, brokenFile, currentPage,
                     { bugCount = bugCount
                     , encouragements = encouragements
                     , currentDebuggingTip = currentDebuggingTip
+                    , answerIsShowing = answerIsShowing
                     , brokenFile = brokenFile
                     , currentHelpTab = currentHelpTab
                     }

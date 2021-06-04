@@ -8,12 +8,12 @@ import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
 import Main.View
+import Process exposing (Id)
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
 import Utils.List
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
 import Utils.Types.FilePath as FilePath
-import Process exposing (Id)
 
 
 init : Value -> ( Model, Cmd Msg )
@@ -47,9 +47,10 @@ init flags =
       --             }
       , stage =
             Debugging
-                { currentPage = IDontSeeAnyErrorsPage
-                , currentHelpTab = ShowFile
+                { currentPage = HelpPage
+                , currentHelpTab = ShowMeTheAnswer
                 , currentDebuggingTip = 0
+                , answerIsShowing = False
                 , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
                 , brokenFile =
                     { originalContent = "function a (a, b, c) { return c }; a()"

@@ -1,6 +1,6 @@
 module Stages.Debugging.Msg exposing (Msg(..))
 
-import Stages.Debugging.Model exposing (Page, HelpTab)
+import Stages.Debugging.Model exposing (HelpTab, Page)
 
 
 type Msg
@@ -11,3 +11,4 @@ type Msg
     | SwitchToPreviousDebuggingTip
     | ShowBugLineHint Int
     | ShowBugTypeHint Int
+    | ShowTheAnswer
