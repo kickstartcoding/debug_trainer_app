@@ -14252,6 +14252,7 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 					]))
 			]));
 };
+var $author$project$Utils$Constants$appName = 'Debugging Trainer';
 var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = function (_v0) {
 	var path = _v0.path;
 	return A2(
@@ -14323,7 +14324,7 @@ var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = functio
 								]),
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$text('If you think this might be it, try running the file in different ways and see if any of them produce an error.')
+									$mdgriffith$elm_ui$Element$text('If you think this might be it, try running the file (or project) in different ways and see if any of them produce an error.')
 								])),
 							A2(
 							$mdgriffith$elm_ui$Element$paragraph,
@@ -14345,7 +14346,7 @@ var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = functio
 								]),
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$text('If you think this might be it, then you should probably reset the file, remove that code, and then try introducing a different error.')
+									$mdgriffith$elm_ui$Element$text('If you think this might be it, then you should probably reset the file, remove the unused code, and then try making ' + ($author$project$Utils$Constants$appName + ' generate a different error.'))
 								])),
 							A2(
 							$mdgriffith$elm_ui$Element$paragraph,
