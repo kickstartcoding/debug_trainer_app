@@ -15,6 +15,8 @@ import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.Types.FilePath as FilePath
 import Utils.Types.FileType as FileType exposing (FileType)
 import Utils.UI.Buttons as Buttons
+import Utils.UI.Css as Css
+import Utils.UI.Text as Text
 
 
 render : Bool -> BrokenFile -> Element Msg
@@ -28,15 +30,19 @@ render answerIsShowing ({ originalContent, updatedContent, path } as brokenFile)
             , scrollbars
             ]
         <|
-            [ renderFile (FilePath.toString path ++ " (original file)") originalContent
-            , renderFile
-                (FilePath.toString path
-                    ++ " (file with "
-                    ++ BrokenFile.bugOrBugsString brokenFile
-                    ++ " added)"
-                )
-                updatedContent
-            ]
+            (brokenFile.changes
+                |> List.map Tuple.first
+                |> List.indexedMap (renderChange brokenFile)
+            )
+        -- [ renderFile (FilePath.toString path ++ " (original file)") originalContent
+        -- , renderFile
+        --     (FilePath.toString path
+        --         ++ " (file with "
+        --         ++ BrokenFile.bugOrBugsString brokenFile
+        --         ++ " added)"
+        --     )
+        --     updatedContent
+        -- ]
 
     else
         column
@@ -64,17 +70,86 @@ render answerIsShowing ({ originalContent, updatedContent, path } as brokenFile)
             ]
 
 
-renderFile : String -> String -> Element Msg
-renderFile name content =
-    column [ spacing 10, height fill, width fill ]
-        [ paragraph [ Font.center, Font.size 30 ] [ text name ]
-        , el
-            [ width fill
-            , height fill
-            , Background.color Colors.veryLightGray
-            , paddingXY 20 10
-            , Border.rounded 5
-            , Font.family [ Font.monospace ]
+renderChange : BrokenFile -> Int -> ChangeData -> Element msg
+renderChange brokenFile index { lineNumber, changeDescription } =
+    let
+        { bugString } =
+            if List.length brokenFile.changes > 1 then
+                { bugString = "bug #" ++ String.fromInt (index + 1)
+                }
+
+            else
+                { bugString = "a bug"
+                }
+    in
+    column [ width fill ]
+        [ paragraph [] [ text (changeDescription ++ " on line " ++ String.fromInt lineNumber) ]
+        , row [ spacing 20, width fill ]
+            [ column [ width fill ]
+                [ text "in the original file"
+                , column
+                    [ Background.color Colors.veryLightGray
+                    , Border.rounded 5
+                    , width fill
+                    ]
+                    (getNearbyLines lineNumber brokenFile.originalContent
+                        |> List.map (renderCodeLine lineNumber)
+                    )
+                ]
+            , column [ width fill ]
+                [ text "after being broken"
+                , column
+                    [ Background.color Colors.veryLightGray
+                    , Border.rounded 5
+                    , width fill
+                    ]
+                    (getNearbyLines lineNumber brokenFile.updatedContent
+                        |> List.map (renderCodeLine lineNumber)
+                    )
+                ]
             ]
-            (text content)
         ]
+
+
+renderCodeLine : Int -> ( Int, String ) -> Element msg
+renderCodeLine changedLineNumber ( lineNumber, content ) =
+    let
+        { numBackground, lineBackground, fontStyle } =
+            if lineNumber == changedLineNumber then
+                { numBackground = rgb 0.7 0.7 0.7
+                , lineBackground = Colors.lightGray
+                , fontStyle = Font.extraBold
+                }
+
+            else
+                { numBackground = Colors.lightGray
+                , lineBackground = Colors.veryLightGray
+                , fontStyle = Font.medium
+                }
+    in
+    row [ width fill ]
+        [ Text.codeWithAttrs
+            [ Css.unselectable
+            , Background.color numBackground
+            , fontStyle
+            , Border.rounded 0
+            ]
+            (String.fromInt lineNumber)
+        , Text.codeWithAttrs
+            [ Background.color lineBackground
+            , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
+            , Border.rounded 0
+            , fontStyle
+            , width fill
+            ]
+            content
+        ]
+
+
+getNearbyLines : Int -> String -> List ( Int, String )
+getNearbyLines lineNumber wholeFile =
+    wholeFile
+        |> String.lines
+        |> List.indexedMap (\index line -> ( index + 1, line ))
+        |> List.drop (lineNumber - 3)
+        |> List.take 5

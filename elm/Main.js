@@ -5618,7 +5618,7 @@ var $author$project$Main$init = function (flags) {
 			randomNumbers: randomNumbers,
 			stage: $author$project$Main$Model$Debugging(
 				{
-					answerIsShowing: false,
+					answerIsShowing: true,
 					brokenFile: {
 						changes: _List_fromArray(
 							[
@@ -5632,9 +5632,9 @@ var $author$project$Main$init = function (flags) {
 								{breakType: $author$project$Utils$Types$BreakType$RemoveParenthesis, changeDescription: 'removed a paren', lineNumber: 5},
 								{showingBugType: false, showingLineNumber: false})
 							]),
-						originalContent: 'function a (a, b, c) { return c }; a()',
+						originalContent: 'function a (a, b, c)\n{\n  return c\n}\n\na()\n',
 						path: $author$project$Utils$Types$FilePath$fromString('testfile.js'),
-						updatedContent: 'function a (b, a, c) { c }; a()'
+						updatedContent: 'function a (b, a, c)\n{\n  c\n}\n\na()\n'
 					},
 					currentDebuggingTip: 0,
 					currentHelpTab: $author$project$Stages$Debugging$Model$ShowMeTheAnswer,
@@ -14001,6 +14001,24 @@ var $author$project$Utils$UI$Buttons$button = F2(
 				msg: msg
 			});
 	});
+var $elm$core$String$lines = _String_lines;
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines = F2(
+	function (lineNumber, wholeFile) {
+		return A2(
+			$elm$core$List$take,
+			5,
+			A2(
+				$elm$core$List$drop,
+				lineNumber - 3,
+				A2(
+					$elm$core$List$indexedMap,
+					F2(
+						function (index, line) {
+							return _Utils_Tuple2(index + 1, line);
+						}),
+					$elm$core$String$lines(wholeFile))));
+	});
+var $author$project$Utils$Colors$black = A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0);
 var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 	return A2(
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
@@ -14010,46 +14028,154 @@ var $mdgriffith$elm_ui$Element$Font$family = function (families) {
 			A3($elm$core$List$foldl, $mdgriffith$elm_ui$Internal$Model$renderFontClassName, 'ff-', families),
 			families));
 };
-var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
-var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
+var $mdgriffith$elm_ui$Element$Font$sansSerif = $mdgriffith$elm_ui$Internal$Model$SansSerif;
+var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
 var $author$project$Utils$Colors$veryLightGray = A3($mdgriffith$elm_ui$Element$rgb, 0.9, 0.9, 0.9);
-var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile = F2(
-	function (name, content) {
+var $author$project$Utils$UI$Text$codeAttrs = _List_fromArray(
+	[
+		$mdgriffith$elm_ui$Element$Font$family(
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Font$typeface('Monaco'),
+				$mdgriffith$elm_ui$Element$Font$sansSerif
+			])),
+		$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$black),
+		$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+		A2($mdgriffith$elm_ui$Element$paddingXY, 5, 2)
+	]);
+var $author$project$Utils$UI$Text$codeWithAttrs = F2(
+	function (attrs, string) {
+		return A2(
+			$mdgriffith$elm_ui$Element$el,
+			_Utils_ap($author$project$Utils$UI$Text$codeAttrs, attrs),
+			$mdgriffith$elm_ui$Element$text(string));
+	});
+var $mdgriffith$elm_ui$Element$Font$extraBold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.textExtraBold);
+var $mdgriffith$elm_ui$Element$Font$medium = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.textMedium);
+var $author$project$Utils$UI$Css$unselectable = $mdgriffith$elm_ui$Element$htmlAttribute(
+	A2($elm$html$Html$Attributes$style, 'user-select', 'none'));
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine = F2(
+	function (changedLineNumber, _v0) {
+		var lineNumber = _v0.a;
+		var content = _v0.b;
+		var _v1 = _Utils_eq(lineNumber, changedLineNumber) ? {
+			fontStyle: $mdgriffith$elm_ui$Element$Font$extraBold,
+			lineBackground: $author$project$Utils$Colors$lightGray,
+			numBackground: A3($mdgriffith$elm_ui$Element$rgb, 0.7, 0.7, 0.7)
+		} : {fontStyle: $mdgriffith$elm_ui$Element$Font$medium, lineBackground: $author$project$Utils$Colors$veryLightGray, numBackground: $author$project$Utils$Colors$lightGray};
+		var numBackground = _v1.numBackground;
+		var lineBackground = _v1.lineBackground;
+		var fontStyle = _v1.fontStyle;
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$author$project$Utils$UI$Text$codeWithAttrs,
+					_List_fromArray(
+						[
+							$author$project$Utils$UI$Css$unselectable,
+							$mdgriffith$elm_ui$Element$Background$color(numBackground),
+							fontStyle,
+							$mdgriffith$elm_ui$Element$Border$rounded(0)
+						]),
+					$elm$core$String$fromInt(lineNumber)),
+					A2(
+					$author$project$Utils$UI$Text$codeWithAttrs,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Background$color(lineBackground),
+							$mdgriffith$elm_ui$Element$paddingEach(
+							{bottom: 0, left: 10, right: 0, top: 0}),
+							$mdgriffith$elm_ui$Element$Border$rounded(0),
+							fontStyle,
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						]),
+					content)
+				]));
+	});
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderChange = F3(
+	function (brokenFile, index, _v0) {
+		var lineNumber = _v0.lineNumber;
+		var changeDescription = _v0.changeDescription;
+		var _v1 = ($elm$core$List$length(brokenFile.changes) > 1) ? {
+			bugString: 'bug #' + $elm$core$String$fromInt(index + 1)
+		} : {bugString: 'a bug'};
+		var bugString = _v1.bugString;
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$spacing(10),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 				]),
 			_List_fromArray(
 				[
 					A2(
 					$mdgriffith$elm_ui$Element$paragraph,
+					_List_Nil,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Font$center,
-							$mdgriffith$elm_ui$Element$Font$size(30)
-						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(name)
+							$mdgriffith$elm_ui$Element$text(
+							changeDescription + (' on line ' + $elm$core$String$fromInt(lineNumber)))
 						])),
 					A2(
-					$mdgriffith$elm_ui$Element$el,
+					$mdgriffith$elm_ui$Element$row,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
-							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 10),
-							$mdgriffith$elm_ui$Element$Border$rounded(5),
-							$mdgriffith$elm_ui$Element$Font$family(
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$Font$monospace]))
+							$mdgriffith$elm_ui$Element$spacing(20),
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
-					$mdgriffith$elm_ui$Element$text(content))
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$column,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								]),
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('in the original file'),
+									A2(
+									$mdgriffith$elm_ui$Element$column,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+											$mdgriffith$elm_ui$Element$Border$rounded(5),
+											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+										]),
+									A2(
+										$elm$core$List$map,
+										$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine(lineNumber),
+										A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines, lineNumber, brokenFile.originalContent)))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$column,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								]),
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('after being broken'),
+									A2(
+									$mdgriffith$elm_ui$Element$column,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+											$mdgriffith$elm_ui$Element$Border$rounded(5),
+											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+										]),
+									A2(
+										$elm$core$List$map,
+										$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine(lineNumber),
+										A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines, lineNumber, brokenFile.updatedContent)))
+								]))
+						]))
 				]));
 	});
 var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
@@ -14068,17 +14194,10 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = F2(
 					A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
 					$mdgriffith$elm_ui$Element$scrollbars
 				]),
-			_List_fromArray(
-				[
-					A2(
-					$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile,
-					$author$project$Utils$Types$FilePath$toString(path) + ' (original file)',
-					originalContent),
-					A2(
-					$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderFile,
-					$author$project$Utils$Types$FilePath$toString(path) + (' (file with ' + ($author$project$Utils$Types$BrokenFile$bugOrBugsString(brokenFile) + ' added)')),
-					updatedContent)
-				])) : A2(
+			A2(
+				$elm$core$List$indexedMap,
+				$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderChange(brokenFile),
+				A2($elm$core$List$map, $elm$core$Tuple$first, brokenFile.changes))) : A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
@@ -14111,7 +14230,6 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = F2(
 var $author$project$Stages$Debugging$Msg$ChangeHelpTab = function (a) {
 	return {$: 'ChangeHelpTab', a: a};
 };
-var $author$project$Utils$Colors$black = A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0);
 var $author$project$Utils$Colors$darkGray = A3($mdgriffith$elm_ui$Element$rgb, 0.3, 0.3, 0.3);
 var $author$project$Stages$Debugging$Model$helpTabToString = function (tab) {
 	switch (tab.$) {
@@ -14312,6 +14430,8 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 					]))
 			]));
 };
+var $mdgriffith$elm_ui$Internal$Model$Monospace = {$: 'Monospace'};
+var $mdgriffith$elm_ui$Element$Font$monospace = $mdgriffith$elm_ui$Internal$Model$Monospace;
 var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = function (_v0) {
 	var path = _v0.path;
 	return A2(
@@ -14446,7 +14566,6 @@ var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
 };
 var $author$project$Utils$Colors$red = A3($mdgriffith$elm_ui$Element$rgb, 0.8, 0, 0);
-var $mdgriffith$elm_ui$Element$Font$typeface = $mdgriffith$elm_ui$Internal$Model$Typeface;
 var $author$project$Stages$Debugging$View$StepsPage$render = F2(
 	function (bugCount, brokenFile) {
 		var changes = brokenFile.changes;
