@@ -48,7 +48,9 @@ init flags =
       -- , stage = DummyData.debuggingStageTipsTab randomNumbers
       -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
       -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
-      , stage = DummyData.finishedStage randomNumbers
+      , stage = DummyData.successfulFinishStage randomNumbers
+
+      -- , stage = DummyData.shownAnswerFinishedStage randomNumbers
       , maybeError = startingError
       }
     , Cmd.none

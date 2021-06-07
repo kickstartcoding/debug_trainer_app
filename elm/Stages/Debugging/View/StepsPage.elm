@@ -88,7 +88,7 @@ render bugCount ({ changes, path } as brokenFile) =
                     , rounded 5
                     , centerX
                     ]
-                    { onPress = Nothing
+                    { onPress = Just ISolvedIt
                     , label = text "I solved it!"
                     }
                 ]

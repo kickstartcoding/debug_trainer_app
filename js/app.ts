@@ -1,6 +1,7 @@
 import { Elm } from '../elm/Main'
 import { open } from '@tauri-apps/api/dialog'
 import { readTextFile, writeFile } from '@tauri-apps/api/fs'
+import { exit } from '@tauri-apps/api/app'
 
 console.log("START")
 
@@ -42,6 +43,12 @@ app.ports.interopFromElm.subscribe((fromElm) => {
           data: null
         })
       })
+      break
+    case "writeFileAndExit":
+      writeFile({
+        path: fromElm.data.path,
+        contents: fromElm.data.content
+      }).then(() => exit())
   }
 })
 

@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@incrementalelm/elm-ts-interop-pro": "^0.0.21",
-    "@tauri-apps/cli": "^1.0.0-beta-rc.4",
+    "@tauri-apps/cli": "^1.0.0-beta.2",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "elm-hot": "^1.1.6",

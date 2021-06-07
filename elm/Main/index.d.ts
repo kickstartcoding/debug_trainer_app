@@ -23,6 +23,7 @@ export interface ElmApp {
 
 export type FromElm =
   | { data: { content: string; path: string }; tag: "writeFile" }
+  | { data: { content: string; path: string }; tag: "writeFileAndExit" }
   | { data: null; tag: "chooseFile" }
 
 export type ToElm =

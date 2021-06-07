@@ -12,3 +12,4 @@ type Msg
     | ShowBugLineHint Int
     | ShowBugTypeHint Int
     | ShowTheAnswer
+    | ISolvedIt

@@ -60,6 +60,7 @@ render { currentDebuggingTip, brokenFile } =
         ]
 
 
+defaultTip : List (Element msg)
 defaultTip =
     tip
         { header = "Tip #1: Find the line number"
@@ -67,6 +68,7 @@ defaultTip =
         }
 
 
+debuggingTips : FileType -> List (List (Element msg))
 debuggingTips fileType =
     [ defaultTip
     , tip
@@ -112,11 +114,19 @@ debuggingTips fileType =
             ]
         }
     , tip
-        { header = "Tip #4: Get hints from the \"Bug Hints\" tab"
+        { header = "Tip #4: Read through your code one line at a time"
+        , content =
+            [ paragraph [] [ text "Read through your code one line at a time, and for each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera." ]
+            , paragraph [] [ text "Don't think about anything that happens on the next line until you've figured out everything that happens on the one you're looking at." ]
+            , paragraph [] [ text "If you're even the slightest bit unsure about something, print it to make sure." ]
+            ]
+        }
+    , tip
+        { header = "Tip #5: Get hints from the \"Bug Hints\" tab"
         , content = [ paragraph [] [ text "If you're stuck, the \"Bug Hints\" tab can tell you what line of the file a bug is on, or what type of bug it is." ] ]
         }
     , tip
-        { header = "Tip #5: Take breaks"
+        { header = "Tip #6: Take breaks"
         , content =
             [ paragraph [] [ text "Sometimes you just need to get some food or some water, go to the bathroom, or go for a walk and let you brain rest a bit." ]
             , paragraph [] [ text "You might be surprised at the things you'll notice about your code after taking a break that you had completely missed before." ]
@@ -125,16 +135,19 @@ debuggingTips fileType =
     ]
 
 
+tip : { a | header : String, content : List (Element msg) } -> List (Element msg)
 tip { header, content } =
     [ tipHeader header
     , tipColumn content
     ]
 
 
+tipHeader : String -> Element msg
 tipHeader content =
     paragraph [ Font.size 20, Font.bold, paddingXY 12 0 ] [ text content ]
 
 
+tipColumn : List (Element msg) -> Element msg
 tipColumn content =
     column
         [ spacing 20

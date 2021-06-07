@@ -7,6 +7,7 @@ import Stages.Debugging.Model as DebuggingModel
         ( HelpTab(..)
         , Page(..)
         )
+import Stages.Finished.Model exposing (FinishType(..))
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements as Encouragements
@@ -150,9 +151,20 @@ defaultDebugModel randomNumbers =
     }
 
 
-finishedStage : List Int -> Stage
-finishedStage randomNumbers =
-    Finished (defaultBrokenFile randomNumbers)
+successfulFinishStage : List Int -> Stage
+successfulFinishStage randomNumbers =
+    Finished
+        { finishType = SuccessfullySolved
+        , brokenFile = defaultBrokenFile randomNumbers
+        }
+
+
+shownAnswerFinishedStage : List Int -> Stage
+shownAnswerFinishedStage randomNumbers =
+    Finished
+        { finishType = AskedToSeeAnswer
+        , brokenFile = defaultBrokenFile randomNumbers
+        }
 
 
 defaultBrokenFile : List Int -> BrokenFile

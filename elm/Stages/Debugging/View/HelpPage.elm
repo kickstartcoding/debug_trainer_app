@@ -28,12 +28,11 @@ render :
     { bugCount : Int
     , encouragements : Encouragements
     , currentDebuggingTip : Int
-    , answerIsShowing : Bool
     , currentHelpTab : HelpTab
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, answerIsShowing, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
+render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
     let
         fileType =
             brokenFile.path |> FileType.fromFilePath
@@ -80,7 +79,7 @@ render { bugCount, answerIsShowing, currentDebuggingTip, encouragements, current
                         }
 
                 ShowMeTheAnswer ->
-                    ShowMeTheAnswerTab.render answerIsShowing brokenFile
+                    ShowMeTheAnswerTab.render brokenFile
             ]
         ]
 

@@ -3,6 +3,7 @@ port module Main.Interop exposing
     , toElm
     , decodeFlags
     , writeFile
+    , writeFileAndExit
     , chooseFile
     )
 
@@ -25,6 +26,12 @@ decodeFlags flags =
 writeFile argument____ =
     argument____
       |> encodeProVariant "writeFile" Main.Definitions.writeFile
+      |> interopFromElm
+
+
+writeFileAndExit argument____ =
+    argument____
+      |> encodeProVariant "writeFileAndExit" Main.Definitions.writeFileAndExit
       |> interopFromElm
 
 

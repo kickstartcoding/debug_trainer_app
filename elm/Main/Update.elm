@@ -6,7 +6,8 @@ import Main.Model exposing (Error(..), Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
 import Stages.Debugging.Model
-import Stages.Debugging.Update
+import Stages.Debugging.Update as DebuggingUpdate
+import Stages.Finished.Update as FinishedUpdate
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath as FilePath
 
@@ -67,13 +68,69 @@ update msg model =
             case model.stage of
                 Debugging debuggingModel ->
                     let
-                        ( newModel, cmd ) =
-                            Stages.Debugging.Update.update
+                        { newModel, cmd, bubble } =
+                            DebuggingUpdate.update
                                 { model = debuggingModel
                                 , msg = debuggingMsg
                                 }
                     in
-                    ( { model | stage = Debugging newModel }, Cmd.map DebuggingInterface cmd )
+                    ( case bubble.instruction of
+                        Just (DebuggingUpdate.GoToFinishStage finishType) ->
+                            { model
+                                | stage =
+                                    Finished
+                                        { finishType = finishType
+                                        , brokenFile = newModel.brokenFile
+                                        }
+                            }
+
+                        Nothing ->
+                            { model | stage = Debugging newModel }
+                    , Cmd.map DebuggingInterface cmd
+                    )
+
+                _ ->
+                    ( model, Cmd.none )
+
+        FinishedInterface finishedMsg ->
+            case model.stage of
+                Finished ({ brokenFile } as finishedModel) ->
+                    let
+                        { newModel, cmd, bubble } =
+                            FinishedUpdate.update
+                                { model = finishedModel
+                                , msg = finishedMsg
+                                }
+                    in
+                    case bubble.instruction of
+                        Just (FinishedUpdate.ResetFile playPreference) ->
+                            case playPreference of
+                                FinishedUpdate.PlayAgain ->
+                                    ( { model | stage = Start }
+                                    , Cmd.batch
+                                        [ Cmd.map FinishedInterface cmd
+                                        , Interop.writeFile
+                                            { path = brokenFile.path
+                                            , content = brokenFile.originalContent
+                                            }
+                                        ]
+                                    )
+
+                                FinishedUpdate.Exit ->
+                                    ( { model | stage = Finished newModel }
+                                    , Cmd.batch
+                                        [ Cmd.map FinishedInterface cmd
+                                        , Interop.writeFileAndExit
+                                            { path = brokenFile.path
+                                            , content = brokenFile.originalContent
+                                            }
+                                        ]
+                                    )
+
+                        Nothing ->
+                            ( { model | stage = Finished newModel }
+                            , Cmd.map FinishedInterface cmd
+                            )
 
                 _ ->
                     ( model, Cmd.none )

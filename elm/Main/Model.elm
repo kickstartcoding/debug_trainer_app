@@ -7,6 +7,7 @@ module Main.Model exposing
 
 import Json.Decode
 import Stages.Debugging.Model
+import Stages.Finished.Model
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.FilePath exposing (FilePath)
 
@@ -23,7 +24,8 @@ type Stage
     = Start
     | GotFile File
     | Debugging Stages.Debugging.Model.Model
-    | Finished BrokenFile
+    | Finished Stages.Finished.Model.Model
+
 
 
 type Error

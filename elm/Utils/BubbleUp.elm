@@ -1,6 +1,6 @@
 module Utils.BubbleUp exposing
     ( BubbleUp
-    , BubbleUpWithInstructions
+    , BubbleUpWithInstruction
     , fromTuple
     , justModel
     , mapModel
@@ -16,44 +16,44 @@ import Utils.Types.Error as Error exposing (Report)
 
 
 type alias BubbleUp model action =
-    { model : model
+    { newModel : model
     , cmd : Cmd action
     , bubble : BubbleUpData ()
     }
 
 
-type alias BubbleUpWithInstructions model action instructions =
-    { model : model
+type alias BubbleUpWithInstruction model action instruction =
+    { newModel : model
     , cmd : Cmd action
-    , bubble : BubbleUpData instructions
+    , bubble : BubbleUpData instruction
     }
 
 
-type alias BubbleUpData instructions =
+type alias BubbleUpData instruction =
     { error : Maybe Report
-    , instructions : Maybe instructions
+    , instruction : Maybe instruction
     }
 
 
-fromTuple : ( model, Cmd action ) -> BubbleUpWithInstructions model action instructions
+fromTuple : ( model, Cmd action ) -> BubbleUpWithInstruction model action instruction
 fromTuple ( model, cmd ) =
-    { model = model
+    { newModel = model
     , cmd = cmd
     , bubble = nothing
     }
 
 
-justModel : model -> BubbleUpWithInstructions model action instructions
+justModel : model -> BubbleUpWithInstruction model action instruction
 justModel model =
-    { model = model
+    { newModel = model
     , cmd = Cmd.none
     , bubble = nothing
     }
 
 
-mapModel : (model -> model) -> BubbleUpWithInstructions model action instructions -> BubbleUpWithInstructions model action instructions
-mapModel function ({ model } as bubbleUp) =
-    { bubbleUp | model = function model }
+mapModel : (model -> model) -> BubbleUpWithInstruction model action instruction -> BubbleUpWithInstruction model action instruction
+mapModel function ({ newModel } as bubbleUp) =
+    { bubbleUp | newModel = function newModel }
 
 
 withDecodingError :
@@ -62,8 +62,8 @@ withDecodingError :
     , action : String
     , error : Json.Decode.Error
     }
-    -> BubbleUpWithInstructions model action instructions
-    -> BubbleUpWithInstructions model action instructions
+    -> BubbleUpWithInstruction model action instruction
+    -> BubbleUpWithInstruction model action instruction
 withDecodingError errorInfo bubbleUp =
     withError (Error.decoding errorInfo) bubbleUp
 
@@ -74,34 +74,34 @@ withMiscError :
     , action : String
     , error : String
     }
-    -> BubbleUpWithInstructions model action instructions
-    -> BubbleUpWithInstructions model action instructions
+    -> BubbleUpWithInstruction model action instruction
+    -> BubbleUpWithInstruction model action instruction
 withMiscError errorInfo bubbleUp =
     withError (Error.misc errorInfo) bubbleUp
 
 
-withError : Report -> BubbleUpWithInstructions model action instructions -> BubbleUpWithInstructions model action instructions
+withError : Report -> BubbleUpWithInstruction model action instruction -> BubbleUpWithInstruction model action instruction
 withError errorReport ({ bubble } as bubbleUp) =
     { bubbleUp | bubble = { bubble | error = Just errorReport } }
 
 
-withMaybeError : Maybe Report -> BubbleUpWithInstructions model action instructions -> BubbleUpWithInstructions model action instructions
+withMaybeError : Maybe Report -> BubbleUpWithInstruction model action instruction -> BubbleUpWithInstruction model action instruction
 withMaybeError errorReport ({ bubble } as bubbleUp) =
     { bubbleUp | bubble = { bubble | error = errorReport } }
 
 
-withCmd : Cmd action -> BubbleUpWithInstructions model action instructions -> BubbleUpWithInstructions model action instructions
+withCmd : Cmd action -> BubbleUpWithInstruction model action instruction -> BubbleUpWithInstruction model action instruction
 withCmd cmd bubbleUp =
     { bubbleUp | cmd = cmd }
 
 
-withInstruction : instructions -> BubbleUpWithInstructions model action instructions -> BubbleUpWithInstructions model action instructions
-withInstruction instructions ({ bubble } as bubbleUp) =
-    { bubbleUp | bubble = { bubble | instructions = Just instructions } }
+withInstruction : instruction -> BubbleUpWithInstruction model action instruction -> BubbleUpWithInstruction model action instruction
+withInstruction instruction ({ bubble } as bubbleUp) =
+    { bubbleUp | bubble = { bubble | instruction = Just instruction } }
 
 
-nothing : BubbleUpData instructions
+nothing : BubbleUpData instruction
 nothing =
     { error = Nothing
-    , instructions = Nothing
+    , instruction = Nothing
     }

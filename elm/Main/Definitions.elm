@@ -33,6 +33,14 @@ writeFile =
         ]
 
 
+writeFileAndExit : TsEncode.Encoder File
+writeFileAndExit =
+    TsEncode.object
+        [ TsEncode.required "path" (.path >> FilePath.toString) TsEncode.string
+        , TsEncode.required "content" .content TsEncode.string
+        ]
+
+
 
 -- STUFF THAT COMES IN
 
