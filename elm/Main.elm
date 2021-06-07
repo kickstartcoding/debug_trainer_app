@@ -10,6 +10,7 @@ import Main.Update
 import Main.View
 import Process exposing (Id)
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
+import Utils.DummyData as DummyData
 import Utils.List
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
@@ -39,51 +40,15 @@ init flags =
     ( { bugCount = 1
       , randomNumbers = randomNumbers
 
-      -- , stage = Start
-      --   , stage =
-      --         GotFile
-      --             { path = FilePath.fromString "/test/testfile.js"
-      --             , content = "function a (a, b, c) { return c }; a()"
-      --             }
-      , stage =
-            Debugging
-                { currentPage = HelpPage
-                , currentHelpTab = ShowMeTheAnswer
-                , currentDebuggingTip = 0
-                , answerIsShowing = True
-                , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
-                , brokenFile =
-                    { originalContent = "function a (a, b, c)\n{\n  return c\n}\n\na()\n"
-                    , updatedContent = "function a (b, a, c)\n{\n  c\n}\n\na()\n"
-                    , changes =
-                        [ ( { lineNumber = 1
-                            , breakType = ChangeFunctionArgs
-                            , changeDescription = "swapped some goddamn args"
-                            }
-                          , { showingLineNumber = False
-                            , showingBugType = False
-                            }
-                          )
-                        , ( { lineNumber = 5
-                            , breakType = RemoveParenthesis
-                            , changeDescription = "removed a paren"
-                            }
-                          , { showingLineNumber = False
-                            , showingBugType = False
-                            }
-                          )
-                        , ( { lineNumber = 5
-                            , breakType = RemoveParenthesis
-                            , changeDescription = "removed a paren"
-                            }
-                          , { showingLineNumber = False
-                            , showingBugType = False
-                            }
-                          )
-                        ]
-                    , path = FilePath.fromString "testfile.js"
-                    }
-                }
+      -- , stage = DummyData.startStage
+      -- , stage = DummyData.gotFileStage
+      -- , stage = DummyData.debuggingStageStepsPage randomNumbers
+      -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
+      -- , stage = DummyData.debuggingStageBugHintsTab randomNumbers
+      -- , stage = DummyData.debuggingStageTipsTab randomNumbers
+      -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
+      -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
+      , stage = DummyData.finishedStage randomNumbers
       , maybeError = startingError
       }
     , Cmd.none
