@@ -200,39 +200,6 @@ defaultBrokenFile randomNumbers =
             }
 
 
-
--- { originalContent = "function a (a, b, c)\n{\n  return c\n}\n\na()\n"
--- , updatedContent = "function a (b, a, c)\n{\n  c\n}\n\na()\n"
--- , changes =
---     [ ( { lineNumber = 1
---         , breakType = ChangeFunctionArgs
---         , changeDescription = "swapped some goddamn args"
---         }
---       , { showingLineNumber = False
---         , showingBugType = False
---         }
---       )
---     , ( { lineNumber = 5
---         , breakType = RemoveParenthesis
---         , changeDescription = "removed a paren"
---         }
---       , { showingLineNumber = False
---         , showingBugType = False
---         }
---       )
---     , ( { lineNumber = 5
---         , breakType = RemoveParenthesis
---         , changeDescription = "removed a paren"
---         }
---       , { showingLineNumber = False
---         , showingBugType = False
---         }
---       )
---     ]
--- , path = FilePath.fromString "testfile.js"
--- }
-
-
 defaultFilePath : FilePath
 defaultFilePath =
     FilePath.fromString "/test/testfile.js"
