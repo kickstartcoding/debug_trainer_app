@@ -14098,25 +14098,65 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLin
 					content)
 				]));
 	});
+var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$labeledCodeSnippet = function (_v0) {
+	var label = _v0.label;
+	var focusedLine = _v0.focusedLine;
+	var content = _v0.content;
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$spacing(10)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$paragraph,
+				_List_fromArray(
+					[$mdgriffith$elm_ui$Element$Font$center]),
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$text(label)
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
+						$mdgriffith$elm_ui$Element$Border$rounded(5),
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					]),
+				A2(
+					$elm$core$List$map,
+					$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine(focusedLine),
+					A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines, focusedLine, content)))
+			]));
+};
 var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderChange = F3(
 	function (brokenFile, index, _v0) {
 		var lineNumber = _v0.lineNumber;
 		var changeDescription = _v0.changeDescription;
-		var _v1 = ($elm$core$List$length(brokenFile.changes) > 1) ? {
-			bugString: 'bug #' + $elm$core$String$fromInt(index + 1)
-		} : {bugString: 'a bug'};
-		var bugString = _v1.bugString;
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$spacing(20)
 				]),
 			_List_fromArray(
 				[
 					A2(
 					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$size(24),
+							$mdgriffith$elm_ui$Element$Font$center,
+							$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 8, 8),
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+						]),
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$text(
@@ -14131,50 +14171,10 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderChange 
 						]),
 					_List_fromArray(
 						[
-							A2(
-							$mdgriffith$elm_ui$Element$column,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-								]),
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$text('in the original file'),
-									A2(
-									$mdgriffith$elm_ui$Element$column,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
-											$mdgriffith$elm_ui$Element$Border$rounded(5),
-											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-										]),
-									A2(
-										$elm$core$List$map,
-										$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine(lineNumber),
-										A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines, lineNumber, brokenFile.originalContent)))
-								])),
-							A2(
-							$mdgriffith$elm_ui$Element$column,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-								]),
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$text('after being broken'),
-									A2(
-									$mdgriffith$elm_ui$Element$column,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$veryLightGray),
-											$mdgriffith$elm_ui$Element$Border$rounded(5),
-											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-										]),
-									A2(
-										$elm$core$List$map,
-										$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$renderCodeLine(lineNumber),
-										A2($author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$getNearbyLines, lineNumber, brokenFile.updatedContent)))
-								]))
+							$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$labeledCodeSnippet(
+							{content: brokenFile.originalContent, focusedLine: lineNumber, label: 'in the original file'}),
+							$author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$labeledCodeSnippet(
+							{content: brokenFile.updatedContent, focusedLine: lineNumber, label: 'after being broken'})
 						]))
 				]));
 	});
@@ -14188,7 +14188,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = F2(
 			$mdgriffith$elm_ui$Element$column,
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$spacing(30),
+					$mdgriffith$elm_ui$Element$spacing(50),
 					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 					A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),

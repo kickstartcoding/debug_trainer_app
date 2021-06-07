@@ -23,7 +23,7 @@ render : Bool -> BrokenFile -> Element Msg
 render answerIsShowing ({ originalContent, updatedContent, path } as brokenFile) =
     if answerIsShowing then
         column
-            [ spacing 30
+            [ spacing 50
             , height fill
             , width fill
             , paddingXY 40 40
@@ -72,42 +72,51 @@ render answerIsShowing ({ originalContent, updatedContent, path } as brokenFile)
 
 renderChange : BrokenFile -> Int -> ChangeData -> Element msg
 renderChange brokenFile index { lineNumber, changeDescription } =
-    let
-        { bugString } =
-            if List.length brokenFile.changes > 1 then
-                { bugString = "bug #" ++ String.fromInt (index + 1)
-                }
-
-            else
-                { bugString = "a bug"
-                }
-    in
-    column [ width fill ]
-        [ paragraph [] [ text (changeDescription ++ " on line " ++ String.fromInt lineNumber) ]
-        , row [ spacing 20, width fill ]
-            [ column [ width fill ]
-                [ text "in the original file"
-                , column
-                    [ Background.color Colors.veryLightGray
-                    , Border.rounded 5
-                    , width fill
-                    ]
-                    (getNearbyLines lineNumber brokenFile.originalContent
-                        |> List.map (renderCodeLine lineNumber)
-                    )
-                ]
-            , column [ width fill ]
-                [ text "after being broken"
-                , column
-                    [ Background.color Colors.veryLightGray
-                    , Border.rounded 5
-                    , width fill
-                    ]
-                    (getNearbyLines lineNumber brokenFile.updatedContent
-                        |> List.map (renderCodeLine lineNumber)
-                    )
-                ]
+    column
+        [ width fill
+        , spacing 20
+        ]
+        [ paragraph
+            [ Font.size 24
+            , Font.center
+            , Font.color Colors.white
+            , Background.color Colors.purple
+            , paddingXY 8 8
+            , width fill
             ]
+            [ text
+                (changeDescription
+                    ++ " on line "
+                    ++ String.fromInt lineNumber
+                )
+            ]
+        , row [ spacing 20, width fill ]
+            [ labeledCodeSnippet
+                { label = "in the original file"
+                , focusedLine = lineNumber
+                , content = brokenFile.originalContent
+                }
+            , labeledCodeSnippet
+                { label = "after being broken"
+                , focusedLine = lineNumber
+                , content = brokenFile.updatedContent
+                }
+            ]
+        ]
+
+
+labeledCodeSnippet : { label : String, focusedLine : Int, content : String } -> Element msg
+labeledCodeSnippet { label, focusedLine, content } =
+    column [ width fill, spacing 10 ]
+        [ paragraph [ Font.center ] [ text label ]
+        , column
+            [ Background.color Colors.veryLightGray
+            , Border.rounded 5
+            , width fill
+            ]
+            (getNearbyLines focusedLine content
+                |> List.map (renderCodeLine focusedLine)
+            )
         ]
 
 
