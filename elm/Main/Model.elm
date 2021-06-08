@@ -5,7 +5,7 @@ module Main.Model exposing
     )
 
 import Json.Decode
-import Stages.Beginning.Model
+import Stages.ChooseFile.Model
 import Stages.Debugging.Model
 import Stages.Finished.Model
 
@@ -19,7 +19,8 @@ type alias Model =
 
 
 type Stage
-    = Beginning Stages.Beginning.Model.Model
+    = Intro
+    | ChooseFile Stages.ChooseFile.Model.Model
     | Debugging Stages.Debugging.Model.Model
     | Finished Stages.Finished.Model.Model
 

@@ -1,4 +1,4 @@
-module Stages.Beginning.View exposing (render)
+module Stages.ChooseFile.View exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
@@ -6,14 +6,14 @@ import Element.Border exposing (rounded)
 import Element.Font as Font
 import Element.Input as Input
 import Html.Attributes as HtmlAttrs
-import Stages.Beginning.Model
+import Stages.ChooseFile.Model
     exposing
         ( File
         , Model
         , StartType(..)
         , Status(..)
         )
-import Stages.Beginning.Msg exposing (Msg(..))
+import Stages.ChooseFile.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
@@ -37,7 +37,7 @@ render { bugCount, startType, status } =
                     , startButtonLabel = "start"
                     , startButtonColor = Colors.gray
                     , startButtonMsg = Nothing
-                    , startButtonTitle = "you can't start until you select a file"
+                    , startButtonTitle = "you can't start until you choose a file"
                     }
 
                 GotFile file ->

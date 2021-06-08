@@ -1,6 +1,6 @@
-module Stages.Beginning.Msg exposing (Msg(..))
+module Stages.ChooseFile.Msg exposing (Msg(..))
 
-import Stages.Beginning.Model exposing (File)
+import Stages.ChooseFile.Model exposing (File)
 
 
 type Msg

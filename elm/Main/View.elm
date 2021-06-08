@@ -4,10 +4,11 @@ import Element exposing (..)
 import Html exposing (Html)
 import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
-import Stages.Beginning.View
+import Stages.ChooseFile.View
 import Stages.Debugging.Model exposing (HelpTab(..))
 import Stages.Debugging.View
 import Stages.Finished.View
+import Stages.Intro.View
 
 
 render : Model -> { title : String, body : List (Html Msg) }
@@ -16,9 +17,12 @@ render { bugCount, stage } =
     , body =
         [ layout [ width fill, height fill, paddingXY 20 20 ]
             (case stage of
-                Beginning { startType, status } ->
-                    Element.map BeginningInterface <|
-                        Stages.Beginning.View.render
+                Intro ->
+                    Stages.Intro.View.render
+
+                ChooseFile { startType, status } ->
+                    Element.map ChooseFileInterface <|
+                        Stages.ChooseFile.View.render
                             { bugCount = bugCount
                             , startType = startType
                             , status = status

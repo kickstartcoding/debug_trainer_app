@@ -39,17 +39,17 @@ init flags =
     in
     ( { bugCount = 3
       , randomNumbers = randomNumbers
+      , stage = Intro
 
-      -- , stage = DummyData.startStage
-      -- , stage = DummyData.gotFileStage
-      -- , stage = DummyData.debuggingStageStepsPage randomNumbers
+      -- , stage = DummyData.chooseFileStage
+      --   , stage = DummyData.gotFileStage
+      --   , stage = DummyData.debuggingStageStepsPage randomNumbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
-      , stage = DummyData.debuggingStageBugHintsTab randomNumbers
+      --   , stage = DummyData.debuggingStageBugHintsTab randomNumbers
       -- , stage = DummyData.debuggingStageTipsTab randomNumbers
       -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
       -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
-    --   , stage = DummyData.successfulFinishStage randomNumbers
-
+      --   , stage = DummyData.successfulFinishStage randomNumbers
       -- , stage = DummyData.shownAnswerFinishedStage randomNumbers
       , maybeError = startingError
       }

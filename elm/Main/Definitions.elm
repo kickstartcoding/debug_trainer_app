@@ -1,6 +1,6 @@
 module Main.Definitions exposing (..)
 
-import Stages.Beginning.Model exposing (File)
+import Stages.ChooseFile.Model exposing (File)
 import TsJson.Decode as TsDecode exposing (Decoder)
 import TsJson.Encode as TsEncode
 import Utils.Types.FilePath as FilePath

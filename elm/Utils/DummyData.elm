@@ -2,7 +2,7 @@ module Utils.DummyData exposing (..)
 
 import Main.Model exposing (Error(..), Stage(..))
 import Main.Update.BreakFile as BreakFile
-import Stages.Beginning.Model exposing (StartType(..), Status(..))
+import Stages.ChooseFile.Model exposing (StartType(..), Status(..))
 import Stages.Debugging.Model as DebuggingModel
     exposing
         ( HelpTab(..)
@@ -13,17 +13,21 @@ import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements as Encouragements
 import Utils.Types.FilePath as FilePath exposing (FilePath)
-import Stages.Debugging.Model exposing (HelpTab(..))
 
 
-startStage : Stage
-startStage =
-    Beginning Stages.Beginning.Model.init
+introStage : Stage
+introStage =
+    Intro
+
+
+chooseFileStage : Stage
+chooseFileStage =
+    ChooseFile Stages.ChooseFile.Model.init
 
 
 gotFileStage : Stage
 gotFileStage =
-    Beginning
+    ChooseFile
         { startType = FirstTime
         , status =
             GotFile
@@ -103,8 +107,6 @@ debuggingStageShowAnswerTab randomNumbers =
             | currentPage = HelpPage
             , currentHelpTab = ShowMeTheAnswer
         }
-
-
 
 
 defaultDebugModel : List Int -> DebuggingModel.Model

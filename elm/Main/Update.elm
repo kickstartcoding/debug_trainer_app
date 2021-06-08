@@ -9,9 +9,9 @@ import Main.Model
         )
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
-import Stages.Beginning.Model as Beginning exposing (File, StartType(..))
-import Stages.Beginning.Msg
-import Stages.Beginning.Update as BeginningUpdate exposing (Instruction(..))
+import Stages.ChooseFile.Model as ChooseFile exposing (File, StartType(..))
+import Stages.ChooseFile.Msg
+import Stages.ChooseFile.Update as ChooseFileUpdate exposing (Instruction(..))
 import Stages.Debugging.Model
 import Stages.Debugging.Update as DebuggingUpdate
 import Stages.Finished.Update as FinishedUpdate
@@ -22,12 +22,17 @@ import Utils.Types.FilePath as FilePath
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        BeginningInterface beginningMsg ->
+        LetsGetStarted ->
+            ( { model | stage = ChooseFile ChooseFile.init }
+            , Cmd.none
+            )
+
+        ChooseFileInterface beginningMsg ->
             case model.stage of
-                Beginning beginningModel ->
+                ChooseFile beginningModel ->
                     let
                         { newModel, cmd, bubble } =
-                            BeginningUpdate.update
+                            ChooseFileUpdate.update
                                 { model = beginningModel
                                 , msg = beginningMsg
                                 }
@@ -35,18 +40,18 @@ update msg model =
                     case bubble.instruction of
                         Just (UpdateBugCountInstruction newBugCount) ->
                             ( { model
-                                | stage = Beginning newModel
+                                | stage = ChooseFile newModel
                                 , bugCount = newBugCount
                               }
-                            , Cmd.map BeginningInterface cmd
+                            , Cmd.map ChooseFileInterface cmd
                             )
 
                         Just (BreakFileInstruction file) ->
                             breakFile file model cmd
 
                         Nothing ->
-                            ( { model | stage = Beginning newModel }
-                            , Cmd.map BeginningInterface cmd
+                            ( { model | stage = ChooseFile newModel }
+                            , Cmd.map ChooseFileInterface cmd
                             )
 
                 _ ->
@@ -78,7 +83,7 @@ update msg model =
                             )
 
                         Just DebuggingUpdate.ResetAndPlayAgain ->
-                            ( { model | stage = Beginning (Beginning.afterResetInit debuggingModel.brokenFile) }
+                            ( { model | stage = ChooseFile (ChooseFile.afterResetInit debuggingModel.brokenFile) }
                             , Cmd.batch
                                 [ Cmd.map DebuggingInterface cmd
                                 , Interop.writeFile
@@ -112,7 +117,7 @@ update msg model =
                                 FinishedUpdate.PlayAgain ->
                                     ( { model
                                         | stage =
-                                            Beginning (Beginning.afterResetInit brokenFile)
+                                            ChooseFile (ChooseFile.afterResetInit brokenFile)
                                       }
                                     , Cmd.batch
                                         [ Cmd.map FinishedInterface cmd
@@ -146,7 +151,7 @@ update msg model =
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
 
 
-breakFile : File -> Model -> Cmd Stages.Beginning.Msg.Msg -> ( Model, Cmd Msg )
+breakFile : File -> Model -> Cmd Stages.ChooseFile.Msg.Msg -> ( Model, Cmd Msg )
 breakFile { path, content } model beginningCmd =
     let
         result =
@@ -171,7 +176,7 @@ breakFile { path, content } model beginningCmd =
                         )
               }
             , Cmd.batch
-                [ Cmd.map BeginningInterface beginningCmd
+                [ Cmd.map ChooseFileInterface beginningCmd
                 , Interop.writeFile
                     { path = path
                     , content = newFileContent

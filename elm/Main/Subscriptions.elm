@@ -3,7 +3,7 @@ module Main.Subscriptions exposing (subscriptions)
 import Main.Interop as Interop
 import Main.Model exposing (Model)
 import Main.Msg exposing (Msg(..))
-import Stages.Beginning.Msg
+import Stages.ChooseFile.Msg
 
 
 subscriptions : Model -> Sub Msg
@@ -13,8 +13,8 @@ subscriptions model =
             (\toElm ->
                 case toElm of
                     Ok (Interop.GotFileChoice file) ->
-                        BeginningInterface
-                            (Stages.Beginning.Msg.FileWasSelected file)
+                        ChooseFileInterface
+                            (Stages.ChooseFile.Msg.FileWasSelected file)
 
                     Ok (Interop.FileChangeWasSaved ()) ->
                         FileWasBroken

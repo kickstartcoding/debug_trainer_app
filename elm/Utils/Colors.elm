@@ -5,6 +5,7 @@ module Utils.Colors exposing
     , darkened
     , gray
     , green
+    , kickstartCodingBlue
     , lightGray
     , purple
     , red
@@ -13,7 +14,12 @@ module Utils.Colors exposing
     , whitened
     )
 
-import Element exposing (Color, rgb, rgba)
+import Element exposing (Color, rgb, rgb255, rgba)
+
+
+kickstartCodingBlue : Color
+kickstartCodingBlue =
+    rgb255 25 181 254
 
 
 purple : Color
@@ -23,7 +29,7 @@ purple =
 
 darkPurple : Color
 darkPurple =
-    rgb 0.20 0 0.30
+    rgb 0.2 0 0.3
 
 
 green : Color

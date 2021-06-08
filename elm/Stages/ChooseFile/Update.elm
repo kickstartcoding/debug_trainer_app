@@ -1,11 +1,11 @@
-module Stages.Beginning.Update exposing
+module Stages.ChooseFile.Update exposing
     ( Instruction(..)
     , update
     )
 
 import Main.Interop as Interop
-import Stages.Beginning.Model exposing (File, Model, Status(..))
-import Stages.Beginning.Msg exposing (Msg(..))
+import Stages.ChooseFile.Model exposing (File, Model, Status(..))
+import Stages.ChooseFile.Msg exposing (Msg(..))
 import Utils.BubbleUp as BubbleUp exposing (BubbleUpWithInstruction)
 
 
@@ -31,7 +31,7 @@ update { model, msg } =
                             { action = "UpdateBugCount"
                             , descriptionForUsers = "it looks like you somehow entered a bug count that isn't a valid number"
                             , error = "Couldn't parse the bug count"
-                            , inModule = "Stages.Beginning.Update"
+                            , inModule = "Stages.ChooseFile.Update"
                             }
 
         ChooseFile ->
@@ -47,5 +47,3 @@ update { model, msg } =
             model
                 |> BubbleUp.justModel
                 |> BubbleUp.withInstruction (BreakFileInstruction file)
-
-

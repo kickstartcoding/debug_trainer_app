@@ -1,4 +1,4 @@
-module Stages.Beginning.Model exposing
+module Stages.ChooseFile.Model exposing
     ( File
     , Model
     , StartType(..)

@@ -4,7 +4,6 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font exposing (monospace)
-import Element.Input as Input
 import Stages.Finished.Model exposing (FinishType(..), Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.Colors as Colors
