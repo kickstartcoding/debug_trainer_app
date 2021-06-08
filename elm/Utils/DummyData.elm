@@ -2,6 +2,7 @@ module Utils.DummyData exposing (..)
 
 import Main.Model exposing (Error(..), Stage(..))
 import Main.Update.BreakFile as BreakFile
+import Stages.Beginning.Model exposing (StartType(..), Status(..))
 import Stages.Debugging.Model as DebuggingModel
     exposing
         ( HelpTab(..)
@@ -12,18 +13,23 @@ import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements as Encouragements
 import Utils.Types.FilePath as FilePath exposing (FilePath)
+import Stages.Debugging.Model exposing (HelpTab(..))
 
 
 startStage : Stage
 startStage =
-    Start
+    Beginning Stages.Beginning.Model.init
 
 
 gotFileStage : Stage
 gotFileStage =
-    GotFile
-        { path = defaultFilePath
-        , content = defaultFileContent
+    Beginning
+        { startType = FirstTime
+        , status =
+            GotFile
+                { path = defaultFilePath
+                , content = defaultFileContent
+                }
         }
 
 
@@ -31,7 +37,7 @@ debuggingStageStepsPage : List Int -> Stage
 debuggingStageStepsPage randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model | currentPage = StepsPage }
@@ -41,7 +47,7 @@ debuggingStageIDontSeeAnyErrorsPage : List Int -> Stage
 debuggingStageIDontSeeAnyErrorsPage randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model | currentPage = IDontSeeAnyErrorsPage }
@@ -51,7 +57,7 @@ debuggingStageBugHintsTab : List Int -> Stage
 debuggingStageBugHintsTab randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model
@@ -64,7 +70,7 @@ debuggingStageTipsTab : List Int -> Stage
 debuggingStageTipsTab randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model
@@ -77,7 +83,7 @@ debuggingStageEncouragementTab : List Int -> Stage
 debuggingStageEncouragementTab randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model
@@ -90,7 +96,7 @@ debuggingStageShowAnswerTab : List Int -> Stage
 debuggingStageShowAnswerTab randomNumbers =
     let
         model =
-            debuggingModel randomNumbers
+            defaultDebugModel randomNumbers
     in
     Debugging
         { model
@@ -99,45 +105,6 @@ debuggingStageShowAnswerTab randomNumbers =
         }
 
 
-debuggingModel : List Int -> DebuggingModel.Model
-debuggingModel randomNumbers =
-    { currentPage = HelpPage
-    , currentHelpTab = ShowMeTheAnswer
-    , currentDebuggingTip = 0
-    , answerIsShowing = True
-    , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
-    , brokenFile =
-        { originalContent = "function a (a, b, c)\n{\n  return c\n}\n\na()\n"
-        , updatedContent = "function a (b, a, c)\n{\n  c\n}\n\na()\n"
-        , changes =
-            [ ( { lineNumber = 1
-                , breakType = ChangeFunctionArgs
-                , changeDescription = "swapped some goddamn args"
-                }
-              , { showingLineNumber = False
-                , showingBugType = False
-                }
-              )
-            , ( { lineNumber = 5
-                , breakType = RemoveParenthesis
-                , changeDescription = "removed a paren"
-                }
-              , { showingLineNumber = False
-                , showingBugType = False
-                }
-              )
-            , ( { lineNumber = 5
-                , breakType = RemoveParenthesis
-                , changeDescription = "removed a paren"
-                }
-              , { showingLineNumber = False
-                , showingBugType = False
-                }
-              )
-            ]
-        , path = FilePath.fromString "testfile.js"
-        }
-    }
 
 
 defaultDebugModel : List Int -> DebuggingModel.Model

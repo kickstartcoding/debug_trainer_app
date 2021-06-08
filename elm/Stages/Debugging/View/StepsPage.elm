@@ -12,6 +12,7 @@ import Utils.Pluralize as Pluralize
 import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.FilePath as FilePath
+import Utils.UI.Buttons as Buttons
 
 
 render : Int -> BrokenFile -> Element Msg
@@ -71,36 +72,18 @@ render bugCount ({ changes, path } as brokenFile) =
             ]
         , column [ spacing 20, centerX ]
             [ row [ spacing 20, centerX ]
-                [ Input.button
-                    [ Background.color Colors.purple
-                    , Font.color Colors.white
-                    , paddingXY 35 20
-                    , rounded 5
-                    , centerX
-                    ]
-                    { onPress = Just (ChangePage HelpPage)
-                    , label = text "Help me!"
+                [ Buttons.button [ Background.color Colors.purple ]
+                    { msg = ChangePage HelpPage
+                    , name = "help me!"
                     }
-                , Input.button
-                    [ Background.color Colors.green
-                    , Font.color Colors.white
-                    , paddingXY 35 20
-                    , rounded 5
-                    , centerX
-                    ]
-                    { onPress = Just ISolvedIt
-                    , label = text "I solved it!"
+                , Buttons.button [ Background.color Colors.green ]
+                    { msg = ISolvedIt
+                    , name = "I solved it!"
                     }
                 ]
-            , Input.button
-                [ Background.color Colors.red
-                , Font.color Colors.white
-                , paddingXY 35 20
-                , rounded 5
-                , centerX
-                ]
-                { onPress = Just (ChangePage IDontSeeAnyErrorsPage)
-                , label = text "I don't see any errors!"
+            , Buttons.button [ Background.color Colors.red, centerX ]
+                { msg = ChangePage IDontSeeAnyErrorsPage
+                , name = "I don't see any errors!"
                 }
             ]
         ]

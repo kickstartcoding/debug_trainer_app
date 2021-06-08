@@ -19,7 +19,7 @@ import Utils.UI.Buttons as Buttons
 render : BrokenFile -> Element Msg
 render { path } =
     column [ spacing 50 ]
-        [ Buttons.back { name = "Back to instructions", msg = ChangePage StepsPage }
+        [ Buttons.back { name = "back to instructions", msg = ChangePage StepsPage }
         , el [ paddingXY 35 0 ] <|
             column
                 [ Border.rounded 5
@@ -52,6 +52,10 @@ render { path } =
                     [ el [ Font.bold ] (text "3. It may be that the change we introduced into the file doesn't actually change the code enough to cause errors.")
                     ]
                 , paragraph [ paddingXY 40 0 ] [ text "If you think this might be it, try rerunning Debugging Practice to introduce a different error." ]
+                , Buttons.button [ width (px 400), centerX ]
+                    { name = "reset broken file and play again"
+                    , msg = ResetFileAndPlayAgain
+                    }
                 ]
         , el [ width fill, height (px 20) ] none
         ]

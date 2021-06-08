@@ -12,6 +12,7 @@ import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.Types.FileType as FileType exposing (FileType)
+import Utils.UI.Buttons as Buttons
 
 
 render : { bugCount : Int, encouragements : Encouragements, brokenFile : BrokenFile } -> Element Msg
@@ -26,15 +27,8 @@ render { bugCount, encouragements, brokenFile } =
                         |> Maybe.withDefault "You're doing great!"
                     )
                 ]
-        , Input.button
-            [ Background.color Colors.purple
-            , Font.color Colors.white
-            , Font.center
-            , centerX
-            , paddingXY 35 20
-            , Border.rounded 5
-            ]
-            { onPress = Just SwitchToNextEncouragement
-            , label = text "Say something else encouraging"
+        , Buttons.button [ centerX ]
+            { msg = SwitchToNextEncouragement
+            , name = "Say something else encouraging"
             }
         ]

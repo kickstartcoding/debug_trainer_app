@@ -8,8 +8,10 @@ import Element.Input as Input
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.List
+import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.UI.Buttons as Buttons
 
 
 render : { bugCount : Int, brokenFile : BrokenFile } -> Element Msg
@@ -51,31 +53,17 @@ changeOptions brokenFile index ( change, hintVisibility ) =
                 paragraph [ centerY ] [ text (thisBugText ++ " was introduced on line " ++ String.fromInt change.lineNumber ++ " of the original file") ]
 
             else
-                Input.button
-                    [ Background.color Colors.purple
-                    , Font.color Colors.white
-                    , Font.center
-                    , width (px 250)
-                    , paddingXY 35 20
-                    , Border.rounded 5
-                    ]
-                    { onPress = Just (ShowBugLineHint index)
-                    , label = paragraph [] [ text ("Show me what line " ++ thisBugText ++ " is on") ]
+                Buttons.button []
+                    { msg = ShowBugLineHint index
+                    , name = "Show me what line " ++ thisBugText ++ " is on"
                     }
         , el [ height (px 80) ] <|
             if hintVisibility.showingBugType then
-                paragraph [ centerY ] [ text change.changeDescription ]
+                paragraph [ centerY, spacing 5 ] (Utils.String.toFormattedElements change.changeDescription)
 
             else
-                Input.button
-                    [ Background.color Colors.purple
-                    , Font.color Colors.white
-                    , Font.center
-                    , width (px 250)
-                    , paddingXY 35 20
-                    , Border.rounded 5
-                    ]
-                    { onPress = Just (ShowBugTypeHint index)
-                    , label = paragraph [] [ text ("Tell me what type of bug " ++ thisOrItText ++ " is") ]
+                Buttons.button []
+                    { msg = ShowBugTypeHint index
+                    , name = "Tell me what type of bug " ++ thisOrItText ++ " is"
                     }
         ]

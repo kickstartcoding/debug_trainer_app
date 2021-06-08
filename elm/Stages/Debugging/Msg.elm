@@ -13,3 +13,4 @@ type Msg
     | ShowBugTypeHint Int
     | ShowTheAnswer
     | ISolvedIt
+    | ResetFileAndPlayAgain

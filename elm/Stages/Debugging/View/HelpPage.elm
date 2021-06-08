@@ -38,7 +38,7 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
             brokenFile.path |> FileType.fromFilePath
     in
     column [ spacing 30, width fill, height fill ]
-        [ Buttons.back { name = "Back to instructions", msg = ChangePage StepsPage }
+        [ Buttons.back { name = "back to instructions", msg = ChangePage StepsPage }
         , column [ width fill, height fill ]
             [ row [ width fill ]
                 [ renderTab

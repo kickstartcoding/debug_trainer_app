@@ -4,10 +4,9 @@ import Element exposing (..)
 import Html exposing (Html)
 import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
-import Main.View.Start
+import Stages.Beginning.View
 import Stages.Debugging.Model exposing (HelpTab(..))
 import Stages.Debugging.View
-import Stages.Finished.Model
 import Stages.Finished.View
 
 
@@ -17,11 +16,13 @@ render { bugCount, stage } =
     , body =
         [ layout [ width fill, height fill, paddingXY 20 20 ]
             (case stage of
-                Start ->
-                    Main.View.Start.render bugCount Nothing
-
-                GotFile file ->
-                    Main.View.Start.render bugCount (Just file)
+                Beginning { startType, status } ->
+                    Element.map BeginningInterface <|
+                        Stages.Beginning.View.render
+                            { bugCount = bugCount
+                            , startType = startType
+                            , status = status
+                            }
 
                 Debugging { brokenFile, currentPage, currentHelpTab, encouragements, currentDebuggingTip, answerIsShowing } ->
                     Element.map DebuggingInterface <|

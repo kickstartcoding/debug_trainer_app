@@ -11,6 +11,7 @@ import Utils.List
 import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.Types.FileType as FileType exposing (FileType)
+import Utils.UI.Buttons as Buttons
 import Utils.UI.Link as Link
 
 
@@ -26,35 +27,19 @@ render { currentDebuggingTip, brokenFile } =
             , width fill
             , paddingXY 60 20
             ]
-            (column [ centerY, spacing 10 ]
+            (column [ centerY, centerX, spacing 10 ]
                 (Utils.List.getByWrappedIndex currentDebuggingTip (debuggingTips fileType)
                     |> Maybe.withDefault defaultTip
                 )
             )
         , row [ centerX, spacing 20 ]
-            [ Input.button
-                [ Background.color Colors.purple
-                , Font.color Colors.white
-                , Font.center
-                , centerX
-                , paddingXY 35 20
-                , Border.rounded 5
-                , width (px 200)
-                ]
-                { onPress = Just SwitchToPreviousDebuggingTip
-                , label = text "previous tip"
+            [ Buttons.button []
+                { msg = SwitchToPreviousDebuggingTip
+                , name = "previous tip"
                 }
-            , Input.button
-                [ Background.color Colors.purple
-                , Font.color Colors.white
-                , Font.center
-                , centerX
-                , paddingXY 35 20
-                , Border.rounded 5
-                , width (px 200)
-                ]
-                { onPress = Just SwitchToNextDebuggingTip
-                , label = text "next tip"
+            , Buttons.button []
+                { msg = SwitchToNextDebuggingTip
+                , name = "next tip"
                 }
             ]
         ]

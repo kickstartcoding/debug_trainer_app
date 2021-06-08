@@ -14,7 +14,7 @@ import Json.Encode
 import TsJson.Decode as TsDecode
 import TsJson.Encode as TsEncode exposing (Encoder)
 import TsJson.Type
-import Main.Model
+import Stages.Beginning.Model
 
 decodeFlags flags =
     Json.Decode.decodeValue
@@ -43,7 +43,7 @@ chooseFile argument____ =
 
 
 type ToElm
-    = GotFileChoice Main.Model.File
+    = GotFileChoice Stages.Beginning.Model.File
     | FileChangeWasSaved ()
 
 

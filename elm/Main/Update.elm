@@ -1,10 +1,17 @@
 module Main.Update exposing (update)
 
-import List.Extra
 import Main.Interop as Interop
-import Main.Model exposing (Error(..), Model, Stage(..))
+import Main.Model
+    exposing
+        ( Error(..)
+        , Model
+        , Stage(..)
+        )
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
+import Stages.Beginning.Model as Beginning exposing (File, StartType(..))
+import Stages.Beginning.Msg
+import Stages.Beginning.Update as BeginningUpdate exposing (Instruction(..))
 import Stages.Debugging.Model
 import Stages.Debugging.Update as DebuggingUpdate
 import Stages.Finished.Update as FinishedUpdate
@@ -15,51 +22,35 @@ import Utils.Types.FilePath as FilePath
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UpdateBugCount count ->
-            case String.toInt count of
-                Just bugCount ->
-                    ( { model | bugCount = bugCount }, Cmd.none )
+        BeginningInterface beginningMsg ->
+            case model.stage of
+                Beginning beginningModel ->
+                    let
+                        { newModel, cmd, bubble } =
+                            BeginningUpdate.update
+                                { model = beginningModel
+                                , msg = beginningMsg
+                                }
+                    in
+                    case bubble.instruction of
+                        Just (UpdateBugCountInstruction newBugCount) ->
+                            ( { model
+                                | stage = Beginning newModel
+                                , bugCount = newBugCount
+                              }
+                            , Cmd.map BeginningInterface cmd
+                            )
 
-                Nothing ->
-                    ( { model | maybeError = Just (CouldntParseBugCount count) }, Cmd.none )
+                        Just (BreakFileInstruction file) ->
+                            breakFile file model cmd
 
-        ChooseFile ->
-            ( model, Interop.chooseFile () )
+                        Nothing ->
+                            ( { model | stage = Beginning newModel }
+                            , Cmd.map BeginningInterface cmd
+                            )
 
-        FileWasSelected file ->
-            ( { model | stage = GotFile file }, Cmd.none )
-
-        BreakFile { path, content } ->
-            let
-                result =
-                    BreakFile.run
-                        { breakCount = model.bugCount
-                        , filepath = path
-                        , fileContent = content
-                        , randomNumbers = model.randomNumbers
-                        }
-            in
-            case result of
-                Just { newFileContent, changes } ->
-                    ( { model
-                        | stage =
-                            Debugging
-                                (Stages.Debugging.Model.init
-                                    { originalContent = content
-                                    , updatedContent = newFileContent
-                                    , changes = changes
-                                    , path = path
-                                    }
-                                )
-                      }
-                    , Interop.writeFile
-                        { path = path
-                        , content = newFileContent
-                        }
-                    )
-
-                Nothing ->
-                    ( { model | maybeError = Just (CouldntBreakSelectedFile (FilePath.toString path)) }, Cmd.none )
+                _ ->
+                    ( model, Cmd.none )
 
         FileWasBroken ->
             ( model, Cmd.none )
@@ -74,20 +65,33 @@ update msg model =
                                 , msg = debuggingMsg
                                 }
                     in
-                    ( case bubble.instruction of
+                    case bubble.instruction of
                         Just (DebuggingUpdate.GoToFinishStage finishType) ->
-                            { model
+                            ( { model
                                 | stage =
                                     Finished
                                         { finishType = finishType
                                         , brokenFile = newModel.brokenFile
                                         }
-                            }
+                              }
+                            , Cmd.map DebuggingInterface cmd
+                            )
+
+                        Just DebuggingUpdate.ResetAndPlayAgain ->
+                            ( { model | stage = Beginning (Beginning.afterResetInit debuggingModel.brokenFile) }
+                            , Cmd.batch
+                                [ Cmd.map DebuggingInterface cmd
+                                , Interop.writeFile
+                                    { path = debuggingModel.brokenFile.path
+                                    , content = debuggingModel.brokenFile.originalContent
+                                    }
+                                ]
+                            )
 
                         Nothing ->
-                            { model | stage = Debugging newModel }
-                    , Cmd.map DebuggingInterface cmd
-                    )
+                            ( { model | stage = Debugging newModel }
+                            , Cmd.map DebuggingInterface cmd
+                            )
 
                 _ ->
                     ( model, Cmd.none )
@@ -106,7 +110,10 @@ update msg model =
                         Just (FinishedUpdate.ResetFile playPreference) ->
                             case playPreference of
                                 FinishedUpdate.PlayAgain ->
-                                    ( { model | stage = Start }
+                                    ( { model
+                                        | stage =
+                                            Beginning (Beginning.afterResetInit brokenFile)
+                                      }
                                     , Cmd.batch
                                         [ Cmd.map FinishedInterface cmd
                                         , Interop.writeFile
@@ -137,3 +144,48 @@ update msg model =
 
         InteropError error ->
             ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
+
+
+breakFile : File -> Model -> Cmd Stages.Beginning.Msg.Msg -> ( Model, Cmd Msg )
+breakFile { path, content } model beginningCmd =
+    let
+        result =
+            BreakFile.run
+                { breakCount = model.bugCount
+                , filepath = path
+                , fileContent = content
+                , randomNumbers = model.randomNumbers
+                }
+    in
+    case result of
+        Just { newFileContent, changes } ->
+            ( { model
+                | stage =
+                    Debugging
+                        (Stages.Debugging.Model.init
+                            { originalContent = content
+                            , updatedContent = newFileContent
+                            , changes = changes
+                            , path = path
+                            }
+                        )
+              }
+            , Cmd.batch
+                [ Cmd.map BeginningInterface beginningCmd
+                , Interop.writeFile
+                    { path = path
+                    , content = newFileContent
+                    }
+                ]
+            )
+
+        Nothing ->
+            ( { model
+                | maybeError =
+                    Just
+                        (CouldntBreakSelectedFile
+                            (FilePath.toString path)
+                        )
+              }
+            , Cmd.none
+            )

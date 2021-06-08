@@ -12,6 +12,7 @@ import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
 
 type Instruction
     = GoToFinishStage FinishType
+    | ResetAndPlayAgain
 
 
 update : { model : Model, msg : Msg } -> BubbleUpWithInstruction Model Msg Instruction
@@ -54,3 +55,8 @@ update { model, msg } =
             model
                 |> BubbleUp.justModel
                 |> BubbleUp.withInstruction (GoToFinishStage SuccessfullySolved)
+
+        ResetFileAndPlayAgain ->
+            model
+                |> BubbleUp.justModel
+                |> BubbleUp.withInstruction ResetAndPlayAgain

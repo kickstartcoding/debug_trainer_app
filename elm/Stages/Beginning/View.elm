@@ -1,4 +1,4 @@
-module Main.View.Start exposing (..)
+module Stages.Beginning.View exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
@@ -6,21 +6,33 @@ import Element.Border exposing (rounded)
 import Element.Font as Font
 import Element.Input as Input
 import Html.Attributes as HtmlAttrs
-import Main.Model exposing (File, Model)
-import Main.Msg exposing (Msg(..))
+import Stages.Beginning.Model
+    exposing
+        ( File
+        , Model
+        , StartType(..)
+        , Status(..)
+        )
+import Stages.Beginning.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Attributes as Attributes
+import Utils.UI.Buttons as Buttons
 
 
-render : Int -> Maybe File -> Element Msg
-render bugCount maybeFile =
+render :
+    { bugCount : Int
+    , startType : StartType
+    , status : Status
+    }
+    -> Element Msg
+render { bugCount, startType, status } =
     let
         { fileSelectLabel, startButtonTitle, startButtonLabel, startButtonColor, startButtonMsg } =
-            case maybeFile of
-                Nothing ->
+            case status of
+                JustStarted ->
                     { fileSelectLabel = "choose a file"
                     , startButtonLabel = "start"
                     , startButtonColor = Colors.gray
@@ -28,7 +40,7 @@ render bugCount maybeFile =
                     , startButtonTitle = "you can't start until you select a file"
                     }
 
-                Just file ->
+                GotFile file ->
                     { fileSelectLabel = "choose a different file"
                     , startButtonLabel = "start debugging"
                     , startButtonColor = Colors.green
@@ -52,7 +64,7 @@ render bugCount maybeFile =
                 , Input.text
                     [ htmlAttribute (HtmlAttrs.type_ "number")
                     , htmlAttribute (HtmlAttrs.min "1")
-                    , width (fill |> maximum 90)
+                    , width (maximum 90 fill)
                     , Font.center
                     ]
                     { onChange = UpdateBugCount
@@ -61,8 +73,8 @@ render bugCount maybeFile =
                     , label = Input.labelHidden "the number of bugs you'd like to try debugging"
                     }
                 , text (" " ++ Pluralize.singularOrPlural bugCount "bug" ++ " in ")
-                , case maybeFile of
-                    Just file ->
+                , case status of
+                    GotFile file ->
                         paragraph
                             [ Background.color (Colors.darkened 0.5)
                             , Font.color Colors.white
@@ -72,31 +84,22 @@ render bugCount maybeFile =
                             [ text (FilePath.toString file.path)
                             ]
 
-                    Nothing ->
+                    JustStarted ->
                         none
                 ]
             )
         , row [ centerX, spacing 30 ]
-            [ Input.button
-                [ Background.color Colors.purple
-                , Font.color Colors.white
-                , paddingXY 35 20
-                , rounded 5
-                , centerX
-                ]
-                { onPress = Just ChooseFile
-                , label = text fileSelectLabel
+            [ Buttons.button [ centerX ]
+                { msg = ChooseFile
+                , name = fileSelectLabel
                 }
             ]
-        , Input.button
+        , Buttons.disableableButton
             [ Background.color startButtonColor
-            , Font.color Colors.white
-            , paddingXY 35 20
-            , rounded 5
-            , centerX
             , Attributes.title startButtonTitle
+            , centerX
             ]
-            { onPress = startButtonMsg
-            , label = text startButtonLabel
+            { maybeMsg = startButtonMsg
+            , name = startButtonLabel
             }
         ]
