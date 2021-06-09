@@ -1,5 +1,6 @@
 module Utils.Colors exposing
     ( black
+    , darkKickstartCodingBlue
     , darkGray
     , darkPurple
     , darkened
@@ -20,6 +21,10 @@ import Element exposing (Color, rgb, rgb255, rgba)
 kickstartCodingBlue : Color
 kickstartCodingBlue =
     rgb255 25 181 254
+
+darkKickstartCodingBlue : Color
+darkKickstartCodingBlue =
+    rgb255 20 140 204
 
 
 purple : Color

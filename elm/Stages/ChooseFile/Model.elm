@@ -37,6 +37,7 @@ afterResetInit brokenFile =
 
 type Status
     = JustStarted
+    | TriedToStartWithoutChoosingAFile
     | GotFile File
 
 

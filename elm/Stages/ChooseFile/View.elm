@@ -2,7 +2,7 @@ module Stages.ChooseFile.View exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
-import Element.Border exposing (rounded)
+import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Html.Attributes as HtmlAttrs
@@ -36,7 +36,15 @@ render { bugCount, startType, status } =
                     { fileSelectLabel = "choose a file"
                     , startButtonLabel = "start"
                     , startButtonColor = Colors.gray
-                    , startButtonMsg = Nothing
+                    , startButtonMsg = PrematureStart
+                    , startButtonTitle = "you can't start until you choose a file"
+                    }
+
+                TriedToStartWithoutChoosingAFile ->
+                    { fileSelectLabel = "choose a file"
+                    , startButtonLabel = "start"
+                    , startButtonColor = Colors.gray
+                    , startButtonMsg = PrematureStart
                     , startButtonTitle = "you can't start until you choose a file"
                     }
 
@@ -44,62 +52,94 @@ render { bugCount, startType, status } =
                     { fileSelectLabel = "choose a different file"
                     , startButtonLabel = "start debugging"
                     , startButtonColor = Colors.green
-                    , startButtonMsg = Just (BreakFile file)
+                    , startButtonMsg = BreakFile file
                     , startButtonTitle =
                         "click here to introduce "
                             ++ Pluralize.aOrSome bugCount "bug"
                             ++ " and start debugging them"
                     }
     in
-    column
-        [ Font.color (rgb 0 0 0)
-        , Font.size 25
-        , spacing 40
-        , centerX
-        , centerY
-        ]
-        [ paragraph [ Font.center, spacing 15 ]
-            (List.intersperse (text (nonbreakingSpaces 1)) <|
-                [ text "I would like to try debugging "
-                , Input.text
-                    [ htmlAttribute (HtmlAttrs.type_ "number")
-                    , htmlAttribute (HtmlAttrs.min "1")
-                    , width (maximum 90 fill)
-                    , Font.center
-                    ]
-                    { onChange = UpdateBugCount
-                    , text = String.fromInt bugCount
-                    , placeholder = Nothing
-                    , label = Input.labelHidden "the number of bugs you'd like to try debugging"
-                    }
-                , text (" " ++ Pluralize.singularOrPlural bugCount "bug" ++ " in ")
-                , case status of
-                    GotFile file ->
-                        paragraph
-                            [ Background.color (Colors.darkened 0.5)
-                            , Font.color Colors.white
-                            , paddingXY 10 5
-                            , rounded 5
-                            ]
-                            [ text (FilePath.toString file.path)
-                            ]
+    el
+        [ width fill
+        , height fill
+        , inFront
+            (case status of
+                TriedToStartWithoutChoosingAFile ->
+                    chooseFileFirstNote
 
-                    JustStarted ->
-                        none
-                ]
+                _ ->
+                    none
             )
-        , row [ centerX, spacing 30 ]
-            [ Buttons.button [ centerX ]
-                { msg = ChooseFile
-                , name = fileSelectLabel
+        ]
+    <|
+        column
+            [ Font.color (rgb 0 0 0)
+            , Font.size 25
+            , spacing 40
+            , centerX
+            , centerY
+            ]
+            [ paragraph [ Font.center, spacing 15 ]
+                (List.intersperse (text (nonbreakingSpaces 1)) <|
+                    [ text "I would like to try debugging "
+                    , Input.text
+                        [ htmlAttribute (HtmlAttrs.type_ "number")
+                        , htmlAttribute (HtmlAttrs.min "1")
+                        , width (maximum 90 fill)
+                        , Font.center
+                        ]
+                        { onChange = UpdateBugCount
+                        , text = String.fromInt bugCount
+                        , placeholder = Nothing
+                        , label = Input.labelHidden "the number of bugs you'd like to try debugging"
+                        }
+                    , text (" " ++ Pluralize.singularOrPlural bugCount "bug" ++ " in ")
+                    , case status of
+                        GotFile file ->
+                            paragraph
+                                [ Background.color (Colors.darkened 0.5)
+                                , Font.color Colors.white
+                                , paddingXY 10 5
+                                , Border.rounded 5
+                                ]
+                                [ text (FilePath.toString file.path)
+                                ]
+
+                        TriedToStartWithoutChoosingAFile ->
+                            none
+
+                        JustStarted ->
+                            none
+                    ]
+                )
+            , row [ centerX, spacing 30 ]
+                [ Buttons.button [ centerX ]
+                    { msg = ChooseFile
+                    , name = fileSelectLabel
+                    }
+                ]
+            , Buttons.button
+                [ Background.color startButtonColor
+                , Attributes.title startButtonTitle
+                , centerX
+                ]
+                { msg = startButtonMsg
+                , name = startButtonLabel
                 }
             ]
-        , Buttons.disableableButton
-            [ Background.color startButtonColor
-            , Attributes.title startButtonTitle
-            , centerX
-            ]
-            { maybeMsg = startButtonMsg
-            , name = startButtonLabel
-            }
+
+
+chooseFileFirstNote : Element msg
+chooseFileFirstNote =
+    paragraph
+        [ Background.color Colors.darkKickstartCodingBlue
+        , Font.color Colors.white
+        , Font.center
+        , Border.rounded 5
+        , paddingXY 20 10
+        , alignTop
+        , centerX
+        ]
+        [ text "You need to choose a file before you can start. "
+        , text "Click \"choose a file\" to choose a file."
         ]

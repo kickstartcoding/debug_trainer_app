@@ -5415,7 +5415,13 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$Model$BadFlags = function (a) {
 	return {$: 'BadFlags', a: a};
 };
-var $author$project$Main$Model$Intro = {$: 'Intro'};
+var $author$project$Main$Model$ChooseFile = function (a) {
+	return {$: 'ChooseFile', a: a};
+};
+var $author$project$Stages$ChooseFile$Model$FirstTime = {$: 'FirstTime'};
+var $author$project$Stages$ChooseFile$Model$JustStarted = {$: 'JustStarted'};
+var $author$project$Stages$ChooseFile$Model$init = {startType: $author$project$Stages$ChooseFile$Model$FirstTime, status: $author$project$Stages$ChooseFile$Model$JustStarted};
+var $author$project$Utils$DummyData$chooseFileStage = $author$project$Main$Model$ChooseFile($author$project$Stages$ChooseFile$Model$init);
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
 	var decoder_ = _v0.a;
@@ -5500,7 +5506,7 @@ var $author$project$Main$init = function (flags) {
 	var randomNumbers = _v0.randomNumbers;
 	var startingError = _v0.startingError;
 	return _Utils_Tuple2(
-		{bugCount: 3, maybeError: startingError, randomNumbers: randomNumbers, stage: $author$project$Main$Model$Intro},
+		{bugCount: 3, maybeError: startingError, randomNumbers: randomNumbers, stage: $author$project$Utils$DummyData$chooseFileStage},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Main$Msg$ChooseFileInterface = function (a) {
@@ -11493,6 +11499,7 @@ var $author$project$Stages$ChooseFile$Msg$BreakFile = function (a) {
 	return {$: 'BreakFile', a: a};
 };
 var $author$project$Stages$ChooseFile$Msg$ChooseFile = {$: 'ChooseFile'};
+var $author$project$Stages$ChooseFile$Msg$PrematureStart = {$: 'PrematureStart'};
 var $author$project$Stages$ChooseFile$Msg$UpdateBugCount = function (a) {
 	return {$: 'UpdateBugCount', a: a};
 };
@@ -11792,6 +11799,30 @@ var $mdgriffith$elm_ui$Internal$Model$AlignY = function (a) {
 };
 var $mdgriffith$elm_ui$Internal$Model$CenterY = {$: 'CenterY'};
 var $mdgriffith$elm_ui$Element$centerY = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$CenterY);
+var $mdgriffith$elm_ui$Internal$Model$Top = {$: 'Top'};
+var $mdgriffith$elm_ui$Element$alignTop = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Top);
+var $mdgriffith$elm_ui$Element$rgb255 = F3(
+	function (red, green, blue) {
+		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
+	});
+var $author$project$Utils$Colors$darkKickstartCodingBlue = A3($mdgriffith$elm_ui$Element$rgb255, 20, 140, 204);
+var $author$project$Stages$ChooseFile$View$chooseFileFirstNote = A2(
+	$mdgriffith$elm_ui$Element$paragraph,
+	_List_fromArray(
+		[
+			$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$darkKickstartCodingBlue),
+			$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+			$mdgriffith$elm_ui$Element$Font$center,
+			$mdgriffith$elm_ui$Element$Border$rounded(5),
+			A2($mdgriffith$elm_ui$Element$paddingXY, 20, 10),
+			$mdgriffith$elm_ui$Element$alignTop,
+			$mdgriffith$elm_ui$Element$centerX
+		]),
+	_List_fromArray(
+		[
+			$mdgriffith$elm_ui$Element$text('You need to choose a file before you can start. '),
+			$mdgriffith$elm_ui$Element$text('Click \"choose a file\" to choose a file.')
+		]));
 var $mdgriffith$elm_ui$Internal$Model$AsColumn = {$: 'AsColumn'};
 var $mdgriffith$elm_ui$Internal$Model$asColumn = $mdgriffith$elm_ui$Internal$Model$AsColumn;
 var $mdgriffith$elm_ui$Element$column = F2(
@@ -11816,26 +11847,42 @@ var $mdgriffith$elm_ui$Element$rgba = $mdgriffith$elm_ui$Internal$Model$Rgba;
 var $author$project$Utils$Colors$darkened = function (amount) {
 	return A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, amount);
 };
-var $author$project$Utils$UI$Buttons$disableableButton = F2(
-	function (attrs, _v0) {
-		var name = _v0.name;
-		var maybeMsg = _v0.maybeMsg;
-		return $author$project$Utils$UI$Buttons$buttonTemplate(
-			{
-				attrs: attrs,
-				label: A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(name)
-						])),
-				msg: maybeMsg
-			});
+var $mdgriffith$elm_ui$Element$el = F2(
+	function (attrs, child) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
+					attrs)),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[child])));
 	});
 var $author$project$Utils$Colors$gray = A3($mdgriffith$elm_ui$Element$rgb, 0.4, 0.4, 0.4);
 var $author$project$Utils$Colors$green = A3($mdgriffith$elm_ui$Element$rgb, 0, 0.7, 0);
 var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
+var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
+var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
+	function (a, b) {
+		return {$: 'Nearby', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$createNearby = F2(
+	function (loc, element) {
+		if (element.$ === 'Empty') {
+			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
+		} else {
+			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
+		}
+	});
+var $mdgriffith$elm_ui$Element$inFront = function (element) {
+	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
+};
 var $elm$core$List$intersperse = F2(
 	function (sep, xs) {
 		if (!xs.b) {
@@ -12013,18 +12060,6 @@ var $mdgriffith$elm_ui$Element$Input$autofill = A2(
 	$mdgriffith$elm_ui$Internal$Model$Attr,
 	$elm$html$Html$Attributes$attribute('autocomplete'));
 var $mdgriffith$elm_ui$Internal$Model$Behind = {$: 'Behind'};
-var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
-	function (a, b) {
-		return {$: 'Nearby', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Element$createNearby = F2(
-	function (loc, element) {
-		if (element.$ === 'Empty') {
-			return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
-		} else {
-			return A2($mdgriffith$elm_ui$Internal$Model$Nearby, loc, element);
-		}
-	});
 var $mdgriffith$elm_ui$Element$behindContent = function (element) {
 	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$Behind, element);
 };
@@ -12138,10 +12173,6 @@ var $mdgriffith$elm_ui$Element$Input$hiddenLabelAttribute = function (label) {
 	} else {
 		return $mdgriffith$elm_ui$Internal$Model$NoAttribute;
 	}
-};
-var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
-var $mdgriffith$elm_ui$Element$inFront = function (element) {
-	return A2($mdgriffith$elm_ui$Element$createNearby, $mdgriffith$elm_ui$Internal$Model$InFront, element);
 };
 var $mdgriffith$elm_ui$Element$Input$isConstrained = function (len) {
 	isConstrained:
@@ -12542,23 +12573,6 @@ var $mdgriffith$elm_ui$Element$alpha = function (o) {
 			transparency));
 };
 var $mdgriffith$elm_ui$Element$Input$charcoal = A3($mdgriffith$elm_ui$Element$rgb, 136 / 255, 138 / 255, 133 / 255);
-var $mdgriffith$elm_ui$Element$el = F2(
-	function (attrs, child) {
-		return A4(
-			$mdgriffith$elm_ui$Internal$Model$element,
-			$mdgriffith$elm_ui$Internal$Model$asEl,
-			$mdgriffith$elm_ui$Internal$Model$div,
-			A2(
-				$elm$core$List$cons,
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$shrink),
-				A2(
-					$elm$core$List$cons,
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$shrink),
-					attrs)),
-			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
-				_List_fromArray(
-					[child])));
-	});
 var $mdgriffith$elm_ui$Element$Input$renderPlaceholder = F3(
 	function (_v0, forPlaceholder, on) {
 		var placeholderAttrs = _v0.a;
@@ -12862,18 +12876,20 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 	var startType = _v0.startType;
 	var status = _v0.status;
 	var _v1 = function () {
-		if (status.$ === 'JustStarted') {
-			return {fileSelectLabel: 'choose a file', startButtonColor: $author$project$Utils$Colors$gray, startButtonLabel: 'start', startButtonMsg: $elm$core$Maybe$Nothing, startButtonTitle: 'you can\'t start until you choose a file'};
-		} else {
-			var file = status.a;
-			return {
-				fileSelectLabel: 'choose a different file',
-				startButtonColor: $author$project$Utils$Colors$green,
-				startButtonLabel: 'start debugging',
-				startButtonMsg: $elm$core$Maybe$Just(
-					$author$project$Stages$ChooseFile$Msg$BreakFile(file)),
-				startButtonTitle: 'click here to introduce ' + (A2($author$project$Utils$Pluralize$aOrSome, bugCount, 'bug') + ' and start debugging them')
-			};
+		switch (status.$) {
+			case 'JustStarted':
+				return {fileSelectLabel: 'choose a file', startButtonColor: $author$project$Utils$Colors$gray, startButtonLabel: 'start', startButtonMsg: $author$project$Stages$ChooseFile$Msg$PrematureStart, startButtonTitle: 'you can\'t start until you choose a file'};
+			case 'TriedToStartWithoutChoosingAFile':
+				return {fileSelectLabel: 'choose a file', startButtonColor: $author$project$Utils$Colors$gray, startButtonLabel: 'start', startButtonMsg: $author$project$Stages$ChooseFile$Msg$PrematureStart, startButtonTitle: 'you can\'t start until you choose a file'};
+			default:
+				var file = status.a;
+				return {
+					fileSelectLabel: 'choose a different file',
+					startButtonColor: $author$project$Utils$Colors$green,
+					startButtonLabel: 'start debugging',
+					startButtonMsg: $author$project$Stages$ChooseFile$Msg$BreakFile(file),
+					startButtonTitle: 'click here to introduce ' + (A2($author$project$Utils$Pluralize$aOrSome, bugCount, 'bug') + ' and start debugging them')
+				};
 		}
 	}();
 	var fileSelectLabel = _v1.fileSelectLabel;
@@ -12882,100 +12898,118 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 	var startButtonColor = _v1.startButtonColor;
 	var startButtonMsg = _v1.startButtonMsg;
 	return A2(
-		$mdgriffith$elm_ui$Element$column,
+		$mdgriffith$elm_ui$Element$el,
 		_List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Font$color(
-				A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0)),
-				$mdgriffith$elm_ui$Element$Font$size(25),
-				$mdgriffith$elm_ui$Element$spacing(40),
-				$mdgriffith$elm_ui$Element$centerX,
-				$mdgriffith$elm_ui$Element$centerY
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$inFront(
+				function () {
+					if (status.$ === 'TriedToStartWithoutChoosingAFile') {
+						return $author$project$Stages$ChooseFile$View$chooseFileFirstNote;
+					} else {
+						return $mdgriffith$elm_ui$Element$none;
+					}
+				}())
 			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$spacing(15)
-					]),
-				A2(
-					$elm$core$List$intersperse,
-					$mdgriffith$elm_ui$Element$text(
-						$author$project$Utils$SpecialChars$nonbreakingSpaces(1)),
+		A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$color(
+					A3($mdgriffith$elm_ui$Element$rgb, 0, 0, 0)),
+					$mdgriffith$elm_ui$Element$Font$size(25),
+					$mdgriffith$elm_ui$Element$spacing(40),
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$centerY
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text('I would like to try debugging '),
-							A2(
-							$mdgriffith$elm_ui$Element$Input$text,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$htmlAttribute(
-									$elm$html$Html$Attributes$type_('number')),
-									$mdgriffith$elm_ui$Element$htmlAttribute(
-									$elm$html$Html$Attributes$min('1')),
-									$mdgriffith$elm_ui$Element$width(
-									A2($mdgriffith$elm_ui$Element$maximum, 90, $mdgriffith$elm_ui$Element$fill)),
-									$mdgriffith$elm_ui$Element$Font$center
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$Input$labelHidden('the number of bugs you\'d like to try debugging'),
-								onChange: $author$project$Stages$ChooseFile$Msg$UpdateBugCount,
-								placeholder: $elm$core$Maybe$Nothing,
-								text: $elm$core$String$fromInt(bugCount)
-							}),
-							$mdgriffith$elm_ui$Element$text(
-							' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, bugCount, 'bug') + ' in ')),
-							function () {
-							if (status.$ === 'GotFile') {
-								var file = status.a;
-								return A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$Background$color(
-											$author$project$Utils$Colors$darkened(0.5)),
-											$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-											A2($mdgriffith$elm_ui$Element$paddingXY, 10, 5),
-											$mdgriffith$elm_ui$Element$Border$rounded(5)
-										]),
-									_List_fromArray(
-										[
-											$mdgriffith$elm_ui$Element$text(
-											$author$project$Utils$Types$FilePath$toString(file.path))
-										]));
-							} else {
-								return $mdgriffith$elm_ui$Element$none;
-							}
-						}()
-						]))),
-				A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$centerX,
-						$mdgriffith$elm_ui$Element$spacing(30)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$author$project$Utils$UI$Buttons$button,
+							$mdgriffith$elm_ui$Element$Font$center,
+							$mdgriffith$elm_ui$Element$spacing(15)
+						]),
+					A2(
+						$elm$core$List$intersperse,
+						$mdgriffith$elm_ui$Element$text(
+							$author$project$Utils$SpecialChars$nonbreakingSpaces(1)),
 						_List_fromArray(
-							[$mdgriffith$elm_ui$Element$centerX]),
-						{msg: $author$project$Stages$ChooseFile$Msg$ChooseFile, name: fileSelectLabel})
-					])),
-				A2(
-				$author$project$Utils$UI$Buttons$disableableButton,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Background$color(startButtonColor),
-						$author$project$Utils$UI$Attributes$title(startButtonTitle),
-						$mdgriffith$elm_ui$Element$centerX
-					]),
-				{maybeMsg: startButtonMsg, name: startButtonLabel})
-			]));
+							[
+								$mdgriffith$elm_ui$Element$text('I would like to try debugging '),
+								A2(
+								$mdgriffith$elm_ui$Element$Input$text,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$htmlAttribute(
+										$elm$html$Html$Attributes$type_('number')),
+										$mdgriffith$elm_ui$Element$htmlAttribute(
+										$elm$html$Html$Attributes$min('1')),
+										$mdgriffith$elm_ui$Element$width(
+										A2($mdgriffith$elm_ui$Element$maximum, 90, $mdgriffith$elm_ui$Element$fill)),
+										$mdgriffith$elm_ui$Element$Font$center
+									]),
+								{
+									label: $mdgriffith$elm_ui$Element$Input$labelHidden('the number of bugs you\'d like to try debugging'),
+									onChange: $author$project$Stages$ChooseFile$Msg$UpdateBugCount,
+									placeholder: $elm$core$Maybe$Nothing,
+									text: $elm$core$String$fromInt(bugCount)
+								}),
+								$mdgriffith$elm_ui$Element$text(
+								' ' + (A2($author$project$Utils$Pluralize$singularOrPlural, bugCount, 'bug') + ' in ')),
+								function () {
+								switch (status.$) {
+									case 'GotFile':
+										var file = status.a;
+										return A2(
+											$mdgriffith$elm_ui$Element$paragraph,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$Background$color(
+													$author$project$Utils$Colors$darkened(0.5)),
+													$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+													A2($mdgriffith$elm_ui$Element$paddingXY, 10, 5),
+													$mdgriffith$elm_ui$Element$Border$rounded(5)
+												]),
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$text(
+													$author$project$Utils$Types$FilePath$toString(file.path))
+												]));
+									case 'TriedToStartWithoutChoosingAFile':
+										return $mdgriffith$elm_ui$Element$none;
+									default:
+										return $mdgriffith$elm_ui$Element$none;
+								}
+							}()
+							]))),
+					A2(
+					$mdgriffith$elm_ui$Element$row,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$spacing(30)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$author$project$Utils$UI$Buttons$button,
+							_List_fromArray(
+								[$mdgriffith$elm_ui$Element$centerX]),
+							{msg: $author$project$Stages$ChooseFile$Msg$ChooseFile, name: fileSelectLabel})
+						])),
+					A2(
+					$author$project$Utils$UI$Buttons$button,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Background$color(startButtonColor),
+							$author$project$Utils$UI$Attributes$title(startButtonTitle),
+							$mdgriffith$elm_ui$Element$centerX
+						]),
+					{msg: startButtonMsg, name: startButtonLabel})
+				])));
 };
 var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
 var $author$project$Stages$Debugging$Msg$ChangePage = function (a) {
@@ -14727,10 +14761,6 @@ var $mdgriffith$elm_ui$Internal$Model$Bottom = {$: 'Bottom'};
 var $mdgriffith$elm_ui$Element$alignBottom = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Bottom);
 var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
 var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
-var $mdgriffith$elm_ui$Element$rgb255 = F3(
-	function (red, green, blue) {
-		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
-	});
 var $author$project$Utils$Colors$kickstartCodingBlue = A3($mdgriffith$elm_ui$Element$rgb255, 25, 181, 254);
 var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
 var $mdgriffith$elm_ui$Element$newTabLink = F2(
@@ -15934,9 +15964,6 @@ var $author$project$Main$Subscriptions$subscriptions = function (model) {
 };
 var $author$project$Main$Model$BadInterop = function (a) {
 	return {$: 'BadInterop', a: a};
-};
-var $author$project$Main$Model$ChooseFile = function (a) {
-	return {$: 'ChooseFile', a: a};
 };
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
@@ -18236,12 +18263,10 @@ var $author$project$Main$Update$breakFile = F3(
 				$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Stages$ChooseFile$Model$FirstTime = {$: 'FirstTime'};
-var $author$project$Stages$ChooseFile$Model$JustStarted = {$: 'JustStarted'};
-var $author$project$Stages$ChooseFile$Model$init = {startType: $author$project$Stages$ChooseFile$Model$FirstTime, status: $author$project$Stages$ChooseFile$Model$JustStarted};
 var $author$project$Stages$ChooseFile$Update$BreakFileInstruction = function (a) {
 	return {$: 'BreakFileInstruction', a: a};
 };
+var $author$project$Stages$ChooseFile$Model$TriedToStartWithoutChoosingAFile = {$: 'TriedToStartWithoutChoosingAFile'};
 var $author$project$Stages$ChooseFile$Update$UpdateBugCountInstruction = function (a) {
 	return {$: 'UpdateBugCountInstruction', a: a};
 };
@@ -18341,6 +18366,11 @@ var $author$project$Stages$ChooseFile$Update$update = function (_v0) {
 					{
 						status: $author$project$Stages$ChooseFile$Model$GotFile(file)
 					}));
+		case 'PrematureStart':
+			return $author$project$Utils$BubbleUp$justModel(
+				_Utils_update(
+					model,
+					{status: $author$project$Stages$ChooseFile$Model$TriedToStartWithoutChoosingAFile}));
 		default:
 			var file = msg.a;
 			return A2(

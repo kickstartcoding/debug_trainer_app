@@ -25,6 +25,14 @@ chooseFileStage =
     ChooseFile Stages.ChooseFile.Model.init
 
 
+triedToStartBeforeChoosingAFileStage : Stage
+triedToStartBeforeChoosingAFileStage =
+    ChooseFile
+        { startType = FirstTime
+        , status = TriedToStartWithoutChoosingAFile
+        }
+
+
 gotFileStage : Stage
 gotFileStage =
     ChooseFile

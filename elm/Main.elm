@@ -39,9 +39,11 @@ init flags =
     in
     ( { bugCount = 3
       , randomNumbers = randomNumbers
-      , stage = Intro
 
-      -- , stage = DummyData.chooseFileStage
+      --   , stage = Intro
+      , stage = DummyData.chooseFileStage
+
+      --   , stage = DummyData.triedToStartBeforeChoosingAFileStage
       --   , stage = DummyData.gotFileStage
       --   , stage = DummyData.debuggingStageStepsPage randomNumbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
