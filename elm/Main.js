@@ -14723,6 +14723,10 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 			]));
 };
 var $author$project$Main$Msg$LetsGetStarted = {$: 'LetsGetStarted'};
+var $mdgriffith$elm_ui$Internal$Model$Bottom = {$: 'Bottom'};
+var $mdgriffith$elm_ui$Element$alignBottom = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Bottom);
+var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
+var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
 var $mdgriffith$elm_ui$Element$rgb255 = F3(
 	function (red, green, blue) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, 1);
@@ -14763,112 +14767,142 @@ var $mdgriffith$elm_ui$Element$newTabLink = F2(
 				_List_fromArray(
 					[label])));
 	});
+var $author$project$Stages$Intro$View$howDoesThisAppWorkLink = A2(
+	$mdgriffith$elm_ui$Element$el,
+	_List_fromArray(
+		[$mdgriffith$elm_ui$Element$alignRight, $mdgriffith$elm_ui$Element$alignBottom]),
+	A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$newTabLink,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue),
+						$mdgriffith$elm_ui$Element$Font$size(18)
+					]),
+				{
+					label: $mdgriffith$elm_ui$Element$text('How does this app work?'),
+					url: 'https://kickstartcoding.com'
+				})
+			])));
 var $author$project$Stages$Intro$View$render = A2(
-	$mdgriffith$elm_ui$Element$column,
+	$mdgriffith$elm_ui$Element$el,
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$spacing(30),
-			$mdgriffith$elm_ui$Element$width(
-			$mdgriffith$elm_ui$Element$px(600)),
-			$mdgriffith$elm_ui$Element$centerX
+			$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			$mdgriffith$elm_ui$Element$inFront($author$project$Stages$Intro$View$howDoesThisAppWorkLink)
 		]),
-	_List_fromArray(
-		[
-			A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Font$center,
-					$mdgriffith$elm_ui$Element$spacing(10),
-					$mdgriffith$elm_ui$Element$centerX
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(30)
-						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$Font$size(22),
-							$mdgriffith$elm_ui$Element$centerX
-						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text('created by '),
-							A2(
-							$mdgriffith$elm_ui$Element$newTabLink,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
-								url: 'https://kickstartcoding.com'
-							})
-						]))
-				])),
-			A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$spacing(20)
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$Font$bold]),
-							$mdgriffith$elm_ui$Element$text('step 1: ')),
-							$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$Font$bold]),
-							$mdgriffith$elm_ui$Element$text('step 2: ')),
-							$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_Nil,
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$Font$bold]),
-							$mdgriffith$elm_ui$Element$text('step 3: ')),
-							$mdgriffith$elm_ui$Element$text('the app will return your file to the original working version when you\'re done')
-						]))
-				])),
-			A2(
-			$author$project$Utils$UI$Buttons$button,
-			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$centerX]),
-			{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
-		]));
+	A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$spacing(30),
+				$mdgriffith$elm_ui$Element$width(
+				$mdgriffith$elm_ui$Element$px(600)),
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$centerX
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$center,
+						$mdgriffith$elm_ui$Element$spacing(10),
+						$mdgriffith$elm_ui$Element$centerX
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$centerX,
+								$mdgriffith$elm_ui$Element$Font$size(30)
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(22),
+								$mdgriffith$elm_ui$Element$centerX
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('created by teachers at '),
+								A2(
+								$mdgriffith$elm_ui$Element$newTabLink,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
+									]),
+								{
+									label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
+									url: 'https://kickstartcoding.com'
+								})
+							]))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$centerX,
+						$mdgriffith$elm_ui$Element$spacing(20)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text('step 1: ')),
+								$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text('step 2: ')),
+								$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$Font$bold]),
+								$mdgriffith$elm_ui$Element$text('step 3: ')),
+								$mdgriffith$elm_ui$Element$text('the app will return your file to the original working version when you\'re done')
+							]))
+					])),
+				A2(
+				$author$project$Utils$UI$Buttons$button,
+				_List_fromArray(
+					[$mdgriffith$elm_ui$Element$centerX]),
+				{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
+			])));
 var $author$project$Main$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var stage = _v0.stage;
