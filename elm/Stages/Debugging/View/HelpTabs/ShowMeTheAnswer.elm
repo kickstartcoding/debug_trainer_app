@@ -41,6 +41,6 @@ render ({ originalContent, updatedContent, path } as brokenFile) =
         , Buttons.button
             [ centerX ]
             { msg = ShowTheAnswer
-            , name = "Show me the answer"
+            , name = "show me the answer"
             }
         ]

@@ -29,6 +29,6 @@ render { bugCount, encouragements, brokenFile } =
                 ]
         , Buttons.button [ centerX ]
             { msg = SwitchToNextEncouragement
-            , name = "Say something else encouraging"
+            , name = "say something else encouraging"
             }
         ]

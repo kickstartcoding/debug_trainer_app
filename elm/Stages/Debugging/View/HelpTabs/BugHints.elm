@@ -48,22 +48,22 @@ changeOptions brokenFile index ( change, hintVisibility ) =
     in
     column [ spacing 15, width fill, width (px 250), centerX ]
         [ header
-        , el [ height (px 80) ] <|
+        , el [ height (px 85) ] <|
             if hintVisibility.showingLineNumber then
                 paragraph [ centerY ] [ text (thisBugText ++ " was introduced on line " ++ String.fromInt change.lineNumber ++ " of the original file") ]
 
             else
                 Buttons.button []
                     { msg = ShowBugLineHint index
-                    , name = "Show me what line " ++ thisBugText ++ " is on"
+                    , name = "show me what line " ++ thisBugText ++ " is on"
                     }
-        , el [ height (px 80) ] <|
+        , el [ height (px 85) ] <|
             if hintVisibility.showingBugType then
                 paragraph [ centerY, spacing 5 ] (Utils.String.toFormattedElements change.changeDescription)
 
             else
                 Buttons.button []
                     { msg = ShowBugTypeHint index
-                    , name = "Tell me what type of bug " ++ thisOrItText ++ " is"
+                    , name = "tell me what type of bug " ++ thisOrItText ++ " is"
                     }
         ]
