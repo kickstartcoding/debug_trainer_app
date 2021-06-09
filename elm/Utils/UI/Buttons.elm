@@ -5,6 +5,7 @@ import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
+import Html.Attributes as HtmlAttrs
 import Utils.Colors as Colors
 
 
@@ -44,6 +45,7 @@ buttonTemplate { label, attrs, msg } =
          , width (minimum 250 shrink)
          , paddingXY 35 20
          , Border.rounded 5
+         , htmlAttribute (HtmlAttrs.style "cursor" "pointer")
          ]
             ++ attrs
         )
