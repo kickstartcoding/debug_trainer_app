@@ -191,7 +191,7 @@ defaultBrokenFile randomNumbers =
 
 defaultFilePath : FilePath
 defaultFilePath =
-    FilePath.fromString "/test/testfile.js"
+    FilePath.fromString "/Users/SomeUser/long_file_path/with_a_lot_of_levels/testFile.js"
 
 
 defaultFileContent : String

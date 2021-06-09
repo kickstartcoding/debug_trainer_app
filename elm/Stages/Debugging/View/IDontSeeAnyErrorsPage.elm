@@ -29,7 +29,7 @@ render { path } =
                 ]
                 [ paragraph []
                     [ text "If you have run "
-                    , el [ Font.bold, Font.family [ Font.monospace ] ] (text (FilePath.toString path))
+                    , el [ Font.bold, Font.family [ Font.monospace ] ] (text (FilePath.nameOnly path))
                     , text " (or the project it's from) and aren't seeing any errors, there are a few things that might be happening."
                     ]
                 , paragraph []

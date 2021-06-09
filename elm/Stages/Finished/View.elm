@@ -8,6 +8,7 @@ import Stages.Finished.Model exposing (FinishType(..), Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Constants as Constants
+import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.UI.Buttons as Buttons
@@ -33,7 +34,7 @@ render { finishType, brokenFile } =
                 , msg = ResetFileAndPlayAgain
                 }
             , Buttons.button [ width fill, Background.color Colors.red ]
-                { name = "Reset the file and exit " ++ Constants.appName
+                { name = "Reset the file and exit"
                 , msg = ResetFileAndExit
                 }
             ]
@@ -70,12 +71,15 @@ renderChange brokenFile index { lineNumber, changeDescription } =
             , paddingXY 8 8
             , width fill
             ]
-            [ text
-                (changeDescription
-                    ++ " on line "
-                    ++ String.fromInt lineNumber
-                )
-            ]
+            ((changeDescription
+                |> Utils.String.toFormattedElements
+             )
+                ++ [ text
+                        (" on line "
+                            ++ String.fromInt lineNumber
+                        )
+                   ]
+            )
         , row [ spacing 20, width fill ]
             [ labeledCodeSnippet
                 { label = "in the original file"

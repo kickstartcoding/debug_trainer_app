@@ -20,6 +20,7 @@ import Utils.SpecialChars exposing (nonbreakingSpaces)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Attributes as Attributes
 import Utils.UI.Buttons as Buttons
+import Utils.UI.Text as Text
 
 
 render :
@@ -101,9 +102,9 @@ render { bugCount, startType, status } =
                                 , Font.color Colors.white
                                 , paddingXY 10 5
                                 , Border.rounded 5
+                                , htmlAttribute (HtmlAttrs.title (FilePath.toString file.path))
                                 ]
-                                [ text (FilePath.toString file.path)
-                                ]
+                                [ text (FilePath.nameOnly file.path) ]
 
                         TriedToStartWithoutChoosingAFile ->
                             none

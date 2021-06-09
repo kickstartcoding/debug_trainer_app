@@ -40,11 +40,11 @@ init flags =
     ( { bugCount = 3
       , randomNumbers = randomNumbers
 
-      --   , stage = Intro
-      , stage = DummyData.chooseFileStage
-
+      -- , stage = Intro
+      --   , stage = DummyData.chooseFileStage
       --   , stage = DummyData.triedToStartBeforeChoosingAFileStage
-      --   , stage = DummyData.gotFileStage
+    --   , stage = DummyData.gotFileStage
+
       --   , stage = DummyData.debuggingStageStepsPage randomNumbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
       --   , stage = DummyData.debuggingStageBugHintsTab randomNumbers
@@ -52,7 +52,7 @@ init flags =
       -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
       -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
       --   , stage = DummyData.successfulFinishStage randomNumbers
-      -- , stage = DummyData.shownAnswerFinishedStage randomNumbers
+      , stage = DummyData.shownAnswerFinishedStage randomNumbers
       , maybeError = startingError
       }
     , Cmd.none

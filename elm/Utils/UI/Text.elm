@@ -1,4 +1,4 @@
-module Utils.UI.Text exposing (code, codeWithAttrs)
+module Utils.UI.Text exposing (code, codeWithAttrs, codeAttrs)
 
 import Element exposing (..)
 import Element.Background as Background

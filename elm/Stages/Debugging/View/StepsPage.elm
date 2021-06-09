@@ -47,7 +47,7 @@ render bugCount ({ changes, path } as brokenFile) =
                 , Font.family [ Font.typeface "Courier" ]
                 , rounded 5
                 ]
-                (text (FilePath.toString path))
+                (text (FilePath.nameOnly path))
             , text
                 ("! Can you figure out where "
                     ++ Pluralize.itIsOrTheyAre changeCount
