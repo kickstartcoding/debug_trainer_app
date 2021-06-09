@@ -12,43 +12,45 @@ import Utils.UI.Buttons as Buttons
 
 render : Element Msg
 render =
-    el
+    column
         [ height fill
         , width fill
-        , inFront howDoesThisAppWorkLink
         ]
-    <|
-        column
+        [ column [ Font.center, spacing 10, centerX, height fill ]
+            [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
+            , paragraph [ Font.size 22, centerX ]
+                [ text "created by teachers at "
+                , newTabLink
+                    [ Font.color Colors.kickstartCodingBlue ]
+                    { url = "https://kickstartcoding.com", label = text "Kickstart Coding" }
+                ]
+            ]
+        , column
             [ spacing 30
             , width (px 600)
             , height fill
             , centerX
             ]
-            [ column [ Font.center, spacing 10, centerX ]
-                [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
-                , paragraph [ Font.size 22, centerX ]
-                    [ text "created by teachers at "
-                    , newTabLink
-                        [ Font.color Colors.kickstartCodingBlue ]
-                        { url = "https://kickstartcoding.com", label = text "Kickstart Coding" }
+            [ column [ spacing 20, centerY, height fill ]
+                [ column [ centerX, spacing 20 ]
+                    [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
+                    , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
+                    , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
                     ]
+                , Buttons.button [ centerX ]
+                    { name = "let's get started!"
+                    , msg = LetsGetStarted
+                    }
                 ]
-            , column [ centerX, spacing 20 ]
-                [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
-                , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
-                , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
-                ]
-            , Buttons.button [ centerX ]
-                { name = "let's get started!"
-                , msg = LetsGetStarted
-                }
             ]
+        , howDoesThisAppWorkLink
+        ]
 
 
 howDoesThisAppWorkLink : Element msg
 howDoesThisAppWorkLink =
-    el [ alignRight, alignBottom ]
-        (paragraph []
+    el [ width fill, height fill ]
+        (paragraph [ alignRight, alignBottom, Font.alignRight ]
             [ newTabLink
                 [ Font.color Colors.kickstartCodingBlue
                 , Font.size 18
