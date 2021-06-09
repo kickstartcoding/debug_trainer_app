@@ -37,7 +37,7 @@ init flags =
                     , startingError = Just (BadFlags (Json.Decode.errorToString error))
                     }
     in
-    ( { bugCount = 3
+    ( { bugCount = 1
       , randomNumbers = randomNumbers
 
       -- , stage = Intro

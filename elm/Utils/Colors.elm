@@ -5,6 +5,7 @@ module Utils.Colors exposing
     , darkPurple
     , darkened
     , gray
+    , transparent
     , green
     , kickstartCodingBlue
     , lightGray
@@ -85,3 +86,7 @@ veryLightGray =
 darkened : Float -> Color
 darkened amount =
     rgba 0 0 0 amount
+
+transparent : Color
+transparent=
+    rgba 0 0 0 0

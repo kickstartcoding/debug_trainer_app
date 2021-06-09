@@ -54,6 +54,7 @@ fileChanges brokenFile =
         , height fill
         , paddingXY 40 40
         , scrollbarY
+        , centerX
         ]
     <|
         (brokenFile.changes
@@ -85,7 +86,7 @@ renderChange brokenFile index { lineNumber, changeDescription } =
                         )
                    ]
             )
-        , row [ spacing 20, width fill ]
+        , column [ spacing 20, width fill ]
             [ labeledCodeSnippet
                 { label = "in the original file"
                 , focusedLine = lineNumber
@@ -139,15 +140,17 @@ renderCodeLine changedLineNumber ( lineNumber, content ) =
             , Border.rounded 0
             ]
             (String.fromInt lineNumber)
-        , paragraph []
+        , paragraph
+            [ Background.color lineBackground
+            , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
+            ]
             [ Text.codeWithAttrs
-                [ Background.color lineBackground
-                , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
+                [ Background.color Colors.transparent
                 , Border.rounded 0
                 , fontStyle
                 , width fill
                 ]
-                content
+                (content |> String.replace " " "\u{00A0}")
             ]
         ]
 

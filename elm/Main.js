@@ -4623,6 +4623,52 @@ var _Bitwise_shiftRightZfBy = F2(function(offset, a)
 {
 	return a >>> offset;
 });
+
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
+	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -7936,7 +7982,7 @@ var $author$project$Main$init = function (flags) {
 	var startingError = _v0.startingError;
 	return _Utils_Tuple2(
 		{
-			bugCount: 3,
+			bugCount: 1,
 			maybeError: startingError,
 			randomNumbers: randomNumbers,
 			stage: $author$project$Utils$DummyData$shownAnswerFinishedStage(randomNumbers)
@@ -14012,6 +14058,7 @@ var $mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
 			'color',
 			fontColor));
 };
+var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
 var $mdgriffith$elm_ui$Internal$Model$Min = F2(
 	function (a, b) {
 		return {$: 'Min', a: a, b: b};
@@ -14036,6 +14083,8 @@ var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 			'border-radius',
 			$elm$core$String$fromInt(radius) + 'px'));
 };
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
 var $author$project$Utils$UI$Buttons$buttonTemplate = function (_v0) {
 	var label = _v0.label;
@@ -14052,7 +14101,9 @@ var $author$project$Utils$UI$Buttons$buttonTemplate = function (_v0) {
 					$mdgriffith$elm_ui$Element$width(
 					A2($mdgriffith$elm_ui$Element$minimum, 250, $mdgriffith$elm_ui$Element$shrink)),
 					A2($mdgriffith$elm_ui$Element$paddingXY, 35, 20),
-					$mdgriffith$elm_ui$Element$Border$rounded(5)
+					$mdgriffith$elm_ui$Element$Border$rounded(5),
+					$mdgriffith$elm_ui$Element$htmlAttribute(
+					A2($elm$html$Html$Attributes$style, 'cursor', 'pointer'))
 				]),
 			attrs),
 		{label: label, onPress: msg});
@@ -14192,7 +14243,6 @@ var $mdgriffith$elm_ui$Element$el = F2(
 	});
 var $author$project$Utils$Colors$gray = A3($mdgriffith$elm_ui$Element$rgb, 0.4, 0.4, 0.4);
 var $author$project$Utils$Colors$green = A3($mdgriffith$elm_ui$Element$rgb, 0, 0.7, 0);
-var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
 var $mdgriffith$elm_ui$Internal$Model$InFront = {$: 'InFront'};
 var $mdgriffith$elm_ui$Internal$Model$Nearby = F2(
 	function (a, b) {
@@ -14642,8 +14692,6 @@ var $mdgriffith$elm_ui$Internal$Model$paddingNameFloat = F4(
 	function (top, right, bottom, left) {
 		return 'pad-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(top) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(right) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(bottom) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(left)))))));
 	});
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $mdgriffith$elm_ui$Element$Input$redistributeOver = F4(
 	function (isMultiline, stacked, attr, els) {
 		switch (attr.$) {
@@ -15441,7 +15489,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(80))
+							$mdgriffith$elm_ui$Element$px(85))
 						]),
 					hintVisibility.showingLineNumber ? A2(
 						$mdgriffith$elm_ui$Element$paragraph,
@@ -15456,14 +15504,14 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 						_List_Nil,
 						{
 							msg: $author$project$Stages$Debugging$Msg$ShowBugLineHint(index),
-							name: 'Show me what line ' + (thisBugText + ' is on')
+							name: 'show me what line ' + (thisBugText + ' is on')
 						})),
 					A2(
 					$mdgriffith$elm_ui$Element$el,
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(80))
+							$mdgriffith$elm_ui$Element$px(85))
 						]),
 					hintVisibility.showingBugType ? A2(
 						$mdgriffith$elm_ui$Element$paragraph,
@@ -15477,7 +15525,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 						_List_Nil,
 						{
 							msg: $author$project$Stages$Debugging$Msg$ShowBugTypeHint(index),
-							name: 'Tell me what type of bug ' + (thisOrItText + ' is')
+							name: 'tell me what type of bug ' + (thisOrItText + ' is')
 						}))
 				]));
 	});
@@ -16112,7 +16160,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render = functi
 				$author$project$Utils$UI$Buttons$button,
 				_List_fromArray(
 					[$mdgriffith$elm_ui$Element$centerX]),
-				{msg: $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement, name: 'Say something else encouraging'})
+				{msg: $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement, name: 'say something else encouraging'})
 			]));
 };
 var $author$project$Stages$Debugging$Msg$ShowTheAnswer = {$: 'ShowTheAnswer'};
@@ -16151,7 +16199,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = func
 				$author$project$Utils$UI$Buttons$button,
 				_List_fromArray(
 					[$mdgriffith$elm_ui$Element$centerX]),
-				{msg: $author$project$Stages$Debugging$Msg$ShowTheAnswer, name: 'Show me the answer'})
+				{msg: $author$project$Stages$Debugging$Msg$ShowTheAnswer, name: 'show me the answer'})
 			]));
 };
 var $author$project$Stages$Debugging$Msg$ChangeHelpTab = function (a) {
@@ -16693,6 +16741,14 @@ var $author$project$Stages$Finished$View$getNearbyLines = F2(
 	});
 var $mdgriffith$elm_ui$Element$Font$extraBold = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.textExtraBold);
 var $mdgriffith$elm_ui$Element$Font$medium = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontWeight, $mdgriffith$elm_ui$Internal$Style$classes.textMedium);
+var $elm$core$String$replace = F3(
+	function (before, after, string) {
+		return A2(
+			$elm$core$String$join,
+			after,
+			A2($elm$core$String$split, before, string));
+	});
+var $author$project$Utils$Colors$transparent = A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0);
 var $author$project$Utils$UI$Css$unselectable = $mdgriffith$elm_ui$Element$htmlAttribute(
 	A2($elm$html$Html$Attributes$style, 'user-select', 'none'));
 var $author$project$Stages$Finished$View$renderCodeLine = F2(
@@ -16726,17 +16782,26 @@ var $author$project$Stages$Finished$View$renderCodeLine = F2(
 						]),
 					$elm$core$String$fromInt(lineNumber)),
 					A2(
-					$author$project$Utils$UI$Text$codeWithAttrs,
+					$mdgriffith$elm_ui$Element$paragraph,
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$Background$color(lineBackground),
 							$mdgriffith$elm_ui$Element$paddingEach(
-							{bottom: 0, left: 10, right: 0, top: 0}),
-							$mdgriffith$elm_ui$Element$Border$rounded(0),
-							fontStyle,
-							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+							{bottom: 0, left: 10, right: 0, top: 0})
 						]),
-					content)
+					_List_fromArray(
+						[
+							A2(
+							$author$project$Utils$UI$Text$codeWithAttrs,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$transparent),
+									$mdgriffith$elm_ui$Element$Border$rounded(0),
+									fontStyle,
+									$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								]),
+							A3($elm$core$String$replace, ' ', '\u00A0', content))
+						]))
 				]));
 	});
 var $author$project$Stages$Finished$View$labeledCodeSnippet = function (_v0) {
@@ -16806,7 +16871,7 @@ var $author$project$Stages$Finished$View$renderChange = F3(
 								' on line ' + $elm$core$String$fromInt(lineNumber))
 							]))),
 					A2(
-					$mdgriffith$elm_ui$Element$row,
+					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$spacing(20),
@@ -16821,7 +16886,6 @@ var $author$project$Stages$Finished$View$renderChange = F3(
 						]))
 				]));
 	});
-var $mdgriffith$elm_ui$Element$scrollbars = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$overflow, $mdgriffith$elm_ui$Internal$Style$classes.scrollbars);
 var $author$project$Stages$Finished$View$fileChanges = function (brokenFile) {
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
@@ -16829,9 +16893,9 @@ var $author$project$Stages$Finished$View$fileChanges = function (brokenFile) {
 			[
 				$mdgriffith$elm_ui$Element$spacing(50),
 				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 				A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
-				$mdgriffith$elm_ui$Element$scrollbars
+				$mdgriffith$elm_ui$Element$scrollbarY,
+				$mdgriffith$elm_ui$Element$centerX
 			]),
 		A2(
 			$elm$core$List$indexedMap,
@@ -16847,7 +16911,9 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 			[
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(20)
+				$mdgriffith$elm_ui$Element$spacing(20),
+				$mdgriffith$elm_ui$Element$htmlAttribute(
+				A2($elm$html$Html$Attributes$style, 'max-height', '100vh'))
 			]),
 		_List_fromArray(
 			[
@@ -16902,6 +16968,7 @@ var $mdgriffith$elm_ui$Internal$Model$Bottom = {$: 'Bottom'};
 var $mdgriffith$elm_ui$Element$alignBottom = $mdgriffith$elm_ui$Internal$Model$AlignY($mdgriffith$elm_ui$Internal$Model$Bottom);
 var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
 var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Right);
+var $mdgriffith$elm_ui$Element$Font$alignRight = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textRight);
 var $author$project$Utils$Colors$kickstartCodingBlue = A3($mdgriffith$elm_ui$Element$rgb255, 25, 181, 254);
 var $elm$html$Html$Attributes$target = $elm$html$Html$Attributes$stringProperty('target');
 var $mdgriffith$elm_ui$Element$newTabLink = F2(
@@ -16941,10 +17008,14 @@ var $mdgriffith$elm_ui$Element$newTabLink = F2(
 var $author$project$Stages$Intro$View$howDoesThisAppWorkLink = A2(
 	$mdgriffith$elm_ui$Element$el,
 	_List_fromArray(
-		[$mdgriffith$elm_ui$Element$alignRight, $mdgriffith$elm_ui$Element$alignBottom]),
+		[
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+		]),
 	A2(
 		$mdgriffith$elm_ui$Element$paragraph,
-		_List_Nil,
+		_List_fromArray(
+			[$mdgriffith$elm_ui$Element$alignRight, $mdgriffith$elm_ui$Element$alignBottom, $mdgriffith$elm_ui$Element$Font$alignRight]),
 		_List_fromArray(
 			[
 				A2(
@@ -16960,120 +17031,135 @@ var $author$project$Stages$Intro$View$howDoesThisAppWorkLink = A2(
 				})
 			])));
 var $author$project$Stages$Intro$View$render = A2(
-	$mdgriffith$elm_ui$Element$el,
+	$mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
 			$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-			$mdgriffith$elm_ui$Element$inFront($author$project$Stages$Intro$View$howDoesThisAppWorkLink)
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 		]),
-	A2(
-		$mdgriffith$elm_ui$Element$column,
-		_List_fromArray(
-			[
-				$mdgriffith$elm_ui$Element$spacing(30),
-				$mdgriffith$elm_ui$Element$width(
-				$mdgriffith$elm_ui$Element$px(600)),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$centerX
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$spacing(10),
-						$mdgriffith$elm_ui$Element$centerX
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$centerX,
-								$mdgriffith$elm_ui$Element$Font$size(30)
-							]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
-							])),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$Font$size(22),
-								$mdgriffith$elm_ui$Element$centerX
-							]),
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$text('created by teachers at '),
-								A2(
-								$mdgriffith$elm_ui$Element$newTabLink,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
-									]),
-								{
-									label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
-									url: 'https://kickstartcoding.com'
-								})
-							]))
-					])),
-				A2(
-				$mdgriffith$elm_ui$Element$column,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$centerX,
-						$mdgriffith$elm_ui$Element$spacing(20)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text('step 1: ')),
-								$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
-							])),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text('step 2: ')),
-								$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
-							])),
-						A2(
-						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$mdgriffith$elm_ui$Element$el,
-								_List_fromArray(
-									[$mdgriffith$elm_ui$Element$Font$bold]),
-								$mdgriffith$elm_ui$Element$text('step 3: ')),
-								$mdgriffith$elm_ui$Element$text('the app will return your file to its original working version when you\'re done')
-							]))
-					])),
-				A2(
-				$author$project$Utils$UI$Buttons$button,
-				_List_fromArray(
-					[$mdgriffith$elm_ui$Element$centerX]),
-				{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
-			])));
+	_List_fromArray(
+		[
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$center,
+					$mdgriffith$elm_ui$Element$spacing(10),
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$Font$size(30)
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$paragraph,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$size(22),
+							$mdgriffith$elm_ui$Element$centerX
+						]),
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$text('created by teachers at '),
+							A2(
+							$mdgriffith$elm_ui$Element$newTabLink,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
+								]),
+							{
+								label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
+								url: 'https://kickstartcoding.com'
+							})
+						]))
+				])),
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$spacing(30),
+					$mdgriffith$elm_ui$Element$width(
+					$mdgriffith$elm_ui$Element$px(600)),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$centerX
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$spacing(20),
+							$mdgriffith$elm_ui$Element$centerY,
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$column,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$spacing(20)
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											A2(
+											$mdgriffith$elm_ui$Element$el,
+											_List_fromArray(
+												[$mdgriffith$elm_ui$Element$Font$bold]),
+											$mdgriffith$elm_ui$Element$text('step 1: ')),
+											$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
+										])),
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											A2(
+											$mdgriffith$elm_ui$Element$el,
+											_List_fromArray(
+												[$mdgriffith$elm_ui$Element$Font$bold]),
+											$mdgriffith$elm_ui$Element$text('step 2: ')),
+											$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
+										])),
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											A2(
+											$mdgriffith$elm_ui$Element$el,
+											_List_fromArray(
+												[$mdgriffith$elm_ui$Element$Font$bold]),
+											$mdgriffith$elm_ui$Element$text('step 3: ')),
+											$mdgriffith$elm_ui$Element$text('the app will return your file to its original working version when you\'re done')
+										]))
+								])),
+							A2(
+							$author$project$Utils$UI$Buttons$button,
+							_List_fromArray(
+								[$mdgriffith$elm_ui$Element$centerX]),
+							{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
+						]))
+				])),
+			$author$project$Stages$Intro$View$howDoesThisAppWorkLink
+		]));
 var $author$project$Main$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var stage = _v0.stage;
@@ -18321,6 +18407,190 @@ var $author$project$Main$Update$breakFile = F3(
 				$elm$core$Platform$Cmd$none);
 		}
 	});
+var $author$project$Main$Msg$GotNewRandomNumbers = function (a) {
+	return {$: 'GotNewRandomNumbers', a: a};
+};
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
+};
+var $elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
+};
+var $elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var $elm$time$Time$customZone = $elm$time$Time$Zone;
+var $elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $elm$random$Random$listHelp = F4(
+	function (revList, n, gen, seed) {
+		listHelp:
+		while (true) {
+			if (n < 1) {
+				return _Utils_Tuple2(revList, seed);
+			} else {
+				var _v0 = gen(seed);
+				var value = _v0.a;
+				var newSeed = _v0.b;
+				var $temp$revList = A2($elm$core$List$cons, value, revList),
+					$temp$n = n - 1,
+					$temp$gen = gen,
+					$temp$seed = newSeed;
+				revList = $temp$revList;
+				n = $temp$n;
+				gen = $temp$gen;
+				seed = $temp$seed;
+				continue listHelp;
+			}
+		}
+	});
+var $elm$random$Random$list = F2(
+	function (n, _v0) {
+		var gen = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed) {
+				return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
+			});
+	});
+var $author$project$Main$Update$generateNewRandomNumbersCmd = A2(
+	$elm$random$Random$generate,
+	$author$project$Main$Msg$GotNewRandomNumbers,
+	A2(
+		$elm$random$Random$list,
+		20,
+		A2($elm$random$Random$int, 1, 1000000)));
 var $author$project$Stages$ChooseFile$Model$FirstTime = {$: 'FirstTime'};
 var $author$project$Stages$ChooseFile$Model$JustStarted = {$: 'JustStarted'};
 var $author$project$Stages$ChooseFile$Model$init = {startType: $author$project$Stages$ChooseFile$Model$FirstTime, status: $author$project$Stages$ChooseFile$Model$JustStarted};
@@ -18604,6 +18874,13 @@ var $author$project$Main$Update$update = F2(
 							stage: $author$project$Main$Model$ChooseFile($author$project$Stages$ChooseFile$Model$init)
 						}),
 					$elm$core$Platform$Cmd$none);
+			case 'GotNewRandomNumbers':
+				var listOfRandomNumbers = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{randomNumbers: listOfRandomNumbers}),
+					$elm$core$Platform$Cmd$none);
 			case 'ChooseFileInterface':
 				var beginningMsg = msg.a;
 				var _v1 = model.stage;
@@ -18680,7 +18957,8 @@ var $author$project$Main$Update$update = F2(
 										[
 											A2($elm$core$Platform$Cmd$map, $author$project$Main$Msg$DebuggingInterface, cmd),
 											$author$project$Main$Interop$writeFile(
-											{content: debuggingModel.brokenFile.originalContent, path: debuggingModel.brokenFile.path})
+											{content: debuggingModel.brokenFile.originalContent, path: debuggingModel.brokenFile.path}),
+											$author$project$Main$Update$generateNewRandomNumbersCmd
 										])));
 						}
 					} else {
@@ -18722,7 +19000,8 @@ var $author$project$Main$Update$update = F2(
 										[
 											A2($elm$core$Platform$Cmd$map, $author$project$Main$Msg$FinishedInterface, cmd),
 											$author$project$Main$Interop$writeFile(
-											{content: brokenFile.originalContent, path: brokenFile.path})
+											{content: brokenFile.originalContent, path: brokenFile.path}),
+											$author$project$Main$Update$generateNewRandomNumbersCmd
 										])));
 						} else {
 							return _Utils_Tuple2(
