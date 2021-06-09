@@ -36,7 +36,7 @@ render =
             , column [ centerX, spacing 20 ]
                 [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
                 , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
-                , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to the original working version when you're done" ]
+                , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
                 ]
             , Buttons.button [ centerX ]
                 { name = "let's get started!"

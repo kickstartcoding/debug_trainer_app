@@ -17065,7 +17065,7 @@ var $author$project$Stages$Intro$View$render = A2(
 								_List_fromArray(
 									[$mdgriffith$elm_ui$Element$Font$bold]),
 								$mdgriffith$elm_ui$Element$text('step 3: ')),
-								$mdgriffith$elm_ui$Element$text('the app will return your file to the original working version when you\'re done')
+								$mdgriffith$elm_ui$Element$text('the app will return your file to its original working version when you\'re done')
 							]))
 					])),
 				A2(
