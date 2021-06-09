@@ -2,8 +2,11 @@ import { Elm } from '../elm/Main'
 import { open } from '@tauri-apps/api/dialog'
 import { readTextFile, writeFile } from '@tauri-apps/api/fs'
 import { exit } from '@tauri-apps/api/app'
+import { register } from '@tauri-apps/api/globalShortcut'
 
-console.log("START")
+register("CmdOrControl+Q", () => {
+  exit()
+})
 
 const app = Elm.Main.init({
   flags: {
