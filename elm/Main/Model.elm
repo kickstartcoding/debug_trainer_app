@@ -1,6 +1,5 @@
 module Main.Model exposing
-    ( Error(..)
-    , Model
+    ( Model
     , Stage(..)
     )
 
@@ -8,13 +7,14 @@ import Json.Decode
 import Stages.ChooseFile.Model
 import Stages.Debugging.Model
 import Stages.Finished.Model
+import Utils.Types.Error exposing (Report)
 
 
 type alias Model =
     { bugCount : Int
     , randomNumbers : List Int
     , stage : Stage
-    , maybeError : Maybe Error
+    , maybeError : Maybe Report
     }
 
 
@@ -23,10 +23,3 @@ type Stage
     | ChooseFile Stages.ChooseFile.Model.Model
     | Debugging Stages.Debugging.Model.Model
     | Finished Stages.Finished.Model.Model
-
-
-type Error
-    = CouldntParseBugCount String
-    | CouldntBreakSelectedFile String
-    | BadFlags String
-    | BadInterop Json.Decode.Error

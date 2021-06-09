@@ -1,6 +1,6 @@
 module Utils.DummyData exposing (..)
 
-import Main.Model exposing (Error(..), Stage(..))
+import Main.Model exposing (Stage(..))
 import Main.Update.BreakFile as BreakFile
 import Stages.ChooseFile.Model exposing (StartType(..), Status(..))
 import Stages.Debugging.Model as DebuggingModel

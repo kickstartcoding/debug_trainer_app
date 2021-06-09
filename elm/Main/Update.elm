@@ -3,8 +3,7 @@ module Main.Update exposing (update)
 import Main.Interop as Interop
 import Main.Model
     exposing
-        ( Error(..)
-        , Model
+        ( Model
         , Stage(..)
         )
 import Main.Msg exposing (Msg(..))
@@ -17,6 +16,7 @@ import Stages.Debugging.Model
 import Stages.Debugging.Update as DebuggingUpdate
 import Stages.Finished.Update as FinishedUpdate
 import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.Error as Error
 import Utils.Types.FilePath as FilePath
 
 
@@ -156,7 +156,19 @@ update msg model =
                     ( model, Cmd.none )
 
         InteropError error ->
-            ( { model | maybeError = Just (BadInterop error) }, Cmd.none )
+            ( { model
+                | maybeError =
+                    Just
+                        (Error.decoding
+                            { action = "InteropError"
+                            , descriptionForUsers = "it looks like you found a bug in our app"
+                            , error = error
+                            , inModule = "Main.Update"
+                            }
+                        )
+              }
+            , Cmd.none
+            )
 
 
 breakFile : File -> Model -> Cmd Stages.ChooseFile.Msg.Msg -> ( Model, Cmd Msg )
@@ -196,8 +208,12 @@ breakFile { path, content } model beginningCmd =
             ( { model
                 | maybeError =
                     Just
-                        (CouldntBreakSelectedFile
-                            (FilePath.toString path)
+                        (Error.misc
+                            { action = "ChooseFileInterface"
+                            , descriptionForUsers = "couldn't find any ways to break " ++ FilePath.toString path
+                            , error = "no known ways to break " ++ FilePath.toString path
+                            , inModule = "Main.Update"
+                            }
                         )
               }
             , Cmd.none

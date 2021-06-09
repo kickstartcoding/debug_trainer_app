@@ -25,7 +25,7 @@ render { finishType, brokenFile } =
         , height fill
         , spacing 30
         ]
-        [ row [ width fill, spacing 20, paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
+        [ row [ width fill, spacing 20 ]
             [ Buttons.button [ width fill, Background.color Colors.green ]
                 { name = "Reset the file and play again!"
                 , msg = ResetFileAndPlayAgain
@@ -56,6 +56,20 @@ render { finishType, brokenFile } =
                 )
             , fileChanges brokenFile
             ]
+        , if List.length brokenFile.changes > 1 then
+            row [ width fill, spacing 20, paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
+                [ Buttons.button [ width fill, Background.color Colors.green ]
+                    { name = "Reset the file and play again!"
+                    , msg = ResetFileAndPlayAgain
+                    }
+                , Buttons.button [ width fill, Background.color Colors.red ]
+                    { name = "Reset the file and exit"
+                    , msg = ResetFileAndExit
+                    }
+                ]
+
+          else
+            none
         ]
 
 

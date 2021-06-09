@@ -1,7 +1,9 @@
 module Main.View exposing (render)
 
 import Element exposing (..)
+import Element.Background as Background
 import Element.Border as Border
+import Element.Font as Font
 import Html exposing (Html)
 import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
@@ -14,13 +16,30 @@ import Utils.Colors as Colors
 
 
 render : Model -> { title : String, body : List (Html Msg) }
-render { bugCount, stage } =
+render { bugCount, stage, maybeError } =
     { title = "Debugging Trainer"
     , body =
         [ layout
             [ width fill
             , height fill
             , paddingXY 20 20
+            , inFront
+                (case maybeError of
+                    Just error ->
+                        paragraph
+                            [ alignBottom
+                            , width fill
+                            , Background.color Colors.red
+                            , Font.color Colors.white
+                            , Font.center
+                            , Font.size 25
+                            , paddingXY 30 15
+                            ]
+                            [ text error.descriptionForUsers ]
+
+                    Nothing ->
+                        none
+                )
             ]
           <|
             case stage of

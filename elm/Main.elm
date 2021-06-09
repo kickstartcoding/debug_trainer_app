@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser
 import Json.Decode exposing (Value)
 import Main.Interop
-import Main.Model exposing (Error(..), Model, Stage(..))
+import Main.Model exposing (Model, Stage(..))
 import Main.Msg exposing (Msg(..))
 import Main.Subscriptions
 import Main.Update
@@ -14,6 +14,7 @@ import Utils.DummyData as DummyData
 import Utils.List
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
+import Utils.Types.Error as Error
 import Utils.Types.FilePath as FilePath
 
 
@@ -29,22 +30,37 @@ init flags =
 
                 Ok [] ->
                     { randomNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-                    , startingError = Just (BadFlags "Got an empty list of random numbers")
+                    , startingError =
+                        Just
+                            (Error.misc
+                                { action = "initial flag decoding"
+                                , descriptionForUsers = "Got an empty list of random numbers"
+                                , error = "Got an empty list of random numbers"
+                                , inModule = "Main"
+                                }
+                            )
                     }
 
                 Err error ->
                     { randomNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-                    , startingError = Just (BadFlags (Json.Decode.errorToString error))
+                    , startingError =
+                        Just
+                            (Error.decoding
+                                { action = "initial flag decoding"
+                                , descriptionForUsers = "Something went wrong loading this app"
+                                , error = error
+                                , inModule = "Main"
+                                }
+                            )
                     }
     in
     ( { bugCount = 1
       , randomNumbers = randomNumbers
+      , stage = Intro
 
-      -- , stage = Intro
       --   , stage = DummyData.chooseFileStage
       --   , stage = DummyData.triedToStartBeforeChoosingAFileStage
-    --   , stage = DummyData.gotFileStage
-
+      --   , stage = DummyData.gotFileStage
       --   , stage = DummyData.debuggingStageStepsPage randomNumbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
       --   , stage = DummyData.debuggingStageBugHintsTab randomNumbers
@@ -52,7 +68,7 @@ init flags =
       -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
       -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
       --   , stage = DummyData.successfulFinishStage randomNumbers
-      , stage = DummyData.shownAnswerFinishedStage randomNumbers
+      -- , stage = DummyData.shownAnswerFinishedStage randomNumbers
       , maybeError = startingError
       }
     , Cmd.none
