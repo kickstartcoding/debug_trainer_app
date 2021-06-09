@@ -9,6 +9,7 @@ import Main.Model
         )
 import Main.Msg exposing (Msg(..))
 import Main.Update.BreakFile as BreakFile
+import Random
 import Stages.ChooseFile.Model as ChooseFile exposing (File, StartType(..))
 import Stages.ChooseFile.Msg
 import Stages.ChooseFile.Update as ChooseFileUpdate exposing (Instruction(..))
@@ -24,6 +25,11 @@ update msg model =
     case msg of
         LetsGetStarted ->
             ( { model | stage = ChooseFile ChooseFile.init }
+            , Cmd.none
+            )
+
+        GotNewRandomNumbers listOfRandomNumbers ->
+            ( { model | randomNumbers = listOfRandomNumbers }
             , Cmd.none
             )
 
@@ -90,6 +96,7 @@ update msg model =
                                     { path = debuggingModel.brokenFile.path
                                     , content = debuggingModel.brokenFile.originalContent
                                     }
+                                , generateNewRandomNumbersCmd
                                 ]
                             )
 
@@ -125,6 +132,7 @@ update msg model =
                                             { path = brokenFile.path
                                             , content = brokenFile.originalContent
                                             }
+                                        , generateNewRandomNumbersCmd
                                         ]
                                     )
 
@@ -194,3 +202,10 @@ breakFile { path, content } model beginningCmd =
               }
             , Cmd.none
             )
+
+
+generateNewRandomNumbersCmd : Cmd Msg
+generateNewRandomNumbersCmd =
+    Random.int 1 1000000
+        |> Random.list 20
+        |> Random.generate GotNewRandomNumbers

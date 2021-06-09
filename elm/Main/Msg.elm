@@ -12,4 +12,5 @@ type Msg
     | FileWasBroken
     | DebuggingInterface Stages.Debugging.Msg.Msg
     | FinishedInterface Stages.Finished.Msg.Msg
+    | GotNewRandomNumbers (List Int)
     | InteropError Json.Decode.Error
