@@ -12,6 +12,7 @@ import Utils.Constants as Constants
 import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.FilePath as FilePath
 import Utils.UI.Buttons as Buttons
 import Utils.UI.Css as Css
 import Utils.UI.Text as Text
@@ -22,19 +23,9 @@ render { finishType, brokenFile } =
     column
         [ width fill
         , height fill
-        , spacing 20
-        , htmlAttribute <| HtmlAttrs.style "max-height" "100vh"
+        , spacing 30
         ]
-        [ paragraph [ Font.center, Font.size 30 ]
-            [ case finishType of
-                SuccessfullySolved ->
-                    text "Nice work! To review, here's what we did to the file:"
-
-                AskedToSeeAnswer ->
-                    text "Here's what we did to the file:"
-            ]
-        , fileChanges brokenFile
-        , row [ width fill, spacing 20 ]
+        [ row [ width fill, spacing 20, paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
             [ Buttons.button [ width fill, Background.color Colors.green ]
                 { name = "Reset the file and play again!"
                 , msg = ResetFileAndPlayAgain
@@ -44,6 +35,27 @@ render { finishType, brokenFile } =
                 , msg = ResetFileAndExit
                 }
             ]
+        , column
+            [ width fill
+            , height fill
+            , scrollbarY
+            ]
+            [ paragraph [ Font.center, Font.size 30 ]
+                (case finishType of
+                    SuccessfullySolved ->
+                        [ text "Nice work! To review, here's what we did to "
+                        , Text.codeWithAttrs [ Border.rounded 5 ] (FilePath.nameOnly brokenFile.path)
+                        , text ":"
+                        ]
+
+                    AskedToSeeAnswer ->
+                        [ text "Here's what we did to "
+                        , Text.codeWithAttrs [ Border.rounded 5 ] (FilePath.nameOnly brokenFile.path)
+                        , text ":"
+                        ]
+                )
+            , fileChanges brokenFile
+            ]
         ]
 
 
@@ -51,9 +63,8 @@ fileChanges : BrokenFile -> Element msg
 fileChanges brokenFile =
     column
         [ spacing 50
-        , height fill
+        , height (px 500)
         , paddingXY 40 40
-        , scrollbarY
         , centerX
         ]
     <|

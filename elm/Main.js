@@ -16892,9 +16892,9 @@ var $author$project$Stages$Finished$View$fileChanges = function (brokenFile) {
 		_List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$spacing(50),
-				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$height(
+				$mdgriffith$elm_ui$Element$px(500)),
 				A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
-				$mdgriffith$elm_ui$Element$scrollbarY,
 				$mdgriffith$elm_ui$Element$centerX
 			]),
 		A2(
@@ -16911,36 +16911,18 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 			[
 				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
 				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-				$mdgriffith$elm_ui$Element$spacing(20),
-				$mdgriffith$elm_ui$Element$htmlAttribute(
-				A2($elm$html$Html$Attributes$style, 'max-height', '100vh'))
+				$mdgriffith$elm_ui$Element$spacing(30)
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$mdgriffith$elm_ui$Element$paragraph,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Font$center,
-						$mdgriffith$elm_ui$Element$Font$size(30)
-					]),
-				_List_fromArray(
-					[
-						function () {
-						if (finishType.$ === 'SuccessfullySolved') {
-							return $mdgriffith$elm_ui$Element$text('Nice work! To review, here\'s what we did to the file:');
-						} else {
-							return $mdgriffith$elm_ui$Element$text('Here\'s what we did to the file:');
-						}
-					}()
-					])),
-				$author$project$Stages$Finished$View$fileChanges(brokenFile),
 				A2(
 				$mdgriffith$elm_ui$Element$row,
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(20)
+						$mdgriffith$elm_ui$Element$spacing(20),
+						$mdgriffith$elm_ui$Element$paddingEach(
+						{bottom: 5, left: 0, right: 0, top: 0})
 					]),
 				_List_fromArray(
 					[
@@ -16960,6 +16942,54 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red)
 							]),
 						{msg: $author$project$Stages$Finished$Msg$ResetFileAndExit, name: 'Reset the file and exit'})
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$scrollbarY
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$center,
+								$mdgriffith$elm_ui$Element$Font$size(30)
+							]),
+						function () {
+							if (finishType.$ === 'SuccessfullySolved') {
+								return _List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Nice work! To review, here\'s what we did to '),
+										A2(
+										$author$project$Utils$UI$Text$codeWithAttrs,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$Border$rounded(5)
+											]),
+										$author$project$Utils$Types$FilePath$nameOnly(brokenFile.path)),
+										$mdgriffith$elm_ui$Element$text(':')
+									]);
+							} else {
+								return _List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('Here\'s what we did to '),
+										A2(
+										$author$project$Utils$UI$Text$codeWithAttrs,
+										_List_fromArray(
+											[
+												$mdgriffith$elm_ui$Element$Border$rounded(5)
+											]),
+										$author$project$Utils$Types$FilePath$nameOnly(brokenFile.path)),
+										$mdgriffith$elm_ui$Element$text(':')
+									]);
+							}
+						}()),
+						$author$project$Stages$Finished$View$fileChanges(brokenFile)
 					]))
 			]));
 };
