@@ -4,6 +4,7 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font exposing (monospace)
+import Html.Attributes as HtmlAttrs
 import Stages.Finished.Model exposing (FinishType(..), Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.Colors as Colors
@@ -18,7 +19,12 @@ import Utils.UI.Text as Text
 
 render : Model -> Element Msg
 render { finishType, brokenFile } =
-    column [ width fill, height fill, spacing 20 ]
+    column
+        [ width fill
+        , height fill
+        , spacing 20
+        , htmlAttribute <| HtmlAttrs.style "max-height" "100vh"
+        ]
         [ paragraph [ Font.center, Font.size 30 ]
             [ case finishType of
                 SuccessfullySolved ->
@@ -46,9 +52,8 @@ fileChanges brokenFile =
     column
         [ spacing 50
         , height fill
-        , width fill
         , paddingXY 40 40
-        , scrollbars
+        , scrollbarY
         ]
     <|
         (brokenFile.changes
@@ -134,14 +139,16 @@ renderCodeLine changedLineNumber ( lineNumber, content ) =
             , Border.rounded 0
             ]
             (String.fromInt lineNumber)
-        , Text.codeWithAttrs
-            [ Background.color lineBackground
-            , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
-            , Border.rounded 0
-            , fontStyle
-            , width fill
+        , paragraph []
+            [ Text.codeWithAttrs
+                [ Background.color lineBackground
+                , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
+                , Border.rounded 0
+                , fontStyle
+                , width fill
+                ]
+                content
             ]
-            content
         ]
 
 
