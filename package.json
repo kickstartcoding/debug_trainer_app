@@ -8,7 +8,10 @@
     "dev": "run-p dev:*",
     "eslint": "eslint ./js/**/*.ts --ext .ts",
     "build-ports": "elm-ts-interop-pro --gen-directory=elm --definitions=elm/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output elm/Main/index.d.ts",
-    "build": "eslint && tsc --noEmit && parcel build js/index.html --out-dir dist",
+    "build:parcel": "eslint && tsc --noEmit && parcel build js/index.html --out-dir dist",
+    "build:tauri": "tauri build",
+    "tauri": "tauri",
+    "build": "run-s build:*",
     "serve": "parcel serve js/index.html --out-dir dist --port 2222"
   },
   "devDependencies": {
