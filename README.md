@@ -1,19 +1,17 @@
-# Debugging Training
+# Debugging Practice
 
-## Commands
+## What is it?
 
-To start the dev server:
+Debugging Practice is an app that can randomly add bugs to files so that people learning to program can practice debugging those bugs in a context where they can get hints and help and where the bugs can be automatically removed if they can't figure them out.
 
-```
-yarn dev
-```
-"@tauri-apps/api": "link:../../tooling/api/dist"
-## Reference links:
-- From jxxcarlson:
-  - [elm-live with tauri example](https://github.com/jxxcarlson/elm-editor/tree/master/olddemo)
-  - [blog post](https://dev.to/jxxcarlson/making-an-elm-desktop-app-with-tauri-3n3i)
-  - [Discourse post](https://discourse.elm-lang.org/t/making-a-desktop-app-with-elm-deno-velociraptor-and-now-tauri/5917/32)
-  - [JavaScript-side File IO example](https://github.com/jxxcarlson/elm-editor/blob/master/olddemo/public/assets/outside_source.js)
-  - [Elm-side File IO example](https://github.com/jxxcarlson/elm-editor/blob/master/olddemo/src/Outside.elm)
-- [elm-live web site](https://www.elm-live.com/)
+## Stack
 
+Debugging Practice runs on the [Tauri](https://tauri.studio) platform using a front-end composed mainly of Elm code with a bit of Typescript to tie it together.
+
+## Development
+
+Since auto-reloading the complete app including Tauri can be unreliable, for most changes you can just run the Elm front-end via the `npm run dev:web:elm` command. If you need to test out the file read/write capabilities as well, you'll need to run it with `npm run dev` which will run [elm-live](https://www.elm-live.com/), [Parcel](https://v2.parceljs.org/), and the [Tauri](https://tauri.studio) backend all at once.
+
+## Building
+
+`npm run build` will build the final app.
