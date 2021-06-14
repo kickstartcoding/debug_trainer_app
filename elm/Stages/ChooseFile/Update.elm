@@ -43,10 +43,6 @@ update { model, msg } =
             { model | status = GotFile file }
                 |> BubbleUp.justModel
 
-        PrematureStart ->
-            { model | status = TriedToStartWithoutChoosingAFile }
-                |> BubbleUp.justModel
-
         BreakFile file ->
             model
                 |> BubbleUp.justModel

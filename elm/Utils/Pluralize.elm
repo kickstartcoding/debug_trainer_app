@@ -1,4 +1,10 @@
-module Utils.Pluralize exposing (aOrSome, itIsOrTheyAre, singularOrPlural, isOrAre)
+module Utils.Pluralize exposing
+    ( aOrSome
+    , isOrAre
+    , itIsOrTheyAre
+    , itOrThem
+    , singularOrPlural
+    )
 
 
 singularOrPlural : Int -> String -> String
@@ -26,6 +32,16 @@ itIsOrTheyAre count =
 
     else
         "it is"
+
+
+itOrThem : Int -> String
+itOrThem count =
+    if count > 1 then
+        "them"
+
+    else
+        "it"
+
 
 isOrAre : Int -> String
 isOrAre count =

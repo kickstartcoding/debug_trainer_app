@@ -15,6 +15,7 @@ import Stages.ChooseFile.Model
         )
 import Stages.ChooseFile.Msg exposing (Msg(..))
 import Utils.Colors as Colors
+import Utils.Constants as Constants
 import Utils.Pluralize as Pluralize
 import Utils.SpecialChars exposing (nonbreakingSpaces)
 import Utils.Types.FilePath as FilePath
@@ -31,33 +32,33 @@ render :
     -> Element Msg
 render { bugCount, startType, status } =
     let
-        { fileSelectLabel, startButtonTitle, startButtonLabel, startButtonColor, startButtonMsg } =
+        { fileSelectLabel, startButton } =
             case status of
                 JustStarted ->
                     { fileSelectLabel = "choose a file"
-                    , startButtonLabel = "start"
-                    , startButtonColor = Colors.gray
-                    , startButtonMsg = PrematureStart
-                    , startButtonTitle = "you can't start until you choose a file"
-                    }
-
-                TriedToStartWithoutChoosingAFile ->
-                    { fileSelectLabel = "choose a file"
-                    , startButtonLabel = "start"
-                    , startButtonColor = Colors.gray
-                    , startButtonMsg = PrematureStart
-                    , startButtonTitle = "you can't start until you choose a file"
+                    , startButton = none
                     }
 
                 GotFile file ->
                     { fileSelectLabel = "choose a different file"
-                    , startButtonLabel = "start debugging"
-                    , startButtonColor = Colors.green
-                    , startButtonMsg = BreakFile file
-                    , startButtonTitle =
-                        "click here to introduce "
-                            ++ Pluralize.aOrSome bugCount "bug"
-                            ++ " and start debugging them"
+                    , startButton =
+                        Buttons.button
+                            [ Background.color Colors.green
+                            , Attributes.title
+                                ("click here have "
+                                    ++ Constants.appName
+                                    ++ " introduce "
+                                    ++ Pluralize.aOrSome bugCount "bug"
+                                    ++ " into "
+                                    ++ FilePath.nameOnly file.path
+                                    ++ " so that you can start debugging "
+                                    ++ Pluralize.itOrThem bugCount
+                                )
+                            , centerX
+                            ]
+                            { msg = BreakFile file
+                            , name = startButtonText
+                            }
                     }
     in
     el
@@ -65,11 +66,12 @@ render { bugCount, startType, status } =
         , height fill
         , inFront
             (case status of
-                TriedToStartWithoutChoosingAFile ->
-                    chooseFileFirstNote
-
-                _ ->
+                JustStarted ->
                     none
+
+                GotFile file ->
+                    FilePath.nameOnly file.path
+                        |> howToStartNote bugCount
             )
         ]
     <|
@@ -79,59 +81,52 @@ render { bugCount, startType, status } =
             , spacing 40
             , centerX
             , centerY
+            , Font.center
             ]
-            [ paragraph [ Font.center, spacing 15 ]
-                (List.intersperse (text (nonbreakingSpaces 1)) <|
-                    [ text "I would like to try debugging "
-                    , Input.text
-                        [ htmlAttribute (HtmlAttrs.type_ "number")
-                        , htmlAttribute (HtmlAttrs.min "1")
-                        , width (maximum 90 fill)
-                        , Font.center
-                        ]
-                        { onChange = UpdateBugCount
-                        , text = String.fromInt bugCount
-                        , placeholder = Nothing
-                        , label = Input.labelHidden "the number of bugs you'd like to try debugging"
-                        }
-                    , text (" " ++ Pluralize.singularOrPlural bugCount "bug" ++ " in ")
-                    , case status of
-                        GotFile file ->
-                            paragraph
-                                [ Background.color (Colors.darkened 0.5)
-                                , Font.color Colors.white
-                                , paddingXY 10 5
-                                , Border.rounded 5
-                                , htmlAttribute (HtmlAttrs.title (FilePath.toString file.path))
-                                ]
-                                [ text (FilePath.nameOnly file.path) ]
-
-                        TriedToStartWithoutChoosingAFile ->
-                            none
-
-                        JustStarted ->
-                            none
+            [ column [ spacing 20 ]
+                [ paragraph []
+                    [ text "How many bugs should I put in your chosen file? "
                     ]
-                )
-            , row [ centerX, spacing 30 ]
-                [ Buttons.button [ centerX ]
-                    { msg = ChooseFile
-                    , name = fileSelectLabel
+                , Input.text
+                    [ htmlAttribute (HtmlAttrs.type_ "number")
+                    , htmlAttribute (HtmlAttrs.min "1")
+                    , width (maximum 90 fill)
+                    , centerX
+                    ]
+                    { onChange = UpdateBugCount
+                    , text = String.fromInt bugCount
+                    , placeholder = Nothing
+                    , label = Input.labelHidden "the number of bugs you'd like to try debugging"
                     }
                 ]
-            , Buttons.button
-                [ Background.color startButtonColor
-                , Attributes.title startButtonTitle
-                , centerX
+            , column [ spacing 25, centerX ]
+                [ paragraph [] [ text "What file should I put the bugs in?" ]
+                , paragraph []
+                    [ case status of
+                        GotFile file ->
+                            Text.code (FilePath.nameOnly file.path)
+
+                        JustStarted ->
+                            Text.code "[no file selected yet]"
+                    ]
+                , row [ centerX ]
+                    [ Buttons.button [ centerX ]
+                        { msg = ChooseFile
+                        , name = fileSelectLabel
+                        }
+                    ]
                 ]
-                { msg = startButtonMsg
-                , name = startButtonLabel
-                }
+            , startButton
             ]
 
 
-chooseFileFirstNote : Element msg
-chooseFileFirstNote =
+startButtonText : String
+startButtonText =
+    "let's go!"
+
+
+howToStartNote : Int-> String ->Element msg
+howToStartNote bugCount filename  =
     paragraph
         [ Background.color Colors.darkKickstartCodingBlue
         , Font.color Colors.white
@@ -141,6 +136,11 @@ chooseFileFirstNote =
         , alignTop
         , centerX
         ]
-        [ text "You need to choose a file before you can start. "
-        , text "Click \"choose a file\" to choose a file."
+        [ text
+            ("Click \""
+                ++ startButtonText
+                ++ "\" to add the "
+                ++ Pluralize.singularOrPlural bugCount "bug"
+                ++ " and start debugging."
+            )
         ]

@@ -5,7 +5,6 @@ import Stages.ChooseFile.Model exposing (File)
 
 type Msg
     = UpdateBugCount String
-    | PrematureStart
     | ChooseFile
     | FileWasSelected File
     | BreakFile File
