@@ -55,8 +55,8 @@ howDoesThisAppWorkLink =
                 [ Font.color Colors.kickstartCodingBlue
                 , Font.size 18
                 ]
-                { url = "https://kickstartcoding.com"
-                , label = text "How does this app work?"
+                { url = "https://github.com/kickstartcoding/debug_trainer_app/issues"
+                , label = text "Issues Suggestions? Click here."
                 }
             ]
         )

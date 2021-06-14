@@ -14976,8 +14976,8 @@ var $author$project$Stages$Intro$View$howDoesThisAppWorkLink = A2(
 						$mdgriffith$elm_ui$Element$Font$size(18)
 					]),
 				{
-					label: $mdgriffith$elm_ui$Element$text('How does this app work?'),
-					url: 'https://kickstartcoding.com'
+					label: $mdgriffith$elm_ui$Element$text('Issues Suggestions? Click here.'),
+					url: 'https://github.com/kickstartcoding/debug_trainer_app/issues'
 				})
 			])));
 var $author$project$Stages$Intro$View$render = A2(
