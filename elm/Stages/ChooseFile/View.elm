@@ -83,23 +83,7 @@ render { bugCount, startType, status } =
             , centerY
             , Font.center
             ]
-            [ column [ spacing 20 ]
-                [ paragraph []
-                    [ text "How many bugs should I put in your chosen file? "
-                    ]
-                , Input.text
-                    [ htmlAttribute (HtmlAttrs.type_ "number")
-                    , htmlAttribute (HtmlAttrs.min "1")
-                    , width (maximum 90 fill)
-                    , centerX
-                    ]
-                    { onChange = UpdateBugCount
-                    , text = String.fromInt bugCount
-                    , placeholder = Nothing
-                    , label = Input.labelHidden "the number of bugs you'd like to try debugging"
-                    }
-                ]
-            , column [ spacing 25, centerX ]
+            [ column [ spacing 25, centerX ]
                 [ paragraph [] [ text "What file should I put the bugs in?" ]
                 , paragraph []
                     [ case status of
@@ -116,7 +100,23 @@ render { bugCount, startType, status } =
                         }
                     ]
                 ]
-            , startButton
+            , column [ spacing 20 ]
+                [ paragraph []
+                    [ text "How many bugs should I put in the file? "
+                    ]
+                , Input.text
+                    [ htmlAttribute (HtmlAttrs.type_ "number")
+                    , htmlAttribute (HtmlAttrs.min "1")
+                    , width (maximum 90 fill)
+                    , centerX
+                    ]
+                    { onChange = UpdateBugCount
+                    , text = String.fromInt bugCount
+                    , placeholder = Nothing
+                    , label = Input.labelHidden "the number of bugs you'd like to try debugging"
+                    }
+                ]
+            , el [ height (px 60), centerX ] startButton
             ]
 
 
@@ -125,8 +125,8 @@ startButtonText =
     "let's go!"
 
 
-howToStartNote : Int-> String ->Element msg
-howToStartNote bugCount filename  =
+howToStartNote : Int -> String -> Element msg
+howToStartNote bugCount filename =
     paragraph
         [ Background.color Colors.darkKickstartCodingBlue
         , Font.color Colors.white
