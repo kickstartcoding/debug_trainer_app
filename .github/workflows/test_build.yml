@@ -3,6 +3,8 @@ on: [pull_request]
 
 jobs:
   test-tauri:
+    env:
+      NPM_TOKEN_FOR_ELM_TS_INTEROP: token_not_needed
     strategy:
       fail-fast: false
       matrix:

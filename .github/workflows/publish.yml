@@ -6,6 +6,8 @@ on: workflow_dispatch
 
 jobs:
   publish-tauri:
+    env:
+      NPM_TOKEN_FOR_ELM_TS_INTEROP: token_not_needed
     strategy:
       fail-fast: false
       matrix:
