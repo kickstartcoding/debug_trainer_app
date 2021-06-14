@@ -1,8 +1,7 @@
-module Utils.UI.Text exposing (code, codeWithAttrs, codeAttrs)
+module Utils.UI.Text exposing (code, codeWithAttrs)
 
 import Element exposing (..)
 import Element.Background as Background
-import Element.Border as Border
 import Element.Font as Font
 import Utils.Colors as Colors
 

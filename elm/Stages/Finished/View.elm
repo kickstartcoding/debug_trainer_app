@@ -3,12 +3,10 @@ module Stages.Finished.View exposing (render)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font exposing (monospace)
-import Html.Attributes as HtmlAttrs
+import Element.Font as Font
 import Stages.Finished.Model exposing (FinishType(..), Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.Colors as Colors
-import Utils.Constants as Constants
 import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)

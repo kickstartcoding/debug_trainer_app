@@ -8,16 +8,13 @@ import Element.Input as Input
 import Html.Attributes as HtmlAttrs
 import Stages.ChooseFile.Model
     exposing
-        ( File
-        , Model
-        , StartType(..)
+        ( StartType(..)
         , Status(..)
         )
 import Stages.ChooseFile.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Constants as Constants
 import Utils.Pluralize as Pluralize
-import Utils.SpecialChars exposing (nonbreakingSpaces)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Attributes as Attributes
 import Utils.UI.Buttons as Buttons
@@ -30,7 +27,7 @@ render :
     , status : Status
     }
     -> Element Msg
-render { bugCount, startType, status } =
+render { bugCount, status } =
     let
         { fileSelectLabel, startButton } =
             case status of
@@ -69,9 +66,8 @@ render { bugCount, startType, status } =
                 JustStarted ->
                     none
 
-                GotFile file ->
-                    FilePath.nameOnly file.path
-                        |> howToStartNote bugCount
+                GotFile _ ->
+                    howToStartNote bugCount
             )
         ]
     <|
@@ -125,8 +121,8 @@ startButtonText =
     "let's go!"
 
 
-howToStartNote : Int -> String -> Element msg
-howToStartNote bugCount filename =
+howToStartNote : Int -> Element msg
+howToStartNote bugCount =
     paragraph
         [ Background.color Colors.darkKickstartCodingBlue
         , Font.color Colors.white

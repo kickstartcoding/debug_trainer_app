@@ -1,4 +1,4 @@
-module Utils.UI.Buttons exposing (back, button, disableableButton)
+module Utils.UI.Buttons exposing (back, button)
 
 import Element exposing (..)
 import Element.Background as Background
@@ -15,15 +15,6 @@ button attrs { name, msg } =
         { label = paragraph [] [ text name ]
         , attrs = attrs
         , msg = Just msg
-        }
-
-
-disableableButton : List (Attribute msg) -> { name : String, maybeMsg : Maybe msg } -> Element msg
-disableableButton attrs { name, maybeMsg } =
-    buttonTemplate
-        { label = paragraph [] [ text name ]
-        , attrs = attrs
-        , msg = maybeMsg
         }
 
 

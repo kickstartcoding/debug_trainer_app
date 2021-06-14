@@ -1,6 +1,5 @@
 module Breakers.Utils exposing
-    ( BreakData
-    , BreakRunnerData
+    ( BreakRunnerData
     , candidates
     , chooseCandidate
     , segmentsToContent
@@ -8,7 +7,6 @@ module Breakers.Utils exposing
 
 import Parsers.Generic.Segment exposing (Segment, SegmentType(..))
 import Utils.List
-import Utils.Types.BreakType exposing (BreakType)
 import Utils.Types.FileType exposing (FileType)
 
 
@@ -17,14 +15,6 @@ type alias BreakRunnerData =
     , originalFileContent : String
     , segments : List Segment
     , fileType : FileType
-    }
-
-
-type alias BreakData =
-    { updatedContent : String
-    , lineNumber : Int
-    , changeDescription : String
-    , breakType : BreakType
     }
 
 

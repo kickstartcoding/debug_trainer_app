@@ -1,9 +1,6 @@
 module Parsers.Utils exposing (contentAndResult)
 
 import Parser exposing (..)
-import Parsers.Utils.Repeat as Repeat
-import Parsers.Utils.Whitespace as Whitespace
-import Utils.Types.NamedFunctionDeclaration exposing (NamedFunctionDeclaration)
 
 
 contentAndResult : Parser data -> Parser ( String, data )
@@ -23,4 +20,3 @@ contentAndResult parser =
                                 ++ "https://github.com/kickstartcoding/debug_trainer/issues"
                             )
             )
-

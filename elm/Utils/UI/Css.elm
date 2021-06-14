@@ -1,4 +1,4 @@
-module Utils.UI.Css exposing (..)
+module Utils.UI.Css exposing (unselectable)
 
 import Element exposing (Attribute, htmlAttribute)
 import Html.Attributes as HtmlAttrs

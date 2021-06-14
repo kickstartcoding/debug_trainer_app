@@ -1,6 +1,5 @@
 module Utils.Pluralize exposing
     ( aOrSome
-    , isOrAre
     , itIsOrTheyAre
     , itOrThem
     , singularOrPlural
@@ -41,12 +40,3 @@ itOrThem count =
 
     else
         "it"
-
-
-isOrAre : Int -> String
-isOrAre count =
-    if count > 1 then
-        "are"
-
-    else
-        "is"

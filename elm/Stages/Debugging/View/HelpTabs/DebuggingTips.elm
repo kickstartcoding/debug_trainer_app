@@ -1,15 +1,13 @@
-module Stages.Debugging.View.HelpTabs.DebuggingTips exposing (..)
+module Stages.Debugging.View.HelpTabs.DebuggingTips exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-import Element.Input as Input
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.List
-import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
-import Utils.Types.Encouragements exposing (Encouragements)
+import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.FileType as FileType exposing (FileType)
 import Utils.UI.Buttons as Buttons
 import Utils.UI.Link as Link
@@ -122,7 +120,7 @@ debuggingTips fileType =
         , content =
             [ paragraph [] [ text "One of the best ways to learn and figure things out is to get help from friends and community." ]
             , paragraph [] [ text "Finding people and communities who can answer questions you have and offer encouragement when stuff is hard is so, so important." ]
-            , paragraph [] [ text "Don\'t believe the individualism hype: it is both hard and pointless to force yourself to do this all on your own." ]
+            , paragraph [] [ text "Don't believe the individualism hype: it is both hard and pointless to force yourself to do this all on your own." ]
             ]
         }
     ]

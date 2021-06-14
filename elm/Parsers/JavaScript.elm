@@ -8,7 +8,6 @@ module Parsers.JavaScript exposing
 import Parser exposing (..)
 import Parsers.Utils.Code as Code
 import Parsers.Utils.Repeat as Repeat
-import Parsers.Utils.Whitespace as Whitespace
 import Utils.Types.NamedFunctionDeclaration exposing (NamedFunctionDeclaration)
 
 

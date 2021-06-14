@@ -2,7 +2,6 @@ module Main.View exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
-import Element.Border as Border
 import Element.Font as Font
 import Html exposing (Html)
 import Main.Model exposing (Model, Stage(..))
@@ -54,7 +53,7 @@ render { bugCount, stage, maybeError, logo } =
                             , status = status
                             }
 
-                Debugging { brokenFile, currentPage, currentHelpTab, encouragements, currentDebuggingTip, answerIsShowing } ->
+                Debugging { brokenFile, currentPage, currentHelpTab, encouragements, currentDebuggingTip } ->
                     Element.map DebuggingInterface <|
                         Stages.Debugging.View.render
                             { bugCount = bugCount

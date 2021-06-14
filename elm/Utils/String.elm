@@ -1,7 +1,6 @@
 module Utils.String exposing
     ( isAllCaps
     , isMoreThanOneCharacter
-    , isTitleCase
     , toFormattedElements
     , toggleTitleCase
     )

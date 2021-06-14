@@ -2,16 +2,13 @@ module Stages.Debugging.View.IDontSeeAnyErrorsPage exposing (render)
 
 import Element exposing (..)
 import Element.Background as Background
-import Element.Border as Border exposing (rounded)
+import Element.Border as Border
 import Element.Font as Font
-import Element.Input as Input
-import Stages.Debugging.Model exposing (Model, Page(..))
+import Stages.Debugging.Model exposing (Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Constants as Constants
-import Utils.Pluralize as Pluralize
-import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
-import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Buttons as Buttons
 

@@ -1,19 +1,17 @@
 module Utils.Colors exposing
     ( black
-    , darkKickstartCodingBlue
     , darkGray
+    , darkKickstartCodingBlue
     , darkPurple
     , darkened
-    , gray
-    , transparent
     , green
     , kickstartCodingBlue
     , lightGray
     , purple
     , red
+    , transparent
     , veryLightGray
     , white
-    , whitened
     )
 
 import Element exposing (Color, rgb, rgb255, rgba)
@@ -22,6 +20,7 @@ import Element exposing (Color, rgb, rgb255, rgba)
 kickstartCodingBlue : Color
 kickstartCodingBlue =
     rgb255 25 181 254
+
 
 darkKickstartCodingBlue : Color
 darkKickstartCodingBlue =
@@ -58,19 +57,9 @@ white =
     rgb 1 1 1
 
 
-whitened : Float -> Color
-whitened amount =
-    rgba 1 1 1 amount
-
-
 darkGray : Color
 darkGray =
     rgb 0.3 0.3 0.3
-
-
-gray : Color
-gray =
-    rgb 0.4 0.4 0.4
 
 
 lightGray : Color
@@ -87,6 +76,7 @@ darkened : Float -> Color
 darkened amount =
     rgba 0 0 0 amount
 
+
 transparent : Color
-transparent=
+transparent =
     rgba 0 0 0 0

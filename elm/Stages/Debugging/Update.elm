@@ -1,13 +1,10 @@
-module Stages.Debugging.Update exposing (..)
+module Stages.Debugging.Update exposing (update, Instruction(..))
 
 import Stages.Debugging.Model as Model exposing (Model, Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Stages.Finished.Model exposing (FinishType(..))
 import Utils.BubbleUp as BubbleUp exposing (BubbleUpWithInstruction)
-import Utils.List
-import Utils.Types.BrokenFile exposing (BrokenFile)
-import Utils.Types.ChangeData exposing (ChangeData)
-import Utils.Types.Encouragements as Encouragements exposing (Encouragements)
+import Utils.Types.Encouragements as Encouragements
 
 
 type Instruction

@@ -1,10 +1,9 @@
 module Utils.List exposing
-    ( nextValidIndex
-    , pickRandom
-    , previousValidIndex
-    , shuffle
+    ( getByWrappedIndex
     , groupsOf
-    , getByWrappedIndex
+    , nextValidIndex
+    , pickRandom
+    , shuffle
     )
 
 import Array
@@ -26,6 +25,7 @@ groupsOf size list =
         in
         group :: groupsOf size remaining
 
+
 getByWrappedIndex : Int -> List a -> Maybe a
 getByWrappedIndex index list =
     let
@@ -39,11 +39,6 @@ getByWrappedIndex index list =
 
 nextValidIndex : Int -> List a -> Int
 nextValidIndex currentIndex list =
-    modBy (List.length list) (currentIndex + 1)
-
-
-previousValidIndex : Int -> List a -> Int
-previousValidIndex currentIndex list =
     modBy (List.length list) (currentIndex + 1)
 
 

@@ -25,7 +25,6 @@ chooseFileStage =
     ChooseFile Stages.ChooseFile.Model.init
 
 
-
 gotFileStage : Stage
 gotFileStage =
     ChooseFile
@@ -115,7 +114,6 @@ defaultDebugModel randomNumbers =
     { currentPage = HelpPage
     , currentHelpTab = ShowMeTheAnswer
     , currentDebuggingTip = 0
-    , answerIsShowing = True
     , encouragements = Encouragements.init (randomNumbers |> List.head |> Maybe.withDefault 0)
     , brokenFile = defaultBrokenFile randomNumbers
     }

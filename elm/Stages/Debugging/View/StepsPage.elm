@@ -4,19 +4,17 @@ import Element exposing (..)
 import Element.Background as Background
 import Element.Border exposing (rounded)
 import Element.Font as Font
-import Element.Input as Input
-import Stages.Debugging.Model exposing (Model, Page(..))
+import Stages.Debugging.Model exposing (Page(..))
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Pluralize as Pluralize
-import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
-import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.FilePath as FilePath
 import Utils.UI.Buttons as Buttons
 
 
 render : Int -> BrokenFile -> Element Msg
-render bugCount ({ changes, path } as brokenFile) =
+render bugCount { changes, path } =
     let
         changeCount =
             List.length changes

@@ -1,4 +1,4 @@
-module Stages.Debugging.View exposing (..)
+module Stages.Debugging.View exposing (render)
 
 import Element exposing (Element)
 import Stages.Debugging.Model exposing (HelpTab, Page(..))

@@ -15,7 +15,6 @@ import Stages.ChooseFile.Update as ChooseFileUpdate exposing (Instruction(..))
 import Stages.Debugging.Model
 import Stages.Debugging.Update as DebuggingUpdate
 import Stages.Finished.Update as FinishedUpdate
-import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.Types.Error as Error
 import Utils.Types.FilePath as FilePath
 

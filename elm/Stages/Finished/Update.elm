@@ -7,8 +7,6 @@ module Stages.Finished.Update exposing
 import Stages.Finished.Model exposing (Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.BubbleUp as BubbleUp exposing (BubbleUpWithInstruction)
-import Utils.Types.BrokenFile exposing (BrokenFile)
-import Utils.Types.ChangeData exposing (ChangeData)
 
 
 type Instruction

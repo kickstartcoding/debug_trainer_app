@@ -12790,26 +12790,25 @@ var $author$project$Utils$Pluralize$singularOrPlural = F2(
 		return (count > 1) ? (term + 's') : term;
 	});
 var $author$project$Stages$ChooseFile$View$startButtonText = 'let\'s go!';
-var $author$project$Stages$ChooseFile$View$howToStartNote = F2(
-	function (bugCount, filename) {
-		return A2(
-			$mdgriffith$elm_ui$Element$paragraph,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$darkKickstartCodingBlue),
-					$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
-					$mdgriffith$elm_ui$Element$Font$center,
-					$mdgriffith$elm_ui$Element$Border$rounded(5),
-					A2($mdgriffith$elm_ui$Element$paddingXY, 20, 10),
-					$mdgriffith$elm_ui$Element$alignTop,
-					$mdgriffith$elm_ui$Element$centerX
-				]),
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$text(
-					'Click \"' + ($author$project$Stages$ChooseFile$View$startButtonText + ('\" to add the ' + (A2($author$project$Utils$Pluralize$singularOrPlural, bugCount, 'bug') + ' and start debugging.'))))
-				]));
-	});
+var $author$project$Stages$ChooseFile$View$howToStartNote = function (bugCount) {
+	return A2(
+		$mdgriffith$elm_ui$Element$paragraph,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$darkKickstartCodingBlue),
+				$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
+				$mdgriffith$elm_ui$Element$Font$center,
+				$mdgriffith$elm_ui$Element$Border$rounded(5),
+				A2($mdgriffith$elm_ui$Element$paddingXY, 20, 10),
+				$mdgriffith$elm_ui$Element$alignTop,
+				$mdgriffith$elm_ui$Element$centerX
+			]),
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$text(
+				'Click \"' + ($author$project$Stages$ChooseFile$View$startButtonText + ('\" to add the ' + (A2($author$project$Utils$Pluralize$singularOrPlural, bugCount, 'bug') + ' and start debugging.'))))
+			]));
+};
 var $author$project$Utils$Pluralize$itOrThem = function (count) {
 	return (count > 1) ? 'them' : 'it';
 };
@@ -13761,7 +13760,6 @@ var $author$project$Utils$UI$Attributes$title = function (string) {
 };
 var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
-	var startType = _v0.startType;
 	var status = _v0.status;
 	var _v1 = function () {
 		if (status.$ === 'JustStarted') {
@@ -13799,11 +13797,7 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 					if (status.$ === 'JustStarted') {
 						return $mdgriffith$elm_ui$Element$none;
 					} else {
-						var file = status.a;
-						return A2(
-							$author$project$Stages$ChooseFile$View$howToStartNote,
-							bugCount,
-							$author$project$Utils$Types$FilePath$nameOnly(file.path));
+						return $author$project$Stages$ChooseFile$View$howToStartNote(bugCount);
 					}
 				}())
 			]),
@@ -13940,23 +13934,6 @@ var $author$project$Utils$UI$Buttons$back = function (_v0) {
 					])),
 			msg: $elm$core$Maybe$Just(msg)
 		});
-};
-var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
-var $author$project$Utils$Types$FileType$Elm = {$: 'Elm'};
-var $author$project$Utils$Types$FileType$Go = {$: 'Go'};
-var $author$project$Utils$Types$FileType$JavaScript = {$: 'JavaScript'};
-var $author$project$Utils$Types$FileType$Python = {$: 'Python'};
-var $author$project$Utils$Types$FileType$Ruby = {$: 'Ruby'};
-var $author$project$Utils$Types$FileType$Rust = {$: 'Rust'};
-var $author$project$Utils$Types$FileType$Unknown = {$: 'Unknown'};
-var $elm$core$String$endsWith = _String_endsWith;
-var $author$project$Utils$Types$FilePath$toString = function (_v0) {
-	var string = _v0.a;
-	return string;
-};
-var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
-	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
-	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
 };
 var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
 	return {$: 'ShowBugLineHint', a: a};
@@ -14681,6 +14658,23 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips =
 			})
 		]);
 };
+var $author$project$Utils$Types$FileType$Elixir = {$: 'Elixir'};
+var $author$project$Utils$Types$FileType$Elm = {$: 'Elm'};
+var $author$project$Utils$Types$FileType$Go = {$: 'Go'};
+var $author$project$Utils$Types$FileType$JavaScript = {$: 'JavaScript'};
+var $author$project$Utils$Types$FileType$Python = {$: 'Python'};
+var $author$project$Utils$Types$FileType$Ruby = {$: 'Ruby'};
+var $author$project$Utils$Types$FileType$Rust = {$: 'Rust'};
+var $author$project$Utils$Types$FileType$Unknown = {$: 'Unknown'};
+var $elm$core$String$endsWith = _String_endsWith;
+var $author$project$Utils$Types$FilePath$toString = function (_v0) {
+	var string = _v0.a;
+	return string;
+};
+var $author$project$Utils$Types$FileType$fromFilePath = function (filepath) {
+	var filepathString = $author$project$Utils$Types$FilePath$toString(filepath);
+	return A2($elm$core$String$endsWith, '.js', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.ts', filepathString) ? $author$project$Utils$Types$FileType$JavaScript : (A2($elm$core$String$endsWith, '.py', filepathString) ? $author$project$Utils$Types$FileType$Python : (A2($elm$core$String$endsWith, '.rb', filepathString) ? $author$project$Utils$Types$FileType$Ruby : (A2($elm$core$String$endsWith, '.elm', filepathString) ? $author$project$Utils$Types$FileType$Elm : (A2($elm$core$String$endsWith, '.ex', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.exs', filepathString) ? $author$project$Utils$Types$FileType$Elixir : (A2($elm$core$String$endsWith, '.rs', filepathString) ? $author$project$Utils$Types$FileType$Rust : (A2($elm$core$String$endsWith, '.go', filepathString) ? $author$project$Utils$Types$FileType$Go : $author$project$Utils$Types$FileType$Unknown))))))));
+};
 var $elm$core$Array$fromListHelp = F3(
 	function (list, nodeList, nodeListSize) {
 		fromListHelp:
@@ -14825,9 +14819,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = functi
 };
 var $author$project$Stages$Debugging$Msg$SwitchToNextEncouragement = {$: 'SwitchToNextEncouragement'};
 var $author$project$Stages$Debugging$View$HelpTabs$Encouragement$render = function (_v0) {
-	var bugCount = _v0.bugCount;
 	var encouragements = _v0.encouragements;
-	var brokenFile = _v0.brokenFile;
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
@@ -14876,9 +14868,6 @@ var $author$project$Utils$Types$BrokenFile$bugOrBugsString = function (brokenFil
 	return ($elm$core$List$length(brokenFile.changes) > 1) ? 'bugs' : 'bug';
 };
 var $author$project$Stages$Debugging$View$HelpTabs$ShowMeTheAnswer$render = function (brokenFile) {
-	var originalContent = brokenFile.originalContent;
-	var updatedContent = brokenFile.updatedContent;
-	var path = brokenFile.path;
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
@@ -15039,7 +15028,6 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 	var encouragements = _v0.encouragements;
 	var currentHelpTab = _v0.currentHelpTab;
 	var brokenFile = _v0.brokenFile;
-	var fileType = $author$project$Utils$Types$FileType$fromFilePath(brokenFile.path);
 	return A2(
 		$mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
@@ -15262,9 +15250,9 @@ var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
 };
 var $author$project$Stages$Debugging$View$StepsPage$render = F2(
-	function (bugCount, brokenFile) {
-		var changes = brokenFile.changes;
-		var path = brokenFile.path;
+	function (bugCount, _v0) {
+		var changes = _v0.changes;
+		var path = _v0.path;
 		var changeCount = $elm$core$List$length(changes);
 		return A2(
 			$mdgriffith$elm_ui$Element$column,
@@ -16060,7 +16048,6 @@ var $author$project$Main$View$render = function (_v0) {
 							var currentHelpTab = stage.a.currentHelpTab;
 							var encouragements = stage.a.encouragements;
 							var currentDebuggingTip = stage.a.currentDebuggingTip;
-							var answerIsShowing = stage.a.answerIsShowing;
 							return A2(
 								$mdgriffith$elm_ui$Element$map,
 								$author$project$Main$Msg$DebuggingInterface,
@@ -16300,7 +16287,6 @@ var $author$project$Stages$Debugging$Model$init = function (_v0) {
 	var changes = _v0.changes;
 	var path = _v0.path;
 	return {
-		answerIsShowing: false,
 		brokenFile: {
 			changes: A2(
 				$elm$core$List$map,

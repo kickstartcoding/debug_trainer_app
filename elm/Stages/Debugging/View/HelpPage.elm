@@ -1,26 +1,23 @@
 module Stages.Debugging.View.HelpPage exposing (render)
 
-import Array
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
-import Html.Attributes as HtmlAttrs
-import Stages.Debugging.Model as Model exposing (HelpTab(..), Model, Page(..))
+import Stages.Debugging.Model as Model
+    exposing
+        ( HelpTab(..)
+        , Page(..)
+        )
 import Stages.Debugging.Msg exposing (Msg(..))
 import Stages.Debugging.View.HelpTabs.BugHints as BugHintsTab
 import Stages.Debugging.View.HelpTabs.DebuggingTips as DebuggingTipsTab
 import Stages.Debugging.View.HelpTabs.Encouragement as EncouragementTab
 import Stages.Debugging.View.HelpTabs.ShowMeTheAnswer as ShowMeTheAnswerTab
 import Utils.Colors as Colors
-import Utils.Pluralize as Pluralize
-import Utils.SpecialChars exposing (nonbreakingSpaces)
-import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
-import Utils.Types.ChangeData exposing (ChangeData)
+import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.Encouragements exposing (Encouragements)
-import Utils.Types.FilePath as FilePath exposing (FilePath)
-import Utils.Types.FileType as FileType exposing (FileType)
 import Utils.UI.Buttons as Buttons
 
 
@@ -33,10 +30,6 @@ render :
     }
     -> Element Msg
 render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
-    let
-        fileType =
-            brokenFile.path |> FileType.fromFilePath
-    in
     column [ spacing 30, width fill, height fill ]
         [ Buttons.back { name = "back to instructions", msg = ChangePage StepsPage }
         , column [ width fill, height fill ]

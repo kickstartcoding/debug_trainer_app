@@ -20,7 +20,6 @@ type alias Model =
     { brokenFile : BrokenFile
     , currentHelpTab : HelpTab
     , currentDebuggingTip : Int
-    , answerIsShowing : Bool
     , encouragements : Encouragements
     , currentPage : Page
     }
@@ -32,7 +31,6 @@ init { originalContent, updatedContent, changes, path } =
     , currentHelpTab = DebuggingTips
     , encouragements = Encouragements.init 0
     , currentDebuggingTip = 0
-    , answerIsShowing = False
     , brokenFile =
         { originalContent = originalContent
         , updatedContent = updatedContent
