@@ -114,7 +114,15 @@ debuggingTips fileType =
         { header = "Tip #6: Take breaks"
         , content =
             [ paragraph [] [ text "Sometimes you just need to get some food or some water, go to the bathroom, or go for a walk and let you brain rest a bit." ]
-            , paragraph [] [ text "You might be surprised at the things you'll notice about your code after taking a break that you had completely missed before." ]
+            , paragraph [] [ text "You might be surprised at the things you'll notice about your code after taking a break." ]
+            ]
+        }
+    , tip
+        { header = "Tip #7: Ask for help"
+        , content =
+            [ paragraph [] [ text "One of the best ways to learn and figure things out is to get help from friends and community." ]
+            , paragraph [] [ text "Finding people and communities who can answer questions you have and offer encouragement when stuff is hard is so, so important." ]
+            , paragraph [] [ text "Don\'t believe the individualism hype: it is both hard and pointless to force yourself to do this all on your own." ]
             ]
         }
     ]
