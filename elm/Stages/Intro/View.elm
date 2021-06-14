@@ -20,15 +20,20 @@ render logoPath =
             [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
             , row [ Font.size 22, centerX ]
                 [ text "created by teachers at "
-                , image
-                    [ height (px 40)
-                    , moveRight 3
-                    , moveUp 1
-                    ]
-                    { src = logoPath, description = "The Kickstart Coding logo — a partially pixelated blue hummingbird" }
                 , newTabLink
                     [ Font.color Colors.kickstartCodingBlue ]
-                    { url = "https://kickstartcoding.com", label = text "Kickstart Coding" }
+                    { url = "https://kickstartcoding.com"
+                    , label =
+                        row []
+                            [ image
+                                [ height (px 40)
+                                , moveRight 3
+                                , moveUp 1
+                                ]
+                                { src = logoPath, description = "The Kickstart Coding logo — a partially pixelated blue hummingbird" }
+                            , text "Kickstart Coding"
+                            ]
+                    }
                 ]
             ]
         , column

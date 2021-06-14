@@ -15897,23 +15897,29 @@ var $author$project$Stages$Intro$View$render = function (logoPath) {
 							[
 								$mdgriffith$elm_ui$Element$text('created by teachers at '),
 								A2(
-								$mdgriffith$elm_ui$Element$image,
-								_List_fromArray(
-									[
-										$mdgriffith$elm_ui$Element$height(
-										$mdgriffith$elm_ui$Element$px(40)),
-										$mdgriffith$elm_ui$Element$moveRight(3),
-										$mdgriffith$elm_ui$Element$moveUp(1)
-									]),
-								{description: 'The Kickstart Coding logo — a partially pixelated blue hummingbird', src: logoPath}),
-								A2(
 								$mdgriffith$elm_ui$Element$newTabLink,
 								_List_fromArray(
 									[
 										$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
 									]),
 								{
-									label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
+									label: A2(
+										$mdgriffith$elm_ui$Element$row,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$image,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$height(
+														$mdgriffith$elm_ui$Element$px(40)),
+														$mdgriffith$elm_ui$Element$moveRight(3),
+														$mdgriffith$elm_ui$Element$moveUp(1)
+													]),
+												{description: 'The Kickstart Coding logo — a partially pixelated blue hummingbird', src: logoPath}),
+												$mdgriffith$elm_ui$Element$text('Kickstart Coding')
+											])),
 									url: 'https://kickstartcoding.com'
 								})
 							]))
