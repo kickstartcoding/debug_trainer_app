@@ -42,4 +42,4 @@ jobs:
         body: "See the assets to download this version and install."
         draft: true
         prerelease: true
-        iconPath: "js/assets/logo.png"
+        iconPath: "./js/assets/logo.png"
