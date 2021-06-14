@@ -4,6 +4,10 @@
 
 Debugging Practice is an app that can randomly add bugs to files so that people learning to program can practice debugging those bugs in a context where they can get hints and help and where the bugs can be automatically removed if they can't figure them out.
 
+## How do I use it?
+
+Download the latest release on [the releases page](https://github.com/kickstartcoding/debug_trainer_app/releases) and start it up!
+
 ## Stack
 
 Debugging Practice runs on the [Tauri](https://tauri.studio) platform using a front-end composed mainly of Elm code with a bit of Typescript to tie it together.
