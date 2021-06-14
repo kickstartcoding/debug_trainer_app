@@ -3,7 +3,6 @@ module Main.Model exposing
     , Stage(..)
     )
 
-import Json.Decode
 import Stages.ChooseFile.Model
 import Stages.Debugging.Model
 import Stages.Finished.Model
@@ -12,6 +11,7 @@ import Utils.Types.Error exposing (Report)
 
 type alias Model =
     { bugCount : Int
+    , logo : String
     , randomNumbers : List Int
     , stage : Stage
     , maybeError : Maybe Report

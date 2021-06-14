@@ -1,20 +1,20 @@
 port module Main.Interop exposing
     ( ToElm(..)
-    , chooseFile
-    , decodeFlags
     , toElm
+    , decodeFlags
     , writeFile
     , writeFileAndExit
+    , chooseFile
     )
 
+
+import Main.Definitions
 import Json.Decode
 import Json.Encode
-import Main.Definitions
-import Stages.ChooseFile.Model
 import TsJson.Decode as TsDecode
 import TsJson.Encode as TsEncode exposing (Encoder)
 import TsJson.Type
-
+import Stages.ChooseFile.Model
 
 decodeFlags flags =
     Json.Decode.decodeValue
@@ -22,22 +22,24 @@ decodeFlags flags =
         flags
 
 
+
 writeFile argument____ =
     argument____
-        |> encodeProVariant "writeFile" Main.Definitions.writeFile
-        |> interopFromElm
+      |> encodeProVariant "writeFile" Main.Definitions.writeFile
+      |> interopFromElm
 
 
 writeFileAndExit argument____ =
     argument____
-        |> encodeProVariant "writeFileAndExit" Main.Definitions.writeFileAndExit
-        |> interopFromElm
+      |> encodeProVariant "writeFileAndExit" Main.Definitions.writeFileAndExit
+      |> interopFromElm
 
 
 chooseFile argument____ =
     argument____
-        |> encodeProVariant "chooseFile" Main.Definitions.chooseFile
-        |> interopFromElm
+      |> encodeProVariant "chooseFile" Main.Definitions.chooseFile
+      |> interopFromElm
+
 
 
 type ToElm
@@ -56,7 +58,7 @@ toElmDecoder____ : TsDecode.Decoder ToElm
 toElmDecoder____ =
     TsDecode.oneOf
         [ toElmVariant "gotFileChoice" GotFileChoice Main.Definitions.gotFileChoice
-        , toElmVariant "fileChangeWasSaved" FileChangeWasSaved Main.Definitions.fileChangeWasSaved
+    , toElmVariant "fileChangeWasSaved" FileChangeWasSaved Main.Definitions.fileChangeWasSaved
         ]
 
 

@@ -21,28 +21,17 @@ import Utils.Types.FilePath as FilePath
 init : Value -> ( Model, Cmd Msg )
 init flags =
     let
-        { randomNumbers, startingError } =
+        { numbers, startingError, logoPath } =
             case Main.Interop.decodeFlags flags of
-                Ok ((firstRandomNumber :: _) as numbers) ->
-                    { randomNumbers = numbers
+                Ok { randomNumbers, logo } ->
+                    { numbers = randomNumbers
+                    , logoPath = logo
                     , startingError = Nothing
                     }
 
-                Ok [] ->
-                    { randomNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-                    , startingError =
-                        Just
-                            (Error.misc
-                                { action = "initial flag decoding"
-                                , descriptionForUsers = "Got an empty list of random numbers"
-                                , error = "Got an empty list of random numbers"
-                                , inModule = "Main"
-                                }
-                            )
-                    }
-
                 Err error ->
-                    { randomNumbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                    { numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                    , logoPath = "/logo.e9a9c890.png"
                     , startingError =
                         Just
                             (Error.decoding
@@ -55,7 +44,8 @@ init flags =
                     }
     in
     ( { bugCount = 1
-      , randomNumbers = randomNumbers
+      , logo = logoPath
+      , randomNumbers = numbers
       , stage = Intro
 
       --   , stage = DummyData.chooseFileStage

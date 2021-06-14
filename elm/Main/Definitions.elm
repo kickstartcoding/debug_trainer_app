@@ -10,10 +10,15 @@ import Utils.Types.FilePath as FilePath
 -- FLAGS
 
 
-flags : Decoder (List Int)
+type alias Flags =
+    { randomNumbers : List Int, logo : String }
+
+
+flags : Decoder Flags
 flags =
-    TsDecode.list TsDecode.int
-        |> TsDecode.field "randomNumbers"
+    TsDecode.succeed Flags
+        |> TsDecode.andMap (TsDecode.field "randomNumbers" (TsDecode.list TsDecode.int))
+        |> TsDecode.andMap (TsDecode.field "logo" TsDecode.string)
 
 
 

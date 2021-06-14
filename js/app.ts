@@ -3,6 +3,7 @@ import { open } from '@tauri-apps/api/dialog'
 import { readTextFile, writeFile } from '@tauri-apps/api/fs'
 import { exit } from '@tauri-apps/api/app'
 import { register } from '@tauri-apps/api/globalShortcut'
+import logo from './assets/logo.png'
 
 register("CmdOrControl+Q", () => {
   exit()
@@ -10,19 +11,14 @@ register("CmdOrControl+Q", () => {
 
 const app = Elm.Main.init({
   flags: {
-    randomNumbers: getRandomInts(1_000_000, 20)
+    randomNumbers: getRandomInts(1_000_000, 20),
+    logo: logo
   }
 })
-
-console.log('app:', app)
-
-
 
 app.ports.interopFromElm.subscribe((fromElm) => {
   switch (fromElm.tag) {
     case "chooseFile":
-      console.log('fromElm:', fromElm)
-
       open().then((filepath) => {
         if (typeof filepath === 'string') {
           readTextFile(filepath).then((content) => {

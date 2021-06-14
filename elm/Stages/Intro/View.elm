@@ -10,16 +10,22 @@ import Utils.Constants as Constants
 import Utils.UI.Buttons as Buttons
 
 
-render : Element Msg
-render =
+render : String -> Element Msg
+render logoPath =
     column
         [ height fill
         , width fill
         ]
         [ column [ Font.center, spacing 10, centerX, height fill ]
             [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
-            , paragraph [ Font.size 22, centerX ]
+            , row [ Font.size 22, centerX ]
                 [ text "created by teachers at "
+                , image
+                    [ height (px 40)
+                    , moveRight 3
+                    , moveUp 1
+                    ]
+                    { src = logoPath, description = "The Kickstart Coding logo — a partially pixelated blue hummingbird" }
                 , newTabLink
                     [ Font.color Colors.kickstartCodingBlue ]
                     { url = "https://kickstartcoding.com", label = text "Kickstart Coding" }
@@ -56,7 +62,7 @@ howDoesThisAppWorkLink =
                 , Font.size 18
                 ]
                 { url = "https://github.com/kickstartcoding/debug_trainer_app/issues"
-                , label = text "Issues Suggestions? Click here."
+                , label = text "Issues? Suggestions? Click here."
                 }
             ]
         )

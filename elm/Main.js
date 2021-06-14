@@ -5464,14 +5464,1025 @@ var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
 	var decoder_ = _v0.a;
 	return decoder_;
 };
+var $author$project$Main$Definitions$Flags = F2(
+	function (randomNumbers, logo) {
+		return {logo: logo, randomNumbers: randomNumbers};
+	});
 var $dillonkearns$elm_ts_json$TsJson$Decode$Decoder = F2(
 	function (a, b) {
 		return {$: 'Decoder', a: a, b: b};
 	});
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$ArrayIndex = F2(
+	function (a, b) {
+		return {$: 'ArrayIndex', a: a, b: b};
+	});
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection = function (a) {
+	return {$: 'Intersection', a: a};
+};
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$Optional = {$: 'Optional'};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$Required = {$: 'Required'};
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever = {$: 'TsNever'};
 var $dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject = function (a) {
 	return {$: 'TypeObject', a: a};
 };
+var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
+var $elm$core$Dict$Black = {$: 'Black'};
+var $elm$core$Dict$RBNode_elm_builtin = F5(
+	function (a, b, c, d, e) {
+		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+	});
+var $elm$core$Dict$Red = {$: 'Red'};
+var $elm$core$Dict$balance = F5(
+	function (color, key, value, left, right) {
+		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+			var _v1 = right.a;
+			var rK = right.b;
+			var rV = right.c;
+			var rLeft = right.d;
+			var rRight = right.e;
+			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+				var _v3 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var lLeft = left.d;
+				var lRight = left.e;
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Red,
+					key,
+					value,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
+			} else {
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					color,
+					rK,
+					rV,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
+					rRight);
+			}
+		} else {
+			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+				var _v5 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var _v6 = left.d;
+				var _v7 = _v6.a;
+				var llK = _v6.b;
+				var llV = _v6.c;
+				var llLeft = _v6.d;
+				var llRight = _v6.e;
+				var lRight = left.e;
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Red,
+					lK,
+					lV,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
+			} else {
+				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
+			}
+		}
+	});
+var $elm$core$Basics$compare = _Utils_compare;
+var $elm$core$Dict$insertHelp = F3(
+	function (key, value, dict) {
+		if (dict.$ === 'RBEmpty_elm_builtin') {
+			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
+		} else {
+			var nColor = dict.a;
+			var nKey = dict.b;
+			var nValue = dict.c;
+			var nLeft = dict.d;
+			var nRight = dict.e;
+			var _v1 = A2($elm$core$Basics$compare, key, nKey);
+			switch (_v1.$) {
+				case 'LT':
+					return A5(
+						$elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						A3($elm$core$Dict$insertHelp, key, value, nLeft),
+						nRight);
+				case 'EQ':
+					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
+				default:
+					return A5(
+						$elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						nLeft,
+						A3($elm$core$Dict$insertHelp, key, value, nRight));
+			}
+		}
+	});
+var $elm$core$Dict$insert = F3(
+	function (key, value, dict) {
+		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
+		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+			var _v1 = _v0.a;
+			var k = _v0.b;
+			var v = _v0.c;
+			var l = _v0.d;
+			var r = _v0.e;
+			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+		} else {
+			var x = _v0;
+			return x;
+		}
+	});
+var $elm$core$Dict$values = function (dict) {
+	return A3(
+		$elm$core$Dict$foldr,
+		F3(
+			function (key, value, valueList) {
+				return A2($elm$core$List$cons, value, valueList);
+			}),
+		_List_Nil,
+		dict);
+};
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$deduplicateBy = F2(
+	function (toComparable, list) {
+		return $elm$core$Dict$values(
+			A3(
+				$elm$core$List$foldl,
+				F2(
+					function (value, accum) {
+						return A3(
+							$elm$core$Dict$insert,
+							toComparable(value),
+							value,
+							accum);
+					}),
+				$elm$core$Dict$empty,
+				list));
+	});
+var $elm$core$Dict$get = F2(
+	function (targetKey, dict) {
+		get:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var key = dict.b;
+				var value = dict.c;
+				var left = dict.d;
+				var right = dict.e;
+				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
+				switch (_v1.$) {
+					case 'LT':
+						var $temp$targetKey = targetKey,
+							$temp$dict = left;
+						targetKey = $temp$targetKey;
+						dict = $temp$dict;
+						continue get;
+					case 'EQ':
+						return $elm$core$Maybe$Just(value);
+					default:
+						var $temp$targetKey = targetKey,
+							$temp$dict = right;
+						targetKey = $temp$targetKey;
+						dict = $temp$dict;
+						continue get;
+				}
+			}
+		}
+	});
+var $elm$core$Dict$getMin = function (dict) {
+	getMin:
+	while (true) {
+		if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
+			var left = dict.d;
+			var $temp$dict = left;
+			dict = $temp$dict;
+			continue getMin;
+		} else {
+			return dict;
+		}
+	}
+};
+var $elm$core$Dict$moveRedLeft = function (dict) {
+	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
+		if ((dict.e.d.$ === 'RBNode_elm_builtin') && (dict.e.d.a.$ === 'Red')) {
+			var clr = dict.a;
+			var k = dict.b;
+			var v = dict.c;
+			var _v1 = dict.d;
+			var lClr = _v1.a;
+			var lK = _v1.b;
+			var lV = _v1.c;
+			var lLeft = _v1.d;
+			var lRight = _v1.e;
+			var _v2 = dict.e;
+			var rClr = _v2.a;
+			var rK = _v2.b;
+			var rV = _v2.c;
+			var rLeft = _v2.d;
+			var _v3 = rLeft.a;
+			var rlK = rLeft.b;
+			var rlV = rLeft.c;
+			var rlL = rLeft.d;
+			var rlR = rLeft.e;
+			var rRight = _v2.e;
+			return A5(
+				$elm$core$Dict$RBNode_elm_builtin,
+				$elm$core$Dict$Red,
+				rlK,
+				rlV,
+				A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					rlL),
+				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rlR, rRight));
+		} else {
+			var clr = dict.a;
+			var k = dict.b;
+			var v = dict.c;
+			var _v4 = dict.d;
+			var lClr = _v4.a;
+			var lK = _v4.b;
+			var lV = _v4.c;
+			var lLeft = _v4.d;
+			var lRight = _v4.e;
+			var _v5 = dict.e;
+			var rClr = _v5.a;
+			var rK = _v5.b;
+			var rV = _v5.c;
+			var rLeft = _v5.d;
+			var rRight = _v5.e;
+			if (clr.$ === 'Black') {
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+			} else {
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+			}
+		}
+	} else {
+		return dict;
+	}
+};
+var $elm$core$Dict$moveRedRight = function (dict) {
+	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
+		if ((dict.d.d.$ === 'RBNode_elm_builtin') && (dict.d.d.a.$ === 'Red')) {
+			var clr = dict.a;
+			var k = dict.b;
+			var v = dict.c;
+			var _v1 = dict.d;
+			var lClr = _v1.a;
+			var lK = _v1.b;
+			var lV = _v1.c;
+			var _v2 = _v1.d;
+			var _v3 = _v2.a;
+			var llK = _v2.b;
+			var llV = _v2.c;
+			var llLeft = _v2.d;
+			var llRight = _v2.e;
+			var lRight = _v1.e;
+			var _v4 = dict.e;
+			var rClr = _v4.a;
+			var rK = _v4.b;
+			var rV = _v4.c;
+			var rLeft = _v4.d;
+			var rRight = _v4.e;
+			return A5(
+				$elm$core$Dict$RBNode_elm_builtin,
+				$elm$core$Dict$Red,
+				lK,
+				lV,
+				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
+				A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					lRight,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight)));
+		} else {
+			var clr = dict.a;
+			var k = dict.b;
+			var v = dict.c;
+			var _v5 = dict.d;
+			var lClr = _v5.a;
+			var lK = _v5.b;
+			var lV = _v5.c;
+			var lLeft = _v5.d;
+			var lRight = _v5.e;
+			var _v6 = dict.e;
+			var rClr = _v6.a;
+			var rK = _v6.b;
+			var rV = _v6.c;
+			var rLeft = _v6.d;
+			var rRight = _v6.e;
+			if (clr.$ === 'Black') {
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+			} else {
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					$elm$core$Dict$Black,
+					k,
+					v,
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
+			}
+		}
+	} else {
+		return dict;
+	}
+};
+var $elm$core$Dict$removeHelpPrepEQGT = F7(
+	function (targetKey, dict, color, key, value, left, right) {
+		if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+			var _v1 = left.a;
+			var lK = left.b;
+			var lV = left.c;
+			var lLeft = left.d;
+			var lRight = left.e;
+			return A5(
+				$elm$core$Dict$RBNode_elm_builtin,
+				color,
+				lK,
+				lV,
+				lLeft,
+				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, lRight, right));
+		} else {
+			_v2$2:
+			while (true) {
+				if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Black')) {
+					if (right.d.$ === 'RBNode_elm_builtin') {
+						if (right.d.a.$ === 'Black') {
+							var _v3 = right.a;
+							var _v4 = right.d;
+							var _v5 = _v4.a;
+							return $elm$core$Dict$moveRedRight(dict);
+						} else {
+							break _v2$2;
+						}
+					} else {
+						var _v6 = right.a;
+						var _v7 = right.d;
+						return $elm$core$Dict$moveRedRight(dict);
+					}
+				} else {
+					break _v2$2;
+				}
+			}
+			return dict;
+		}
+	});
+var $elm$core$Dict$removeMin = function (dict) {
+	if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
+		var color = dict.a;
+		var key = dict.b;
+		var value = dict.c;
+		var left = dict.d;
+		var lColor = left.a;
+		var lLeft = left.d;
+		var right = dict.e;
+		if (lColor.$ === 'Black') {
+			if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
+				var _v3 = lLeft.a;
+				return A5(
+					$elm$core$Dict$RBNode_elm_builtin,
+					color,
+					key,
+					value,
+					$elm$core$Dict$removeMin(left),
+					right);
+			} else {
+				var _v4 = $elm$core$Dict$moveRedLeft(dict);
+				if (_v4.$ === 'RBNode_elm_builtin') {
+					var nColor = _v4.a;
+					var nKey = _v4.b;
+					var nValue = _v4.c;
+					var nLeft = _v4.d;
+					var nRight = _v4.e;
+					return A5(
+						$elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						$elm$core$Dict$removeMin(nLeft),
+						nRight);
+				} else {
+					return $elm$core$Dict$RBEmpty_elm_builtin;
+				}
+			}
+		} else {
+			return A5(
+				$elm$core$Dict$RBNode_elm_builtin,
+				color,
+				key,
+				value,
+				$elm$core$Dict$removeMin(left),
+				right);
+		}
+	} else {
+		return $elm$core$Dict$RBEmpty_elm_builtin;
+	}
+};
+var $elm$core$Dict$removeHelp = F2(
+	function (targetKey, dict) {
+		if (dict.$ === 'RBEmpty_elm_builtin') {
+			return $elm$core$Dict$RBEmpty_elm_builtin;
+		} else {
+			var color = dict.a;
+			var key = dict.b;
+			var value = dict.c;
+			var left = dict.d;
+			var right = dict.e;
+			if (_Utils_cmp(targetKey, key) < 0) {
+				if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Black')) {
+					var _v4 = left.a;
+					var lLeft = left.d;
+					if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
+						var _v6 = lLeft.a;
+						return A5(
+							$elm$core$Dict$RBNode_elm_builtin,
+							color,
+							key,
+							value,
+							A2($elm$core$Dict$removeHelp, targetKey, left),
+							right);
+					} else {
+						var _v7 = $elm$core$Dict$moveRedLeft(dict);
+						if (_v7.$ === 'RBNode_elm_builtin') {
+							var nColor = _v7.a;
+							var nKey = _v7.b;
+							var nValue = _v7.c;
+							var nLeft = _v7.d;
+							var nRight = _v7.e;
+							return A5(
+								$elm$core$Dict$balance,
+								nColor,
+								nKey,
+								nValue,
+								A2($elm$core$Dict$removeHelp, targetKey, nLeft),
+								nRight);
+						} else {
+							return $elm$core$Dict$RBEmpty_elm_builtin;
+						}
+					}
+				} else {
+					return A5(
+						$elm$core$Dict$RBNode_elm_builtin,
+						color,
+						key,
+						value,
+						A2($elm$core$Dict$removeHelp, targetKey, left),
+						right);
+				}
+			} else {
+				return A2(
+					$elm$core$Dict$removeHelpEQGT,
+					targetKey,
+					A7($elm$core$Dict$removeHelpPrepEQGT, targetKey, dict, color, key, value, left, right));
+			}
+		}
+	});
+var $elm$core$Dict$removeHelpEQGT = F2(
+	function (targetKey, dict) {
+		if (dict.$ === 'RBNode_elm_builtin') {
+			var color = dict.a;
+			var key = dict.b;
+			var value = dict.c;
+			var left = dict.d;
+			var right = dict.e;
+			if (_Utils_eq(targetKey, key)) {
+				var _v1 = $elm$core$Dict$getMin(right);
+				if (_v1.$ === 'RBNode_elm_builtin') {
+					var minKey = _v1.b;
+					var minValue = _v1.c;
+					return A5(
+						$elm$core$Dict$balance,
+						color,
+						minKey,
+						minValue,
+						left,
+						$elm$core$Dict$removeMin(right));
+				} else {
+					return $elm$core$Dict$RBEmpty_elm_builtin;
+				}
+			} else {
+				return A5(
+					$elm$core$Dict$balance,
+					color,
+					key,
+					value,
+					left,
+					A2($elm$core$Dict$removeHelp, targetKey, right));
+			}
+		} else {
+			return $elm$core$Dict$RBEmpty_elm_builtin;
+		}
+	});
+var $elm$core$Dict$remove = F2(
+	function (key, dict) {
+		var _v0 = A2($elm$core$Dict$removeHelp, key, dict);
+		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+			var _v1 = _v0.a;
+			var k = _v0.b;
+			var v = _v0.c;
+			var l = _v0.d;
+			var r = _v0.e;
+			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+		} else {
+			var x = _v0;
+			return x;
+		}
+	});
+var $elm$core$Dict$update = F3(
+	function (targetKey, alter, dictionary) {
+		var _v0 = alter(
+			A2($elm$core$Dict$get, targetKey, dictionary));
+		if (_v0.$ === 'Just') {
+			var value = _v0.a;
+			return A3($elm$core$Dict$insert, targetKey, value, dictionary);
+		} else {
+			return A2($elm$core$Dict$remove, targetKey, dictionary);
+		}
+	});
+var $elm_community$dict_extra$Dict$Extra$insertDedupe = F4(
+	function (combine, key, value, dict) {
+		var _with = function (mbValue) {
+			if (mbValue.$ === 'Just') {
+				var oldValue = mbValue.a;
+				return $elm$core$Maybe$Just(
+					A2(combine, oldValue, value));
+			} else {
+				return $elm$core$Maybe$Just(value);
+			}
+		};
+		return A3($elm$core$Dict$update, key, _with, dict);
+	});
+var $elm_community$dict_extra$Dict$Extra$fromListDedupeBy = F3(
+	function (combine, keyfn, xs) {
+		return A3(
+			$elm$core$List$foldl,
+			F2(
+				function (x, acc) {
+					return A4(
+						$elm_community$dict_extra$Dict$Extra$insertDedupe,
+						combine,
+						keyfn(x),
+						x,
+						acc);
+				}),
+			$elm$core$Dict$empty,
+			xs);
+	});
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$either = F2(
+	function (predicateFn, _v0) {
+		var type1 = _v0.a;
+		var type2 = _v0.b;
+		return predicateFn(type1) || predicateFn(type2);
+	});
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$isNonEmptyObject = function (tsType) {
+	if ((tsType.$ === 'TypeObject') && tsType.a.b) {
+		var _v1 = tsType.a;
+		var atLeastOne = _v1.a;
+		var possiblyMore = _v1.b;
+		return true;
+	} else {
+		return false;
+	}
+};
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive = function (tsType) {
+	switch (tsType.$) {
+		case 'Number':
+			return true;
+		case 'Integer':
+			return true;
+		case 'String':
+			return true;
+		case 'Boolean':
+			return true;
+		default:
+			return false;
+	}
+};
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$isContradictory = function (types) {
+	return A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isNonEmptyObject, types) && A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive, types);
+};
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown = {$: 'Unknown'};
+var $elm$core$List$maybeCons = F3(
+	function (f, mx, xs) {
+		var _v0 = f(mx);
+		if (_v0.$ === 'Just') {
+			var x = _v0.a;
+			return A2($elm$core$List$cons, x, xs);
+		} else {
+			return xs;
+		}
+	});
+var $elm$core$List$filterMap = F2(
+	function (f, xs) {
+		return A3(
+			$elm$core$List$foldr,
+			$elm$core$List$maybeCons(f),
+			_List_Nil,
+			xs);
+	});
+var $elm$core$Dict$fromList = function (assocs) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (_v0, dict) {
+				var key = _v0.a;
+				var value = _v0.b;
+				return A3($elm$core$Dict$insert, key, value, dict);
+			}),
+		$elm$core$Dict$empty,
+		assocs);
+};
+var $elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return $elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $elm$core$List$maximum = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(
+			A3($elm$core$List$foldl, $elm$core$Basics$max, x, xs));
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesize = function (string) {
+	return '(' + (string + ')');
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesizeToString = function (type_) {
+	var needsParens = function () {
+		if (type_.$ === 'Union') {
+			var types = type_.a;
+			return true;
+		} else {
+			return false;
+		}
+	}();
+	return needsParens ? ('(' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_) + ')')) : $dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_);
+};
+var $dillonkearns$elm_ts_json$Internal$TypeToString$toString = function (tsType_) {
+	switch (tsType_.$) {
+		case 'TsNever':
+			return 'never';
+		case 'String':
+			return 'string';
+		case 'Integer':
+			return 'number';
+		case 'Number':
+			return 'number';
+		case 'Boolean':
+			return 'boolean';
+		case 'Unknown':
+			return 'JsonValue';
+		case 'List':
+			var listType = tsType_.a;
+			return $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesizeToString(listType) + '[]';
+		case 'Literal':
+			var literalValue = tsType_.a;
+			return A2($elm$json$Json$Encode$encode, 0, literalValue);
+		case 'Union':
+			var _v1 = tsType_.a;
+			var firstType = _v1.a;
+			var tsTypes = _v1.b;
+			return A2(
+				$elm$core$String$join,
+				' | ',
+				A2(
+					$elm$core$List$map,
+					$dillonkearns$elm_ts_json$Internal$TypeToString$toString,
+					A2($elm$core$List$cons, firstType, tsTypes)));
+		case 'TypeObject':
+			var keyTypes = tsType_.a;
+			return '{ ' + (A2(
+				$elm$core$String$join,
+				'; ',
+				A2(
+					$elm$core$List$map,
+					function (_v2) {
+						var optionality = _v2.a;
+						var key = _v2.b;
+						var tsType__ = _v2.c;
+						return function () {
+							if (optionality.$ === 'Required') {
+								return key;
+							} else {
+								return key + '?';
+							}
+						}() + (' : ' + $dillonkearns$elm_ts_json$Internal$TypeToString$toString(tsType__));
+					},
+					keyTypes)) + ' }');
+		case 'ObjectWithUniformValues':
+			var tsType = tsType_.a;
+			return '{ [key: string]: ' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(tsType) + ' }');
+		case 'Tuple':
+			var tsTypes = tsType_.a;
+			var maybeRestType = tsType_.b;
+			var restTypePart = A2(
+				$elm$core$Maybe$map,
+				function (restType) {
+					return '...(' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(restType) + ')[]');
+				},
+				maybeRestType);
+			return '[ ' + (A2(
+				$elm$core$String$join,
+				', ',
+				A2(
+					$elm$core$List$filterMap,
+					$elm$core$Basics$identity,
+					_Utils_ap(
+						A2(
+							$elm$core$List$map,
+							function (type_) {
+								return $elm$core$Maybe$Just(
+									$dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_));
+							},
+							tsTypes),
+						_List_fromArray(
+							[restTypePart])))) + ' ]');
+		case 'Intersection':
+			var types = tsType_.a;
+			return $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesize(
+				A2(
+					$elm$core$String$join,
+					' & ',
+					A2($elm$core$List$map, $dillonkearns$elm_ts_json$Internal$TypeToString$toString, types)));
+		default:
+			var _v4 = tsType_.a;
+			var index = _v4.a;
+			var tsType = _v4.b;
+			var otherIndices = tsType_.b;
+			var dict = $elm$core$Dict$fromList(
+				A2(
+					$elm$core$List$cons,
+					_Utils_Tuple2(index, tsType),
+					otherIndices));
+			var highestIndex = A2(
+				$elm$core$Maybe$withDefault,
+				0,
+				$elm$core$List$maximum(
+					$elm$core$Dict$keys(dict)));
+			return '[' + (A2(
+				$elm$core$String$join,
+				',',
+				_Utils_ap(
+					A2(
+						$elm$core$List$map,
+						function (cur) {
+							return $dillonkearns$elm_ts_json$Internal$TypeToString$toString(
+								A2(
+									$elm$core$Maybe$withDefault,
+									$dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown,
+									A2($elm$core$Dict$get, cur, dict)));
+						},
+						A2($elm$core$List$range, 0, highestIndex)),
+					_List_fromArray(
+						['...JsonValue[]']))) + ']');
+	}
+};
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$intersect = F2(
+	function (type1, type2) {
+		if ($dillonkearns$elm_ts_json$Internal$TypeReducer$isContradictory(
+			_Utils_Tuple2(type1, type2))) {
+			return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
+		} else {
+			if (_Utils_eq(type1, type2)) {
+				return type1;
+			} else {
+				var _v8 = _Utils_Tuple2(type1, type2);
+				_v8$1:
+				while (true) {
+					_v8$8:
+					while (true) {
+						switch (_v8.a.$) {
+							case 'Unknown':
+								var _v9 = _v8.a;
+								var known = _v8.b;
+								return known;
+							case 'Intersection':
+								switch (_v8.b.$) {
+									case 'Unknown':
+										break _v8$1;
+									case 'Intersection':
+										var types1 = _v8.a.a;
+										var types2 = _v8.b.a;
+										return $dillonkearns$elm_ts_json$Internal$TypeReducer$simplifyIntersection(
+											_Utils_ap(types1, types2));
+									default:
+										break _v8$8;
+								}
+							case 'ArrayIndex':
+								switch (_v8.b.$) {
+									case 'Unknown':
+										break _v8$1;
+									case 'ArrayIndex':
+										if ((!_v8.a.b.b) && (!_v8.b.b.b)) {
+											var _v11 = _v8.a;
+											var _v12 = _v11.a;
+											var index1 = _v12.a;
+											var indexType1 = _v12.b;
+											var _v13 = _v8.b;
+											var _v14 = _v13.a;
+											var index2 = _v14.a;
+											var indexType2 = _v14.b;
+											return A2(
+												$dillonkearns$elm_ts_json$Internal$TsJsonType$ArrayIndex,
+												_Utils_Tuple2(index1, indexType1),
+												_List_fromArray(
+													[
+														_Utils_Tuple2(index2, indexType2)
+													]));
+										} else {
+											break _v8$8;
+										}
+									default:
+										break _v8$8;
+								}
+							case 'TypeObject':
+								switch (_v8.b.$) {
+									case 'Unknown':
+										break _v8$1;
+									case 'TypeObject':
+										var fields1 = _v8.a.a;
+										var fields2 = _v8.b.a;
+										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject(
+											A2($dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields, fields1, fields2));
+									case 'Union':
+										var fields1 = _v8.a.a;
+										var unionedTypes = _v8.b.a;
+										return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
+											_List_fromArray(
+												[type1, type2]));
+									default:
+										break _v8$8;
+								}
+							case 'String':
+								switch (_v8.b.$) {
+									case 'Unknown':
+										break _v8$1;
+									case 'Number':
+										var _v15 = _v8.a;
+										var _v16 = _v8.b;
+										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
+									default:
+										break _v8$8;
+								}
+							case 'Number':
+								switch (_v8.b.$) {
+									case 'Unknown':
+										break _v8$1;
+									case 'String':
+										var _v17 = _v8.a;
+										var _v18 = _v8.b;
+										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
+									default:
+										break _v8$8;
+								}
+							default:
+								if (_v8.b.$ === 'Unknown') {
+									break _v8$1;
+								} else {
+									break _v8$8;
+								}
+						}
+					}
+					return _Utils_eq(type1, type2) ? $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
+						_List_fromArray(
+							[type1, type2])) : $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
+						_List_fromArray(
+							[type1, type2]));
+				}
+				var known = _v8.a;
+				var _v10 = _v8.b;
+				return known;
+			}
+		}
+	});
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields = F2(
+	function (fields1, fields2) {
+		return $elm$core$Dict$values(
+			A3(
+				$elm_community$dict_extra$Dict$Extra$fromListDedupeBy,
+				F2(
+					function (_v5, _v6) {
+						var optionality1 = _v5.a;
+						var fieldName1 = _v5.b;
+						var fieldType1 = _v5.c;
+						var optionality2 = _v6.a;
+						var fieldName2 = _v6.b;
+						var fieldType2 = _v6.c;
+						return (_Utils_eq(optionality1, $dillonkearns$elm_ts_json$Internal$TsJsonType$Required) || _Utils_eq(optionality2, $dillonkearns$elm_ts_json$Internal$TsJsonType$Required)) ? _Utils_Tuple3(
+							$dillonkearns$elm_ts_json$Internal$TsJsonType$Required,
+							fieldName1,
+							A2($dillonkearns$elm_ts_json$Internal$TypeReducer$intersect, fieldType1, fieldType2)) : _Utils_Tuple3($dillonkearns$elm_ts_json$Internal$TsJsonType$Optional, fieldName1, fieldType1);
+					}),
+				function (_v7) {
+					var fieldName = _v7.b;
+					return fieldName;
+				},
+				_Utils_ap(fields1, fields2)));
+	});
+var $dillonkearns$elm_ts_json$Internal$TypeReducer$simplifyIntersection = function (types) {
+	var thing = function () {
+		var _v0 = A2($dillonkearns$elm_ts_json$Internal$TypeReducer$deduplicateBy, $dillonkearns$elm_ts_json$Internal$TypeToString$toString, types);
+		if (_v0.b) {
+			if (!_v0.b.b) {
+				var single = _v0.a;
+				return single;
+			} else {
+				var first = _v0.a;
+				var rest = _v0.b;
+				if (first.$ === 'TypeObject') {
+					var fields = first.a;
+					var _v2 = A3(
+						$elm$core$List$foldr,
+						F2(
+							function (thisType, _v3) {
+								var objectsSoFar = _v3.a;
+								var otherSoFar = _v3.b;
+								if (thisType.$ === 'TypeObject') {
+									var theseFields = thisType.a;
+									return _Utils_Tuple2(
+										A2($dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields, theseFields, objectsSoFar),
+										otherSoFar);
+								} else {
+									return _Utils_Tuple2(
+										objectsSoFar,
+										A2($elm$core$List$cons, thisType, otherSoFar));
+								}
+							}),
+						_Utils_Tuple2(fields, _List_Nil),
+						rest);
+					var otherObjects = _v2.a;
+					var nonObjectTypes = _v2.b;
+					return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
+						A2(
+							$elm$core$List$cons,
+							$dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject(otherObjects),
+							nonObjectTypes));
+				} else {
+					return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(types);
+				}
+			}
+		} else {
+			return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
+		}
+	}();
+	return thing;
+};
+var $dillonkearns$elm_ts_json$TsJson$Decode$map2 = F3(
+	function (mapFn, _v0, _v1) {
+		var innerDecoder1 = _v0.a;
+		var innerType1 = _v0.b;
+		var innerDecoder2 = _v1.a;
+		var innerType2 = _v1.b;
+		return A2(
+			$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
+			A3($elm$json$Json$Decode$map2, mapFn, innerDecoder1, innerDecoder2),
+			A2($dillonkearns$elm_ts_json$Internal$TypeReducer$intersect, innerType1, innerType2));
+	});
+var $dillonkearns$elm_ts_json$TsJson$Decode$andMap = $dillonkearns$elm_ts_json$TsJson$Decode$map2($elm$core$Basics$apR);
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $dillonkearns$elm_ts_json$TsJson$Decode$field = F2(
 	function (fieldName, _v0) {
@@ -5501,10 +6512,25 @@ var $dillonkearns$elm_ts_json$TsJson$Decode$list = function (_v0) {
 		$elm$json$Json$Decode$list(innerDecoder),
 		$dillonkearns$elm_ts_json$Internal$TsJsonType$List(innerType));
 };
+var $dillonkearns$elm_ts_json$Internal$TsJsonType$String = {$: 'String'};
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $dillonkearns$elm_ts_json$TsJson$Decode$string = A2($dillonkearns$elm_ts_json$TsJson$Decode$Decoder, $elm$json$Json$Decode$string, $dillonkearns$elm_ts_json$Internal$TsJsonType$String);
+var $dillonkearns$elm_ts_json$TsJson$Decode$succeed = function (value_) {
+	return A2(
+		$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
+		$elm$json$Json$Decode$succeed(value_),
+		$dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown);
+};
 var $author$project$Main$Definitions$flags = A2(
-	$dillonkearns$elm_ts_json$TsJson$Decode$field,
-	'randomNumbers',
-	$dillonkearns$elm_ts_json$TsJson$Decode$list($dillonkearns$elm_ts_json$TsJson$Decode$int));
+	$dillonkearns$elm_ts_json$TsJson$Decode$andMap,
+	A2($dillonkearns$elm_ts_json$TsJson$Decode$field, 'logo', $dillonkearns$elm_ts_json$TsJson$Decode$string),
+	A2(
+		$dillonkearns$elm_ts_json$TsJson$Decode$andMap,
+		A2(
+			$dillonkearns$elm_ts_json$TsJson$Decode$field,
+			'randomNumbers',
+			$dillonkearns$elm_ts_json$TsJson$Decode$list($dillonkearns$elm_ts_json$TsJson$Decode$int)),
+		$dillonkearns$elm_ts_json$TsJson$Decode$succeed($author$project$Main$Definitions$Flags)));
 var $author$project$Main$Interop$decodeFlags = function (flags) {
 	return A2(
 		$elm$json$Json$Decode$decodeValue,
@@ -5526,44 +6552,20 @@ var $author$project$Utils$Types$Error$decoding = function (_v0) {
 		inModule: inModule
 	};
 };
-var $author$project$Utils$Types$Error$Misc = function (a) {
-	return {$: 'Misc', a: a};
-};
-var $author$project$Utils$Types$Error$misc = function (_v0) {
-	var error = _v0.error;
-	var inModule = _v0.inModule;
-	var action = _v0.action;
-	var descriptionForUsers = _v0.descriptionForUsers;
-	return {
-		action: action,
-		descriptionForUsers: descriptionForUsers,
-		error: $author$project$Utils$Types$Error$Misc(error),
-		inModule: inModule
-	};
-};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (flags) {
 	var _v0 = function () {
 		var _v1 = $author$project$Main$Interop$decodeFlags(flags);
 		if (_v1.$ === 'Ok') {
-			if (_v1.a.b) {
-				var numbers = _v1.a;
-				var firstRandomNumber = numbers.a;
-				return {randomNumbers: numbers, startingError: $elm$core$Maybe$Nothing};
-			} else {
-				return {
-					randomNumbers: _List_fromArray(
-						[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-					startingError: $elm$core$Maybe$Just(
-						$author$project$Utils$Types$Error$misc(
-							{action: 'initial flag decoding', descriptionForUsers: 'Got an empty list of random numbers', error: 'Got an empty list of random numbers', inModule: 'Main'}))
-				};
-			}
+			var randomNumbers = _v1.a.randomNumbers;
+			var logo = _v1.a.logo;
+			return {logoPath: logo, numbers: randomNumbers, startingError: $elm$core$Maybe$Nothing};
 		} else {
 			var error = _v1.a;
 			return {
-				randomNumbers: _List_fromArray(
+				logoPath: '/logo.e9a9c890.png',
+				numbers: _List_fromArray(
 					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
 				startingError: $elm$core$Maybe$Just(
 					$author$project$Utils$Types$Error$decoding(
@@ -5571,10 +6573,11 @@ var $author$project$Main$init = function (flags) {
 			};
 		}
 	}();
-	var randomNumbers = _v0.randomNumbers;
+	var numbers = _v0.numbers;
 	var startingError = _v0.startingError;
+	var logoPath = _v0.logoPath;
 	return _Utils_Tuple2(
-		{bugCount: 1, maybeError: startingError, randomNumbers: randomNumbers, stage: $author$project$Main$Model$Intro},
+		{bugCount: 1, logo: logoPath, maybeError: startingError, randomNumbers: numbers, stage: $author$project$Main$Model$Intro},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Main$Msg$ChooseFileInterface = function (a) {
@@ -5813,8 +6816,6 @@ var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$core$Set$Set_elm_builtin = function (a) {
 	return {$: 'Set_elm_builtin', a: a};
 };
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
-var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
 var $mdgriffith$elm_ui$Internal$Model$lengthClassName = function (x) {
 	switch (x.$) {
@@ -5869,15 +6870,6 @@ var $mdgriffith$elm_ui$Internal$Model$transformClass = function (transform) {
 				'tfrm-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(tx) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(ty) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(tz) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sx) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sy) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(sz) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(ox) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(oy) + ('-' + ($mdgriffith$elm_ui$Internal$Model$floatClass(oz) + ('-' + $mdgriffith$elm_ui$Internal$Model$floatClass(angle))))))))))))))))))));
 	}
 };
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $mdgriffith$elm_ui$Internal$Model$getStyleName = function (style) {
 	switch (style.$) {
 		case 'Shadows':
@@ -5969,151 +6961,11 @@ var $mdgriffith$elm_ui$Internal$Model$getStyleName = function (style) {
 				$mdgriffith$elm_ui$Internal$Model$transformClass(x));
 	}
 };
-var $elm$core$Dict$Black = {$: 'Black'};
-var $elm$core$Dict$RBNode_elm_builtin = F5(
-	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
-	});
-var $elm$core$Dict$Red = {$: 'Red'};
-var $elm$core$Dict$balance = F5(
-	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
-			var _v1 = right.a;
-			var rK = right.b;
-			var rV = right.c;
-			var rLeft = right.d;
-			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-				var _v3 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var lLeft = left.d;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					key,
-					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					color,
-					rK,
-					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
-					rRight);
-			}
-		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
-				var _v5 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var _v6 = left.d;
-				var _v7 = _v6.a;
-				var llK = _v6.b;
-				var llV = _v6.c;
-				var llLeft = _v6.d;
-				var llRight = _v6.e;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					lK,
-					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
-			} else {
-				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
-			}
-		}
-	});
-var $elm$core$Basics$compare = _Utils_compare;
-var $elm$core$Dict$insertHelp = F3(
-	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
-		} else {
-			var nColor = dict.a;
-			var nKey = dict.b;
-			var nValue = dict.c;
-			var nLeft = dict.d;
-			var nRight = dict.e;
-			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						A3($elm$core$Dict$insertHelp, key, value, nLeft),
-						nRight);
-				case 'EQ':
-					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
-				default:
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						nLeft,
-						A3($elm$core$Dict$insertHelp, key, value, nRight));
-			}
-		}
-	});
-var $elm$core$Dict$insert = F3(
-	function (key, value, dict) {
-		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
-			var _v1 = _v0.a;
-			var k = _v0.b;
-			var v = _v0.c;
-			var l = _v0.d;
-			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _v0;
-			return x;
-		}
-	});
 var $elm$core$Set$insert = F2(
 	function (key, _v0) {
 		var dict = _v0.a;
 		return $elm$core$Set$Set_elm_builtin(
 			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
-	});
-var $elm$core$Dict$get = F2(
-	function (targetKey, dict) {
-		get:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
-						var $temp$targetKey = targetKey,
-							$temp$dict = left;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-					case 'EQ':
-						return $elm$core$Maybe$Just(value);
-					default:
-						var $temp$targetKey = targetKey,
-							$temp$dict = right;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-				}
-			}
-		}
 	});
 var $elm$core$Dict$member = F2(
 	function (key, dict) {
@@ -6149,24 +7001,6 @@ var $mdgriffith$elm_ui$Internal$Model$Style = F2(
 var $mdgriffith$elm_ui$Internal$Style$dot = function (c) {
 	return '.' + c;
 };
-var $elm$core$List$maybeCons = F3(
-	function (f, mx, xs) {
-		var _v0 = f(mx);
-		if (_v0.$ === 'Just') {
-			var x = _v0.a;
-			return A2($elm$core$List$cons, x, xs);
-		} else {
-			return xs;
-		}
-	});
-var $elm$core$List$filterMap = F2(
-	function (f, xs) {
-		return A3(
-			$elm$core$List$foldr,
-			$elm$core$List$maybeCons(f),
-			_List_Nil,
-			xs);
-	});
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $mdgriffith$elm_ui$Internal$Model$formatColor = function (_v0) {
 	var red = _v0.a;
@@ -6200,16 +7034,6 @@ var $mdgriffith$elm_ui$Internal$Model$formatBoxShadow = function (shadow) {
 					$mdgriffith$elm_ui$Internal$Model$formatColor(shadow.color))
 				])));
 };
-var $elm$core$Maybe$map = F2(
-	function (f, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return $elm$core$Maybe$Just(
-				f(value));
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
-	});
 var $elm$core$Tuple$mapFirst = F2(
 	function (func, _v0) {
 		var x = _v0.a;
@@ -9195,16 +10019,6 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $elm$core$List$maximum = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(
-			A3($elm$core$List$foldl, $elm$core$Basics$max, x, xs));
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
 var $elm$core$List$minimum = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -11727,7 +12541,6 @@ var $elm$html$Html$Events$preventDefaultOn = F2(
 			event,
 			$elm$virtual_dom$VirtualDom$MayPreventDefault(decoder));
 	});
-var $elm$json$Json$Decode$string = _Json_decodeString;
 var $mdgriffith$elm_ui$Element$Input$onKeyLookup = function (lookup) {
 	var decode = function (code) {
 		var _v0 = lookup(code);
@@ -14976,144 +15789,218 @@ var $author$project$Stages$Intro$View$howDoesThisAppWorkLink = A2(
 						$mdgriffith$elm_ui$Element$Font$size(18)
 					]),
 				{
-					label: $mdgriffith$elm_ui$Element$text('Issues Suggestions? Click here.'),
+					label: $mdgriffith$elm_ui$Element$text('Issues? Suggestions? Click here.'),
 					url: 'https://github.com/kickstartcoding/debug_trainer_app/issues'
 				})
 			])));
-var $author$project$Stages$Intro$View$render = A2(
-	$mdgriffith$elm_ui$Element$column,
-	_List_fromArray(
-		[
-			$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-		]),
-	_List_fromArray(
-		[
+var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
+var $elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var $mdgriffith$elm_ui$Element$image = F2(
+	function (attrs, _v0) {
+		var src = _v0.src;
+		var description = _v0.description;
+		var imageAttributes = A2(
+			$elm$core$List$filter,
+			function (a) {
+				switch (a.$) {
+					case 'Width':
+						return true;
+					case 'Height':
+						return true;
+					default:
+						return false;
+				}
+			},
+			attrs);
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asEl,
+			$mdgriffith$elm_ui$Internal$Model$div,
 			A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$Font$center,
-					$mdgriffith$elm_ui$Element$spacing(10),
-					$mdgriffith$elm_ui$Element$centerX,
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$Font$size(30)
-						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$paragraph,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$Font$size(22),
-							$mdgriffith$elm_ui$Element$centerX
-						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text('created by teachers at '),
-							A2(
-							$mdgriffith$elm_ui$Element$newTabLink,
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$htmlClass($mdgriffith$elm_ui$Internal$Style$classes.imageContainer),
+				attrs),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(
+				_List_fromArray(
+					[
+						A4(
+						$mdgriffith$elm_ui$Internal$Model$element,
+						$mdgriffith$elm_ui$Internal$Model$asEl,
+						$mdgriffith$elm_ui$Internal$Model$NodeName('img'),
+						_Utils_ap(
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$src(src)),
+									$mdgriffith$elm_ui$Internal$Model$Attr(
+									$elm$html$Html$Attributes$alt(description))
 								]),
-							{
-								label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
-								url: 'https://kickstartcoding.com'
-							})
-						]))
-				])),
-			A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$spacing(30),
-					$mdgriffith$elm_ui$Element$width(
-					$mdgriffith$elm_ui$Element$px(600)),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$centerX
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$column,
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$spacing(20),
-							$mdgriffith$elm_ui$Element$centerY,
-							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$column,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$spacing(20)
-								]),
-							_List_fromArray(
-								[
-									A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_Nil,
-									_List_fromArray(
-										[
-											A2(
-											$mdgriffith$elm_ui$Element$el,
-											_List_fromArray(
-												[$mdgriffith$elm_ui$Element$Font$bold]),
-											$mdgriffith$elm_ui$Element$text('step 1: ')),
-											$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
-										])),
-									A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_Nil,
-									_List_fromArray(
-										[
-											A2(
-											$mdgriffith$elm_ui$Element$el,
-											_List_fromArray(
-												[$mdgriffith$elm_ui$Element$Font$bold]),
-											$mdgriffith$elm_ui$Element$text('step 2: ')),
-											$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
-										])),
-									A2(
-									$mdgriffith$elm_ui$Element$paragraph,
-									_List_Nil,
-									_List_fromArray(
-										[
-											A2(
-											$mdgriffith$elm_ui$Element$el,
-											_List_fromArray(
-												[$mdgriffith$elm_ui$Element$Font$bold]),
-											$mdgriffith$elm_ui$Element$text('step 3: ')),
-											$mdgriffith$elm_ui$Element$text('the app will return your file to its original working version when you\'re done')
-										]))
-								])),
-							A2(
-							$author$project$Utils$UI$Buttons$button,
-							_List_fromArray(
-								[$mdgriffith$elm_ui$Element$centerX]),
-							{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
-						]))
-				])),
-			$author$project$Stages$Intro$View$howDoesThisAppWorkLink
-		]));
+							imageAttributes),
+						$mdgriffith$elm_ui$Internal$Model$Unkeyed(_List_Nil))
+					])));
+	});
+var $mdgriffith$elm_ui$Internal$Model$MoveX = function (a) {
+	return {$: 'MoveX', a: a};
+};
+var $mdgriffith$elm_ui$Internal$Flag$moveX = $mdgriffith$elm_ui$Internal$Flag$flag(25);
+var $mdgriffith$elm_ui$Element$moveRight = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$TransformComponent,
+		$mdgriffith$elm_ui$Internal$Flag$moveX,
+		$mdgriffith$elm_ui$Internal$Model$MoveX(x));
+};
+var $author$project$Stages$Intro$View$render = function (logoPath) {
+	return A2(
+		$mdgriffith$elm_ui$Element$column,
+		_List_fromArray(
+			[
+				$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+				$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Font$center,
+						$mdgriffith$elm_ui$Element$spacing(10),
+						$mdgriffith$elm_ui$Element$centerX,
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$paragraph,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$centerX,
+								$mdgriffith$elm_ui$Element$Font$size(30)
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Welcome to ' + ($author$project$Utils$Constants$appName + '!'))
+							])),
+						A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(22),
+								$mdgriffith$elm_ui$Element$centerX
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('created by teachers at '),
+								A2(
+								$mdgriffith$elm_ui$Element$image,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$height(
+										$mdgriffith$elm_ui$Element$px(40)),
+										$mdgriffith$elm_ui$Element$moveRight(3),
+										$mdgriffith$elm_ui$Element$moveUp(1)
+									]),
+								{description: 'The Kickstart Coding logo — a partially pixelated blue hummingbird', src: logoPath}),
+								A2(
+								$mdgriffith$elm_ui$Element$newTabLink,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$kickstartCodingBlue)
+									]),
+								{
+									label: $mdgriffith$elm_ui$Element$text('Kickstart Coding'),
+									url: 'https://kickstartcoding.com'
+								})
+							]))
+					])),
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$spacing(30),
+						$mdgriffith$elm_ui$Element$width(
+						$mdgriffith$elm_ui$Element$px(600)),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$centerX
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$mdgriffith$elm_ui$Element$column,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$spacing(20),
+								$mdgriffith$elm_ui$Element$centerY,
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$centerX,
+										$mdgriffith$elm_ui$Element$spacing(20)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$Font$bold]),
+												$mdgriffith$elm_ui$Element$text('step 1: ')),
+												$mdgriffith$elm_ui$Element$text($author$project$Utils$Constants$appName + ' will introduce a bug into a file of your choice')
+											])),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$Font$bold]),
+												$mdgriffith$elm_ui$Element$text('step 2: ')),
+												$mdgriffith$elm_ui$Element$text('you try to figure out the bug with the help of hints and advice from the app')
+											])),
+										A2(
+										$mdgriffith$elm_ui$Element$paragraph,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												$mdgriffith$elm_ui$Element$el,
+												_List_fromArray(
+													[$mdgriffith$elm_ui$Element$Font$bold]),
+												$mdgriffith$elm_ui$Element$text('step 3: ')),
+												$mdgriffith$elm_ui$Element$text('the app will return your file to its original working version when you\'re done')
+											]))
+									])),
+								A2(
+								$author$project$Utils$UI$Buttons$button,
+								_List_fromArray(
+									[$mdgriffith$elm_ui$Element$centerX]),
+								{msg: $author$project$Main$Msg$LetsGetStarted, name: 'let\'s get started!'})
+							]))
+					])),
+				$author$project$Stages$Intro$View$howDoesThisAppWorkLink
+			]));
+};
 var $author$project$Main$View$render = function (_v0) {
 	var bugCount = _v0.bugCount;
 	var stage = _v0.stage;
 	var maybeError = _v0.maybeError;
+	var logo = _v0.logo;
 	return {
 		body: _List_fromArray(
 			[
@@ -15152,7 +16039,7 @@ var $author$project$Main$View$render = function (_v0) {
 				function () {
 					switch (stage.$) {
 						case 'Intro':
-							return $author$project$Stages$Intro$View$render;
+							return $author$project$Stages$Intro$View$render(logo);
 						case 'ChooseFile':
 							var startType = stage.a.startType;
 							var status = stage.a.status;
@@ -15226,824 +16113,6 @@ var $author$project$Stages$ChooseFile$Model$File = F2(
 	function (path, content) {
 		return {content: content, path: path};
 	});
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$ArrayIndex = F2(
-	function (a, b) {
-		return {$: 'ArrayIndex', a: a, b: b};
-	});
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection = function (a) {
-	return {$: 'Intersection', a: a};
-};
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$Optional = {$: 'Optional'};
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever = {$: 'TsNever'};
-var $elm$core$Dict$values = function (dict) {
-	return A3(
-		$elm$core$Dict$foldr,
-		F3(
-			function (key, value, valueList) {
-				return A2($elm$core$List$cons, value, valueList);
-			}),
-		_List_Nil,
-		dict);
-};
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$deduplicateBy = F2(
-	function (toComparable, list) {
-		return $elm$core$Dict$values(
-			A3(
-				$elm$core$List$foldl,
-				F2(
-					function (value, accum) {
-						return A3(
-							$elm$core$Dict$insert,
-							toComparable(value),
-							value,
-							accum);
-					}),
-				$elm$core$Dict$empty,
-				list));
-	});
-var $elm$core$Dict$getMin = function (dict) {
-	getMin:
-	while (true) {
-		if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
-			var left = dict.d;
-			var $temp$dict = left;
-			dict = $temp$dict;
-			continue getMin;
-		} else {
-			return dict;
-		}
-	}
-};
-var $elm$core$Dict$moveRedLeft = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.e.d.$ === 'RBNode_elm_builtin') && (dict.e.d.a.$ === 'Red')) {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v1 = dict.d;
-			var lClr = _v1.a;
-			var lK = _v1.b;
-			var lV = _v1.c;
-			var lLeft = _v1.d;
-			var lRight = _v1.e;
-			var _v2 = dict.e;
-			var rClr = _v2.a;
-			var rK = _v2.b;
-			var rV = _v2.c;
-			var rLeft = _v2.d;
-			var _v3 = rLeft.a;
-			var rlK = rLeft.b;
-			var rlV = rLeft.c;
-			var rlL = rLeft.d;
-			var rlR = rLeft.e;
-			var rRight = _v2.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
-				rlK,
-				rlV,
-				A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					rlL),
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rlR, rRight));
-		} else {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v4 = dict.d;
-			var lClr = _v4.a;
-			var lK = _v4.b;
-			var lV = _v4.c;
-			var lLeft = _v4.d;
-			var lRight = _v4.e;
-			var _v5 = dict.e;
-			var rClr = _v5.a;
-			var rK = _v5.b;
-			var rV = _v5.c;
-			var rLeft = _v5.d;
-			var rRight = _v5.e;
-			if (clr.$ === 'Black') {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			}
-		}
-	} else {
-		return dict;
-	}
-};
-var $elm$core$Dict$moveRedRight = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.d.d.$ === 'RBNode_elm_builtin') && (dict.d.d.a.$ === 'Red')) {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v1 = dict.d;
-			var lClr = _v1.a;
-			var lK = _v1.b;
-			var lV = _v1.c;
-			var _v2 = _v1.d;
-			var _v3 = _v2.a;
-			var llK = _v2.b;
-			var llV = _v2.c;
-			var llLeft = _v2.d;
-			var llRight = _v2.e;
-			var lRight = _v1.e;
-			var _v4 = dict.e;
-			var rClr = _v4.a;
-			var rK = _v4.b;
-			var rV = _v4.c;
-			var rLeft = _v4.d;
-			var rRight = _v4.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
-				lK,
-				lV,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-				A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					lRight,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight)));
-		} else {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v5 = dict.d;
-			var lClr = _v5.a;
-			var lK = _v5.b;
-			var lV = _v5.c;
-			var lLeft = _v5.d;
-			var lRight = _v5.e;
-			var _v6 = dict.e;
-			var rClr = _v6.a;
-			var rK = _v6.b;
-			var rV = _v6.c;
-			var rLeft = _v6.d;
-			var rRight = _v6.e;
-			if (clr.$ === 'Black') {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			}
-		}
-	} else {
-		return dict;
-	}
-};
-var $elm$core$Dict$removeHelpPrepEQGT = F7(
-	function (targetKey, dict, color, key, value, left, right) {
-		if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-			var _v1 = left.a;
-			var lK = left.b;
-			var lV = left.c;
-			var lLeft = left.d;
-			var lRight = left.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				color,
-				lK,
-				lV,
-				lLeft,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, lRight, right));
-		} else {
-			_v2$2:
-			while (true) {
-				if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Black')) {
-					if (right.d.$ === 'RBNode_elm_builtin') {
-						if (right.d.a.$ === 'Black') {
-							var _v3 = right.a;
-							var _v4 = right.d;
-							var _v5 = _v4.a;
-							return $elm$core$Dict$moveRedRight(dict);
-						} else {
-							break _v2$2;
-						}
-					} else {
-						var _v6 = right.a;
-						var _v7 = right.d;
-						return $elm$core$Dict$moveRedRight(dict);
-					}
-				} else {
-					break _v2$2;
-				}
-			}
-			return dict;
-		}
-	});
-var $elm$core$Dict$removeMin = function (dict) {
-	if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
-		var color = dict.a;
-		var key = dict.b;
-		var value = dict.c;
-		var left = dict.d;
-		var lColor = left.a;
-		var lLeft = left.d;
-		var right = dict.e;
-		if (lColor.$ === 'Black') {
-			if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
-				var _v3 = lLeft.a;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					color,
-					key,
-					value,
-					$elm$core$Dict$removeMin(left),
-					right);
-			} else {
-				var _v4 = $elm$core$Dict$moveRedLeft(dict);
-				if (_v4.$ === 'RBNode_elm_builtin') {
-					var nColor = _v4.a;
-					var nKey = _v4.b;
-					var nValue = _v4.c;
-					var nLeft = _v4.d;
-					var nRight = _v4.e;
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						$elm$core$Dict$removeMin(nLeft),
-						nRight);
-				} else {
-					return $elm$core$Dict$RBEmpty_elm_builtin;
-				}
-			}
-		} else {
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				color,
-				key,
-				value,
-				$elm$core$Dict$removeMin(left),
-				right);
-		}
-	} else {
-		return $elm$core$Dict$RBEmpty_elm_builtin;
-	}
-};
-var $elm$core$Dict$removeHelp = F2(
-	function (targetKey, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return $elm$core$Dict$RBEmpty_elm_builtin;
-		} else {
-			var color = dict.a;
-			var key = dict.b;
-			var value = dict.c;
-			var left = dict.d;
-			var right = dict.e;
-			if (_Utils_cmp(targetKey, key) < 0) {
-				if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Black')) {
-					var _v4 = left.a;
-					var lLeft = left.d;
-					if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
-						var _v6 = lLeft.a;
-						return A5(
-							$elm$core$Dict$RBNode_elm_builtin,
-							color,
-							key,
-							value,
-							A2($elm$core$Dict$removeHelp, targetKey, left),
-							right);
-					} else {
-						var _v7 = $elm$core$Dict$moveRedLeft(dict);
-						if (_v7.$ === 'RBNode_elm_builtin') {
-							var nColor = _v7.a;
-							var nKey = _v7.b;
-							var nValue = _v7.c;
-							var nLeft = _v7.d;
-							var nRight = _v7.e;
-							return A5(
-								$elm$core$Dict$balance,
-								nColor,
-								nKey,
-								nValue,
-								A2($elm$core$Dict$removeHelp, targetKey, nLeft),
-								nRight);
-						} else {
-							return $elm$core$Dict$RBEmpty_elm_builtin;
-						}
-					}
-				} else {
-					return A5(
-						$elm$core$Dict$RBNode_elm_builtin,
-						color,
-						key,
-						value,
-						A2($elm$core$Dict$removeHelp, targetKey, left),
-						right);
-				}
-			} else {
-				return A2(
-					$elm$core$Dict$removeHelpEQGT,
-					targetKey,
-					A7($elm$core$Dict$removeHelpPrepEQGT, targetKey, dict, color, key, value, left, right));
-			}
-		}
-	});
-var $elm$core$Dict$removeHelpEQGT = F2(
-	function (targetKey, dict) {
-		if (dict.$ === 'RBNode_elm_builtin') {
-			var color = dict.a;
-			var key = dict.b;
-			var value = dict.c;
-			var left = dict.d;
-			var right = dict.e;
-			if (_Utils_eq(targetKey, key)) {
-				var _v1 = $elm$core$Dict$getMin(right);
-				if (_v1.$ === 'RBNode_elm_builtin') {
-					var minKey = _v1.b;
-					var minValue = _v1.c;
-					return A5(
-						$elm$core$Dict$balance,
-						color,
-						minKey,
-						minValue,
-						left,
-						$elm$core$Dict$removeMin(right));
-				} else {
-					return $elm$core$Dict$RBEmpty_elm_builtin;
-				}
-			} else {
-				return A5(
-					$elm$core$Dict$balance,
-					color,
-					key,
-					value,
-					left,
-					A2($elm$core$Dict$removeHelp, targetKey, right));
-			}
-		} else {
-			return $elm$core$Dict$RBEmpty_elm_builtin;
-		}
-	});
-var $elm$core$Dict$remove = F2(
-	function (key, dict) {
-		var _v0 = A2($elm$core$Dict$removeHelp, key, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
-			var _v1 = _v0.a;
-			var k = _v0.b;
-			var v = _v0.c;
-			var l = _v0.d;
-			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _v0;
-			return x;
-		}
-	});
-var $elm$core$Dict$update = F3(
-	function (targetKey, alter, dictionary) {
-		var _v0 = alter(
-			A2($elm$core$Dict$get, targetKey, dictionary));
-		if (_v0.$ === 'Just') {
-			var value = _v0.a;
-			return A3($elm$core$Dict$insert, targetKey, value, dictionary);
-		} else {
-			return A2($elm$core$Dict$remove, targetKey, dictionary);
-		}
-	});
-var $elm_community$dict_extra$Dict$Extra$insertDedupe = F4(
-	function (combine, key, value, dict) {
-		var _with = function (mbValue) {
-			if (mbValue.$ === 'Just') {
-				var oldValue = mbValue.a;
-				return $elm$core$Maybe$Just(
-					A2(combine, oldValue, value));
-			} else {
-				return $elm$core$Maybe$Just(value);
-			}
-		};
-		return A3($elm$core$Dict$update, key, _with, dict);
-	});
-var $elm_community$dict_extra$Dict$Extra$fromListDedupeBy = F3(
-	function (combine, keyfn, xs) {
-		return A3(
-			$elm$core$List$foldl,
-			F2(
-				function (x, acc) {
-					return A4(
-						$elm_community$dict_extra$Dict$Extra$insertDedupe,
-						combine,
-						keyfn(x),
-						x,
-						acc);
-				}),
-			$elm$core$Dict$empty,
-			xs);
-	});
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$either = F2(
-	function (predicateFn, _v0) {
-		var type1 = _v0.a;
-		var type2 = _v0.b;
-		return predicateFn(type1) || predicateFn(type2);
-	});
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$isNonEmptyObject = function (tsType) {
-	if ((tsType.$ === 'TypeObject') && tsType.a.b) {
-		var _v1 = tsType.a;
-		var atLeastOne = _v1.a;
-		var possiblyMore = _v1.b;
-		return true;
-	} else {
-		return false;
-	}
-};
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive = function (tsType) {
-	switch (tsType.$) {
-		case 'Number':
-			return true;
-		case 'Integer':
-			return true;
-		case 'String':
-			return true;
-		case 'Boolean':
-			return true;
-		default:
-			return false;
-	}
-};
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$isContradictory = function (types) {
-	return A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isNonEmptyObject, types) && A2($dillonkearns$elm_ts_json$Internal$TypeReducer$either, $dillonkearns$elm_ts_json$Internal$TypeReducer$isPrimitive, types);
-};
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown = {$: 'Unknown'};
-var $elm$core$Dict$fromList = function (assocs) {
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (_v0, dict) {
-				var key = _v0.a;
-				var value = _v0.b;
-				return A3($elm$core$Dict$insert, key, value, dict);
-			}),
-		$elm$core$Dict$empty,
-		assocs);
-};
-var $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesize = function (string) {
-	return '(' + (string + ')');
-};
-var $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesizeToString = function (type_) {
-	var needsParens = function () {
-		if (type_.$ === 'Union') {
-			var types = type_.a;
-			return true;
-		} else {
-			return false;
-		}
-	}();
-	return needsParens ? ('(' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_) + ')')) : $dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_);
-};
-var $dillonkearns$elm_ts_json$Internal$TypeToString$toString = function (tsType_) {
-	switch (tsType_.$) {
-		case 'TsNever':
-			return 'never';
-		case 'String':
-			return 'string';
-		case 'Integer':
-			return 'number';
-		case 'Number':
-			return 'number';
-		case 'Boolean':
-			return 'boolean';
-		case 'Unknown':
-			return 'JsonValue';
-		case 'List':
-			var listType = tsType_.a;
-			return $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesizeToString(listType) + '[]';
-		case 'Literal':
-			var literalValue = tsType_.a;
-			return A2($elm$json$Json$Encode$encode, 0, literalValue);
-		case 'Union':
-			var _v1 = tsType_.a;
-			var firstType = _v1.a;
-			var tsTypes = _v1.b;
-			return A2(
-				$elm$core$String$join,
-				' | ',
-				A2(
-					$elm$core$List$map,
-					$dillonkearns$elm_ts_json$Internal$TypeToString$toString,
-					A2($elm$core$List$cons, firstType, tsTypes)));
-		case 'TypeObject':
-			var keyTypes = tsType_.a;
-			return '{ ' + (A2(
-				$elm$core$String$join,
-				'; ',
-				A2(
-					$elm$core$List$map,
-					function (_v2) {
-						var optionality = _v2.a;
-						var key = _v2.b;
-						var tsType__ = _v2.c;
-						return function () {
-							if (optionality.$ === 'Required') {
-								return key;
-							} else {
-								return key + '?';
-							}
-						}() + (' : ' + $dillonkearns$elm_ts_json$Internal$TypeToString$toString(tsType__));
-					},
-					keyTypes)) + ' }');
-		case 'ObjectWithUniformValues':
-			var tsType = tsType_.a;
-			return '{ [key: string]: ' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(tsType) + ' }');
-		case 'Tuple':
-			var tsTypes = tsType_.a;
-			var maybeRestType = tsType_.b;
-			var restTypePart = A2(
-				$elm$core$Maybe$map,
-				function (restType) {
-					return '...(' + ($dillonkearns$elm_ts_json$Internal$TypeToString$toString(restType) + ')[]');
-				},
-				maybeRestType);
-			return '[ ' + (A2(
-				$elm$core$String$join,
-				', ',
-				A2(
-					$elm$core$List$filterMap,
-					$elm$core$Basics$identity,
-					_Utils_ap(
-						A2(
-							$elm$core$List$map,
-							function (type_) {
-								return $elm$core$Maybe$Just(
-									$dillonkearns$elm_ts_json$Internal$TypeToString$toString(type_));
-							},
-							tsTypes),
-						_List_fromArray(
-							[restTypePart])))) + ' ]');
-		case 'Intersection':
-			var types = tsType_.a;
-			return $dillonkearns$elm_ts_json$Internal$TypeToString$parenthesize(
-				A2(
-					$elm$core$String$join,
-					' & ',
-					A2($elm$core$List$map, $dillonkearns$elm_ts_json$Internal$TypeToString$toString, types)));
-		default:
-			var _v4 = tsType_.a;
-			var index = _v4.a;
-			var tsType = _v4.b;
-			var otherIndices = tsType_.b;
-			var dict = $elm$core$Dict$fromList(
-				A2(
-					$elm$core$List$cons,
-					_Utils_Tuple2(index, tsType),
-					otherIndices));
-			var highestIndex = A2(
-				$elm$core$Maybe$withDefault,
-				0,
-				$elm$core$List$maximum(
-					$elm$core$Dict$keys(dict)));
-			return '[' + (A2(
-				$elm$core$String$join,
-				',',
-				_Utils_ap(
-					A2(
-						$elm$core$List$map,
-						function (cur) {
-							return $dillonkearns$elm_ts_json$Internal$TypeToString$toString(
-								A2(
-									$elm$core$Maybe$withDefault,
-									$dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown,
-									A2($elm$core$Dict$get, cur, dict)));
-						},
-						A2($elm$core$List$range, 0, highestIndex)),
-					_List_fromArray(
-						['...JsonValue[]']))) + ']');
-	}
-};
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$intersect = F2(
-	function (type1, type2) {
-		if ($dillonkearns$elm_ts_json$Internal$TypeReducer$isContradictory(
-			_Utils_Tuple2(type1, type2))) {
-			return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
-		} else {
-			if (_Utils_eq(type1, type2)) {
-				return type1;
-			} else {
-				var _v8 = _Utils_Tuple2(type1, type2);
-				_v8$1:
-				while (true) {
-					_v8$8:
-					while (true) {
-						switch (_v8.a.$) {
-							case 'Unknown':
-								var _v9 = _v8.a;
-								var known = _v8.b;
-								return known;
-							case 'Intersection':
-								switch (_v8.b.$) {
-									case 'Unknown':
-										break _v8$1;
-									case 'Intersection':
-										var types1 = _v8.a.a;
-										var types2 = _v8.b.a;
-										return $dillonkearns$elm_ts_json$Internal$TypeReducer$simplifyIntersection(
-											_Utils_ap(types1, types2));
-									default:
-										break _v8$8;
-								}
-							case 'ArrayIndex':
-								switch (_v8.b.$) {
-									case 'Unknown':
-										break _v8$1;
-									case 'ArrayIndex':
-										if ((!_v8.a.b.b) && (!_v8.b.b.b)) {
-											var _v11 = _v8.a;
-											var _v12 = _v11.a;
-											var index1 = _v12.a;
-											var indexType1 = _v12.b;
-											var _v13 = _v8.b;
-											var _v14 = _v13.a;
-											var index2 = _v14.a;
-											var indexType2 = _v14.b;
-											return A2(
-												$dillonkearns$elm_ts_json$Internal$TsJsonType$ArrayIndex,
-												_Utils_Tuple2(index1, indexType1),
-												_List_fromArray(
-													[
-														_Utils_Tuple2(index2, indexType2)
-													]));
-										} else {
-											break _v8$8;
-										}
-									default:
-										break _v8$8;
-								}
-							case 'TypeObject':
-								switch (_v8.b.$) {
-									case 'Unknown':
-										break _v8$1;
-									case 'TypeObject':
-										var fields1 = _v8.a.a;
-										var fields2 = _v8.b.a;
-										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject(
-											A2($dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields, fields1, fields2));
-									case 'Union':
-										var fields1 = _v8.a.a;
-										var unionedTypes = _v8.b.a;
-										return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
-											_List_fromArray(
-												[type1, type2]));
-									default:
-										break _v8$8;
-								}
-							case 'String':
-								switch (_v8.b.$) {
-									case 'Unknown':
-										break _v8$1;
-									case 'Number':
-										var _v15 = _v8.a;
-										var _v16 = _v8.b;
-										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
-									default:
-										break _v8$8;
-								}
-							case 'Number':
-								switch (_v8.b.$) {
-									case 'Unknown':
-										break _v8$1;
-									case 'String':
-										var _v17 = _v8.a;
-										var _v18 = _v8.b;
-										return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
-									default:
-										break _v8$8;
-								}
-							default:
-								if (_v8.b.$ === 'Unknown') {
-									break _v8$1;
-								} else {
-									break _v8$8;
-								}
-						}
-					}
-					return _Utils_eq(type1, type2) ? $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
-						_List_fromArray(
-							[type1, type2])) : $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
-						_List_fromArray(
-							[type1, type2]));
-				}
-				var known = _v8.a;
-				var _v10 = _v8.b;
-				return known;
-			}
-		}
-	});
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields = F2(
-	function (fields1, fields2) {
-		return $elm$core$Dict$values(
-			A3(
-				$elm_community$dict_extra$Dict$Extra$fromListDedupeBy,
-				F2(
-					function (_v5, _v6) {
-						var optionality1 = _v5.a;
-						var fieldName1 = _v5.b;
-						var fieldType1 = _v5.c;
-						var optionality2 = _v6.a;
-						var fieldName2 = _v6.b;
-						var fieldType2 = _v6.c;
-						return (_Utils_eq(optionality1, $dillonkearns$elm_ts_json$Internal$TsJsonType$Required) || _Utils_eq(optionality2, $dillonkearns$elm_ts_json$Internal$TsJsonType$Required)) ? _Utils_Tuple3(
-							$dillonkearns$elm_ts_json$Internal$TsJsonType$Required,
-							fieldName1,
-							A2($dillonkearns$elm_ts_json$Internal$TypeReducer$intersect, fieldType1, fieldType2)) : _Utils_Tuple3($dillonkearns$elm_ts_json$Internal$TsJsonType$Optional, fieldName1, fieldType1);
-					}),
-				function (_v7) {
-					var fieldName = _v7.b;
-					return fieldName;
-				},
-				_Utils_ap(fields1, fields2)));
-	});
-var $dillonkearns$elm_ts_json$Internal$TypeReducer$simplifyIntersection = function (types) {
-	var thing = function () {
-		var _v0 = A2($dillonkearns$elm_ts_json$Internal$TypeReducer$deduplicateBy, $dillonkearns$elm_ts_json$Internal$TypeToString$toString, types);
-		if (_v0.b) {
-			if (!_v0.b.b) {
-				var single = _v0.a;
-				return single;
-			} else {
-				var first = _v0.a;
-				var rest = _v0.b;
-				if (first.$ === 'TypeObject') {
-					var fields = first.a;
-					var _v2 = A3(
-						$elm$core$List$foldr,
-						F2(
-							function (thisType, _v3) {
-								var objectsSoFar = _v3.a;
-								var otherSoFar = _v3.b;
-								if (thisType.$ === 'TypeObject') {
-									var theseFields = thisType.a;
-									return _Utils_Tuple2(
-										A2($dillonkearns$elm_ts_json$Internal$TypeReducer$mergeFields, theseFields, objectsSoFar),
-										otherSoFar);
-								} else {
-									return _Utils_Tuple2(
-										objectsSoFar,
-										A2($elm$core$List$cons, thisType, otherSoFar));
-								}
-							}),
-						_Utils_Tuple2(fields, _List_Nil),
-						rest);
-					var otherObjects = _v2.a;
-					var nonObjectTypes = _v2.b;
-					return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(
-						A2(
-							$elm$core$List$cons,
-							$dillonkearns$elm_ts_json$Internal$TsJsonType$TypeObject(otherObjects),
-							nonObjectTypes));
-				} else {
-					return $dillonkearns$elm_ts_json$Internal$TsJsonType$Intersection(types);
-				}
-			}
-		} else {
-			return $dillonkearns$elm_ts_json$Internal$TsJsonType$TsNever;
-		}
-	}();
-	return thing;
-};
-var $dillonkearns$elm_ts_json$TsJson$Decode$map2 = F3(
-	function (mapFn, _v0, _v1) {
-		var innerDecoder1 = _v0.a;
-		var innerType1 = _v0.b;
-		var innerDecoder2 = _v1.a;
-		var innerType2 = _v1.b;
-		return A2(
-			$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
-			A3($elm$json$Json$Decode$map2, mapFn, innerDecoder1, innerDecoder2),
-			A2($dillonkearns$elm_ts_json$Internal$TypeReducer$intersect, innerType1, innerType2));
-	});
-var $dillonkearns$elm_ts_json$TsJson$Decode$andMap = $dillonkearns$elm_ts_json$TsJson$Decode$map2($elm$core$Basics$apR);
 var $author$project$Utils$Types$FilePath$FilePath = function (a) {
 	return {$: 'FilePath', a: a};
 };
@@ -16059,14 +16128,6 @@ var $dillonkearns$elm_ts_json$TsJson$Decode$map = F2(
 			A2($elm$json$Json$Decode$map, mapFn, innerDecoder),
 			innerType);
 	});
-var $dillonkearns$elm_ts_json$Internal$TsJsonType$String = {$: 'String'};
-var $dillonkearns$elm_ts_json$TsJson$Decode$string = A2($dillonkearns$elm_ts_json$TsJson$Decode$Decoder, $elm$json$Json$Decode$string, $dillonkearns$elm_ts_json$Internal$TsJsonType$String);
-var $dillonkearns$elm_ts_json$TsJson$Decode$succeed = function (value_) {
-	return A2(
-		$dillonkearns$elm_ts_json$TsJson$Decode$Decoder,
-		$elm$json$Json$Decode$succeed(value_),
-		$dillonkearns$elm_ts_json$Internal$TsJsonType$Unknown);
-};
 var $author$project$Main$Definitions$gotFileChoice = A2(
 	$dillonkearns$elm_ts_json$TsJson$Decode$andMap,
 	A2($dillonkearns$elm_ts_json$TsJson$Decode$field, 'content', $dillonkearns$elm_ts_json$TsJson$Decode$string),
@@ -16254,6 +16315,21 @@ var $author$project$Stages$Debugging$Model$init = function (_v0) {
 	};
 };
 var $elm$core$Platform$Cmd$map = _Platform_map;
+var $author$project$Utils$Types$Error$Misc = function (a) {
+	return {$: 'Misc', a: a};
+};
+var $author$project$Utils$Types$Error$misc = function (_v0) {
+	var error = _v0.error;
+	var inModule = _v0.inModule;
+	var action = _v0.action;
+	var descriptionForUsers = _v0.descriptionForUsers;
+	return {
+		action: action,
+		descriptionForUsers: descriptionForUsers,
+		error: $author$project$Utils$Types$Error$Misc(error),
+		inModule: inModule
+	};
+};
 var $elm$core$Result$map = F2(
 	function (func, ra) {
 		if (ra.$ === 'Ok') {

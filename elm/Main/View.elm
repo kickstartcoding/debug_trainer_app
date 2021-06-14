@@ -16,7 +16,7 @@ import Utils.Colors as Colors
 
 
 render : Model -> { title : String, body : List (Html Msg) }
-render { bugCount, stage, maybeError } =
+render { bugCount, stage, maybeError, logo } =
     { title = "Debugging Trainer"
     , body =
         [ layout
@@ -44,7 +44,7 @@ render { bugCount, stage, maybeError } =
           <|
             case stage of
                 Intro ->
-                    Stages.Intro.View.render
+                    Stages.Intro.View.render logo
 
                 ChooseFile { startType, status } ->
                     Element.map ChooseFileInterface <|
