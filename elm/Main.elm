@@ -56,11 +56,10 @@ init flags =
     in
     ( { bugCount = 1
       , randomNumbers = randomNumbers
-
       , stage = Intro
-    --   , stage = DummyData.chooseFileStage
 
-    --   , stage = DummyData.gotFileStage
+      --   , stage = DummyData.chooseFileStage
+      --   , stage = DummyData.gotFileStage
       --   , stage = DummyData.debuggingStageStepsPage randomNumbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
       --   , stage = DummyData.debuggingStageBugHintsTab randomNumbers

@@ -12031,6 +12031,10 @@ var $author$project$Utils$Types$FilePath$nameOnly = function (_v0) {
 			$elm$core$List$reverse(
 				A2($elm$core$String$split, '/', string))));
 };
+var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $mdgriffith$elm_ui$Internal$Model$AsRow = {$: 'AsRow'};
 var $mdgriffith$elm_ui$Internal$Model$asRow = $mdgriffith$elm_ui$Internal$Model$AsRow;
 var $mdgriffith$elm_ui$Element$row = F2(
@@ -13008,40 +13012,6 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$spacing(20)
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$mdgriffith$elm_ui$Element$paragraph,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$text('How many bugs should I put in your chosen file? ')
-								])),
-							A2(
-							$mdgriffith$elm_ui$Element$Input$text,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$htmlAttribute(
-									$elm$html$Html$Attributes$type_('number')),
-									$mdgriffith$elm_ui$Element$htmlAttribute(
-									$elm$html$Html$Attributes$min('1')),
-									$mdgriffith$elm_ui$Element$width(
-									A2($mdgriffith$elm_ui$Element$maximum, 90, $mdgriffith$elm_ui$Element$fill)),
-									$mdgriffith$elm_ui$Element$centerX
-								]),
-							{
-								label: $mdgriffith$elm_ui$Element$Input$labelHidden('the number of bugs you\'d like to try debugging'),
-								onChange: $author$project$Stages$ChooseFile$Msg$UpdateBugCount,
-								placeholder: $elm$core$Maybe$Nothing,
-								text: $elm$core$String$fromInt(bugCount)
-							})
-						])),
-					A2(
-					$mdgriffith$elm_ui$Element$column,
-					_List_fromArray(
-						[
 							$mdgriffith$elm_ui$Element$spacing(25),
 							$mdgriffith$elm_ui$Element$centerX
 						]),
@@ -13082,7 +13052,49 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 									{msg: $author$project$Stages$ChooseFile$Msg$ChooseFile, name: fileSelectLabel})
 								]))
 						])),
-					startButton
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$spacing(20)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$paragraph,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$text('How many bugs should I put in the file? ')
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$Input$text,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$htmlAttribute(
+									$elm$html$Html$Attributes$type_('number')),
+									$mdgriffith$elm_ui$Element$htmlAttribute(
+									$elm$html$Html$Attributes$min('1')),
+									$mdgriffith$elm_ui$Element$width(
+									A2($mdgriffith$elm_ui$Element$maximum, 90, $mdgriffith$elm_ui$Element$fill)),
+									$mdgriffith$elm_ui$Element$centerX
+								]),
+							{
+								label: $mdgriffith$elm_ui$Element$Input$labelHidden('the number of bugs you\'d like to try debugging'),
+								onChange: $author$project$Stages$ChooseFile$Msg$UpdateBugCount,
+								placeholder: $elm$core$Maybe$Nothing,
+								text: $elm$core$String$fromInt(bugCount)
+							})
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$el,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$height(
+							$mdgriffith$elm_ui$Element$px(60)),
+							$mdgriffith$elm_ui$Element$centerX
+						]),
+					startButton)
 				])));
 };
 var $author$project$Stages$Debugging$Model$BugHints = {$: 'BugHints'};
@@ -13139,10 +13151,6 @@ var $author$project$Stages$Debugging$Msg$ShowBugLineHint = function (a) {
 var $author$project$Stages$Debugging$Msg$ShowBugTypeHint = function (a) {
 	return {$: 'ShowBugTypeHint', a: a};
 };
-var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $mdgriffith$elm_ui$Element$px = $mdgriffith$elm_ui$Internal$Model$Px;
 var $elm$core$Basics$modBy = _Basics_modBy;
 var $author$project$Utils$String$isEven = function (integer) {
 	return !A2($elm$core$Basics$modBy, 2, integer);
