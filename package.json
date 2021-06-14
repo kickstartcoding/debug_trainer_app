@@ -15,7 +15,6 @@
     "serve": "parcel serve js/index.html --out-dir dist --port 2222"
   },
   "devDependencies": {
-    "@incrementalelm/elm-ts-interop-pro": "^0.0.21",
     "@tauri-apps/cli": "^1.0.0-beta.2",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
@@ -30,5 +29,8 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.0-beta-rc.3"
+  },
+  "optionalDependencies": {
+    "@incrementalelm/elm-ts-interop-pro": "^0.0.21"
   }
 }
