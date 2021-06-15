@@ -56,7 +56,7 @@
         "title": "Debugging Practice",
         "width": 800,
         "height": 620,
-        "resizable": true,
+        "resizable": false,
         "fullscreen": false
       }
     ],
