@@ -32,7 +32,7 @@ render :
 render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
     column [ spacing 30, width fill, height fill ]
         [ Buttons.back { name = "back to instructions", msg = ChangePage StepsPage }
-        , column [ width fill, height fill ]
+        , column [ width fill, height fill, spacing 20 ]
             [ row [ width fill ]
                 [ renderTab
                     { tab = DebuggingTips

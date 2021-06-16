@@ -12812,7 +12812,7 @@ var $author$project$Utils$UI$Buttons$buttonTemplate = function (_v0) {
 					$author$project$Utils$Colors$lightened(0.5)),
 					$mdgriffith$elm_ui$Element$width(
 					A2($mdgriffith$elm_ui$Element$minimum, 250, $mdgriffith$elm_ui$Element$shrink)),
-					A2($mdgriffith$elm_ui$Element$paddingXY, 37, 22),
+					A2($mdgriffith$elm_ui$Element$paddingXY, 30, 22),
 					$mdgriffith$elm_ui$Element$Border$rounded(8),
 					$mdgriffith$elm_ui$Element$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, 'cursor', 'pointer')),
@@ -14058,22 +14058,16 @@ var $elm$core$Basics$modBy = _Basics_modBy;
 var $author$project$Utils$String$isEven = function (integer) {
 	return !A2($elm$core$Basics$modBy, 2, integer);
 };
-var $author$project$Utils$String$toFormattedElements = function (description) {
-	return A2(
-		$elm$core$List$indexedMap,
-		F2(
-			function (i, string) {
-				return $author$project$Utils$String$isEven(i) ? $mdgriffith$elm_ui$Element$text(string) : A2(
-					$author$project$Utils$UI$Text$codeWithAttrs,
-					_List_fromArray(
-						[
-							A2($mdgriffith$elm_ui$Element$paddingXY, 6, 1),
-							$mdgriffith$elm_ui$Element$Border$rounded(3)
-						]),
-					string);
-			}),
-		A2($elm$core$String$split, '`', description));
-};
+var $author$project$Utils$String$formatBackticks = F2(
+	function (formatFunction, description) {
+		return A2(
+			$elm$core$List$indexedMap,
+			F2(
+				function (i, string) {
+					return $author$project$Utils$String$isEven(i) ? $mdgriffith$elm_ui$Element$text(string) : formatFunction(string);
+				}),
+			A2($elm$core$String$split, '`', description));
+	});
 var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 	function (brokenFile, index, _v0) {
 		var change = _v0.a;
@@ -14143,7 +14137,15 @@ var $author$project$Stages$Debugging$View$HelpTabs$BugHints$changeOptions = F3(
 								$mdgriffith$elm_ui$Element$centerY,
 								$mdgriffith$elm_ui$Element$spacing(5)
 							]),
-						$author$project$Utils$String$toFormattedElements(change.changeDescription)) : A2(
+						A2(
+							$author$project$Utils$String$formatBackticks,
+							$author$project$Utils$UI$Text$codeWithAttrs(
+								_List_fromArray(
+									[
+										A2($mdgriffith$elm_ui$Element$paddingXY, 6, 1),
+										$mdgriffith$elm_ui$Element$Border$rounded(3)
+									])),
+							change.changeDescription)) : A2(
 						$author$project$Utils$UI$Buttons$button,
 						_List_Nil,
 						{
@@ -14599,21 +14601,30 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$debuggingTips =
 					[
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$text('Read through your code one line at a time, and for each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera.')
+								$mdgriffith$elm_ui$Element$Font$size(18)
+							]),
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$text('Read through your code one line at a time. For each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera.')
 							])),
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(18)
+							]),
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$text('Don\'t think about anything that happens on the next line until you\'ve figured out everything that happens on the one you\'re looking at.')
 							])),
 						A2(
 						$mdgriffith$elm_ui$Element$paragraph,
-						_List_Nil,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(18)
+							]),
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$text('If you\'re even the slightest bit unsure about something, print it to make sure.')
@@ -14808,7 +14819,7 @@ var $author$project$Stages$Debugging$View$HelpTabs$DebuggingTips$render = functi
 					[
 						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						A2($mdgriffith$elm_ui$Element$paddingXY, 60, 20)
+						A2($mdgriffith$elm_ui$Element$paddingXY, 60, 0)
 					]),
 				A2(
 					$mdgriffith$elm_ui$Element$column,
@@ -15076,7 +15087,8 @@ var $author$project$Stages$Debugging$View$HelpPage$render = function (_v0) {
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$spacing(20)
 					]),
 				_List_fromArray(
 					[
@@ -15442,8 +15454,6 @@ var $author$project$Stages$Debugging$View$render = function (_v0) {
 			return $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render(brokenFile);
 	}
 };
-var $author$project$Stages$Finished$Msg$ResetFileAndExit = {$: 'ResetFileAndExit'};
-var $author$project$Stages$Finished$Msg$ResetFileAndPlayAgain = {$: 'ResetFileAndPlayAgain'};
 var $elm$core$String$lines = _String_lines;
 var $author$project$Stages$Finished$View$getNearbyLines = F2(
 	function (lineNumber, wholeFile) {
@@ -15582,11 +15592,22 @@ var $author$project$Stages$Finished$View$renderChange = F3(
 							$mdgriffith$elm_ui$Element$Font$center,
 							$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
 							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$purple),
-							A2($mdgriffith$elm_ui$Element$paddingXY, 8, 8),
+							$mdgriffith$elm_ui$Element$Border$rounded(5),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 8),
 							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 						]),
 					_Utils_ap(
-						$author$project$Utils$String$toFormattedElements(changeDescription),
+						A2(
+							$author$project$Utils$String$formatBackticks,
+							$author$project$Utils$UI$Text$codeWithAttrs(
+								_List_fromArray(
+									[
+										A2($mdgriffith$elm_ui$Element$paddingXY, 6, 1),
+										$mdgriffith$elm_ui$Element$Border$rounded(3),
+										$mdgriffith$elm_ui$Element$Background$color(
+										$author$project$Utils$Colors$lightened(0.75))
+									])),
+							changeDescription),
 						_List_fromArray(
 							[
 								$mdgriffith$elm_ui$Element$text(
@@ -15614,8 +15635,6 @@ var $author$project$Stages$Finished$View$fileChanges = function (brokenFile) {
 		_List_fromArray(
 			[
 				$mdgriffith$elm_ui$Element$spacing(50),
-				$mdgriffith$elm_ui$Element$height(
-				$mdgriffith$elm_ui$Element$px(500)),
 				A2($mdgriffith$elm_ui$Element$paddingXY, 40, 40),
 				$mdgriffith$elm_ui$Element$centerX
 			]),
@@ -15623,6 +15642,38 @@ var $author$project$Stages$Finished$View$fileChanges = function (brokenFile) {
 			$elm$core$List$indexedMap,
 			$author$project$Stages$Finished$View$renderChange(brokenFile),
 			A2($elm$core$List$map, $elm$core$Tuple$first, brokenFile.changes)));
+};
+var $author$project$Stages$Finished$Msg$ResetFileAndExit = {$: 'ResetFileAndExit'};
+var $author$project$Stages$Finished$Msg$ResetFileAndPlayAgain = {$: 'ResetFileAndPlayAgain'};
+var $author$project$Stages$Finished$View$finishButtons = function (attrs) {
+	return A2(
+		$mdgriffith$elm_ui$Element$row,
+		_Utils_ap(
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$spacing(20)
+				]),
+			attrs),
+		_List_fromArray(
+			[
+				A2(
+				$author$project$Utils$UI$Buttons$button,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green)
+					]),
+				{msg: $author$project$Stages$Finished$Msg$ResetFileAndPlayAgain, name: 'Reset the file and play again!'}),
+				A2(
+				$author$project$Utils$UI$Buttons$button,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red)
+					]),
+				{msg: $author$project$Stages$Finished$Msg$ResetFileAndExit, name: 'Reset the file and exit'})
+			]));
 };
 var $author$project$Stages$Finished$View$render = function (_v0) {
 	var finishType = _v0.finishType;
@@ -15637,39 +15688,18 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$mdgriffith$elm_ui$Element$row,
+				$author$project$Stages$Finished$View$finishButtons(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(20)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$author$project$Utils$UI$Buttons$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green)
-							]),
-						{msg: $author$project$Stages$Finished$Msg$ResetFileAndPlayAgain, name: 'Reset the file and play again!'}),
-						A2(
-						$author$project$Utils$UI$Buttons$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red)
-							]),
-						{msg: $author$project$Stages$Finished$Msg$ResetFileAndExit, name: 'Reset the file and exit'})
+						$mdgriffith$elm_ui$Element$paddingEach(
+						{bottom: 5, left: 0, right: 0, top: 0})
 					])),
 				A2(
 				$mdgriffith$elm_ui$Element$column,
 				_List_fromArray(
 					[
 						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$scrollbarY
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 					]),
 				_List_fromArray(
 					[
@@ -15711,33 +15741,11 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 						}()),
 						$author$project$Stages$Finished$View$fileChanges(brokenFile)
 					])),
-				($elm$core$List$length(brokenFile.changes) > 1) ? A2(
-				$mdgriffith$elm_ui$Element$row,
+				($elm$core$List$length(brokenFile.changes) > 1) ? $author$project$Stages$Finished$View$finishButtons(
 				_List_fromArray(
 					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$spacing(20),
 						$mdgriffith$elm_ui$Element$paddingEach(
 						{bottom: 5, left: 0, right: 0, top: 0})
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$author$project$Utils$UI$Buttons$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green)
-							]),
-						{msg: $author$project$Stages$Finished$Msg$ResetFileAndPlayAgain, name: 'Reset the file and play again!'}),
-						A2(
-						$author$project$Utils$UI$Buttons$button,
-						_List_fromArray(
-							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-								$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$red)
-							]),
-						{msg: $author$project$Stages$Finished$Msg$ResetFileAndExit, name: 'Reset the file and exit'})
 					])) : $mdgriffith$elm_ui$Element$none
 			]));
 };

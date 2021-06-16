@@ -23,7 +23,7 @@ render { currentDebuggingTip, brokenFile } =
         [ el
             [ height fill
             , width fill
-            , paddingXY 60 20
+            , paddingXY 60 0
             ]
             (column [ centerY, centerX, spacing 10 ]
                 (Utils.List.getByWrappedIndex currentDebuggingTip (debuggingTips fileType)
@@ -99,9 +99,9 @@ debuggingTips fileType =
     , tip
         { header = "Tip #4: Read through your code one line at a time"
         , content =
-            [ paragraph [] [ text "Read through your code one line at a time, and for each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera." ]
-            , paragraph [] [ text "Don't think about anything that happens on the next line until you've figured out everything that happens on the one you're looking at." ]
-            , paragraph [] [ text "If you're even the slightest bit unsure about something, print it to make sure." ]
+            [ paragraph [ Font.size 18 ] [ text "Read through your code one line at a time. For each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera." ]
+            , paragraph [ Font.size 18 ] [ text "Don't think about anything that happens on the next line until you've figured out everything that happens on the one you're looking at." ]
+            , paragraph [ Font.size 18 ] [ text "If you're even the slightest bit unsure about something, print it to make sure." ]
             ]
         }
     , tip

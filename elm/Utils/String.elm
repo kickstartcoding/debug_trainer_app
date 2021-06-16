@@ -1,7 +1,7 @@
 module Utils.String exposing
-    ( isAllCaps
+    ( formatBackticks
+    , isAllCaps
     , isMoreThanOneCharacter
-    , toFormattedElements
     , toggleTitleCase
     )
 
@@ -35,8 +35,8 @@ isAllCaps string =
     String.toUpper string == string
 
 
-toFormattedElements : String -> List (Element msg)
-toFormattedElements description =
+formatBackticks : (String -> Element msg) -> String -> List (Element msg)
+formatBackticks formatFunction description =
     description
         |> String.split "`"
         |> List.indexedMap
@@ -45,7 +45,7 @@ toFormattedElements description =
                     text string
 
                 else
-                    Text.codeWithAttrs [ paddingXY 6 1, Border.rounded 3 ] string
+                    formatFunction string
             )
 
 

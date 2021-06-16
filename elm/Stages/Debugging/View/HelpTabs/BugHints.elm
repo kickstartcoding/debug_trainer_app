@@ -1,6 +1,7 @@
 module Stages.Debugging.View.HelpTabs.BugHints exposing (render)
 
 import Element exposing (..)
+import Element.Border as Border
 import Element.Font as Font
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.List
@@ -8,6 +9,7 @@ import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.UI.Buttons as Buttons
+import Utils.UI.Text as Text
 
 
 render : { bugCount : Int, brokenFile : BrokenFile } -> Element Msg
@@ -55,7 +57,13 @@ changeOptions brokenFile index ( change, hintVisibility ) =
                     }
         , el [ height (px 85) ] <|
             if hintVisibility.showingBugType then
-                paragraph [ centerY, spacing 5 ] (Utils.String.toFormattedElements change.changeDescription)
+                paragraph [ centerY, spacing 5 ]
+                    (Utils.String.formatBackticks
+                        (Text.codeWithAttrs
+                            [ paddingXY 6 1, Border.rounded 3 ]
+                        )
+                        change.changeDescription
+                    )
 
             else
                 Buttons.button []

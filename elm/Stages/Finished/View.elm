@@ -23,20 +23,10 @@ render { finishType, brokenFile } =
         , height fill
         , spacing 30
         ]
-        [ row [ width fill, spacing 20 ]
-            [ Buttons.button [ width fill, Background.color Colors.green ]
-                { name = "Reset the file and play again!"
-                , msg = ResetFileAndPlayAgain
-                }
-            , Buttons.button [ width fill, Background.color Colors.red ]
-                { name = "Reset the file and exit"
-                , msg = ResetFileAndExit
-                }
-            ]
+        [ finishButtons [ paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
         , column
             [ width fill
             , height fill
-            , scrollbarY
             ]
             [ paragraph [ Font.center, Font.size 30 ]
                 (case finishType of
@@ -55,16 +45,7 @@ render { finishType, brokenFile } =
             , fileChanges brokenFile
             ]
         , if List.length brokenFile.changes > 1 then
-            row [ width fill, spacing 20, paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
-                [ Buttons.button [ width fill, Background.color Colors.green ]
-                    { name = "Reset the file and play again!"
-                    , msg = ResetFileAndPlayAgain
-                    }
-                , Buttons.button [ width fill, Background.color Colors.red ]
-                    { name = "Reset the file and exit"
-                    , msg = ResetFileAndExit
-                    }
-                ]
+            finishButtons [ paddingEach { bottom = 5, top = 0, left = 0, right = 0 } ]
 
           else
             none
@@ -75,7 +56,6 @@ fileChanges : BrokenFile -> Element msg
 fileChanges brokenFile =
     column
         [ spacing 50
-        , height (px 500)
         , paddingXY 40 40
         , centerX
         ]
@@ -84,6 +64,19 @@ fileChanges brokenFile =
             |> List.map Tuple.first
             |> List.indexedMap (renderChange brokenFile)
         )
+
+
+finishButtons attrs =
+    row ([ width fill, spacing 20 ] ++ attrs)
+        [ Buttons.button [ width fill, Background.color Colors.green ]
+            { name = "Reset the file and play again!"
+            , msg = ResetFileAndPlayAgain
+            }
+        , Buttons.button [ width fill, Background.color Colors.red ]
+            { name = "Reset the file and exit"
+            , msg = ResetFileAndExit
+            }
+        ]
 
 
 renderChange : BrokenFile -> Int -> ChangeData -> Element msg
@@ -97,11 +90,18 @@ renderChange brokenFile index { lineNumber, changeDescription } =
             , Font.center
             , Font.color Colors.white
             , Background.color Colors.purple
-            , paddingXY 8 8
+            , Border.rounded 5
+            , paddingXY 20 8
             , width fill
             ]
             ((changeDescription
-                |> Utils.String.toFormattedElements
+                |> Utils.String.formatBackticks
+                    (Text.codeWithAttrs
+                        [ paddingXY 6 1
+                        , Border.rounded 3
+                        , Background.color (Colors.lightened 0.75)
+                        ]
+                    )
              )
                 ++ [ text
                         (" on line "
