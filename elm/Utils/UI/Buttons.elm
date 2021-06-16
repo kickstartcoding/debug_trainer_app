@@ -33,10 +33,14 @@ buttonTemplate { label, attrs, msg } =
         ([ Background.color Colors.purple
          , Font.color Colors.white
          , Font.center
+         , Border.width 2
+         , Border.color Colors.white
          , width (minimum 250 shrink)
-         , paddingXY 35 20
-         , Border.rounded 5
+         , paddingXY 37 22
+         , Border.rounded 8
          , htmlAttribute (HtmlAttrs.style "cursor" "pointer")
+         , alpha 1
+         , mouseOver [ Border.color Colors.transparent ]
          ]
             ++ attrs
         )

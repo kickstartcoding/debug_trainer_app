@@ -62,12 +62,12 @@ debuggingTips fileType =
                 ]
             , paragraph []
                 [ text "If you're not sure what a particular error message means, try copying and pasting it into a search engine like "
-                , Link.render
+                , Link.render []
                     { url = "https://duckduckgo.com/"
                     , label = text "DuckDuckGo"
                     }
                 , text " or "
-                , Link.render
+                , Link.render []
                     { url = "https://google.com/"
                     , label = text "Google"
                     }
@@ -75,7 +75,7 @@ debuggingTips fileType =
                 ]
             , paragraph []
                 [ text "You can read some search tips that will work for most search engines "
-                , Link.render
+                , Link.render []
                     { url = "https://markodenic.com/use-google-like-a-pro/"
                     , label = text "here"
                     }

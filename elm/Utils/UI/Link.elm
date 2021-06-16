@@ -5,11 +5,12 @@ import Element.Font as Font
 import Utils.Colors as Colors
 
 
-render : { url : String, label : Element msg } -> Element msg
-render { url, label } =
-    link
-        [ Font.color Colors.purple
-        , Font.underline
-        , mouseOver [ Font.color Colors.darkPurple ]
-        ]
+render : List (Attribute msg) -> { url : String, label : Element msg } -> Element msg
+render attrs { url, label } =
+    newTabLink
+        ([ Font.color Colors.kickstartCodingBlue
+         , mouseOver [ Font.color Colors.darkKickstartCodingBlue ]
+         ]
+            ++ attrs
+        )
         { url = url, label = label }

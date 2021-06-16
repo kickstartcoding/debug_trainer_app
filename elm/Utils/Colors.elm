@@ -2,7 +2,6 @@ module Utils.Colors exposing
     ( black
     , darkGray
     , darkKickstartCodingBlue
-    , darkPurple
     , darkened
     , green
     , kickstartCodingBlue
@@ -30,11 +29,6 @@ darkKickstartCodingBlue =
 purple : Color
 purple =
     rgb 0.45 0 0.7
-
-
-darkPurple : Color
-darkPurple =
-    rgb 0.2 0 0.3
 
 
 green : Color

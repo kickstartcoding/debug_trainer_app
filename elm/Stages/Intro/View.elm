@@ -6,6 +6,7 @@ import Main.Msg exposing (Msg(..))
 import Utils.Colors as Colors
 import Utils.Constants as Constants
 import Utils.UI.Buttons as Buttons
+import Utils.UI.Link as Link
 
 
 render : String -> Element Msg
@@ -18,7 +19,7 @@ render logoPath =
             [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
             , row [ Font.size 22, centerX ]
                 [ text "created by teachers at "
-                , newTabLink
+                , Link.render
                     [ Font.color Colors.kickstartCodingBlue ]
                     { url = "https://kickstartcoding.com"
                     , label =
@@ -60,10 +61,7 @@ howDoesThisAppWorkLink : Element msg
 howDoesThisAppWorkLink =
     el [ width fill, height fill ]
         (paragraph [ alignRight, alignBottom, Font.alignRight ]
-            [ newTabLink
-                [ Font.color Colors.kickstartCodingBlue
-                , Font.size 18
-                ]
+            [ Link.render [ Font.size 18 ]
                 { url = "https://github.com/kickstartcoding/debug_trainer_app/issues"
                 , label = text "Issues? Suggestions? Click here."
                 }
