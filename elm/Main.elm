@@ -9,6 +9,7 @@ import Main.Subscriptions
 import Main.Update
 import Main.View
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
+import Utils.DummyData as DummyData
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Error as Error
 
@@ -43,16 +44,16 @@ init flags =
       , randomNumbers = numbers
       , stage = Intro
 
-      --   , stage = DummyData.chooseFileStage
-      --   , stage = DummyData.gotFileStage
-      --   , stage = DummyData.debuggingStageStepsPage randomNumbers
-      -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage randomNumbers
-      --   , stage = DummyData.debuggingStageBugHintsTab randomNumbers
-      -- , stage = DummyData.debuggingStageTipsTab randomNumbers
-      -- , stage = DummyData.debuggingStageEncouragementTab randomNumbers
-      -- , stage = DummyData.debuggingStageShowAnswerTab randomNumbers
-      --   , stage = DummyData.successfulFinishStage randomNumbers
-      -- , stage = DummyData.shownAnswerFinishedStage randomNumbers
+      -- , stage = DummyData.chooseFileStage
+      -- , stage = DummyData.gotFileStage
+      -- , stage = DummyData.debuggingStageStepsPage numbers
+      -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
+      -- , stage = DummyData.debuggingStageBugHintsTab numbers
+      -- , stage = DummyData.debuggingStageTipsTab numbers
+      -- , stage = DummyData.debuggingStageEncouragementTab numbers
+      -- , stage = DummyData.debuggingStageShowAnswerTab numbers
+      -- , stage = DummyData.successfulFinishStage numbers
+      -- , stage = DummyData.shownAnswerFinishedStage numbers
       , maybeError = startingError
       }
     , Cmd.none

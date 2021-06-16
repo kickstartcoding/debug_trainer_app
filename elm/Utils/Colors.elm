@@ -4,11 +4,13 @@ module Utils.Colors exposing
     , darkKickstartCodingBlue
     , darkened
     , green
+    , lightened
     , kickstartCodingBlue
     , lightGray
     , purple
     , red
     , transparent
+    , veryDarkKickstartCodingBlue
     , veryLightGray
     , white
     )
@@ -24,6 +26,11 @@ kickstartCodingBlue =
 darkKickstartCodingBlue : Color
 darkKickstartCodingBlue =
     rgb255 20 140 204
+
+
+veryDarkKickstartCodingBlue : Color
+veryDarkKickstartCodingBlue =
+    rgb255 17 123 173
 
 
 purple : Color
@@ -69,6 +76,10 @@ veryLightGray =
 darkened : Float -> Color
 darkened amount =
     rgba 0 0 0 amount
+
+lightened : Float -> Color
+lightened amount =
+    rgba 1 1 1 amount
 
 
 transparent : Color

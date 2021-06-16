@@ -12488,27 +12488,6 @@ var $author$project$Utils$Pluralize$aOrSome = F2(
 		return (count > 1) ? ('some ' + (term + 's')) : ('a ' + term);
 	});
 var $author$project$Utils$Constants$appName = 'Debugging Practice';
-var $mdgriffith$elm_ui$Internal$Model$Transparency = F2(
-	function (a, b) {
-		return {$: 'Transparency', a: a, b: b};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$transparency = $mdgriffith$elm_ui$Internal$Flag$flag(0);
-var $mdgriffith$elm_ui$Element$alpha = function (o) {
-	var transparency = function (x) {
-		return 1 - x;
-	}(
-		A2(
-			$elm$core$Basics$min,
-			1.0,
-			A2($elm$core$Basics$max, 0.0, o)));
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$transparency,
-		A2(
-			$mdgriffith$elm_ui$Internal$Model$Transparency,
-			'transparency-' + $mdgriffith$elm_ui$Internal$Model$floatClass(transparency),
-			transparency));
-};
 var $mdgriffith$elm_ui$Internal$Model$Button = {$: 'Button'};
 var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$html$Html$Attributes$boolProperty = F2(
@@ -12664,7 +12643,14 @@ var $mdgriffith$elm_ui$Element$Border$color = function (clr) {
 			'border-color',
 			clr));
 };
+var $mdgriffith$elm_ui$Element$rgba = $mdgriffith$elm_ui$Internal$Model$Rgba;
+var $author$project$Utils$Colors$darkened = function (amount) {
+	return A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, amount);
+};
 var $mdgriffith$elm_ui$Element$htmlAttribute = $mdgriffith$elm_ui$Internal$Model$Attr;
+var $author$project$Utils$Colors$lightened = function (amount) {
+	return A4($mdgriffith$elm_ui$Element$rgba, 1, 1, 1, amount);
+};
 var $mdgriffith$elm_ui$Internal$Model$Min = F2(
 	function (a, b) {
 		return {$: 'Min', a: a, b: b};
@@ -12792,8 +12778,6 @@ var $mdgriffith$elm_ui$Element$Border$rounded = function (radius) {
 };
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $mdgriffith$elm_ui$Element$rgba = $mdgriffith$elm_ui$Internal$Model$Rgba;
-var $author$project$Utils$Colors$transparent = A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0);
 var $author$project$Utils$Colors$white = A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1);
 var $mdgriffith$elm_ui$Internal$Model$BorderWidth = F5(
 	function (a, b, c, d, e) {
@@ -12824,18 +12808,19 @@ var $author$project$Utils$UI$Buttons$buttonTemplate = function (_v0) {
 					$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$white),
 					$mdgriffith$elm_ui$Element$Font$center,
 					$mdgriffith$elm_ui$Element$Border$width(2),
-					$mdgriffith$elm_ui$Element$Border$color($author$project$Utils$Colors$white),
+					$mdgriffith$elm_ui$Element$Border$color(
+					$author$project$Utils$Colors$lightened(0.5)),
 					$mdgriffith$elm_ui$Element$width(
 					A2($mdgriffith$elm_ui$Element$minimum, 250, $mdgriffith$elm_ui$Element$shrink)),
 					A2($mdgriffith$elm_ui$Element$paddingXY, 37, 22),
 					$mdgriffith$elm_ui$Element$Border$rounded(8),
 					$mdgriffith$elm_ui$Element$htmlAttribute(
 					A2($elm$html$Html$Attributes$style, 'cursor', 'pointer')),
-					$mdgriffith$elm_ui$Element$alpha(1),
 					$mdgriffith$elm_ui$Element$mouseOver(
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Border$color($author$project$Utils$Colors$transparent)
+							$mdgriffith$elm_ui$Element$Border$color(
+							$author$project$Utils$Colors$darkened(0.05))
 						]))
 				]),
 			attrs),
@@ -13569,6 +13554,27 @@ var $mdgriffith$elm_ui$Element$Input$renderBox = function (_v0) {
 	var bottom = _v0.bottom;
 	var left = _v0.left;
 	return $elm$core$String$fromInt(top) + ('px ' + ($elm$core$String$fromInt(right) + ('px ' + ($elm$core$String$fromInt(bottom) + ('px ' + ($elm$core$String$fromInt(left) + 'px'))))));
+};
+var $mdgriffith$elm_ui$Internal$Model$Transparency = F2(
+	function (a, b) {
+		return {$: 'Transparency', a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$transparency = $mdgriffith$elm_ui$Internal$Flag$flag(0);
+var $mdgriffith$elm_ui$Element$alpha = function (o) {
+	var transparency = function (x) {
+		return 1 - x;
+	}(
+		A2(
+			$elm$core$Basics$min,
+			1.0,
+			A2($elm$core$Basics$max, 0.0, o)));
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$transparency,
+		A2(
+			$mdgriffith$elm_ui$Internal$Model$Transparency,
+			'transparency-' + $mdgriffith$elm_ui$Internal$Model$floatClass(transparency),
+			transparency));
 };
 var $mdgriffith$elm_ui$Element$Input$charcoal = A3($mdgriffith$elm_ui$Element$rgb, 136 / 255, 138 / 255, 133 / 255);
 var $mdgriffith$elm_ui$Element$Input$renderPlaceholder = F3(
@@ -14436,6 +14442,7 @@ var $mdgriffith$elm_ui$Element$newTabLink = F2(
 				_List_fromArray(
 					[label])));
 	});
+var $author$project$Utils$Colors$veryDarkKickstartCodingBlue = A3($mdgriffith$elm_ui$Element$rgb255, 17, 123, 173);
 var $author$project$Utils$UI$Link$render = F2(
 	function (attrs, _v0) {
 		var url = _v0.url;
@@ -14449,7 +14456,7 @@ var $author$project$Utils$UI$Link$render = F2(
 						$mdgriffith$elm_ui$Element$mouseOver(
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$darkKickstartCodingBlue)
+								$mdgriffith$elm_ui$Element$Font$color($author$project$Utils$Colors$veryDarkKickstartCodingBlue)
 							]))
 					]),
 				attrs),
@@ -15264,9 +15271,6 @@ var $author$project$Stages$Debugging$Model$HelpPage = {$: 'HelpPage'};
 var $author$project$Stages$Debugging$Model$IDontSeeAnyErrorsPage = {$: 'IDontSeeAnyErrorsPage'};
 var $author$project$Stages$Debugging$Msg$ISolvedIt = {$: 'ISolvedIt'};
 var $mdgriffith$elm_ui$Element$Font$alignLeft = A2($mdgriffith$elm_ui$Internal$Model$Class, $mdgriffith$elm_ui$Internal$Flag$fontAlignment, $mdgriffith$elm_ui$Internal$Style$classes.textLeft);
-var $author$project$Utils$Colors$darkened = function (amount) {
-	return A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, amount);
-};
 var $author$project$Utils$Pluralize$itIsOrTheyAre = function (count) {
 	return (count > 1) ? 'they are' : 'it is';
 };
@@ -15466,6 +15470,7 @@ var $elm$core$String$replace = F3(
 			after,
 			A2($elm$core$String$split, before, string));
 	});
+var $author$project$Utils$Colors$transparent = A4($mdgriffith$elm_ui$Element$rgba, 0, 0, 0, 0);
 var $author$project$Utils$UI$Css$unselectable = $mdgriffith$elm_ui$Element$htmlAttribute(
 	A2($elm$html$Html$Attributes$style, 'user-select', 'none'));
 var $author$project$Stages$Finished$View$renderCodeLine = F2(

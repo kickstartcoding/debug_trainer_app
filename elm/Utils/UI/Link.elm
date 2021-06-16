@@ -9,7 +9,7 @@ render : List (Attribute msg) -> { url : String, label : Element msg } -> Elemen
 render attrs { url, label } =
     newTabLink
         ([ Font.color Colors.kickstartCodingBlue
-         , mouseOver [ Font.color Colors.darkKickstartCodingBlue ]
+         , mouseOver [ Font.color Colors.veryDarkKickstartCodingBlue ]
          ]
             ++ attrs
         )
