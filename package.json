@@ -42,7 +42,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@tauri-apps/api": "^1.0.0-beta-rc.3"
+    "@tauri-apps/api": "^1.0.0-beta.1"
   },
   "optionalDependencies": {
     "@incrementalelm/elm-ts-interop-pro": "^0.0.21"
