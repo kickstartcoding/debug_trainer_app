@@ -1,7 +1,7 @@
 import { Elm } from '../elm/Main'
 import { open } from '@tauri-apps/api/dialog'
 import { readTextFile, writeFile } from '@tauri-apps/api/fs'
-import { exit } from '@tauri-apps/api/app'
+import { exit } from '@tauri-apps/api/process'
 import { register } from '@tauri-apps/api/globalShortcut'
 import logo from './assets/logo.png'
 
