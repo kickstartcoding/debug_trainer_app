@@ -1,6 +1,8 @@
 module Stages.Intro.View exposing (render)
 
 import Element exposing (..)
+import Element.Background as Background
+import Element.Border as Border
 import Element.Font as Font
 import Main.Msg exposing (Msg(..))
 import Utils.Colors as Colors
@@ -14,7 +16,7 @@ render logoPath =
     column
         [ height fill
         , width fill
-        , spacing 65
+        , spacing 50
         ]
         [ column [ Font.center, spacing 10, centerX, height fill ]
             [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
@@ -23,10 +25,28 @@ render logoPath =
                 , kickstartLink logoPath
                 ]
             ]
-        , column [ centerX, spacing 20, width (px 600) ]
-            [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
-            , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
-            , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
+        , column
+            [ centerX
+            , centerY
+            , Font.alignLeft
+            , spacing 20
+            , width (px 500)
+            , Background.color (Colors.darkened 0.1)
+            , paddingXY 40 20
+            , Border.rounded 5
+            ]
+            [ paragraph []
+                [ el [ Font.bold ] (text "step 1: ")
+                , text (Constants.appName ++ " will introduce a bug into a file of your choice")
+                ]
+            , paragraph []
+                [ el [ Font.bold ] (text "step 2: ")
+                , text ("you try to figure out the bug with the help of hints and advice from " ++ Constants.appName)
+                ]
+            , paragraph []
+                [ el [ Font.bold ] (text "step 3: ")
+                , text (Constants.appName ++ " will return your file to its original working version when you're done")
+                ]
             ]
         , Buttons.button [ centerX ]
             { name = "let's get started!"

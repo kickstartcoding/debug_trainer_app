@@ -9,10 +9,10 @@ import Main.Subscriptions
 import Main.Update
 import Main.View
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
+import Utils.Constants as Constants
 import Utils.DummyData as DummyData
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Error as Error
-import Utils.Constants as Constants
 
 
 init : Value -> ( Model, Cmd Msg )
@@ -43,11 +43,11 @@ init flags =
     ( { requestedBugCount = 1
       , logo = logoPath
       , randomNumbers = numbers
-    --   , stage = Intro
+      , stage = Intro
 
       -- , stage = DummyData.chooseFileStage
-    --   , stage = DummyData.gotFileStage
-      , stage = DummyData.debuggingStageStepsPage numbers
+      -- , stage = DummyData.gotFileStage
+      -- , stage = DummyData.debuggingStageStepsPage numbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
       -- , stage = DummyData.debuggingStageBugHintsTab numbers
       -- , stage = DummyData.debuggingStageTipsTab numbers
