@@ -12,7 +12,8 @@ register("CmdOrControl+Q", () => {
 const app = Elm.Main.init({
   flags: {
     randomNumbers: getRandomInts(1_000_000, 20),
-    logo: logo
+    logo: logo,
+    mode: process.env.NODE_ENV || null
   }
 })
 

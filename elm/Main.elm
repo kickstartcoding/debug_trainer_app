@@ -10,20 +10,21 @@ import Main.Update
 import Main.View
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
 import Utils.Constants as Constants
-import Utils.DummyData as DummyData
+import Utils.Types.AppMode exposing (AppMode(..))
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Error as Error
-
+import Utils.DevModeStartState as DevModeStartState
 
 init : Value -> ( Model, Cmd Msg )
 init flags =
     let
-        { numbers, startingError, logoPath } =
+        { numbers, startingError, logoPath, appMode } =
             case Main.Interop.decodeFlags flags of
-                Ok { randomNumbers, logo } ->
+                Ok { randomNumbers, logo, mode } ->
                     { numbers = randomNumbers
                     , logoPath = logo
                     , startingError = Nothing
+                    , appMode = mode
                     }
 
                 Err error ->
@@ -38,27 +39,24 @@ init flags =
                                 , inModule = "Main"
                                 }
                             )
+                    , appMode = Production
                     }
     in
     ( { requestedBugCount = 1
       , logo = logoPath
       , randomNumbers = numbers
-    --   , stage = Intro
+      , stage =
+            case appMode of
+                Production ->
+                    Intro
 
-      -- , stage = DummyData.chooseFileStage
-      , stage = DummyData.gotFileStage
-      -- , stage = DummyData.debuggingStageStepsPage numbers
-      -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
-      -- , stage = DummyData.debuggingStageBugHintsTab numbers
-      -- , stage = DummyData.debuggingStageTipsTab numbers
-      -- , stage = DummyData.debuggingStageEncouragementTab numbers
-      -- , stage = DummyData.debuggingStageShowAnswerTab numbers
-      -- , stage = DummyData.successfulFinishStage numbers
-      -- , stage = DummyData.shownAnswerFinishedStage numbers
+                Development ->
+                    DevModeStartState.get numbers
       , maybeError = startingError
       }
     , Cmd.none
     )
+
 
 
 main : Program Value Model Msg

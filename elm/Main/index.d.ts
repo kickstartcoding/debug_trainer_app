@@ -30,7 +30,11 @@ export type ToElm =
   | { data: { content: string; path: string }; tag: "gotFileChoice" }
   | { data: null; tag: "fileChangeWasSaved" }
 
-export type Flags = { logo: string; randomNumbers: number[] }
+export type Flags = {
+  logo: string
+  mode: "development" | JsonValue
+  randomNumbers: number[]
+}
 
 export namespace Main {
   function init(options: { node?: HTMLElement | null; flags: Flags }): ElmApp
