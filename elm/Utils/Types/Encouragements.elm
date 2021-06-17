@@ -28,4 +28,5 @@ availableEncouragements =
     , " 💫 🌟 🎉 I believe in you! 🎉 ✨ ⭐️ "
     , "Good job asking for encouragement! Sometimes that's hard, but you deserve it!"
     , "You're doing a good job! If you've been working at this a while, give yourself the time and space to take a break for a bit."
+    , "Look at all of these flowers that think you're doing great! 🌸 🌷 🏵 🌹 🌺 🌻 (omg there's so many of them!)"
     ]

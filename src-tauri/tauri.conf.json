@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "Debugging Practice",
+    "productName": "Debug Trainer",
     "version": "0.1.9"
   },
   "build": {
@@ -53,7 +53,7 @@
     },
     "windows": [
       {
-        "title": "Debugging Practice",
+        "title": "Debug Trainer",
         "width": 800,
         "height": 620,
         "resizable": false,

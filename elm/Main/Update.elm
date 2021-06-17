@@ -15,6 +15,7 @@ import Stages.ChooseFile.Update as ChooseFileUpdate exposing (Instruction(..))
 import Stages.Debugging.Model
 import Stages.Debugging.Update as DebuggingUpdate
 import Stages.Finished.Update as FinishedUpdate
+import Utils.Constants as Constants
 import Utils.Types.Error as Error
 import Utils.Types.FilePath as FilePath
 
@@ -46,7 +47,7 @@ update msg model =
                         Just (UpdateBugCountInstruction newBugCount) ->
                             ( { model
                                 | stage = ChooseFile newModel
-                                , bugCount = newBugCount
+                                , requestedBugCount = newBugCount
                               }
                             , Cmd.map ChooseFileInterface cmd
                             )
@@ -160,7 +161,7 @@ update msg model =
                     Just
                         (Error.decoding
                             { action = "InteropError"
-                            , descriptionForUsers = "it looks like you found a bug in our app"
+                            , descriptionForUsers = "it looks like you found a bug in the " ++ Constants.appName ++ " app"
                             , error = error
                             , inModule = "Main.Update"
                             }
@@ -175,7 +176,7 @@ breakFile { path, content } model beginningCmd =
     let
         result =
             BreakFile.run
-                { breakCount = model.bugCount
+                { breakCount = model.requestedBugCount
                 , filepath = path
                 , fileContent = content
                 , randomNumbers = model.randomNumbers

@@ -12,8 +12,8 @@ import Utils.UI.Buttons as Buttons
 import Utils.UI.Text as Text
 
 
-render : { bugCount : Int, brokenFile : BrokenFile } -> Element Msg
-render { bugCount, brokenFile } =
+render : { requestedBugCount : Int, brokenFile : BrokenFile } -> Element Msg
+render { requestedBugCount, brokenFile } =
     column [ width fill, height fill, scrollbarY, spacing 50, paddingXY 30 50 ]
         (brokenFile.changes
             |> List.indexedMap (changeOptions brokenFile)

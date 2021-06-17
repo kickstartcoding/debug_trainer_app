@@ -48,7 +48,7 @@ render { path } =
                 , paragraph []
                     [ el [ Font.bold ] (text "3. It may be that the change we introduced into the file doesn't actually change the code enough to cause errors.")
                     ]
-                , paragraph [ paddingXY 40 0 ] [ text "If you think this might be it, try rerunning Debugging Practice to introduce a different error." ]
+                , paragraph [ paddingXY 40 0 ] [ text "If you think this might be it, try rerunning Debug Trainer to introduce a different error." ]
                 , Buttons.button [ width (px 400), centerX ]
                     { name = "reset broken file and play again"
                     , msg = ResetFileAndPlayAgain

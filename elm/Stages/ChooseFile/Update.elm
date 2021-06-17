@@ -19,10 +19,10 @@ update { model, msg } =
     case msg of
         UpdateBugCount count ->
             case String.toInt count of
-                Just bugCount ->
+                Just requestedBugCount ->
                     model
                         |> BubbleUp.justModel
-                        |> BubbleUp.withInstruction (UpdateBugCountInstruction bugCount)
+                        |> BubbleUp.withInstruction (UpdateBugCountInstruction requestedBugCount)
 
                 Nothing ->
                     model

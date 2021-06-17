@@ -10,7 +10,7 @@ import Utils.Types.Error exposing (Report)
 
 
 type alias Model =
-    { bugCount : Int
+    { requestedBugCount : Int
     , logo : String
     , randomNumbers : List Int
     , stage : Stage

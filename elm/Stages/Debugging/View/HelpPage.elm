@@ -22,14 +22,14 @@ import Utils.UI.Buttons as Buttons
 
 
 render :
-    { bugCount : Int
+    { requestedBugCount : Int
     , encouragements : Encouragements
     , currentDebuggingTip : Int
     , currentHelpTab : HelpTab
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
+render { requestedBugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFile } =
     column [ spacing 30, width fill, height fill ]
         [ Buttons.back { name = "back to instructions", msg = ChangePage StepsPage }
         , column [ width fill, height fill, spacing 20 ]
@@ -60,13 +60,13 @@ render { bugCount, currentDebuggingTip, encouragements, currentHelpTab, brokenFi
 
                 BugHints ->
                     BugHintsTab.render
-                        { bugCount = bugCount
+                        { requestedBugCount = requestedBugCount
                         , brokenFile = brokenFile
                         }
 
                 EncourageMe ->
                     EncouragementTab.render
-                        { bugCount = bugCount
+                        { requestedBugCount = requestedBugCount
                         , encouragements = encouragements
                         , brokenFile = brokenFile
                         }

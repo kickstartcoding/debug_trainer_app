@@ -12,11 +12,12 @@ import Stages.Debugging.View
 import Stages.Finished.View
 import Stages.Intro.View
 import Utils.Colors as Colors
+import Utils.Constants as Constants
 
 
 render : Model -> { title : String, body : List (Html Msg) }
-render { bugCount, stage, maybeError, logo } =
-    { title = "Debugging Trainer"
+render { requestedBugCount, stage, maybeError, logo } =
+    { title = Constants.appName
     , body =
         [ layout
             [ width fill
@@ -48,7 +49,7 @@ render { bugCount, stage, maybeError, logo } =
                 ChooseFile { startType, status } ->
                     Element.map ChooseFileInterface <|
                         Stages.ChooseFile.View.render
-                            { bugCount = bugCount
+                            { requestedBugCount = requestedBugCount
                             , startType = startType
                             , status = status
                             }
@@ -56,7 +57,7 @@ render { bugCount, stage, maybeError, logo } =
                 Debugging { brokenFile, currentPage, currentHelpTab, encouragements, currentDebuggingTip } ->
                     Element.map DebuggingInterface <|
                         Stages.Debugging.View.render
-                            { bugCount = bugCount
+                            { requestedBugCount = requestedBugCount
                             , encouragements = encouragements
                             , brokenFile = brokenFile
                             , currentPage = currentPage

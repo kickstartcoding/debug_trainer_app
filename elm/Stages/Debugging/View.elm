@@ -11,7 +11,7 @@ import Utils.Types.Encouragements exposing (Encouragements)
 
 
 render :
-    { bugCount : Int
+    { requestedBugCount : Int
     , encouragements : Encouragements
     , currentPage : Page
     , currentHelpTab : HelpTab
@@ -19,14 +19,14 @@ render :
     , brokenFile : BrokenFile
     }
     -> Element Msg
-render { bugCount, encouragements, currentDebuggingTip, brokenFile, currentPage, currentHelpTab } =
+render { requestedBugCount, encouragements, currentDebuggingTip, brokenFile, currentPage, currentHelpTab } =
     case currentPage of
         StepsPage ->
-            Stages.Debugging.View.StepsPage.render bugCount brokenFile
+            Stages.Debugging.View.StepsPage.render requestedBugCount brokenFile
 
         HelpPage ->
             Stages.Debugging.View.HelpPage.render
-                { bugCount = bugCount
+                { requestedBugCount = requestedBugCount
                 , encouragements = encouragements
                 , currentDebuggingTip = currentDebuggingTip
                 , brokenFile = brokenFile

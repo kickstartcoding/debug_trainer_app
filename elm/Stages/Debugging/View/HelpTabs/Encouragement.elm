@@ -9,7 +9,7 @@ import Utils.Types.Encouragements exposing (Encouragements)
 import Utils.UI.Buttons as Buttons
 
 
-render : { bugCount : Int, encouragements : Encouragements, brokenFile : BrokenFile } -> Element Msg
+render : { requestedBugCount : Int, encouragements : Encouragements, brokenFile : BrokenFile } -> Element Msg
 render { encouragements } =
     column [ Font.center, spacing 20, height fill, width fill ] <|
         [ el [ centerY, centerX, paddingXY 40 40 ] <|

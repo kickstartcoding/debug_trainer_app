@@ -22,12 +22,12 @@ import Utils.UI.Text as Text
 
 
 render :
-    { bugCount : Int
+    { requestedBugCount : Int
     , startType : StartType
     , status : Status
     }
     -> Element Msg
-render { bugCount, status } =
+render { requestedBugCount, status } =
     let
         { fileSelectLabel, startButton } =
             case status of
@@ -45,11 +45,11 @@ render { bugCount, status } =
                                 ("click here have "
                                     ++ Constants.appName
                                     ++ " introduce "
-                                    ++ Pluralize.aOrSome bugCount "bug"
+                                    ++ Pluralize.aOrSome requestedBugCount "bug"
                                     ++ " into "
                                     ++ FilePath.nameOnly file.path
                                     ++ " so that you can start debugging "
-                                    ++ Pluralize.itOrThem bugCount
+                                    ++ Pluralize.itOrThem requestedBugCount
                                 )
                             , centerX
                             ]
@@ -67,7 +67,7 @@ render { bugCount, status } =
                     none
 
                 GotFile _ ->
-                    howToStartNote bugCount
+                    howToStartNote requestedBugCount
             )
         ]
     <|
@@ -107,7 +107,7 @@ render { bugCount, status } =
                     , centerX
                     ]
                     { onChange = UpdateBugCount
-                    , text = String.fromInt bugCount
+                    , text = String.fromInt requestedBugCount
                     , placeholder = Nothing
                     , label = Input.labelHidden "the number of bugs you'd like to try debugging"
                     }
@@ -122,7 +122,7 @@ startButtonText =
 
 
 howToStartNote : Int -> Element msg
-howToStartNote bugCount =
+howToStartNote requestedBugCount =
     paragraph
         [ Background.color Colors.darkKickstartCodingBlue
         , Font.color Colors.white
@@ -136,7 +136,7 @@ howToStartNote bugCount =
             ("Click \""
                 ++ startButtonText
                 ++ "\" to add the "
-                ++ Pluralize.singularOrPlural bugCount "bug"
+                ++ Pluralize.singularOrPlural requestedBugCount "bug"
                 ++ " and start debugging."
             )
         ]

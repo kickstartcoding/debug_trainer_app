@@ -14,47 +14,44 @@ render logoPath =
     column
         [ height fill
         , width fill
+        , spacing 65
         ]
         [ column [ Font.center, spacing 10, centerX, height fill ]
             [ paragraph [ centerX, Font.size 30 ] [ text ("Welcome to " ++ Constants.appName ++ "!") ]
             , row [ Font.size 22, centerX ]
                 [ text "created by teachers at "
-                , Link.render
-                    [ Font.color Colors.kickstartCodingBlue ]
-                    { url = "https://kickstartcoding.com"
-                    , label =
-                        row []
-                            [ image
-                                [ height (px 40)
-                                , moveRight 3
-                                , moveUp 1
-                                ]
-                                { src = logoPath, description = "The Kickstart Coding logo — a partially pixelated blue hummingbird" }
-                            , text "Kickstart Coding"
-                            ]
-                    }
+                , kickstartLink logoPath
                 ]
             ]
-        , column
-            [ spacing 30
-            , width (px 600)
-            , height fill
-            , centerX
+        , column [ centerX, spacing 20, width (px 600) ]
+            [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
+            , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
+            , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
             ]
-            [ column [ spacing 20, centerY, height fill ]
-                [ column [ centerX, spacing 20 ]
-                    [ paragraph [] [ el [ Font.bold ] (text "step 1: "), text (Constants.appName ++ " will introduce a bug into a file of your choice") ]
-                    , paragraph [] [ el [ Font.bold ] (text "step 2: "), text "you try to figure out the bug with the help of hints and advice from the app" ]
-                    , paragraph [] [ el [ Font.bold ] (text "step 3: "), text "the app will return your file to its original working version when you're done" ]
-                    ]
-                , Buttons.button [ centerX ]
-                    { name = "let's get started!"
-                    , msg = LetsGetStarted
-                    }
-                ]
-            ]
+        , Buttons.button [ centerX ]
+            { name = "let's get started!"
+            , msg = LetsGetStarted
+            }
         , howDoesThisAppWorkLink
         ]
+
+
+kickstartLink : String -> Element msg
+kickstartLink logoPath =
+    Link.render
+        [ Font.color Colors.kickstartCodingBlue ]
+        { url = "https://kickstartcoding.com"
+        , label =
+            row []
+                [ image
+                    [ height (px 40)
+                    , moveRight 3
+                    , moveUp 1
+                    ]
+                    { src = logoPath, description = "The Kickstart Coding logo — a partially pixelated blue hummingbird" }
+                , text "Kickstart Coding"
+                ]
+        }
 
 
 howDoesThisAppWorkLink : Element msg

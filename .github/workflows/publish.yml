@@ -38,7 +38,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tagName: debugging-practice-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-        releaseName: "Debugging Practice v__VERSION__"
+        releaseName: "Debug Trainer v__VERSION__"
         body: "See the assets to download this version and install."
         draft: true
         prerelease: true

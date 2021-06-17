@@ -99,7 +99,7 @@ renderChange brokenFile index { lineNumber, changeDescription } =
                     (Text.codeWithAttrs
                         [ paddingXY 6 1
                         , Border.rounded 3
-                        , Background.color (Colors.lightened 0.75)
+                        , Background.color (Colors.lightened 0.8)
                         ]
                     )
              )

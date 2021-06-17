@@ -135,7 +135,6 @@ mapStringToSegment offset segmentType parser =
         |> Parser.map
             (\content ->
                 Segment offset content segmentType
-             -- |> Debug.log "segment mapped"
             )
 
 
