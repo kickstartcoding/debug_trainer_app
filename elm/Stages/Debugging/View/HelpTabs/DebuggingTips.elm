@@ -45,7 +45,7 @@ render { currentDebuggingTip, brokenFile } =
 
 defaultTip : List (Element msg)
 defaultTip =
-    tip
+    tip []
         { header = "Tip #1: Find the line number"
         , content = [ paragraph [] [ text "Find the line number in the error message and check that part of the file first." ] ]
         }
@@ -54,7 +54,7 @@ defaultTip =
 debuggingTips : FileType -> List (List (Element msg))
 debuggingTips fileType =
     [ defaultTip
-    , tip
+    , tip [ Font.size 18 ]
         { header = "Tip #2: Check the error message"
         , content =
             [ paragraph []
@@ -83,7 +83,7 @@ debuggingTips fileType =
                 ]
             ]
         }
-    , tip
+    , tip []
         { header = "Tip #3: Print your variables"
         , content =
             [ paragraph [] [ text "Print out the variables in your program — even if you think you know what they all are, some of them may surprise you!" ]
@@ -96,26 +96,26 @@ debuggingTips fileType =
                 ]
             ]
         }
-    , tip
+    , tip [ Font.size 18 ]
         { header = "Tip #4: Read through your code one line at a time"
         , content =
-            [ paragraph [ Font.size 18 ] [ text "Read through your code one line at a time. For each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera." ]
-            , paragraph [ Font.size 18 ] [ text "Don't think about anything that happens on the next line until you've figured out everything that happens on the one you're looking at." ]
-            , paragraph [ Font.size 18 ] [ text "If you're even the slightest bit unsure about something, print it to make sure." ]
+            [ paragraph [] [ text "Read through your code one line at a time. For each line, check if you know the value of every variable on that line, the return value of every function, the outcome of every comparison, et cetera." ]
+            , paragraph [] [ text "Don't think about anything that happens on the next line until you've figured out everything that happens on the one you're looking at." ]
+            , paragraph [] [ text "If you're even the slightest bit unsure about something, print it to make sure." ]
             ]
         }
-    , tip
+    , tip []
         { header = "Tip #5: Get hints from the \"Bug Hints\" tab"
         , content = [ paragraph [] [ text "If you're stuck, the \"Bug Hints\" tab can tell you what line of the file a bug is on, or what type of bug it is." ] ]
         }
-    , tip
+    , tip []
         { header = "Tip #6: Take breaks"
         , content =
             [ paragraph [] [ text "Sometimes you just need to get some food or some water, go to the bathroom, or go for a walk and let you brain rest a bit." ]
             , paragraph [] [ text "You might be surprised at the things you'll notice about your code after taking a break." ]
             ]
         }
-    , tip
+    , tip []
         { header = "Tip #7: Ask for help"
         , content =
             [ paragraph [] [ text "One of the best ways to learn and figure things out is to get help from friends and community." ]
@@ -126,10 +126,10 @@ debuggingTips fileType =
     ]
 
 
-tip : { a | header : String, content : List (Element msg) } -> List (Element msg)
-tip { header, content } =
+tip : List (Attribute msg) -> { header : String, content : List (Element msg) } -> List (Element msg)
+tip attrs { header, content } =
     [ tipHeader header
-    , tipColumn content
+    , tipColumn attrs content
     ]
 
 
@@ -138,14 +138,16 @@ tipHeader content =
     paragraph [ Font.size 20, Font.bold, paddingXY 12 0 ] [ text content ]
 
 
-tipColumn : List (Element msg) -> Element msg
-tipColumn content =
+tipColumn : List (Attribute msg) -> List (Element msg) -> Element msg
+tipColumn attrs content =
     column
-        [ spacing 20
-        , Background.color Colors.lightGray
-        , Border.rounded 5
-        , paddingXY 30 20
-        , centerY
-        , centerX
-        ]
+        ([ spacing 20
+         , Background.color Colors.lightGray
+         , Border.rounded 5
+         , paddingXY 30 20
+         , centerY
+         , centerX
+         ]
+            ++ attrs
+        )
         content
