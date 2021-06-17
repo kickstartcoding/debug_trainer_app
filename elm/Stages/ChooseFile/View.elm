@@ -52,6 +52,7 @@ render { requestedBugCount, status } =
                                     ++ Pluralize.itOrThem requestedBugCount
                                 )
                             , centerX
+                            , centerY
                             ]
                             { msg = BreakFile file
                             , name = startButtonText
@@ -112,7 +113,7 @@ render { requestedBugCount, status } =
                     , label = Input.labelHidden "the number of bugs you'd like to try debugging"
                     }
                 ]
-            , el [ height (px 60), centerX ] startButton
+            , el [ height (px 80), centerX ] startButton
             ]
 
 
