@@ -43,10 +43,10 @@ init flags =
     ( { requestedBugCount = 1
       , logo = logoPath
       , randomNumbers = numbers
-      , stage = Intro
+    --   , stage = Intro
 
       -- , stage = DummyData.chooseFileStage
-      -- , stage = DummyData.gotFileStage
+      , stage = DummyData.gotFileStage
       -- , stage = DummyData.debuggingStageStepsPage numbers
       -- , stage = DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
       -- , stage = DummyData.debuggingStageBugHintsTab numbers

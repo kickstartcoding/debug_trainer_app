@@ -7,6 +7,7 @@ import Element.Font as Font
 import Stages.Finished.Model exposing (FinishType(..), Model)
 import Stages.Finished.Msg exposing (Msg(..))
 import Utils.Colors as Colors
+import Utils.Constants as Constants
 import Utils.String
 import Utils.Types.BrokenFile exposing (BrokenFile)
 import Utils.Types.ChangeData exposing (ChangeData)
@@ -31,13 +32,13 @@ render { finishType, brokenFile } =
             [ paragraph [ Font.center, Font.size 30 ]
                 (case finishType of
                     SuccessfullySolved ->
-                        [ text "Nice work! To review, here's what we did to "
+                        [ text ("Nice work! To review, here's what " ++ Constants.appName ++ " did to ")
                         , Text.codeWithAttrs [ Border.rounded 5 ] (FilePath.nameOnly brokenFile.path)
                         , text ":"
                         ]
 
                     AskedToSeeAnswer ->
-                        [ text "Here's what we did to "
+                        [ text ("Here's what " ++ Constants.appName ++ " did to ")
                         , Text.codeWithAttrs [ Border.rounded 5 ] (FilePath.nameOnly brokenFile.path)
                         , text ":"
                         ]

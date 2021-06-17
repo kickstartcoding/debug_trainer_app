@@ -5458,7 +5458,6 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$document = _Browser_document;
-var $author$project$Main$Model$Intro = {$: 'Intro'};
 var $author$project$Utils$Constants$appName = 'Debug Trainer';
 var $elm$json$Json$Decode$decodeValue = _Json_run;
 var $dillonkearns$elm_ts_json$TsJson$Decode$decoder = function (_v0) {
@@ -6553,6 +6552,27 @@ var $author$project$Utils$Types$Error$decoding = function (_v0) {
 		inModule: inModule
 	};
 };
+var $author$project$Main$Model$ChooseFile = function (a) {
+	return {$: 'ChooseFile', a: a};
+};
+var $author$project$Stages$ChooseFile$Model$FirstTime = {$: 'FirstTime'};
+var $author$project$Stages$ChooseFile$Model$GotFile = function (a) {
+	return {$: 'GotFile', a: a};
+};
+var $author$project$Utils$DummyData$defaultFileContent = 'function a (a, b, c) {\n  return c\n}\na()\n';
+var $author$project$Utils$Types$FilePath$FilePath = function (a) {
+	return {$: 'FilePath', a: a};
+};
+var $author$project$Utils$Types$FilePath$fromString = function (string) {
+	return $author$project$Utils$Types$FilePath$FilePath(string);
+};
+var $author$project$Utils$DummyData$defaultFilePath = $author$project$Utils$Types$FilePath$fromString('/Users/SomeUser/long_file_path/with_a_lot_of_levels/testFile.js');
+var $author$project$Utils$DummyData$gotFileStage = $author$project$Main$Model$ChooseFile(
+	{
+		startType: $author$project$Stages$ChooseFile$Model$FirstTime,
+		status: $author$project$Stages$ChooseFile$Model$GotFile(
+			{content: $author$project$Utils$DummyData$defaultFileContent, path: $author$project$Utils$DummyData$defaultFilePath})
+	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (flags) {
@@ -6578,7 +6598,7 @@ var $author$project$Main$init = function (flags) {
 	var startingError = _v0.startingError;
 	var logoPath = _v0.logoPath;
 	return _Utils_Tuple2(
-		{logo: logoPath, maybeError: startingError, randomNumbers: numbers, requestedBugCount: 1, stage: $author$project$Main$Model$Intro},
+		{logo: logoPath, maybeError: startingError, randomNumbers: numbers, requestedBugCount: 1, stage: $author$project$Utils$DummyData$gotFileStage},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Main$Msg$ChooseFileInterface = function (a) {
@@ -13888,7 +13908,8 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 							$mdgriffith$elm_ui$Element$Background$color($author$project$Utils$Colors$green),
 							$author$project$Utils$UI$Attributes$title(
 							'click here have ' + ($author$project$Utils$Constants$appName + (' introduce ' + (A2($author$project$Utils$Pluralize$aOrSome, requestedBugCount, 'bug') + (' into ' + ($author$project$Utils$Types$FilePath$nameOnly(file.path) + (' so that you can start debugging ' + $author$project$Utils$Pluralize$itOrThem(requestedBugCount)))))))),
-							$mdgriffith$elm_ui$Element$centerX
+							$mdgriffith$elm_ui$Element$centerX,
+							$mdgriffith$elm_ui$Element$centerY
 						]),
 					{
 						msg: $author$project$Stages$ChooseFile$Msg$BreakFile(file),
@@ -14011,7 +14032,7 @@ var $author$project$Stages$ChooseFile$View$render = function (_v0) {
 					_List_fromArray(
 						[
 							$mdgriffith$elm_ui$Element$height(
-							$mdgriffith$elm_ui$Element$px(60)),
+							$mdgriffith$elm_ui$Element$px(80)),
 							$mdgriffith$elm_ui$Element$centerX
 						]),
 					startButton)
@@ -15261,7 +15282,7 @@ var $author$project$Stages$Debugging$View$IDontSeeAnyErrorsPage$render = functio
 									$mdgriffith$elm_ui$Element$el,
 									_List_fromArray(
 										[$mdgriffith$elm_ui$Element$Font$bold]),
-									$mdgriffith$elm_ui$Element$text('3. It may be that the change we introduced into the file doesn\'t actually change the code enough to cause errors.'))
+									$mdgriffith$elm_ui$Element$text('3. It may be that the change that ' + ($author$project$Utils$Constants$appName + ' introduced into the file doesn\'t actually change the code enough to cause errors.')))
 								])),
 							A2(
 							$mdgriffith$elm_ui$Element$paragraph,
@@ -15720,7 +15741,7 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 							if (finishType.$ === 'SuccessfullySolved') {
 								return _List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Nice work! To review, here\'s what we did to '),
+										$mdgriffith$elm_ui$Element$text('Nice work! To review, here\'s what ' + ($author$project$Utils$Constants$appName + ' did to ')),
 										A2(
 										$author$project$Utils$UI$Text$codeWithAttrs,
 										_List_fromArray(
@@ -15733,7 +15754,7 @@ var $author$project$Stages$Finished$View$render = function (_v0) {
 							} else {
 								return _List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$text('Here\'s what we did to '),
+										$mdgriffith$elm_ui$Element$text('Here\'s what ' + ($author$project$Utils$Constants$appName + ' did to ')),
 										A2(
 										$author$project$Utils$UI$Text$codeWithAttrs,
 										_List_fromArray(
@@ -16096,12 +16117,6 @@ var $author$project$Stages$ChooseFile$Model$File = F2(
 	function (path, content) {
 		return {content: content, path: path};
 	});
-var $author$project$Utils$Types$FilePath$FilePath = function (a) {
-	return {$: 'FilePath', a: a};
-};
-var $author$project$Utils$Types$FilePath$fromString = function (string) {
-	return $author$project$Utils$Types$FilePath$FilePath(string);
-};
 var $dillonkearns$elm_ts_json$TsJson$Decode$map = F2(
 	function (mapFn, _v0) {
 		var innerDecoder = _v0.a;
@@ -16208,9 +16223,6 @@ var $author$project$Main$Subscriptions$subscriptions = function (model) {
 		},
 		$author$project$Main$Interop$toElm);
 };
-var $author$project$Main$Model$ChooseFile = function (a) {
-	return {$: 'ChooseFile', a: a};
-};
 var $author$project$Main$Model$Debugging = function (a) {
 	return {$: 'Debugging', a: a};
 };
@@ -16218,9 +16230,6 @@ var $author$project$Main$Model$Finished = function (a) {
 	return {$: 'Finished', a: a};
 };
 var $author$project$Stages$ChooseFile$Model$AfterFileReset = {$: 'AfterFileReset'};
-var $author$project$Stages$ChooseFile$Model$GotFile = function (a) {
-	return {$: 'GotFile', a: a};
-};
 var $author$project$Stages$ChooseFile$Model$afterResetInit = function (brokenFile) {
 	return {
 		startType: $author$project$Stages$ChooseFile$Model$AfterFileReset,
@@ -18730,7 +18739,6 @@ var $author$project$Main$Update$generateNewRandomNumbersCmd = A2(
 		$elm$random$Random$list,
 		20,
 		A2($elm$random$Random$int, 1, 1000000)));
-var $author$project$Stages$ChooseFile$Model$FirstTime = {$: 'FirstTime'};
 var $author$project$Stages$ChooseFile$Model$JustStarted = {$: 'JustStarted'};
 var $author$project$Stages$ChooseFile$Model$init = {startType: $author$project$Stages$ChooseFile$Model$FirstTime, status: $author$project$Stages$ChooseFile$Model$JustStarted};
 var $author$project$Stages$ChooseFile$Update$BreakFileInstruction = function (a) {
