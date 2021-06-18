@@ -10,7 +10,7 @@ Download the latest release on [the releases page](https://github.com/kickstartc
 
 ## Stack
 
-Debug Trainer runs on the [Tauri](https://tauri.studio) platform using a front-end composed mainly of Elm code with a bit of Typescript to tie it together.
+Debug Trainer runs on the [Tauri](https://tauri.studio) platform using a front-end composed mainly of [Elm](https://elm-lang.org/) code with a bit of [Typescript](https://www.typescriptlang.org/) to tie it together.
 
 ## Development
 
@@ -18,4 +18,4 @@ Since auto-reloading the complete app including Tauri can be unreliable, for mos
 
 ## Building
 
-`npm run build` will build the final app.
+`npm run build` will build the final app, though this is usually done via [the Tauri cross-platform compilation GitHub action](https://tauri.studio/en/docs/usage/ci-cd/cross-platform/) so that we can build for Mac, Linux, and Windows all at once.
