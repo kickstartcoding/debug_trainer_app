@@ -18,6 +18,7 @@
     "dev": "run-p dev:*",
     "eslint": "eslint ./js/**/*.ts --ext .ts",
     "build-ports": "elm-ts-interop-pro --gen-directory=elm --definitions=elm/Main/Definitions.elm --gen-module=Main.Interop --entrypoint Main --output elm/Main/index.d.ts",
+    "build:elm": "elm make elm/Main.elm --output=elm/Main.js --optimize",
     "build:parcel": "eslint && tsc --noEmit && parcel build js/index.html --out-dir dist",
     "build:tauri": "tauri build",
     "tauri": "tauri",
