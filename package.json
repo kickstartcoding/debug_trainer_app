@@ -1,6 +1,6 @@
 {
-  "name": "debugging-practice",
-  "version": "0.2.2",
+  "name": "debug-trainer",
+  "version": "0.2.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/kickstartcoding/debug_trainer_app.git"
