@@ -26,4 +26,4 @@ If you need to test out the file read/write capabilities as well, you'll need to
 
 ## Building
 
-`npm run build` will build the final app, though this is usually done via [the Tauri cross-platform compilation GitHub action](https://tauri.studio/en/docs/usage/ci-cd/cross-platform/) so that we can build for Mac, Linux, and Windows all at once.
+`npm run build` will build the final app, though this is usually done via [the Tauri cross-platform compilation GitHub action](https://tauri.studio/en/docs/usage/ci-cd/cross-platform/) so that we can build for Mac, Linux, and Windows all at once. See the [publish.yml](.github/workflows/publish.yml) workflow for how this GitHub action gets run.
