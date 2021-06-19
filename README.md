@@ -14,7 +14,15 @@ Debug Trainer runs on the [Tauri](https://tauri.studio) platform using a front-e
 
 ## Development
 
-Since auto-reloading the complete app including Tauri can be unreliable, for most changes you can just run the Elm front-end via the `npm run dev:web:elm` command. If you need to test out the file read/write capabilities as well, you'll need to run it with `npm run dev` which will run [elm-live](https://www.elm-live.com/), [Parcel](https://v2.parceljs.org/), and the [Tauri](https://tauri.studio) backend all at once.
+### For simple UI changes
+
+Since auto-reloading the complete app including Tauri can be unreliable, for simple UI changes you can just run the Elm front-end via the `npm run dev:web:elm` command. To look at different pages of the app, you can comment/uncomment different lines of the `Utils.DevModeStartState.get` function. 
+
+Note: when you run it this way, you'll see the app show an error because it's not getting the flags it expects, but you should be able to see the general interface still.
+
+### For back-end-inclusive or more complex changes
+
+If you need to test out the file read/write capabilities as well, you'll need to run it with `npm run dev` which will run [elm-live](https://www.elm-live.com/), [Parcel](https://v2.parceljs.org/), and the [Tauri](https://tauri.studio) backend all at once.
 
 ## Building
 
