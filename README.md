@@ -4,7 +4,7 @@
 
 Debug Trainer is an app that can randomly add bugs to files so that people learning to program can practice debugging those bugs in a context where they can get hints and help and where the bugs can be automatically removed if they can't figure them out.
 
-[Read more on the 1.0 blog post](https://kickstartcoding.online/learn/articles/introducing-debug-trainer-desktop-edition/).
+[Read more on the blog post](https://kickstartcoding.online/learn/articles/introducing-debug-trainer-desktop-edition/)
 
 ## How do I use it?
 
