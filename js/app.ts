@@ -6,7 +6,10 @@ import { register } from '@tauri-apps/api/globalShortcut'
 import logo from './assets/logo.png'
 
 register("CmdOrControl+Q", () => {
-  exit()
+  app.ports.interopToElm.send({
+    tag: "exitShortcutWasPressed",
+    data: null
+  })
 })
 
 const app = Elm.Main.init({
@@ -49,6 +52,12 @@ app.ports.interopFromElm.subscribe((fromElm) => {
         path: fromElm.data.path,
         contents: fromElm.data.content
       }).then(() => exit())
+      break
+    case "exit":
+      exit()
+      break
+    default:
+      throw new UnreachableCaseError(fromElm)
   }
 })
 
@@ -58,4 +67,12 @@ function getRandomInts(max: number, count: number): number[] {
 
 function getRandomInt(max: number): number {
   return Math.floor(Math.random() * Math.floor(max))
+}
+
+
+export class UnreachableCaseError extends Error {
+  // IF THIS ERROR IS THROWN, A SWITCH STATEMENT IS MISSING SOME CASES
+  constructor(value: never) {
+    super(`Unreachable case: ${value}`)
+  }
 }

@@ -43,6 +43,11 @@ writeFile =
         ]
 
 
+exit : TsEncode.Encoder ()
+exit =
+    TsEncode.null
+
+
 writeFileAndExit : TsEncode.Encoder File
 writeFileAndExit =
     TsEncode.object
@@ -65,3 +70,8 @@ gotFileChoice =
 fileChangeWasSaved : Decoder ()
 fileChangeWasSaved =
     TsDecode.null ()
+
+
+exitShortcutWasPressed : Decoder ()
+exitShortcutWasPressed =
+    TsDecode.succeed ()

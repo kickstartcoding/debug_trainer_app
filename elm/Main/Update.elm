@@ -155,6 +155,42 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        ExitShortcutWasPressed ->
+            case model.stage of
+                Intro ->
+                    ( model, Interop.exit () )
+
+                ChooseFile _ ->
+                    ( model, Interop.exit () )
+
+                Debugging _ ->
+                    if model.showExitMenu then
+                        ( model, Interop.exit () )
+
+                    else
+                        ( { model | showExitMenu = True }, Cmd.none )
+
+                Finished _ ->
+                    if model.showExitMenu then
+                        ( model, Interop.exit () )
+
+                    else
+                        ( { model | showExitMenu = True }, Cmd.none )
+
+        Quit ->
+            ( model, Interop.exit () )
+
+        QuitAndResetFile brokenFile ->
+            ( model
+            , Interop.writeFileAndExit
+                { path = brokenFile.path
+                , content = brokenFile.originalContent
+                }
+            )
+
+        CancelQuitRequest ->
+            ( { model | showExitMenu = False }, Cmd.none )
+
         InteropError error ->
             ( { model
                 | maybeError =

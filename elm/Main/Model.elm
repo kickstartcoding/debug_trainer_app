@@ -14,6 +14,7 @@ type alias Model =
     , logo : String
     , randomNumbers : List Int
     , stage : Stage
+    , showExitMenu : Bool
     , maybeError : Maybe Report
     }
 

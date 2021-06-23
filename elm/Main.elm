@@ -10,10 +10,11 @@ import Main.Update
 import Main.View
 import Stages.Debugging.Model exposing (HelpTab(..), Page(..))
 import Utils.Constants as Constants
+import Utils.DevModeStartState as DevModeStartState
 import Utils.Types.AppMode exposing (AppMode(..))
 import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.Error as Error
-import Utils.DevModeStartState as DevModeStartState
+
 
 init : Value -> ( Model, Cmd Msg )
 init flags =
@@ -52,11 +53,11 @@ init flags =
 
                 Development ->
                     DevModeStartState.get numbers
+      , showExitMenu = False
       , maybeError = startingError
       }
     , Cmd.none
     )
-
 
 
 main : Program Value Model Msg

@@ -2,6 +2,7 @@ port module Main.Interop exposing
     ( ToElm(..)
     , toElm
     , decodeFlags
+    , exit
     , writeFile
     , writeFileAndExit
     , chooseFile
@@ -21,6 +22,12 @@ decodeFlags flags =
         (Main.Definitions.flags |> TsDecode.decoder)
         flags
 
+
+
+exit argument____ =
+    argument____
+      |> encodeProVariant "exit" Main.Definitions.exit
+      |> interopFromElm
 
 
 writeFile argument____ =
@@ -43,7 +50,8 @@ chooseFile argument____ =
 
 
 type ToElm
-    = GotFileChoice Stages.ChooseFile.Model.File
+    = ExitShortcutWasPressed ()
+    | GotFileChoice Stages.ChooseFile.Model.File
     | FileChangeWasSaved ()
 
 
@@ -57,7 +65,8 @@ toElm =
 toElmDecoder____ : TsDecode.Decoder ToElm
 toElmDecoder____ =
     TsDecode.oneOf
-        [ toElmVariant "gotFileChoice" GotFileChoice Main.Definitions.gotFileChoice
+        [ toElmVariant "exitShortcutWasPressed" ExitShortcutWasPressed Main.Definitions.exitShortcutWasPressed
+    , toElmVariant "gotFileChoice" GotFileChoice Main.Definitions.gotFileChoice
     , toElmVariant "fileChangeWasSaved" FileChangeWasSaved Main.Definitions.fileChangeWasSaved
         ]
 

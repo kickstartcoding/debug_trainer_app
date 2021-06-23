@@ -22,11 +22,13 @@ export interface ElmApp {
 }
 
 export type FromElm =
+  | { data: null; tag: "exit" }
   | { data: { content: string; path: string }; tag: "writeFile" }
   | { data: { content: string; path: string }; tag: "writeFileAndExit" }
   | { data: null; tag: "chooseFile" }
 
 export type ToElm =
+  | { data: JsonValue; tag: "exitShortcutWasPressed" }
   | { data: { content: string; path: string }; tag: "gotFileChoice" }
   | { data: null; tag: "fileChangeWasSaved" }
 

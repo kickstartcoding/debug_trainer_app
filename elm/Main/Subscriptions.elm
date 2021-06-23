@@ -19,6 +19,9 @@ subscriptions model =
                     Ok (Interop.FileChangeWasSaved ()) ->
                         FileWasBroken
 
+                    Ok (Interop.ExitShortcutWasPressed ()) ->
+                        ExitShortcutWasPressed
+
                     Err error ->
                         InteropError error
             )
