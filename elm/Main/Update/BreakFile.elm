@@ -29,6 +29,12 @@ run ({ filepath, fileContent } as config) =
         -- |> Result.mapError (Debug.log "error")
         |> Result.map (randomlySelectFileChangesFromParsedSegments config)
         |> Result.toMaybe
+        |> Maybe.map
+            (\{ newFileContent, changes } ->
+                { newFileContent = newFileContent
+                , changes = List.sortBy .lineNumber changes
+                }
+            )
 
 
 type alias BreakResult =
