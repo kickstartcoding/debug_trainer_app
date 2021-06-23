@@ -138,7 +138,7 @@ labeledCodeSnippet { label, focusedLine, content } =
             [ Background.color Colors.veryLightGray
             , Border.rounded 5
             , width (px 700)
-            , height (px 136)
+            , height (px 140)
             , scrollbarX
             ]
             (List.map (renderCodeLine focusedLine) codeLines)
