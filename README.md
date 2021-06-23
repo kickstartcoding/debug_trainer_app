@@ -6,7 +6,7 @@ Debug Trainer is an app that can randomly add bugs to files so that people learn
 
 [Read more on the blog post](https://kickstartcoding.online/learn/articles/introducing-debug-trainer-desktop-edition/)
 
-![The main page of the Debug Trainer app; text reads “I put 3 bugs into testFile.js; can you figure out where they are?”, and then shows a set of step-by-step instructions for figuring it out.](./static/main_page.png)
+<img src="./static/main_page.png" alt="The main page of the Debug Trainer app; text reads “I put 3 bugs into testFile.js; can you figure out where they are?”, and then shows a set of step-by-step instructions for figuring it out." width="400"/>
 
 ## How do I use it?
 
