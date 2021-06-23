@@ -67,6 +67,7 @@ fileChanges brokenFile =
         )
 
 
+finishButtons : List (Attribute Msg) -> Element Msg
 finishButtons attrs =
     row ([ width fill, spacing 20 ] ++ attrs)
         [ Buttons.button [ width fill, Background.color Colors.green ]
@@ -110,7 +111,7 @@ renderChange brokenFile index { lineNumber, changeDescription } =
                         )
                    ]
             )
-        , column [ spacing 20, width fill ]
+        , column [ spacing 20, width fill, centerX ]
             [ labeledCodeSnippet
                 { label = "in the original file"
                 , focusedLine = lineNumber
@@ -127,16 +128,35 @@ renderChange brokenFile index { lineNumber, changeDescription } =
 
 labeledCodeSnippet : { label : String, focusedLine : Int, content : String } -> Element msg
 labeledCodeSnippet { label, focusedLine, content } =
-    column [ width fill, spacing 10 ]
+    let
+        codeLines =
+            getNearbyLines focusedLine content
+
+        longestLineLength =
+            codeLines
+                |> List.map (Tuple.second >> String.length)
+                |> List.maximum
+                |> Maybe.withDefault 0
+
+        needsAScrollbar =
+            longestLineLength > 55
+    in
+    column [ spacing 10 ]
         [ paragraph [ Font.center ] [ text label ]
         , column
-            [ Background.color Colors.veryLightGray
-            , Border.rounded 5
-            , width fill
-            ]
-            (getNearbyLines focusedLine content
-                |> List.map (renderCodeLine focusedLine)
+            ([ Background.color Colors.veryLightGray
+             , Border.rounded 5
+             , width (px 700)
+             , height (px 136)
+             , scrollbarX
+             ]
+             -- ++ (if needsAScrollbar then
+             --         [ height (px 136) ]
+             --     else
+             --         [ height (px 127) ]
+             --    )
             )
+            (List.map (renderCodeLine focusedLine) codeLines)
         ]
 
 
@@ -156,7 +176,7 @@ renderCodeLine changedLineNumber ( lineNumber, content ) =
                 , fontStyle = Font.medium
                 }
     in
-    row [ width fill ]
+    row [ width fill, centerY ]
         [ Text.codeWithAttrs
             [ Css.unselectable
             , Background.color numBackground
@@ -167,6 +187,7 @@ renderCodeLine changedLineNumber ( lineNumber, content ) =
         , paragraph
             [ Background.color lineBackground
             , paddingEach { top = 0, bottom = 0, right = 0, left = 10 }
+            , width fill
             ]
             [ Text.codeWithAttrs
                 [ Background.color Colors.transparent
@@ -181,8 +202,32 @@ renderCodeLine changedLineNumber ( lineNumber, content ) =
 
 getNearbyLines : Int -> String -> List ( Int, String )
 getNearbyLines lineNumber wholeFile =
-    wholeFile
-        |> String.lines
-        |> List.indexedMap (\index line -> ( index + 1, line ))
-        |> List.drop (lineNumber - 3)
-        |> List.take 5
+    let
+        lines =
+            wholeFile
+                |> String.lines
+                |> List.indexedMap (\index line -> ( index + 1, line ))
+
+        lineCount =
+            List.length lines
+
+        linesAwayFromEndOfFile =
+            lineCount - lineNumber
+    in
+    if lineNumber < 4 then
+        -- if close the the start of the file, take the first 5 lines
+        lines
+            |> List.take 5
+
+    else if linesAwayFromEndOfFile < 4 then
+        -- if close the the end of the file, take the first 5 lines
+        lines
+            |> List.reverse
+            |> List.take 5
+            |> List.reverse
+
+    else
+        -- otherwise, take the previous and next two lines after the target line
+        lines
+            |> List.drop (lineNumber - 3)
+            |> List.take 5

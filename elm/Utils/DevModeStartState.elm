@@ -9,14 +9,11 @@ get numbers =
     -- Intro
     -- DummyData.chooseFileStage
     -- DummyData.gotFileStage
-    DummyData.debuggingStageStepsPage numbers
-
-
-
--- DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
--- DummyData.debuggingStageBugHintsTab numbers
--- DummyData.debuggingStageTipsTab numbers
--- DummyData.debuggingStageEncouragementTab numbers
--- DummyData.debuggingStageShowAnswerTab numbers
--- DummyData.successfulFinishStage numbers
--- DummyData.shownAnswerFinishedStage numbers
+    -- DummyData.debuggingStageStepsPage numbers
+    -- DummyData.debuggingStageIDontSeeAnyErrorsPage numbers
+    -- DummyData.debuggingStageBugHintsTab numbers
+    -- DummyData.debuggingStageTipsTab numbers
+    -- DummyData.debuggingStageEncouragementTab numbers
+    -- DummyData.debuggingStageShowAnswerTab numbers
+    -- DummyData.successfulFinishStage numbers
+    DummyData.shownAnswerFinishedStage numbers

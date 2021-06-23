@@ -187,4 +187,10 @@ defaultFilePath =
 
 defaultFileContent : String
 defaultFileContent =
-    "function a (a, b, c) {\n  return c\n}\na()\n"
+    "function fileWithAVeryVeryVeryVeryVeryVeryVeryVeryLongName (a, b, c) {\n  return c\n}\na()\n"
+
+
+
+-- defaultFileContent : String
+-- defaultFileContent =
+--     "function a (a, b, c) {\n  return c\n}\na()\n"
