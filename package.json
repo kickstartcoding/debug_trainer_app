@@ -6,6 +6,7 @@
     "url": "https://github.com/kickstartcoding/debug_trainer_app.git"
   },
   "author": "Kickstart Coding",
+  "license": "ACSL",
   "keywords": [
     "debug",
     "debugging"
