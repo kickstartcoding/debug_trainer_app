@@ -94,7 +94,7 @@ renderChange brokenFile index { lineNumber, changeDescription } =
             , Background.color Colors.purple
             , Border.rounded 5
             , paddingXY 20 8
-            , width fill
+            , width (maximum 740 fill)
             ]
             ((changeDescription
                 |> Utils.String.formatBackticks
@@ -131,31 +131,16 @@ labeledCodeSnippet { label, focusedLine, content } =
     let
         codeLines =
             getNearbyLines focusedLine content
-
-        longestLineLength =
-            codeLines
-                |> List.map (Tuple.second >> String.length)
-                |> List.maximum
-                |> Maybe.withDefault 0
-
-        needsAScrollbar =
-            longestLineLength > 55
     in
-    column [ spacing 10 ]
+    column [ spacing 10, centerX ]
         [ paragraph [ Font.center ] [ text label ]
         , column
-            ([ Background.color Colors.veryLightGray
-             , Border.rounded 5
-             , width (px 700)
-             , height (px 136)
-             , scrollbarX
-             ]
-             -- ++ (if needsAScrollbar then
-             --         [ height (px 136) ]
-             --     else
-             --         [ height (px 127) ]
-             --    )
-            )
+            [ Background.color Colors.veryLightGray
+            , Border.rounded 5
+            , width (px 700)
+            , height (px 136)
+            , scrollbarX
+            ]
             (List.map (renderCodeLine focusedLine) codeLines)
         ]
 
