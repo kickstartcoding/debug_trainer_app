@@ -6,7 +6,7 @@ Debug Trainer is an app that can randomly add bugs to files so that people learn
 
 ## How do I use it?
 
-Download the latest release on [the latest release page](https://github.com/kickstartcoding/debug_trainer_app/releases/latest) and start it up! Grab the `.dmg` file if you’re a Mac user, the `.deb` file if you’re on Linux, and the `.msi` file if you’re on Windows.
+Download the latest release on [the latest release page](https://github.com/kickstartcoding/debug_trainer_app/releases/latest) and start it up! Grab the `.dmg` file if you’re a Mac user, the `.AppImage` file if you’re on Linux, and the `.msi` file if you’re on Windows.
 
 ## Stack
 
