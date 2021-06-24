@@ -196,7 +196,7 @@ update msg model =
                 | maybeError =
                     Just
                         (Error.decoding
-                            { action = "InteropError"
+                            { msg = "InteropError"
                             , descriptionForUsers = "it looks like you found a bug in the " ++ Constants.appName ++ " app"
                             , error = error
                             , inModule = "Main.Update"
@@ -245,7 +245,7 @@ breakFile { path, content } model beginningCmd =
                 | maybeError =
                     Just
                         (Error.misc
-                            { action = "ChooseFileInterface"
+                            { msg = "ChooseFileInterface"
                             , descriptionForUsers = "couldn't find any ways to break " ++ FilePath.toString path
                             , error = "no known ways to break " ++ FilePath.toString path
                             , inModule = "Main.Update"

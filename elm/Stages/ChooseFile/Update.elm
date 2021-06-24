@@ -28,7 +28,7 @@ update { model, msg } =
                     model
                         |> BubbleUp.justModel
                         |> BubbleUp.withMiscError
-                            { action = "UpdateBugCount"
+                            { msg = "UpdateBugCount"
                             , descriptionForUsers = "it looks like you somehow entered a bug count that isn't a valid number"
                             , error = "Couldn't parse the bug count"
                             , inModule = "Stages.ChooseFile.Update"

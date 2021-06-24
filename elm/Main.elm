@@ -34,7 +34,7 @@ init flags =
                     , startingError =
                         Just
                             (Error.decoding
-                                { action = "initial flag decoding"
+                                { msg = "initial flag decoding"
                                 , descriptionForUsers = "Something went wrong loading " ++ Constants.appName
                                 , error = error
                                 , inModule = "Main"

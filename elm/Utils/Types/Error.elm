@@ -12,7 +12,7 @@ import Json.Decode
 type alias Report =
     { descriptionForUsers : String
     , inModule : String
-    , action : String
+    , msg : String
     , error : Error
     }
 
@@ -25,14 +25,14 @@ type Error
 decoding :
     { descriptionForUsers : String
     , inModule : String
-    , action : String
+    , msg : String
     , error : Json.Decode.Error
     }
     -> Report
-decoding { error, inModule, action, descriptionForUsers } =
+decoding { error, inModule, msg, descriptionForUsers } =
     { descriptionForUsers = descriptionForUsers
     , inModule = inModule
-    , action = action
+    , msg = msg
     , error = Decoding error
     }
 
@@ -40,24 +40,24 @@ decoding { error, inModule, action, descriptionForUsers } =
 misc :
     { descriptionForUsers : String
     , inModule : String
-    , action : String
+    , msg : String
     , error : String
     }
     -> Report
-misc { error, inModule, action, descriptionForUsers } =
+misc { error, inModule, msg, descriptionForUsers } =
     { descriptionForUsers = descriptionForUsers
     , inModule = inModule
-    , action = action
+    , msg = msg
     , error = Misc error
     }
 
 
 reportToString : Report -> String
-reportToString { descriptionForUsers, inModule, action, error } =
+reportToString { descriptionForUsers, inModule, msg, error } =
     "[ERROR REPORT]\n\nModule: "
         ++ inModule
         ++ "\nAction: "
-        ++ action
+        ++ msg
         ++ "\nContext for users: \""
         ++ descriptionForUsers
         ++ "\"\n\n\nDetails:\n\n"
