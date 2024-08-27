@@ -6,6 +6,7 @@ import Element.Font as Font
 import Stages.Debugging.Msg exposing (Msg(..))
 import Utils.List
 import Utils.String
+import Utils.Types.BreakType exposing (BreakType(..))
 import Utils.Types.BrokenFile exposing (BrokenFile, HintVisibility)
 import Utils.Types.ChangeData exposing (ChangeData)
 import Utils.UI.Buttons as Buttons
@@ -62,7 +63,16 @@ changeOptions brokenFile index ( change, hintVisibility ) =
                         (Text.codeWithAttrs
                             [ paddingXY 6 1, Border.rounded 3 ]
                         )
-                        change.changeDescription
+                        (case change.breakType of
+                            CaseSwap ->
+                                "changed the first letter of a word from capital to lowercase or lowercase to capital"
+
+                            ChangeFunctionArgs ->
+                                "changed the arguments of a function"
+
+                            _ ->
+                                change.changeDescription
+                        )
                     )
 
             else
