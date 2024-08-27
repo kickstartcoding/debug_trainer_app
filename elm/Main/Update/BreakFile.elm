@@ -74,15 +74,13 @@ selectFileChangesHelper config segments changes =
         maybeBreakType =
             chooseBreakType segments breakTypeChoiceSeed
 
-        breakRunnerData =
-            { randomNumber = segmentChoiceSeed
-            , originalFileContent = config.fileContent
-            , segments = segments
-            , fileType = FileType.fromFilePath config.filepath
-            }
-
         maybeChange =
-            SegmentList.makeAChange maybeBreakType breakRunnerData
+            SegmentList.makeAChange maybeBreakType
+                { randomNumber = segmentChoiceSeed
+                , originalFileContent = config.fileContent
+                , segments = segments
+                , fileType = FileType.fromFilePath config.filepath
+                }
     in
     case maybeChange of
         Just ( newSegments, change ) ->
@@ -150,6 +148,9 @@ chooseBreakType segments breakTypeInt =
 
     Averages the percentage of break types with the percentage of
     opportunities in the file to make an incident of each break type
+    this way the fact that there are usually way more opportunities
+    to change capitalization than to delete a `return` won't make
+    it so that you get only capitalization bugs
 
 -}
 determineChoiceProbability : { breakTypeCount : Int, breakOpportunityCount : Int, totalBreakOpportunities : Int } -> Int
